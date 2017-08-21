@@ -1,2 +1,0 @@
-C:\Users\SERVIR_User\Documents\ADPC\Projects\RHEAS\obj\Debug\RHEAS.njsprojResolveAssemblyReference.cache
-C:\Users\SERVIR_User\Documents\ADPC\Projects\RHEAS\bin\Microsoft.NodejsTools.WebRole.dll
