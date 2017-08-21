@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html data-framework="angularjs">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+	<style type="text/css">
+		/** Hide when Angular is not yet loaded and initialized */
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+			display: none !important;
+		}
+	</style>
+
+	<base href="/">
+	<title>{{title}}</title>
+	<meta name="description" content="{{description}}">
+	<meta name="fragment" content="!">
+
+	<!-- Apple META -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!-- Facebook META -->
+	<meta property="fb:app_id" content="{{facebookAppId}}">
+	<meta property="og:site_name" content="{{title}}">
+	<meta property="og:title" content="{{title}}">
+	<meta property="og:description" content="{{description}}">
+	<meta property="og:url" content="{{url}}">
+	<meta property="og:image" content="{{logo}}">
+	<meta property="og:type" content="website">
+
+	<!-- Twitter META -->
+	<meta name="twitter:title" content="{{title}}">
+	<meta name="twitter:description" content="{{description}}">
+	<meta name="twitter:url" content="{{url}}">
+	<meta name="twitter:image" content="{{logo}}">
+
+	<!-- Fav Icon -->
+	<link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
+
+	<!-- Application CSS Files -->
+	{% for cssFile in cssFiles %}
+	<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+</head>
+
+<body ng-cloak class="metro">
+	<div ng-include src="'/modules/core/client/views/header.client.view.html'"></div>
+	{% block content %}{% endblock %}
+
+	<!--Embedding The User Object-->
+	<script type="text/javascript">
+		var user = {{ user | json | safe }};
+	</script>
+
+	<!--Load The Socket.io File-->
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+	<!--Application JavaScript Files-->
+	{% for jsFile in jsFiles %}
+	<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+
+	<!--Livereload script rendered -->
+	<!--
+	{% if livereload %}
+	<script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
+	{% endif %}
+	-->
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+<!-- HomeCtrl as home -->
+<div ng-controller="HomeCtrl">
+	<!-- The Modal for Chart -->
+	<div id="chartModal" class="modal" style="display: none;">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-close">&times;</span>
+				<h2 style="color: white;" id="modal-header-title"></h2>
+			</div>
+			<div class="modal-body" style="width: 800px; height: 400px;">
+			</div>
+			<!--<div class="modal-footer">
+				<h3 style="color: white">Modal Footer</h3>
+			</div>-->
+		</div>
+
+	</div>
+
+	<div id="sidemenu" class="tab-control place-left" data-role="tab-control">
+		<ul class="tabs">
+			<li class="active">
+				<a href="#tab1" data-hint="|hint 1" data-hint-position="bottom">
+					<strong>Drought</strong>
+				</a>
+			</li>
+
+			<li>
+				<a href="#tab2" data-hint="|hint 2" data-hint-position="bottom">
+					<strong>Crop Yield</strong>
+				</a>
+			</li>
+			<li style="float: right;">
+				<h3>
+					<i id="sidemenu-arrow-icon" class="icon-arrow-left-3 on-right place-right" style="margin:-4px 5px 5px auto;"></i>
+				</h3>
+			</li>
+		</ul>
+
+		<div class="frames">
+			<div class="frame clearfix" id="tab1" style="overflow:visible;">
+				<form method="POST" ng-submit="connectToDatabase(formData)">
+					<div class="accordion with-marker span3 place-left margin10" data-role="accordion" data-closeany="false">
+						<div class="accordion-frame">
+							<a class="heading" href="#" data-hint="|hint 4" data-hint-position="top">
+								Area
+							</a>
+							<div class="content">
+								<div class="input-control radio margin10" data-role="input-control">
+									<label>
+										<input type="radio" name="Area" id="country" checked />
+										<span class="check"></span>
+										<span data-hint="|hint 4.1" data-hint-position="bottom">Select From Country Layer</span>
+									</label>
+								</div>
+								<div class="input-control radio margin10" data-role="input-control">
+									<label>
+										<input type="radio" name="Area" id="admin1" checked />
+										<span class="check"></span>
+										<span data-hint="|hint 4.2" data-hint-position="bottom"> Select From Administrative Layer 1</span>
+									</label>
+								</div>
+								<div class="input-control radio margin10" data-role="input-control">
+									<label>
+										<input type="radio" name="Area" id="admin2" checked />
+										<span class="check"></span>
+										<span data-hint="|hint 4.3" data-hint-position="bottom"> Select From Administrative Layer 2</span>
+									</label>
+								</div>
+								<div class="input-control radio margin10" data-role="input-control">
+									<label>
+										<input type="radio" name="Area" id="clearLayer" checked />
+										<span class="check"></span>
+										<span data-hint="|hint 4.5" data-hint-position="bottom">Close All Admin Layers</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-frame">
+							<a class="heading" href="#" data-hint="|hint 5" data-hint-position="top">
+								Index/Variables
+							</a>
+							<div class="content">
+								<label data-hint="|hint 5.1" data-hint-position="bottom">
+									Drought Index
+								</label>
+								<div class="input-control select" data-role="input-control">
+									<select style="font-size:0.8em" id="droughtIndex" ng-model="formData.drought_index">
+										<option></option>
+										<option value="severity">Drought Severity </option>
+										<option value="spi1">SPI 1 month</option>
+										<option value="spi3">SPI 3 month</option>
+										<option value="spi6">SPI 6 month</option>
+										<option value="spi12">SPI 12 month</option>
+										<option value="sri1">SRI 1 month</option>
+										<option value="sri3">SRI 3 month</option>
+										<option value="sri6">SRI 6 month</option>
+										<option value="sri12">SRI 12 month</option>
+										<option value="smdi">SMDI</option>
+										<option value="dryspells">Dry Spell Events</option>
+									</select>
+								</div>
+								<label data-hint="|hint 5.2" data-hint-position="bottom">
+									Soil Index
+								</label>
+								<div class="input-control select" data-role="input-control">
+									<select style="font-size:0.8em" id="soilIndex" name="spi" ng-model="formData.soil_index">
+										<option></option>
+										<option value="rootmoist">Root Zone Soil Moisture</option>
+										<option value="soil_moist_layer_1">Soil Moisture (Layer 0-10 cm)</option> <!--soil_moist layer 1-->
+										<option value="soil_moist_layer_2">Soil Moisture (Layer 10-40 cm)</option> <!--soil_moist layer 2-->
+										<option value="soil_moist_layer_3">Soil Moisture (Layer 40-100 cm)</option> <!--soil_moist layer 3-->
+										<option value="soil_temp_layer_1">Soil Temperature (Layer 0-10 cm)</option> <!--soil_temp layer 1-->
+										<option value="soil_temp_layer_2">Soil Temperature (Layer 10-40 cm)</option> <!--soil_temp layer 2-->
+										<option value="soil_temp_layer_3">Soil Temperature (Layer 40-100 cm)</option> <!--soil_temp layer 3-->
+									</select>
+								</div>
+								<label data-hint="|hint 5.3" data-hint-position="bottom">
+									Energy Balance Index
+								</label>
+								<div class="input-control select" data-role="input-control">
+									<select style="font-size:0.8em" id="energyIndex" ng-model="formData.energy_index">
+										<option></option>
+										<option value="net_short">Net Downward Shortwave Flux</option>
+										<option value="net_long">Net Downward Longwave Flux</option>
+										<option value="latent">Net Upward Latent Heat Flux</option><!--not available now-->
+										<option value="sensible">Net Upward Sensible Heat Flux</option><!--not available now-->
+										<option value="grnd_flux">Net Heat Flux into Ground</option>
+									</select>
+								</div>
+								<label data-hint="|hint 5.4" data-hint-position="bottom">
+									Water Balance Index
+								</label>
+								<div class="input-control select" data-role="input-control">
+									<select style="font-size:0.8em" id="waterIndex" ng-model="formData.water_index">
+										<option></option>
+										<option value="baseflow">Base Flow</option>
+										<option value="rainf">Rainfall</option>
+										<option value="evap">Total Net Evaporation</option>
+										<option value="runoff">Surface Runoff</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-frame">
+							<a class="heading" href="#" data-hint="|hint 7" data-hint-position="top">
+								Product
+							</a>
+							<div class="content">
+								<button id="showmap" class="command-button" type="submit">
+									Show <i class="icon-earth on-right on-left"></i>Map
+								</button>
+								<button type="button" class="command-button" ng-click="showChart()">
+									Show <i class="icon-bars on-right on-left"></i>Chart
+								</button>
+							</div>
+						</div>
+					</div>
+					<input type="hidden" name="mdate" value="<%=now()%>">
+				</form>
+			</div>
+
+
+			<div class="frame clearfix" id="tab2" style="height:50vh;">
+				<p style="padding:10px">
+					* Infomation will be updated soon&nbsp;
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div id="map" style="display:block; position:absolute; width:100%; height:calc(100vh - 120px);">
+		<div id="loader" class="loader" ng-show="showLoader">
+			<div id="loading-img" style="background: url(modules/core/client/img/spinner.gif) center center no-repeat;"></div>
+		</div>
+	</div>
+	<div class="sliderContainer">
+		<div id="datePickerSlider" class="datePickerSlider" name="datePickerSlider" />
+	</div>
+
+</div>

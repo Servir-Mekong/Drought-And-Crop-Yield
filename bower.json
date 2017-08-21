@@ -1,0 +1,35 @@
+{
+	"name": "RDCYIS",
+	"description": "Regional Drought and Crop Yield Information System",
+	"authors": [
+		"servir"
+	],
+	"homepage": "",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"jquery": "^3.2.1",
+		"jquery-ui": "^1.12.1",
+		"terraformer": "^1.0.8",
+		"terraformer-wkt-parser": "^1.1.2",
+		"nouislider": "^10.1.0",
+		"highcharts": "^5.0.14",
+		"angular": "1.5.8",
+		"angular-ui-router": "0.2.18",
+		"leaflet": "1.0.0",
+		"leaflet-draw": "leaflet.draw#^0.4.10",
+		"leaflet-filelayer": "git://github.com/makinacorpus/Leaflet.FileLayer.git#^1.1.0",
+		"leaflet.markercluster": "git://github.com/Leaflet/Leaflet.markercluster.git#^1.0.6",
+		"normalize-css": "^7.0.0",
+		"code-prettify": "*",
+		"lodash": "~3.10.1"
+	},
+	"resolutions": {
+		"leaflet": "1.0.0"
+	}
+}
