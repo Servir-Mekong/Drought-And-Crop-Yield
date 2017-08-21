@@ -99,4 +99,4 @@ Inspired by the great work of MEAN and PEAN. We would like to express our deep g
  * Please note that some library has been changed. For example: we use pg-promise instead of sequelize to handle postgres operations! Go through source code to find more!
 
 ## Understanding MEAN and PEAN
-You have your application running, but there is a lot of stuff to understand. We recommend you go over the [Official MEAN Documentation](http://meanjs.org/docs.html) or [Official MEAN Documentation](http://peanjs.org/).
+You have your application running, but there is a lot of stuff to understand. We recommend you go over the [Official MEAN Documentation](http://meanjs.org/docs.html) or [PEAN website](http://peanjs.org/).
