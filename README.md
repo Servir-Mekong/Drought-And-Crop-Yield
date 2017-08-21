@@ -36,16 +36,16 @@ $ npm install gulp -g
 The recommended way to use git to directly clone the repository:
 
 ```bash
-$ git clone https://github.com//.git rheas
+$ git clone https://github.com/Servir-Mekong/Drought-And-Crop-Yield.git rheas
 ```
 
 This will clone the latest version to a **rheas** folder.
 
 ### Downloading The Repository Zip File
-Another way to use the application is to download a zip copy from the [master branch on GitHub](https://github.com///archive/master.zip). You can also do this using `wget` command:
+Another way to use the application is to download a zip copy from the [master branch on GitHub](https://github.com/Servir-Mekong/Drought-And-Crop-Yield/archive/master.zip). You can also do this using `wget` command:
 
 ```bash
-$ wget https://github.com///archive/master.zip -O rheas.zip; unzip rheas.zip; rm rheas.zip
+$ wget https://github.com/Servir-Mekong/Drought-And-Crop-Yield/archive/master.zip -O rheas.zip; unzip rheas.zip; rm rheas.zip
 ```
 
 ## Quick Install
