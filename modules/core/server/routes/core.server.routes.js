@@ -14,7 +14,7 @@ module.exports = function (app) {
 	app.route('/*').get(core.renderIndex);
 
 	// APIs
-	app.route('/drought-index=:droughtIndex?&soil-index=:soilIndex?&energy-balance=:energyBalance?&water-balance=:waterBalance?&fdate=:fdate?').post(core.getData);
+	app.route('/action=map-data&index=:index?&date=:date?').post(core.getMapData);
 
-	app.route('/action=graph-data&drought-index=:droughtIndex?&soil-index=:soilIndex?&energy-balance=:energyBalance?&water-balance=:waterBalance?&fdate=:fdate?').post(core.getGraphData);
+	app.route('/action=graph-data&index=:index?&date=:date?').post(core.getGraphData);
 };

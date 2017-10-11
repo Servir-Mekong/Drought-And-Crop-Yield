@@ -1,5 +1,9 @@
 {% extends 'layout.server.view.html' %}
 
-{% block content %}
+{% block main_container %}
   <ui-view></ui-view>
+{% endblock %}
+
+{% block footer%}
+	<div ng-include src="'/modules/footer/client/views/footer.client.view.html'"></div>
 {% endblock %}

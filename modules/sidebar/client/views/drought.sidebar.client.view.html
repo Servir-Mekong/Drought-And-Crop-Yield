@@ -1,0 +1,64 @@
+<!-- Data Download Panel -->
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>
+            <a class="accordion-toggle" 
+               data-toggle="collapse"
+               data-parent="#accordion"
+               ng-click="broadcastTimeSlider()"
+               href="#drought">Drought</a>
+        </h4>
+    </div>
+    <div id="drought" class="panel-collapse collapse out text-center">
+        <div class="panel-body">
+            <table class="sidebar-table">
+                <tbody>
+                    <tr class="border-bottom">
+                        <td>
+							<div class="form-group">
+								<label for="area-filter">Area</label>
+								<select name="area-filter" class="form-control"
+										ng-init="areaFilterOption = areaFilterOptions[3]"
+										ng-options="option.name for option in areaFilterOptions"
+										ng-model="areaFilterOption"
+										ng-change="adminAreaChange(areaFilterOption)"></select>
+							</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+							<div class="form-group">
+								<label for="index-filter">Select Index</label>
+								<select name="index-filter" class="form-control"
+										ng-options="option.name for option in indexSelectors"
+										ng-model="indexSelector"
+										ng-change="populateVariableOptions(indexSelector)"></select>
+							</div>
+                        </td>
+                    </tr>
+                    <tr ng-show="showVariableSelect">
+                        <td>
+							<div class="form-group">
+								<label for="variable-filter">Select Variables</label>
+								<select name="variable-filter" class="form-control"
+										ng-options="option.name for option in indexOptions"
+										ng-model="indexOption.option"></select>
+							</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>                    
+        </div>
+        <!-- End Panel Body -->
+        <div class="panel-footer">
+            <div class="row text-center">
+                <button type="button" class="btn btn-primary" ng-click="updateMap()">
+					Show in Map<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+				</button>
+				<button type="button" class="btn btn-primary" ng-click="showChart()">
+					Show Chart<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+				</button>
+            </div>
+        </div>
+    </div>
+</div>

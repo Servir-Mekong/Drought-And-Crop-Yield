@@ -1,0 +1,223 @@
+/*
+ * Sidebar
+*/
+.sidebar {
+	left: 0;
+	position: relative;
+	display: block;
+	padding: 20px;
+	overflow-x: hidden;
+	overflow-y: scroll; /* Scrollable contents if viewport is shorter than content. */
+	background-color: white;
+	border: 1px solid black;
+	height: calc(100vh - 115px);
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+	max-height: calc(100vh - 115px);
+}
+
+/* Hide for mobile, show later */
+/*.sidebar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    left: 0;
+    position: relative;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: white;
+    border: 1px solid black;
+    height: calc(100vh - 115px);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    max-height: calc(100vh - 115px);
+  }
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+*/
+
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+    list-style: none;
+}
+
+.sidebar-table {
+    width: 100%;
+}
+
+.nav-sidebar li a:hover,
+.nav-sidebar li a:active,
+.nav-sidebar li a:focus,
+.nav-sidebar li.open a:hover,
+.nav-sidebar li.open a:active,
+.nav-sidebar li.open a:focus {
+	color: rgb(255, 255, 255);
+	text-decoration: none;
+	background-color: blue;
+}
+
+.nav-sidebar li a {
+    display: block;
+    color: rgb(221, 221, 221);
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.nav-sidebar li:hover:before,
+.nav-sidebar li.open:hover:before {
+    width: 100%;
+    -webkit-transition: width .2s ease-in;
+    -moz-transition:  width .2s ease-in;
+    -ms-transition:  width .2s ease-in;
+    -o-transition:  width .2s ease-in;
+    transition: width .2s ease-in;
+
+}
+
+/** Toggle Sidebar Button and animation settings **/
+
+.toggle-sidebar-button {
+	position: absolute;
+	z-index: 401;
+	margin-top: 20px;
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin-left: 15px;
+    background: transparent;
+    border: none;
+}
+
+.toggle-sidebar-button:hover,
+.toggle-sidebar-button:focus,
+.toggle-sidebar-button:active {
+	outline: none;
+}
+
+.toggle-sidebar-button.is-closed:before {
+	content: '';
+	display: block;
+	width: 100px;
+	font-size: 14px;
+	color: #fff;
+	line-height: 32px;
+	text-align: center;
+	opacity: 0;
+	-webkit-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	-o-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	-webkit-transition: all .35s ease-in-out;
+}
+
+.toggle-sidebar-button.is-closed:before {
+    opacity: 1;
+    display: block;
+    -webkit-transform: translate3d(-100px,0,0);
+    -webkit-transition: all .35s ease-in-out;
+}
+
+.toggle-sidebar-button.is-closed .ts-top,
+.toggle-sidebar-button.is-closed .ts-middle,
+.toggle-sidebar-button.is-closed .ts-bottom,
+.toggle-sidebar-button.is-open .ts-top,
+.toggle-sidebar-button.is-open .ts-middle,
+.toggle-sidebar-button.is-open .ts-bottom {
+    position: absolute;
+    left: 0;
+    height: 4px;
+    width: 100%;
+}
+
+.toggle-sidebar-button.is-closed .ts-top,
+.toggle-sidebar-button.is-closed .ts-middle,
+.toggle-sidebar-button.is-closed .ts-bottom {
+    background-color: rgb(0,0,0);
+}
+
+.toggle-sidebar-button.is-closed .ts-top { 
+    top: 5px; 
+    -webkit-transition: all .35s ease-in-out;
+}
+
+.toggle-sidebar-button.is-closed .ts-middle { 
+    top: 50%; 
+    margin-top: -2px;
+}
+
+.toggle-sidebar-button.is-closed .ts-bottom { 
+    bottom: 5px; 
+    -webkit-transition: all .35s ease-in-out;
+}
+
+.toggle-sidebar-button.is-closed:hover .ts-top { 
+    top: 0;
+    -webkit-transition: all .35s ease-in-out;
+}
+
+.toggle-sidebar-button.is-closed:hover .ts-bottom { 
+    bottom: 0;
+    -webkit-transition: all .35s ease-in-out;
+}
+
+.toggle-sidebar-button.is-open .ts-top,
+.toggle-sidebar-button.is-open .ts-middle,
+.toggle-sidebar-button.is-open .ts-bottom {
+    background-color: rgb(0,0,0);
+}
+
+.toggle-sidebar-button.is-open .ts-top,
+.toggle-sidebar-button.is-open .ts-bottom {
+	top: 50%;
+    margin-top: -2px;  
+}
+
+.toggle-sidebar-button.is-open .ts-top { 
+  -webkit-transform: rotate(45deg);
+  -webkit-transition: -webkit-transform .2s cubic-bezier(.73,1,.28,.08);
+}
+.toggle-sidebar-button.is-open .ts-middle { 
+	display: none; 
+}
+
+.toggle-sidebar-button.is-open .ts-bottom {
+  -webkit-transform: rotate(-45deg);
+  -webkit-transition: -webkit-transform .2s cubic-bezier(.73,1,.28,.08);
+}
+
+.toggle-sidebar-button.is-open {
+	margin-left: 25%;
+}
+
+@media (max-width: 992px) {
+	.toggle-sidebar-button.is-open {
+		margin-left: 42%;
+	}
+}
+
+/* comment this if required cross */
+.toggle-sidebar-button.is-open .ts-top {
+	display: none;
+}
+
+.toggle-sidebar-button.is-open .ts-bottom {
+	display: none;
+}
+
+.toggle-sidebar-button.is-open .ts-left-arrow {
+	display: inline-block;
+	font-size: 40px;
+}

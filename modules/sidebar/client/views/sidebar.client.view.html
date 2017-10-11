@@ -1,0 +1,12 @@
+<!-- Toggle Button -->
+<button type="button" ng-click="openSidebar()" ng-class="toggleButtonClass" data-toggle="offcanvas">
+	<span class="ts-top"></span>
+	<span class="ts-middle"></span>
+	<span class="ts-bottom"></span>
+	<span class="glyphicon glyphicon-circle-arrow-left display-none ts-left-arrow" aria-hidden="true"></span>
+</button>
+<!-- Sidebar Container -->
+<div ng-class="sidebarClass">
+	<div ng-include src="'/modules/sidebar/client/views/drought.sidebar.client.view.html'"></div>
+	<div ng-include src="'/modules/sidebar/client/views/crop-yield.sidebar.client.view.html'"></div>
+</div>

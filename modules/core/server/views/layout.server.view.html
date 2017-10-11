@@ -24,21 +24,6 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-	<!-- Facebook META -->
-	<meta property="fb:app_id" content="{{facebookAppId}}">
-	<meta property="og:site_name" content="{{title}}">
-	<meta property="og:title" content="{{title}}">
-	<meta property="og:description" content="{{description}}">
-	<meta property="og:url" content="{{url}}">
-	<meta property="og:image" content="{{logo}}">
-	<meta property="og:type" content="website">
-
-	<!-- Twitter META -->
-	<meta name="twitter:title" content="{{title}}">
-	<meta name="twitter:description" content="{{description}}">
-	<meta name="twitter:url" content="{{url}}">
-	<meta name="twitter:image" content="{{logo}}">
-
 	<!-- Fav Icon -->
 	<link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
 
@@ -47,9 +32,19 @@
 	<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
 </head>
 
-<body ng-cloak class="metro">
-	<div ng-include src="'/modules/core/client/views/header.client.view.html'"></div>
-	{% block content %}{% endblock %}
+<body>
+	<div ng-cloak class="container-fluid">
+
+		<div ng-include src="'/modules/navigation/client/views/navigation.client.view.html'"></div>
+
+		<div class="container-fluid container-wrapper">
+			{% block main_container %} {% endblock %}
+		</div>
+
+		<!-- /.wrapper-collapse -->
+	</div>
+
+	{% block footer %} {% endblock footer %}
 
 	<!--Embedding The User Object-->
 	<script type="text/javascript">

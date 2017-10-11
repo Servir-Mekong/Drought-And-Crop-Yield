@@ -15,5 +15,6 @@
 	"unique-headings": false,
 	"universal-selector": false,
 	"unqualified-attributes": false,
-	"vendor-prefix": false
+	"vendor-prefix": false,
+	"outline-none": false
 }

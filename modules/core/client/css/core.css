@@ -1,0 +1,85 @@
+/* Global Styles */
+
+@media(min-width:768px) {
+    body {
+        /*margin-top: 50px;*/
+        margin-top: 100px;
+    }
+}
+
+.container-wrapper {
+	margin-top: 15px;
+	margin-right: -15px;
+    margin-left: -15px;
+    overflow: hidden;
+}
+
+.grow:hover {
+    transform: scale(1.05);
+}
+
+.grow {
+    transition: all .2s ease-in-out;
+}
+
+/* Collapsible */
+.panel-heading .accordion-toggle:after {
+	font-family: "FontAwesome";
+	content: "\f147";
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 1;
+	float: right;
+}
+
+.panel-heading .accordion-toggle.collapsed:after {
+    content: "\f196";
+}
+
+.panel-heading .accordion-toggle {
+    color: white !important;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-decoration: none !important;
+}
+
+.display-none {
+    display: none;
+}
+
+.display-none-imp {
+	display: none !important;
+}
+
+/* About Page */
+.about {
+	/*padding-right: 160px;
+    padding-left: 160px;
+    padding-bottom: 50px;
+    padding-top: 50px;*/
+	padding: 50px 160px 50px 160px;
+}
+
+/* Clipboard Icon */
+.clipboard-icon {
+    width: 18px;
+    height: 18px;
+    /* padding: 0; */
+    /* margin: 0; */
+    vertical-align: middle;
+}
+
+.maintain-padding {
+	padding-bottom: 10px;
+}
+
+.border-bottom {
+	border-bottom: 1px solid #ddd;
+}
+
+.main-padding {
+	/*padding-right: 150px;
+	padding-left: 150px;*/
+	padding-right: 5% !important;
+	padding-left: 5% !important;
+}

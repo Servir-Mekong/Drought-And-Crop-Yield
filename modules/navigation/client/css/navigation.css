@@ -1,0 +1,121 @@
+/* @media (max-width: 992px) { */
+@media(max-width: 1024px)  {
+
+    .navbar-header {
+    	float: none;
+  	}
+	.navbar-left,.navbar-right {
+	    float: none !important;
+	}
+	.navbar-toggle {
+	    display: block;
+	}
+	.navbar-collapse {
+	    border-top: 1px solid transparent;
+	    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+	}
+	.navbar-fixed-top {
+	    top: 0;
+	    border-width: 0 0 1px;
+	}
+	.navbar-collapse.collapse {
+	    display: none!important;
+	}
+	.navbar-nav {
+	    float: none!important;
+	    margin-top: 7.5px;
+	}
+	.navbar-nav>li {
+	    float: none;
+	}
+	.navbar-nav>li>a {
+	    padding-top: 10px;
+	    padding-bottom: 10px;
+	}
+	.collapse.in{
+	    display:block !important;
+	}
+
+}
+
+.banner-container {
+    background: url("https://servir.adpc.net/themes/svmk/images/optimized/satellite-inside.png");
+    background-position: 110% 70%;
+    background-repeat: no-repeat;
+    background-size: 800px auto;	
+}
+
+.menu-container {
+	/*background-color: black !important;*/
+	background-color: #333333 !important;
+}
+
+.banner {
+    /*height: 50px;*/
+    margin: 10px;
+    /*float: left;*/
+    background: no-repeat fixed center;
+}
+
+.usaid {
+    background-size: auto 50px;
+    width: 170px !important;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 3px;
+}
+
+@media (max-width: 1024px) {
+	.usaid {
+		margin: auto;
+	}
+}
+
+.nasa {
+    background-size: auto 50px;
+    width: 60px !important;
+    float: left;
+    margin-right: 5px;
+}
+
+@media (max-width: 1024px) {
+	.nasa {
+		margin: auto;
+	}
+}
+
+.adpc {
+    background-size: auto 50px;
+    width: 110px !important;
+    float: left;
+}
+
+@media (max-width: 1024px) {
+	.adpc {
+		margin: auto;
+	}
+}
+
+.servir {
+    float: right;
+    background-size: auto 35px;
+    width: 250px !important;
+    padding-top: 10px;
+}
+
+@media (max-width: 1024px) {
+	.servir {
+		margin: auto;
+		float: none;
+	}
+}
+
+.navmenu {
+	color: rgb(255,255,255) !important;
+    color: rgba(255,255,255,0.87) !important;
+    text-transform: uppercase;
+}
+
+a.navbar-brand:hover, a.navbar-brand:focus, .nav > li > a:hover, .nav > li > a:focus {
+    background-color: black !important;
+}

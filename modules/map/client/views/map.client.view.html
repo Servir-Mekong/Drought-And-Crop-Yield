@@ -1,0 +1,62 @@
+<div class="row" ng-controller="mapCtrl">
+
+	<!-- The Modal for Chart -->
+	<div id="chartModal" class="modal display-none-imp">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-close">&times;</span>
+				<h2>[[chartModalTitle]]</h2>
+			</div>
+			<div class="modal-body"></div>
+			<!--<div class="modal-footer">
+				<h3 style="color: white">Modal Footer</h3>
+			</div>-->
+		</div>
+
+	</div>
+
+	<div ng-include src="'/modules/sidebar/client/views/sidebar.client.view.html'"></div>
+
+	<!-- Alert Container -->
+	<div class="alert alert-dismissible text-center display-none" ng-Class="alertClass" role="alert">
+		<button type="button" class="close" ng-click="closeAlert()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h5><strong>[[alertContent]]</strong></h5>
+	</div>
+
+	<!-- Map and dependencies -->
+	<div>
+		<!-- Map Container -->
+		<div class="map" ng-class="mapClass" id="map"></div>
+
+		<!-- Legend Container -->
+		<div class="panel panel-default legend" ng-show="showLegend">
+			<div class="panel-heading">
+				<h4>
+					<a class="legend-toggle"
+					   data-toggle="collapse"
+					   data-parent="#accordion"
+					   href="#legend-body"></a>
+					Legend
+				</h4>
+			</div>
+			<div class="panel-collapse collapse out" id="legend-body">
+				<div class="panel-body">
+					<span class="text-center">
+						<h5><strong>[[legendTitle]]</strong></h5>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div id="loader" class="loader" ng-show="showLoader">
+			<div class="loading-img"></div>
+		</div>
+
+		<div class="sliderContainer">
+			<div id="datePickerSlider" class="datePickerSlider" name="datePickerSlider" />
+		</div>
+	</div>
+
+</div>
