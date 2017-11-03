@@ -5,7 +5,9 @@
 	angular.module("rheas").controller("mapCtrl", function ($http, $scope, $state, $timeout, settings) {
 
 		// Settings
-		$scope.areaFilterOptions = settings.areaFilterOptions;
+		$scope.areaFilter = {};
+		$scope.areaFilter.options = settings.areaFilterOptions;
+		$scope.areaFilter.value = $scope.areaFilter.options[3];
 		$scope.indexSelectors = settings.indexSelectors;
 		$scope.indexOptions = null;
 
@@ -630,6 +632,7 @@
 
 			var url = prepareUrlForAPI('map-data');
 
+			//$scope.$apply();
 			if (url) {
 
 				// Make a request
@@ -638,7 +641,8 @@
 						// Success Callback
 						$scope.showLoader = false;
 						// Clear Admin Layers if they are present
-						$("#clearLayer").prop("checked", true);
+						//$('#area-filter').val('clearLayer');
+						$scope.areaFilter.value = $scope.areaFilter.options[3];
 						markerCluster.clearLayers();
 						// Clear the drawn Layer
 						//$scope.editableLayers.removeLayer($scope.selectedLayer);
@@ -647,9 +651,16 @@
 						}
 						$scope.showDrawControl();
 						$scope.showFileUploader();
+						var features = response.data.data.features;
 						var date = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
-						$scope.drawFromDatabase(response.data.row_to_json.features, $scope.indexOption.option.name + ' for ' + formattedDate(date));
-						$scope.closeAlert();
+						if (features) {
+							$scope.closeAlert();
+							$scope.drawFromDatabase(features, $scope.indexOption.option.name + ' for ' + formattedDate(date));
+						} else {
+							$scope.addInfoAlert();
+							$scope.alertContent = 'No data is available for ' + date + '! If you think this is error, please contact us!';
+							$scope.showAlert();
+						}
 					},
 					function () {
 						// Error Callback
@@ -677,6 +688,7 @@
 
 			var url = prepareUrlForAPI('graph-data');
 
+			//$scope.$apply();
 			if (url) {
 
 				// Make a request
@@ -691,7 +703,7 @@
 						var formattedData = [];
 
 						for (var i = 0; i < response.data.length; ++i) {
-							var data = [Date.parse(response.data[i].row_to_json._date), response.data[i].row_to_json._average];
+							var data = [Date.parse(response.data[i].data.date), response.data[i].data.average];
 							formattedData.push(data);
 						}
 

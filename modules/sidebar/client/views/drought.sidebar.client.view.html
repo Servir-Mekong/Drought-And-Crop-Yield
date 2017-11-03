@@ -17,11 +17,10 @@
                         <td>
 							<div class="form-group">
 								<label for="area-filter">Area</label>
-								<select name="area-filter" class="form-control"
-										ng-init="areaFilterOption = areaFilterOptions[3]"
-										ng-options="option.name for option in areaFilterOptions"
-										ng-model="areaFilterOption"
-										ng-change="adminAreaChange(areaFilterOption)"></select>
+								<select name="area-filter" class="form-control" id="area-filter"
+										ng-options="option.name for option in areaFilter.options"
+										ng-model="areaFilter.value"
+										ng-change="adminAreaChange(areaFilter.value)"></select>
 							</div>
                         </td>
                     </tr>

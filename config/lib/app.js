@@ -9,7 +9,6 @@ var config = require('../config'),
 	express = require('./express');
 
 chalk.enabled = true;
-process.env.NODE_ENV = 'production';
 
 // Initialize Models
 module.exports.init = function init(callback) {
