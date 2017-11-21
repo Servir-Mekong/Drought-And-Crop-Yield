@@ -471,9 +471,6 @@
 					'nature': 'greater',
 				}
 
-			],
-			rootmoist: [
-
 			]
 		}
 

@@ -8,6 +8,8 @@ Thumbs.db
 # Node and related ecosystem
 # ==========================
 .nodemonignore
+.slugignore
+.npmignore
 .sass-cache/
 node_modules/
 public/lib/
