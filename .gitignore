@@ -42,6 +42,7 @@ _site/
 *.swp
 logs/
 build/
+access.log
 
 # Sublime editor
 # ==============
@@ -76,3 +77,7 @@ mongod
 .vs/
 bin/
 obj/
+
+# Visual Studio
+# =========
+.pm2
