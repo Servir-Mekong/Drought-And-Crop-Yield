@@ -12,7 +12,7 @@
 		$scope.indexOptions = null;
 
 		// Map variables
-		var grades = settings.grades;
+		var legend = settings.legend;
 		$scope.selectedLayer = null;
 		$scope.shownGeojson = null;
 		$scope.selectedLayerData = {};
@@ -68,7 +68,8 @@
 		$scope.showVariableSelect = false;
 		$scope.indexOption = {};
 		$scope.showLegend = false;
-		$scope.legendTitle = '';
+		$scope.legendParameter = '';
+		$scope.legendDate = '';
 		$scope.chartModalTitle = '';
 
 		// Sidebar Menu controller
@@ -237,7 +238,7 @@
 		});
 
 		// Set the max bounds for the map
-		map.setMaxBounds(map.getBounds());
+		//map.setMaxBounds(map.getBounds());
 
 		// Load Country Level Geojson
 		$.getJSON("data/country_geojson.geojson")
@@ -524,7 +525,29 @@
 
 		$scope.getColor = function (val) {
 
-			if (val >= grades.extermely_wet.value) {
+			var index = $scope.indexOption.option.value,
+				grades = legend[index];
+
+			for (var i in grades) {
+				var grade = grades[i];
+				if (grade.nature) {
+					if (grade.nature === 'lesser') {
+						if (val <= grade.value) {
+							return grade.color;
+						}
+					} else if (grade.nature === 'greater') {
+						if (val >= grade.value) {
+							return grade.color;
+						}
+					}
+				} else {
+					if (val >= grade.min_value && val <= grade.max_value) {
+						return grade.color;
+					}
+				}
+			}
+
+			/*if (val >= grades.extermely_wet.value) {
 				return grades.extermely_wet.color;
 			} else if (val <= grades.extermely_dry.value) {
 				return grades.extermely_dry.color;
@@ -534,7 +557,7 @@
 						return grades[k].color;
 					}
 				}
-			}
+			}*/
 		};
 
 		$scope.getLegend = function () {
@@ -542,12 +565,14 @@
 			//var legend = L.control({
 			//	position: "bottomleft"
 			//});
-			var legend = L.control();
+			var legendControl = L.control();
 
-			legend.onAdd = function () {
+			legendControl.onAdd = function () {
 
 				var div = L.DomUtil.create("div", "info legend-leaflet"),
-					labels = [];
+					labels = [],
+					index = $scope.indexOption.option.value,
+					grades = legend[index];
 
 				for (var key in grades) { // jshint ignore:line
 					labels.push('<i style="background:' + grades[key].color + '"></i> ' + grades[key].name);
@@ -557,10 +582,10 @@
 				return div;
 			};
 
-			return legend;
+			return legendControl;
 		};
 
-		$scope.drawFromDatabase = function (polygonCollection, legendTitle) {
+		$scope.drawFromDatabase = function (polygonCollection, _legendParameter, _legendDate) {
 
 			// Clear Geojson before showing
 			if ($scope.shownGeojson) {
@@ -592,7 +617,8 @@
 			}
 			legend.addTo(map);
 			$('.legend #legend-body .panel-body').append($('.info.legend-leaflet.leaflet-control'));
-			$scope.legendTitle = legendTitle;
+			$scope.legendParameter = _legendParameter;
+			$scope.legendDate = _legendDate;
 			$scope.showLegend = true;
 		};
 
@@ -607,11 +633,14 @@
 
 		};
 
-		var prepareUrlForAPI = function (action) {
+		var prepareUrlForAPI = function (action, apply) {
 			if (!$scope.indexOption.option) {
 				$scope.alertContent = 'No parameter specified!';
 				$scope.addDangerAlert();
 				$scope.showAlert();
+				if (apply) {
+					$scope.$apply();
+				}
 				return false;
 			}
 
@@ -628,9 +657,11 @@
 		};
 
 		// API Request from Server
-		$scope.updateMap = function () {
+		$scope.updateMap = function (apply) {
 
-			var url = prepareUrlForAPI('map-data');
+			if (typeof(apply) === 'undefined') apply = false;
+
+			var url = prepareUrlForAPI('map-data', apply);
 
 			//$scope.$apply();
 			if (url) {
@@ -654,8 +685,16 @@
 						var features = response.data.data.features;
 						var date = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
 						if (features) {
+							var index = $scope.indexOption.option.value,
+								legendTitle = $scope.indexOption.option.name;
+
+							if (['severity'].indexOf(index) > -1) {
+								legendTitle += ' (%) ';
+							} else if (['dryspells'].indexOf(index) > -1) {
+								legendTitle += ' (Days) ';
+							}
 							$scope.closeAlert();
-							$scope.drawFromDatabase(features, $scope.indexOption.option.name + ' for ' + formattedDate(date));
+							$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date));
 						} else {
 							$scope.addInfoAlert();
 							$scope.alertContent = 'No data is available for ' + date + '! If you think this is error, please contact us!';
@@ -677,7 +716,7 @@
 
 		$scope.changeTimeSlider = function () {
 
-			$scope.updateMap();
+			$scope.updateMap(true);
 		};
 
 		/**

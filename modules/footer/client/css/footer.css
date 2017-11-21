@@ -67,6 +67,6 @@ footer > div img {
 	font-weight: bold;
 }
 
-footer > div ul, ol {
+li.footer-link {
 	list-style-type: none;
 }
