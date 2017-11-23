@@ -57,6 +57,18 @@
 				<button type="button" class="btn btn-primary" ng-click="showChart()">
 					Show Chart<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
 				</button>
+                <div class="btn-group" ng-show="showDownloadButton">
+                    <button type="button" class="btn btn-primary">
+                        Download<span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="" target="_blank" class="download-btn" ng-click="downloadRaster()">Download Raster</a></li>
+                        <li><a href="" ng-click="downloadVector()">Download Vector</a></li>
+                    </ul>
             </div>
         </div>
     </div>

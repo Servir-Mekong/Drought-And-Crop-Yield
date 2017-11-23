@@ -2,7 +2,7 @@
 
 	"use strict";
 
-	angular.module("rheas").controller("mapCtrl", function ($http, $scope, $state, $timeout, settings) {
+	angular.module("rheas").controller("mapCtrl", function ($http, $scope, $state, $timeout, $window, settings) {
 
 		// Settings
 		$scope.areaFilter = {};
@@ -10,6 +10,7 @@
 		$scope.areaFilter.value = $scope.areaFilter.options[3];
 		$scope.indexSelectors = settings.indexSelectors;
 		$scope.indexOptions = null;
+		$scope.downloadServerURL = settings.downloadServerURL;
 
 		// Map variables
 		var legend = settings.legend;
@@ -71,6 +72,8 @@
 		$scope.legendParameter = '';
 		$scope.legendDate = '';
 		$scope.chartModalTitle = '';
+		$scope.showDownloadButton = false;
+		$scope.displayedGeoJSON = null;
 
 		// Sidebar Menu controller
 		$scope.openSidebar = function () {
@@ -624,13 +627,20 @@
 
 		var apiCall = function (url, method, data) {
 			console.log(method, url);
-			return $http({
-				method: method,
-				url: url,
-				data: $.param(data),
-				headers: { "Content-Type": "application/x-www-form-urlencoded" }
-			});
-
+			if (data) {
+				return $http({
+					method: method,
+					url: url,
+					data: $.param(data),
+					headers: { "Content-Type": "application/x-www-form-urlencoded" }
+				});
+			} else {
+				return $http({
+					method: method,
+					url: url,
+					headers: { "Content-Type": "application/x-www-form-urlencoded" }
+				});
+			}
 		};
 
 		var prepareUrlForAPI = function (action, apply) {
@@ -685,6 +695,7 @@
 						var features = response.data.data.features;
 						var date = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
 						if (features) {
+							$scope.displayedGeoJSON = response.data.data;
 							var index = $scope.indexOption.option.value,
 								legendTitle = $scope.indexOption.option.name;
 
@@ -697,6 +708,7 @@
 							}
 							$scope.closeAlert();
 							$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date));
+							$scope.showDownloadButton = true;
 						} else {
 							$scope.addInfoAlert();
 							$scope.alertContent = 'No data is available for ' + date + '! If you think this is error, please contact us!';
@@ -805,7 +817,7 @@
 					type: "spline"
 				},
 				title: {
-					text: 'Average ' + $scope.indexOption.option.name + ' Value\n(Regional)'
+					text: 'Average ' + $scope.indexOption.option.name + ' Value (Regional)'
 				},
 				rangeSelector: {
 					enabled: true,
@@ -860,6 +872,103 @@
 					data: data
 				}]
 			});
+		};
+
+		$scope.downloadRaster = function () {
+
+			var _date = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
+			_date = _date.split("-");
+			var date = _date[0] + "-" + ("0" + _date[1]).slice(-2) + "-" + ("0" + _date[2]).slice(-2);
+			date = date.replace(/-/g, "_");
+			var DownloadURL = $scope.downloadServerURL + $scope.indexOption.option.value + '/' +
+			                  $scope.indexOption.option.value + '_' + date + '_';
+
+			var url = prepareUrlForAPI('method-data');
+
+			// Make a request
+			apiCall(url, "POST").then(
+				function (response) {
+					// Success Callback
+					$scope.showLoader = false;
+					if (response.data) {
+						var methodData = response.data[0];
+						if (methodData.from_nowcast) {
+							DownloadURL += 'nowcast.tif';
+						} else {
+							DownloadURL += 'forecast_';
+							if (methodData.from_nmme) {
+								DownloadURL += 'nmme.tif';
+							} else {
+								DownloadURL += 'esp.tif';
+							}
+						}
+						$window.location.href = DownloadURL;
+					}
+				},
+				function () {
+					// Error Callback
+					$scope.showLoader = false;
+					$scope.addDangerAlert();
+					$scope.alertContent = 'problem connecting to database. check if database port is open!';
+					$scope.showAlert();
+					console.log('problem connecting to database. check if database port is open!');
+				}
+			);
+		};
+
+		$scope.downloadVector = function () {
+
+			if ($scope.displayedGeoJSON) {
+				var _date = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
+				_date = _date.split("-");
+				var date = _date[0] + "-" + ("0" + _date[1]).slice(-2) + "-" + ("0" + _date[2]).slice(-2);
+				date = date.replace(/-/g, "_");
+				var fileName = $scope.indexOption.option.value + '_' + date + '_';
+
+				var url = prepareUrlForAPI('method-data');
+
+				// Make a request
+				apiCall(url, "POST").then(
+					function (response) {
+						// Success Callback
+						$scope.showLoader = false;
+						if (response.data) {
+							var methodData = response.data[0];
+							if (methodData.from_nowcast) {
+								fileName += 'nowcast.geojson';
+							} else {
+								fileName += 'forecast_';
+								if (methodData.from_nmme) {
+									fileName += 'nmme.geojson';
+								} else {
+									fileName += 'esp.geojson';
+								}
+							}
+							// extract from https://github.com/mholt/PapaParse/issues/175
+							var blob = new Blob([JSON.stringify($scope.displayedGeoJSON)]);
+							if (window.navigator.msSaveOrOpenBlob)  // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
+							    window.navigator.msSaveBlob(blob, fileName);
+							else
+							{
+							    var a = window.document.createElement('a');
+							    a.href = window.URL.createObjectURL(blob, {type: 'text/json'});
+							    a.download = fileName;
+							    document.body.appendChild(a);
+							    a.click();  // IE: "Access is denied"; see: https://connect.microsoft.com/IE/feedback/details/797361/ie-10-treats-blob-url-as-cross-origin-and-denies-access
+							    document.body.removeChild(a);
+							}
+						}
+					},
+					function () {
+						// Error Callback
+						$scope.showLoader = false;
+						$scope.addDangerAlert();
+						$scope.alertContent = 'problem connecting to database. check if database port is open!';
+						$scope.showAlert();
+						console.log('problem connecting to database. check if database port is open!');
+					}
+				);
+			}
 		};
 	});
 

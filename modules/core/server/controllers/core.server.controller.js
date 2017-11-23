@@ -196,3 +196,32 @@ exports.getGraphData = function (req, res) {
 		console.log('ERROR');
 	});
 };
+
+exports.getMethodData = function (req, res) {
+
+	var params = req.params;
+
+	// URL Parameters
+	var tableName = params.index;
+	var _fdate = params.date;
+	var fdate_split = _fdate.split("-");
+	var fdate = fdate_split[0] + "-" + ("0" + fdate_split[1]).slice(-2) + "-" + ("0" + fdate_split[2]).slice(-2);
+
+	var whereClause = "date='" + fdate + "'";
+
+	db.task(t => {
+		return t.any(
+			"SELECT from_nowcast, from_nmme FROM " + tableName + " WHERE " + whereClause + " LIMIT 1;"
+		);
+	})
+	.then(data => {
+		// success
+		res.setHeader("Content-Type", "application/json");
+		res.send(JSON.stringify(data));
+	})
+	.catch(error => {
+		console.log('ERROR:', error); // print the error;
+		console.log('ERROR');
+	});
+};
+

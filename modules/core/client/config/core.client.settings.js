@@ -48,6 +48,7 @@
 	];
 
 	angular.module('rheas').constant('settings', {
+		downloadServerURL: 'http://58.137.55.228/',
 		menus: [
 			{
 				'name': 'Home',
@@ -510,6 +511,5 @@
 				}
 			]
 		}
-
 	});
 })();
