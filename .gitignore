@@ -78,6 +78,6 @@ mongod
 bin/
 obj/
 
-# Visual Studio
+# Others
 # =========
-.pm2
+.pm2/

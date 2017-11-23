@@ -691,7 +691,9 @@
 							if (['severity'].indexOf(index) > -1) {
 								legendTitle += ' (%) ';
 							} else if (['dryspells'].indexOf(index) > -1) {
-								legendTitle += ' (Days) ';
+								legendTitle += ' during last 14 days duration ';
+							} else if (['rootmoist'].indexOf(index) > -1) {
+								legendTitle += ' (mm) ';
 							}
 							$scope.closeAlert();
 							$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date));
@@ -803,7 +805,7 @@
 					type: "spline"
 				},
 				title: {
-					text: 'Average ' + $scope.indexOption.option.name + ' Value'
+					text: 'Average ' + $scope.indexOption.option.name + ' Value\n(Regional)'
 				},
 				rangeSelector: {
 					enabled: true,
@@ -839,18 +841,18 @@
 					selected: 3
 				},
 				xAxis: {
-					type: "datetime",
+					type: 'datetime',
 					dateTimeLabelFormats: {
-						month: "%e. %b, %Y",
-						year: "%b"
+						month: '%e. %b, %Y',
+						year: '%b'
 					},
 					title: {
-						text: "Date"
+						text: 'Date'
 					}
 				},
 				yAxis: {
 					title: {
-						text: "Average SPI1"
+						text: 'Average ' + $scope.indexOption.option.name + ' (Regional)'
 					}
 				},
 				series: [{

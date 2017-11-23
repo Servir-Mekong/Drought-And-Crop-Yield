@@ -252,14 +252,13 @@
 				{
 					'value': 'dryspells',
 					'name': 'Dry Spell Events'
-				}
-
-			],
-			soil: [
+				},
 				{
 					'value': 'rootmoist',
 					'name': 'Root Zone Soil Moisture'
-				},
+				}
+			],
+			soil: [
 				{
 					'value': 'soil_moist_layer_1',
 					'name': 'Soil Moisture (Layer 0-10 cm)'
@@ -397,80 +396,118 @@
 			sri3: spi_sri_legend,
 			sri6: spi_sri_legend,
 			sri12: spi_sri_legend,
+			smdi: spi_sri_legend,
 			dryspells: [
 				{
-					'name': '-10',
-					'color': '#1f78b4',
-					'value': -10,
-					'nature': 'lesser',
-				},
-				{
-					'name': '-8',
-					'color': '#2e77a4',
-					'min_value': -10,
-					'max_value': -8
-				},
-				{
-					'name': '-6',
-					'color': '#3e7795',
-					'min_value': -8,
-					'max_value': -6
-				},
-				{
-					'name': '-4',
-					'color': '#4e7785',
-					'min_value': -6,
-					'max_value': -4
-				},
-				{
-					'name': '-2',
-					'color': '#5d7676',
-					'min_value': -4,
-					'max_value': -2
-				},
-				{
-					'name': '0',
-					'color': '#6d7666',
-					'min_value': -2,
-					'max_value': 0
-				},
-				{
 					'name': '2',
-					'color': '#6d7666',
+					'color': '#7b480a',
 					'min_value': 0,
 					'max_value': 2
 				},
 				{
 					'name': '4',
-					'color': '#8d7647',
+					'color': '#8c510a',
 					'min_value': 2,
 					'max_value': 4
 				},
 				{
 					'name': '6',
-					'color': '#9c7538',
+					'color': '#9d5b0b',
 					'min_value': 4,
 					'max_value': 6
 				},
 				{
 					'name': '8',
-					'color': '#ac7528',
+					'color': '#ae650c',
 					'min_value': 6,
 					'max_value': 8
 				},
 				{
 					'name': '10',
-					'color': '#bc7519',
+					'color': '#bf6e0d',
 					'min_value': 8,
 					'max_value': 10
 				},
 				{
-					'name': '10+',
-					'color': '#cc750a',
-					'value': 10,
+					'name': '12',
+					'color': '#d0780e',
+					'min_value': 10,
+					'max_value': 12
+				},
+				{
+					'name': '14',
+					'color': '#e1820f',
+					'min_value': 12,
+					'max_value': 14
+				},
+				{
+					'name': '14+',
+					'color': '#f28c10',
+					'value': 14,
 					'nature': 'greater',
 				}
-
+			],
+			rootmoist: [
+				{
+					'name': '100',
+					'color': '#ca0020',
+					'value': 100,
+					'nature': 'lesser',
+				},
+				{
+					'name': '200',
+					'color': '#dc494b',
+					'min_value': 100,
+					'max_value': 200
+				},
+				{
+					'name': '300',
+					'color': '#ef9277',
+					'min_value': 200,
+					'max_value': 300
+				},
+				{
+					'name': '400',
+					'color': '#f5c0a9',
+					'min_value': 300,
+					'max_value': 400
+				},
+				{
+					'name': '500',
+					'color': '#f6e4dd',
+					'min_value': 400,
+					'max_value': 500
+				},
+				{
+					'name': '600',
+					'color': '#e0ebf1',
+					'min_value': 500,
+					'max_value': 600
+				},
+				{
+					'name': '700',
+					'color': '#b3d5e6',
+					'min_value': 600,
+					'max_value': 700
+				},
+				{
+					'name': '800',
+					'color': '#82bbd8',
+					'min_value': 700,
+					'max_value': 800
+				},
+				{
+					'name': '900',
+					'color': '#4396c4',
+					'min_value': 800,
+					'max_value': 900
+				},
+				{
+					'name': '1000',
+					'color': '#0571b0',
+					'min_value': 900,
+					'max_value': 10000
+				}
 			]
 		}
 
