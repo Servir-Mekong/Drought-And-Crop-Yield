@@ -243,71 +243,89 @@
 		// Set the max bounds for the map
 		//map.setMaxBounds(map.getBounds());
 
-		// Load Country Level Geojson
-		$.getJSON("data/country_geojson.geojson")
-			.done(function (data) {
-				console.log("added country geojson");
-				$scope.countryGeojson = L.geoJson(data, {
-					onEachFeature: function (feature, layer) {
-						layer.bindPopup(feature.properties.NAME_0);
-					}
-				}).on("click", function (e) {
-					if ($scope.selectedLayer) {
-						e.target.resetStyle($scope.selectedLayer);
-					}
-					$scope.selectedLayerBounds = e.layer.getBounds();
-					$scope.selectedLayer = e.layer;
-					$scope.selectedLayerData = { "table": "country", "iso": e.layer.feature.properties.ISO, "name": e.layer.feature.properties.NAME_0 };
-					$scope.selectedLayer.bringToFront();
-					$scope.selectedLayer.setStyle({
-						"color": "red"
+		$scope.loadCountryGeoJSON = function (load) {
+			if (typeof(load) === 'undefined') load = false;
+			// Load Country Level Geojson
+			$.getJSON("data/country_geojson.geojson")
+				.done(function (data) {
+					console.log("added country geojson");
+					$scope.countryGeojson = L.geoJson(data, {
+						onEachFeature: function (feature, layer) {
+							layer.bindPopup(feature.properties.NAME_0);
+						}
+					}).on("click", function (e) {
+						if ($scope.selectedLayer) {
+							e.target.resetStyle($scope.selectedLayer);
+						}
+						$scope.selectedLayerBounds = e.layer.getBounds();
+						$scope.selectedLayer = e.layer;
+						$scope.selectedLayerData = { "table": "country", "iso": e.layer.feature.properties.ISO, "name": e.layer.feature.properties.NAME_0 };
+						$scope.selectedLayer.bringToFront();
+						$scope.selectedLayer.setStyle({
+							"color": "red"
+						});
 					});
+					if (load) {
+						markerCluster.addLayer($scope.countryGeojson);
+					}
 				});
-			});
+		};
 
-		// Load Admin Level 1 Geojson
-		$.getJSON("data/admin1_geojson.geojson")
-			.done(function (data) {
-				console.log("added admin1 geojson");
-				$scope.adminOneGeojson = L.geoJson(data, {
-					onEachFeature: function (feature, layer) {
-						layer.bindPopup(feature.properties.VARNAME_1);
-					}
-				}).on("click", function (e) {
-					if ($scope.selectedLayer) {
-						e.target.resetStyle($scope.selectedLayer);
-					}
-					$scope.selectedLayerBounds = e.layer.getBounds();
-					$scope.selectedLayer = e.layer;
-					$scope.selectedLayerData = { "table": "admin1", "iso": e.layer.feature.properties.ISO, "id": e.layer.feature.properties.ID_1 };
-					$scope.selectedLayer.bringToFront();
-					$scope.selectedLayer.setStyle({
-						"color": "red"
+		$scope.loadAdminOneGeoJSON = function (load) {
+			if (typeof(load) === 'undefined') load = false;
+			// Load Admin Level 1 Geojson
+			$.getJSON("data/admin1_geojson.geojson")
+				.done(function (data) {
+					console.log("added admin1 geojson");
+					$scope.adminOneGeojson = L.geoJson(data, {
+						onEachFeature: function (feature, layer) {
+							layer.bindPopup(feature.properties.VARNAME_1);
+						}
+					}).on("click", function (e) {
+						if ($scope.selectedLayer) {
+							e.target.resetStyle($scope.selectedLayer);
+						}
+						$scope.selectedLayerBounds = e.layer.getBounds();
+						$scope.selectedLayer = e.layer;
+						$scope.selectedLayerData = { "table": "admin1", "iso": e.layer.feature.properties.ISO, "id": e.layer.feature.properties.ID_1 };
+						$scope.selectedLayer.bringToFront();
+						$scope.selectedLayer.setStyle({
+							"color": "red"
+						});
 					});
+					if (load) {
+						markerCluster.addLayer($scope.adminOneGeojson);
+					}
 				});
-			});
+		};
 
-		// Load Admin Level 2 Geojson
-		$.getJSON("data/admin2_geojson.geojson")
-			.done(function (data) {
-				console.log("added admin2 geojson");
-				$scope.adminTwoGeojson = L.geoJson(data, {
-					onEachFeature: function (feature, layer) {
-						layer.bindPopup(feature.properties.VARNAME_2);
-					}
-				}).on("click", function (e) {
-					if ($scope.selectedLayer) {
-						e.target.resetStyle($scope.selectedLayer);
-					}
-					$scope.selectedLayerBounds = e.layer.getBounds();
-					$scope.selectedLayer = e.layer;
-					$scope.selectedLayerData = { "table": "admin2", "iso": e.layer.feature.properties.ISO, "id": e.layer.feature.properties.ID_2 };
-					$scope.selectedLayer.bringToFront();
-					$scope.selectedLayer.setStyle({
-						"color": "red"
+		$scope.loadAdminTwoGeoJSON = function (load) {
+			if (typeof(load) === 'undefined') load = false;
+			// Load Admin Level 2 Geojson
+			$.getJSON("data/admin2_geojson.geojson")
+				.done(function (data) {
+					console.log("added admin2 geojson");
+					$scope.adminTwoGeojson = L.geoJson(data, {
+						onEachFeature: function (feature, layer) {
+							layer.bindPopup(feature.properties.VARNAME_2);
+						}
+					}).on("click", function (e) {
+						if ($scope.selectedLayer) {
+							e.target.resetStyle($scope.selectedLayer);
+						}
+						$scope.selectedLayerBounds = e.layer.getBounds();
+						$scope.selectedLayer = e.layer;
+						$scope.selectedLayerData = { "table": "admin2", "iso": e.layer.feature.properties.ISO, "id": e.layer.feature.properties.ID_2 };
+						$scope.selectedLayer.bringToFront();
+						$scope.selectedLayer.setStyle({
+							"color": "red"
+						});
 					});
+					if (load) {
+						markerCluster.addLayer($scope.adminTwoGeojson);
+					}
 				});
-			});
+		};
 
 		// Hide Draw Control
 		$scope.hideDrawControl = function () {
@@ -345,16 +363,22 @@
 			if (type === 'country') {
 				if ($scope.countryGeojson) {
 					markerCluster.addLayer($scope.countryGeojson);
+				} else {
+					$scope.loadCountryGeoJSON(true);
 				}
 				map.addLayer(markerCluster);
 			} else if (type === 'admin1') {
 				if ($scope.adminOneGeojson) {
 					markerCluster.addLayer($scope.adminOneGeojson);
+				} else {
+					$scope.loadAdminOneGeoJSON(true);
 				}
 				map.addLayer(markerCluster);
 			} else if (type === 'admin2') {
 				if ($scope.adminTwoGeojson) {
 					markerCluster.addLayer($scope.adminTwoGeojson);
+				} else {
+					$scope.loadAdminTwoGeoJSON(true);
 				}
 				map.addLayer(markerCluster);
 			}
