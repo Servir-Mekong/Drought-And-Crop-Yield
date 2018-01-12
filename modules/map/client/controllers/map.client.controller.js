@@ -74,6 +74,9 @@
 		$scope.chartModalTitle = '';
 		$scope.showDownloadButton = false;
 		$scope.displayedGeoJSON = null;
+		$scope.showOpacitySlider = false;
+		$scope.opacitySliderIcon = 'fa fa-eye-slash fa-2x';
+		$scope.opacityValue = null;
 
 		// Sidebar Menu controller
 		$scope.openSidebar = function () {
@@ -1048,6 +1051,31 @@
 						console.log('problem connecting to database. check if database port is open!');
 					}
 				);
+			}
+		};
+
+		// Opacity control
+		$('#opacitySlider').slider({
+			formatter: function(value) {
+				return 'Opacity: ' + value;
+			}
+		}).on('slideStart', function (event) {
+			$scope.opacityValue = event.value;
+		}).on('slideStop', function (event) {
+			var _value = event.value;
+		    if (_value !== $scope.opacityValue) {
+		    	$scope.shownGeojson.setStyle({fillOpacity: _value})
+		    }
+		});
+
+		$scope.opacityIconClick = function () {
+
+			$scope.showOpacitySlider = !$scope.showOpacitySlider;
+
+			if ($scope.opacitySliderIcon === 'fa fa-eye-slash fa-2x') {
+				$scope.opacitySliderIcon = 'fa fa-eye fa-2x';
+			} else {
+				$scope.opacitySliderIcon = 'fa fa-eye-slash fa-2x';
 			}
 		};
 

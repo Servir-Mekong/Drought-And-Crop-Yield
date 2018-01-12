@@ -10,6 +10,7 @@ module.exports = {
 				'public/lib/leaflet/dist/leaflet.css',
 				'public/lib/leaflet-draw/dist/leaflet.draw.css',
 				'public/libs/leaflet-geosearch/geosearch.style.css',
+				'public/lib/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css',
 				'public/lib/leaflet.markercluster/dist/MarkerCluster.css',
 				'public/lib/leaflet.markercluster/dist/MarkerCluster.Default.css',
 				'public/lib/normalize-css/normalize.css',
@@ -32,6 +33,7 @@ module.exports = {
 				'public/lib/leaflet-filelayer/src/leaflet.filelayer.js',
 				'public/libs/leaflet-geosearch/geosearch.js',
 				'public/libs/leaflet-geosearch/geosearch.provider.openstreetmap.js',
+				'public/lib/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js',
 				'public/lib/leaflet.markercluster/dist/leaflet.markercluster-src.js'
 			]
 		},
