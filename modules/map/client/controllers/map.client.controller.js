@@ -1,8 +1,8 @@
 (function () {
 
-	"use strict";
+	'use strict';
 
-	angular.module("rheas").controller("mapCtrl", function ($http, $scope, $state, $timeout, $window, settings) {
+	angular.module('rheas').controller('mapCtrl', function ($http, $scope, $state, $timeout, $window, settings) {
 
 		// Settings
 		$scope.areaFilter = {};
@@ -25,24 +25,24 @@
 		$scope.editableLayers = new L.FeatureGroup();
 		$scope.fileLayers = null;
 		$scope.drawOptions = {
-			position: "bottomright",
+			position: 'bottomright',
 			draw: {
 				polyline: false,
 				polygon: {
 					allowIntersection: false, // Restricts shapes to simple polygons
 					drawError: {
-						color: "#e1e100", // Color the shape will turn when intersects
+						color: '#e1e100', // Color the shape will turn when intersects
 						message: "<strong>Oh snap!<strong> you can\'t draw that!" // Message that will show when intersect
 					},
 					shapeOptions: {
-						color: "#ff0000"
+						color: '#ff0000'
 					}
 				},
 				circle: false, // Turns off this drawing tool
 				rectangle: {
 					shapeOptions: {
 						clickable: false,
-						color: "#ff0000"
+						color: '#ff0000'
 					}
 				},
 				marker: false,
@@ -60,7 +60,7 @@
 		$scope.myDate = new Date();
 		$scope.showLoader = false;
 		$scope.showBanner = true;
-		$scope.defaultHandle = "default";
+		$scope.defaultHandle = 'default';
 		$scope.toggleButtonClass = 'toggle-sidebar-button is-closed';
 		$scope.sidebarClass = 'display-none';
 		$scope.mapClass = 'col-md-12 col-sm-12 col-lg-12';
@@ -103,7 +103,7 @@
 		/**
 		 * Time Slider
 		 **/
-		var slider = document.getElementById("datePickerSlider");
+		var slider = document.getElementById('datePickerSlider');
 
 		// Create a string representation of the date.
 		$scope.toFormat = function (v, handle) {
@@ -111,17 +111,17 @@
 			// values = "uipipes" ; default is "default"
 			var date = new Date(v);
 			handle = handle || $scope.defaultHandle;
-			if (handle === "uipipes") {
-				return settings.months[date.getMonth()] + " " + date.getFullYear();
+			if (handle === 'uipipes') {
+				return settings.months[date.getMonth()] + ' ' + date.getFullYear();
 			} else if (handle === $scope.defaultHandle) {
-				return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+				return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 			}
 		};
 
 		noUiSlider.create(slider, {
 			// Create two timestamps to define a range.
 			range: {
-				min: new Date("1981").getTime(),
+				min: new Date('1981').getTime(),
 				max: $scope.myDate.setMonth($scope.myDate.getMonth() + 3)
 			},
 
@@ -135,31 +135,31 @@
 
 			format: { to: $scope.toFormat, from: Number },
 
-			connect: "lower",
+			connect: 'lower',
 
 			// Show a scale with the slider
 			pips: {
-				mode: "count",
+				mode: 'count',
 				density: 2,
 				values: 10,
 				stepped: true,
 				format: {
 					to: function (value) {
-						return $scope.toFormat(value, "uipipes");
+						return $scope.toFormat(value, 'uipipes');
 					},
 					from: function (value) {
-						return $scope.toFormat(value, "uipipes");
+						return $scope.toFormat(value, 'uipipes');
 					}
 				}
 			}
 		});
 
 		// click tooltip
-		$(".noUi-tooltip").on("click", function () {
+		$('.noUi-tooltip').on('click', function () {
 			// Remove before adding
-			$(this).find(".input-tooltip").remove();
+			$(this).find('.input-tooltip').remove();
 			$(this).append("<input type='text' class='input-tooltip' style='background-color: darkred; color: #fff;'>");
-			$(this).find(".input-tooltip").focus().focusout(function () {
+			$(this).find('.input-tooltip').focus().focusout(function () {
 				var valor = $(this).val();
 				slider.noUiSlider.set(new Date(valor).getTime());
 				if (valor) {
@@ -170,7 +170,7 @@
 		});
 
 		// Event Handler for slider
-		slider.noUiSlider.on("end", function (values) {
+		slider.noUiSlider.on('end', function (values) {
 			$scope.selectedDate = values[0];
 			// trigger ajax only if it is coming from the default handle, not from input tooltip
 			//if (event.target.className === "noUi-handle noUi-handle-lower") {
@@ -224,45 +224,52 @@
 		// Base Map
 		var basemap_mapbox = L.tileLayer(settings.mapLayer,
 			{
-				maxZoom: 18,
+				minZoom: 4,
 				attribution: "Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, " +
 				"<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, " +
 				"Imagery © <a href='http://mapbox.com'>Mapbox</a>", // jshint ignore:line
-				id: "mapbox.light"
+				id: 'mapbox.light'
 			}
 		);
 
 		// Initialize the Map
-		var map = L.map("map", {
+		var map = L.map('map', {
 			center: [18.041, 98.218],
+			layers: [basemap_mapbox],
+			minZoom: 4,
 			zoom: 5,
-			zoomControl: false,
-			layers: [basemap_mapbox]
+			zoomControl: false
 		});
 
 		// Set the max bounds for the map
 		//map.setMaxBounds(map.getBounds());
 
 		$scope.loadCountryGeoJSON = function (load) {
+			$scope.showLoader = true;
 			if (typeof(load) === 'undefined') load = false;
 			// Load Country Level Geojson
-			$.getJSON("data/country_geojson.geojson")
-				.done(function (data) {
-					console.log("added country geojson");
+			$.getJSON('data/country_geojson.geojson')
+				.done(function (data, status) {
+
+					if (status === 'success') {
+						$scope.showLoader = false;
+						$scope.$apply();
+					}
+
 					$scope.countryGeojson = L.geoJson(data, {
 						onEachFeature: function (feature, layer) {
 							layer.bindPopup(feature.properties.NAME_0);
 						}
-					}).on("click", function (e) {
+					}).on('click', function (e) {
 						if ($scope.selectedLayer) {
 							e.target.resetStyle($scope.selectedLayer);
 						}
 						$scope.selectedLayerBounds = e.layer.getBounds();
 						$scope.selectedLayer = e.layer;
-						$scope.selectedLayerData = { "table": "country", "iso": e.layer.feature.properties.ISO, "name": e.layer.feature.properties.NAME_0 };
+						$scope.selectedLayerData = { 'table': 'country', 'iso': e.layer.feature.properties.ISO, "name": e.layer.feature.properties.NAME_0 };
 						$scope.selectedLayer.bringToFront();
 						$scope.selectedLayer.setStyle({
-							"color": "red"
+							'color': 'red'
 						});
 					});
 					if (load) {
@@ -272,25 +279,31 @@
 		};
 
 		$scope.loadAdminOneGeoJSON = function (load) {
+			$scope.showLoader = true;
 			if (typeof(load) === 'undefined') load = false;
 			// Load Admin Level 1 Geojson
-			$.getJSON("data/admin1_geojson.geojson")
-				.done(function (data) {
-					console.log("added admin1 geojson");
+			$.getJSON('data/admin1_geojson.geojson')
+				.done(function (data, status) {
+
+					if (status === 'success') {
+						$scope.showLoader = false;
+						$scope.$apply();
+					}
+
 					$scope.adminOneGeojson = L.geoJson(data, {
 						onEachFeature: function (feature, layer) {
 							layer.bindPopup(feature.properties.VARNAME_1);
 						}
-					}).on("click", function (e) {
+					}).on('click', function (e) {
 						if ($scope.selectedLayer) {
 							e.target.resetStyle($scope.selectedLayer);
 						}
 						$scope.selectedLayerBounds = e.layer.getBounds();
 						$scope.selectedLayer = e.layer;
-						$scope.selectedLayerData = { "table": "admin1", "iso": e.layer.feature.properties.ISO, "id": e.layer.feature.properties.ID_1 };
+						$scope.selectedLayerData = { 'table': 'admin1', 'iso': e.layer.feature.properties.ISO, "id": e.layer.feature.properties.ID_1 };
 						$scope.selectedLayer.bringToFront();
 						$scope.selectedLayer.setStyle({
-							"color": "red"
+							'color': 'red'
 						});
 					});
 					if (load) {
@@ -300,25 +313,31 @@
 		};
 
 		$scope.loadAdminTwoGeoJSON = function (load) {
+			$scope.showLoader = true;
 			if (typeof(load) === 'undefined') load = false;
 			// Load Admin Level 2 Geojson
-			$.getJSON("data/admin2_geojson.geojson")
-				.done(function (data) {
-					console.log("added admin2 geojson");
+			$.getJSON('data/admin2_geojson.geojson')
+				.done(function (data, status) {
+
+					if (status === 'success') {
+						$scope.showLoader = false;
+						$scope.$apply();
+					}
+
 					$scope.adminTwoGeojson = L.geoJson(data, {
 						onEachFeature: function (feature, layer) {
 							layer.bindPopup(feature.properties.VARNAME_2);
 						}
-					}).on("click", function (e) {
+					}).on('click', function (e) {
 						if ($scope.selectedLayer) {
 							e.target.resetStyle($scope.selectedLayer);
 						}
 						$scope.selectedLayerBounds = e.layer.getBounds();
 						$scope.selectedLayer = e.layer;
-						$scope.selectedLayerData = { "table": "admin2", "iso": e.layer.feature.properties.ISO, "id": e.layer.feature.properties.ID_2 };
+						$scope.selectedLayerData = { 'table': 'admin2', 'iso': e.layer.feature.properties.ISO, "id": e.layer.feature.properties.ID_2 };
 						$scope.selectedLayer.bringToFront();
 						$scope.selectedLayer.setStyle({
-							"color": "red"
+							'color': 'red'
 						});
 					});
 					if (load) {
@@ -329,22 +348,22 @@
 
 		// Hide Draw Control
 		$scope.hideDrawControl = function () {
-			$(".leaflet-draw.leaflet-control").hide();
+			$('.leaflet-draw.leaflet-control').hide();
 		};
 
 		// Show Draw Control
 		$scope.showDrawControl = function () {
-			$(".leaflet-draw.leaflet-control").show();
+			$('.leaflet-draw.leaflet-control').show();
 		};
 
 		// Hide file upload control
 		$scope.hideFileUploader = function () {
-			$(".leaflet-control-filelayer").hide();
+			$('.leaflet-control-filelayer').hide();
 		};
 
 		// Show file upload control
 		$scope.showFileUploader = function () {
-			$(".leaflet-control-filelayer").show();
+			$('.leaflet-control-filelayer').show();
 		};
 
 		// Marker Cluster for loading the geojson
@@ -391,16 +410,16 @@
 
 		// Zoom control
 		L.control.zoom({
-			position: "bottomright"
+			position: 'bottomright'
 		}).addTo(map);
 
 		// Show layer control
 		$scope.showLayerControl = function () {
-			$(".leaflet-control-layers").show();
+			$('.leaflet-control-layers').show();
 		};
 		// Hide layer control
 		$scope.hideLayerControl = function () {
-			$(".leaflet-control-layers").hide();
+			$('.leaflet-control-layers').hide();
 		};
 
 		// Add editable layers
@@ -411,31 +430,21 @@
 		$scope.hideLayerControl();
 
 		// When draw is created
-		map.on("draw:created", function (e) {
+		map.on('draw:created', function (e) {
 			if ($scope.selectedLayer) {
 				map.removeLayer($scope.selectedLayer);
 				$scope.layerControl.removeLayer($scope.selectedLayer);
 			}
 			var layer = e.layer;
 			$scope.selectedLayer = layer;
-			$scope.selectedLayerData = { "drawWKT": Terraformer.WKT.convert(layer.toGeoJSON().geometry) };
+			$scope.selectedLayerData = { 'drawWKT': Terraformer.WKT.convert(layer.toGeoJSON().geometry) };
 			//$scope.selectedLayerData = { "drawGeojson": JSON.stringify(layer.toGeoJSON()) };
 			$scope.editableLayers.addLayer(layer);
 		});
 
-		// Geosearch
-		new L.Control.GeoSearch({
-			provider: new L.GeoSearch.Provider.OpenStreetMap(),
-			position: "bottomright",
-			showMarker: false,
-			retainZoomLevel: true,
-			autoComplete: true,
-			autoCompleteDelay: 150,
-		}).addTo(map);
-
 		// FileLayer (KML/GeoJSON/GPX)
 		var fileLayerStyle = {
-			color: "red",
+			color: 'red',
 			opacity: 1.0,
 			fillOpacity: 1.0,
 			weight: 1,
@@ -446,7 +455,7 @@
 
 		var fileLayerControl = L.Control.fileLayerLoad({
 			fitBounds: true,
-			position: "bottomright",
+			position: 'bottomright',
 			fileSizeLimit: 5120, // 5 MB
 			layerOptions: {
 				style: fileLayerStyle,
@@ -459,13 +468,23 @@
 			}
 		}).addTo(map);
 
+		// Geosearch
+		new L.Control.GeoSearch({
+			provider: new L.GeoSearch.Provider.OpenStreetMap(),
+			position: 'bottomright',
+			showMarker: false,
+			retainZoomLevel: true,
+			autoComplete: true,
+			autoCompleteDelay: 10
+		}).addTo(map);
+
 		// Event on Error
-		fileLayerControl.loader.on("data:error", function (e) {
+		fileLayerControl.loader.on('data:error', function (e) {
 			console.log(e.error);
 		});
 
 		// Event on data load
-		fileLayerControl.loader.on("data:loaded", function (e) {
+		fileLayerControl.loader.on('data:loaded', function (e) {
 			// Add to map layer switcher
 			if ($scope.selectedLayer) {
 				map.removeLayer($scope.selectedLayer);
@@ -474,16 +493,16 @@
 			var geojson = layer.toGeoJSON();
 			var layerId = layer._leaflet_id;
 			var layerName = e.filename.substr(0, e.filename.split(e.format)[0].length - 1);
-			var layerObject = { "layerId": layerId };
+			var layerObject = { 'layerId': layerId };
 			$scope.selectedLayer = layer;
-			if (geojson.type === "FeatureCollection") {
+			if (geojson.type === 'FeatureCollection') {
 				if (geojson.features.length === 1) {
-					$scope.selectedLayerData = { "drawWKT": Terraformer.WKT.convert(geojson.features[0].geometry) };
+					$scope.selectedLayerData = { 'drawWKT': Terraformer.WKT.convert(geojson.features[0].geometry) };
 				} else {
-					return alert("FeatureCollection not supported!!!");
+					return alert('FeatureCollection not supported!!!');
 				}
 			} else {
-				$scope.selectedLayerData = { "drawFileWKT": Terraformer.WKT.convert(geojson.geometry) };
+				$scope.selectedLayerData = { 'drawFileWKT': Terraformer.WKT.convert(geojson.geometry) };
 			}
 
 			//$scope.fileLayers.append(e.layer);
@@ -496,7 +515,7 @@
 			$scope.showLayerControl();
 			$scope.layerControl.addOverlay(layer, "<b><span style='color: red; font-size: 15px;'>" + layerName + "</span></b>");
 
-			$(".leaflet-control-layers-list").find(".leaflet-control-layers-overlays").append("<div id=" + layerId + "></div>");
+			$('.leaflet-control-layers-list').find('.leaflet-control-layers-overlays').append("<div id=" + layerId + "></div>");
 
 			var sliderDiv = document.getElementById(layerId);
 			noUiSlider.create(sliderDiv, {
@@ -507,11 +526,11 @@
 				},
 				step: 0.1,
 				start: 1,
-				connect: "lower"
+				connect: 'lower'
 			});
 
 			// Event Handler for slider
-			sliderDiv.noUiSlider.on("end", function (values, handle, unencoded) {
+			sliderDiv.noUiSlider.on('end', function (values, handle, unencoded) {
 				var layer = $scope.layerControl._getLayer($scope.fileLayers.layerId).layer;
 				layer.setStyle({
 					fillOpacity: unencoded[0],
@@ -596,7 +615,7 @@
 
 			legendControl.onAdd = function () {
 
-				var div = L.DomUtil.create("div", "info legend-leaflet"),
+				var div = L.DomUtil.create('div', 'info legend-leaflet'),
 					labels = [],
 					index = $scope.indexOption.option.value,
 					grades = legend[index];
@@ -612,7 +631,9 @@
 			return legendControl;
 		};
 
-		$scope.drawFromDatabase = function (polygonCollection, _legendParameter, _legendDate) {
+		$scope.drawFromDatabase = function (polygonCollection, _legendParameter, _legendDate, showDecimal) {
+
+			if (typeof(showDecimal) === 'undefined') showDecimal = true;
 
 			// Clear Geojson before showing
 			if ($scope.shownGeojson) {
@@ -621,26 +642,47 @@
 
 			$scope.shownGeojson = L.geoJson(polygonCollection, {
 				style: function (feature) {
+
+					var value = feature.properties.value,
+						index = $scope.indexOption.option.value;
+
+					if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
+						value -= 273.15;
+					}
+
 					return {
 						weight: 1,
 						opacity: 1,
-						color: "white",
-						dashArray: "3",
+						color: 'white',
+						dashArray: '3',
 						fillOpacity: 0.7,
-						fillColor: $scope.getColor([Math.round(feature.properties.value * 100) / 100])
+						fillColor: $scope.getColor([Math.round(value * 100) / 100])
 					};
 				},
 				onEachFeature: function (feature, layer) {
-					layer.bindPopup("<h5>Value = " + Math.round(feature.properties.value * 100) / 100 + "</h5>", { closeButton: false, offset: L.point(0, -20) });
-					layer.on("mouseover", function () { layer.openPopup(); });
-					layer.on("mouseout", function () { layer.closePopup(); });
+
+					var value = feature.properties.value,
+						index = $scope.indexOption.option.value;
+
+					if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
+						value -= 273.15;
+					}
+
+					if (showDecimal) {
+						layer.bindPopup('<h5>Value = ' + Math.round(value * 100) / 100 + '</h5>', { closeButton: false, offset: L.point(10, 10) });	
+					} else {
+						layer.bindPopup('<h5>Value = ' + Math.round(value) + '</h5>', { closeButton: false, offset: L.point(0, -10) });
+					}
+
+					layer.on('mouseover', function () { layer.openPopup(); });
+					layer.on('mouseout', function () { layer.closePopup(); });
 				}
 			}).addTo(map);
 
 			// Add Legend
 			var legend = $scope.getLegend();
-			if ($(".info.legend-leaflet.leaflet-control").length) {
-				$(".info.legend-leaflet.leaflet-control").remove();
+			if ($('.info.legend-leaflet.leaflet-control').length) {
+				$('.info.legend-leaflet.leaflet-control').remove();
 			}
 			legend.addTo(map);
 			$('.legend #legend-body .panel-body').append($('.info.legend-leaflet.leaflet-control'));
@@ -656,13 +698,13 @@
 					method: method,
 					url: url,
 					data: $.param(data),
-					headers: { "Content-Type": "application/x-www-form-urlencoded" }
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 				});
 			} else {
 				return $http({
 					method: method,
 					url: url,
-					headers: { "Content-Type": "application/x-www-form-urlencoded" }
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 				});
 			}
 		};
@@ -679,7 +721,7 @@
 			}
 
 			$scope.showLoader = true;
-			var start = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate(),
+			var start = $scope.selectedDate || new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
 				data = {
 					'action': action,
 					'index': $scope.indexOption.option.value,
@@ -701,7 +743,7 @@
 			if (url) {
 
 				// Make a request
-				apiCall(url, "POST", $scope.selectedLayerData).then(
+				apiCall(url, 'POST', $scope.selectedLayerData).then(
 					function (response) {
 						// Success Callback
 						$scope.showLoader = false;
@@ -723,16 +765,30 @@
 							var index = $scope.indexOption.option.value,
 								legendTitle = $scope.indexOption.option.name;
 
-							if (['severity'].indexOf(index) > -1) {
-								legendTitle += ' (%) ';
+							if (['baseflow'].indexOf(index) > -1) {
+								legendTitle += ' Baseflow out of the Bottom Layer (mm) '
 							} else if (['dryspells'].indexOf(index) > -1) {
 								legendTitle += ' during last 14 days duration ';
-							} else if (['rootmoist'].indexOf(index) > -1) {
+							} else if (['evap', 'rainf','rootmoist', 'runoff'].indexOf(index) > -1) {
 								legendTitle += ' (mm) ';
+							} else if (['net_short', 'net_long', 'latent', 'grnd_flux'].indexOf(index) > -1) {
+								legendTitle += ' (W/m2) '
+							} else if (['severity'].indexOf(index) > -1) {
+								legendTitle += ' (%) ';
+							} else if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
+								legendTitle += ' (Celsius) ';
 							}
+
 							$scope.closeAlert();
-							$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date));
+
+							if (['dryspells'].indexOf(index) > -1) {
+								$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date), false);
+							} else {
+								$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date));
+							}
+
 							$scope.showDownloadButton = true;
+
 						} else {
 							$scope.addInfoAlert();
 							$scope.alertContent = 'No data is available for ' + date + '! If you think this is error, please contact us!';
@@ -769,12 +825,12 @@
 			if (url) {
 
 				// Make a request
-				apiCall(url, "POST", $scope.selectedLayerData).then(
+				apiCall(url, 'POST', $scope.selectedLayerData).then(
 					function (response) {
 						// Success Callback
 
 						// Clear Admin Layers if they are present
-						$("#clearLayer").prop("checked", true);
+						$('#clearLayer').prop('checked', true);
 						markerCluster.clearLayers();
 
 						var formattedData = [];
@@ -811,7 +867,7 @@
 
 		// Modal Close Function
 		$scope.closeModal = function () {
-			$(".modal-body").html("");
+			$('.modal-body').html('');
 			$('#chartModal').addClass('display-none-imp');
 		};
 
@@ -821,13 +877,13 @@
 		};
 
 		// Close the Modal
-		$(".modal-close").click(function () {
+		$('.modal-close').click(function () {
 			$scope.closeModal();
 		});
 
 		// When the user clicks anywhere outside of the modal, close it
 		window.onclick = function (event) {
-			if (event.target === $("#chartModal")[0]) {
+			if (event.target === $('#chartModal')[0]) {
 				$scope.closeModal();
 			}
 		};
@@ -838,7 +894,7 @@
 			$scope.chartModalTitle = 'Charts and Graphs';
 			$('.modal-body').highcharts({
 				chart: {
-					type: "spline"
+					type: 'spline'
 				},
 				title: {
 					text: 'Average ' + $scope.indexOption.option.name + ' Value (Regional)'
@@ -847,32 +903,32 @@
 					enabled: true,
 					inputEnabled: true,
 					buttons: [{
-						type: "day",
+						type: 'day',
 						count: 3,
-						text: "3d"
+						text: '3d'
 					}, {
-						type: "week",
+						type: 'week',
 						count: 1,
-						text: "1w"
+						text: '1w'
 					}, {
-						type: "month",
+						type: 'month',
 						count: 1,
-						text: "1m"
+						text: '1m'
 					}, {
-						type: "month",
+						type: 'month',
 						count: 3,
-						text: "3m"
+						text: '3m'
 					}, {
-						type: "month",
+						type: 'month',
 						count: 6,
-						text: "6m"
+						text: '6m'
 					}, {
-						type: "year",
+						type: 'year',
 						count: 1,
-						text: "1y"
+						text: '1y'
 					}, {
-						type: "all",
-						text: "All"
+						type: 'all',
+						text: 'All'
 					}],
 					selected: 3
 				},
@@ -900,17 +956,17 @@
 
 		$scope.downloadRaster = function () {
 
-			var _date = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
-			_date = _date.split("-");
-			var date = _date[0] + "-" + ("0" + _date[1]).slice(-2) + "-" + ("0" + _date[2]).slice(-2);
-			date = date.replace(/-/g, "_");
+			var _date = $scope.selectedDate || new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+			_date = _date.split('-');
+			var date = _date[0] + '-' + ('0' + _date[1]).slice(-2) + '-' + ('0' + _date[2]).slice(-2);
+			date = date.replace(/-/g, '_');
 			var DownloadURL = $scope.downloadServerURL + $scope.indexOption.option.value + '/' +
 			                  $scope.indexOption.option.value + '_' + date + '_';
 
 			var url = prepareUrlForAPI('method-data');
 
 			// Make a request
-			apiCall(url, "POST").then(
+			apiCall(url, 'POST').then(
 				function (response) {
 					// Success Callback
 					$scope.showLoader = false;
@@ -943,16 +999,16 @@
 		$scope.downloadVector = function () {
 
 			if ($scope.displayedGeoJSON) {
-				var _date = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
-				_date = _date.split("-");
-				var date = _date[0] + "-" + ("0" + _date[1]).slice(-2) + "-" + ("0" + _date[2]).slice(-2);
-				date = date.replace(/-/g, "_");
+				var _date = $scope.selectedDate || new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + "-" + new Date().getDate();
+				_date = _date.split('-');
+				var date = _date[0] + '-' + ('0' + _date[1]).slice(-2) + '-' + ('0' + _date[2]).slice(-2);
+				date = date.replace(/-/g, '_');
 				var fileName = $scope.indexOption.option.value + '_' + date + '_';
 
 				var url = prepareUrlForAPI('method-data');
 
 				// Make a request
-				apiCall(url, "POST").then(
+				apiCall(url, 'POST').then(
 					function (response) {
 						// Success Callback
 						$scope.showLoader = false;
@@ -994,6 +1050,7 @@
 				);
 			}
 		};
+
 	});
 
 }());

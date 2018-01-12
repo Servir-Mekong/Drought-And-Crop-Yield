@@ -110,6 +110,14 @@
 	}
 }
 
+.jpl {
+	background-size: auto 50px;
+    width: 60px !important;
+    float: left;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
 .navmenu {
 	color: rgb(255,255,255) !important;
     color: rgba(255,255,255,0.87) !important;

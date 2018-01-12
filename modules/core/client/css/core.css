@@ -52,12 +52,12 @@
 }
 
 /* About Page */
-.about {
+.content {
 	/*padding-right: 160px;
     padding-left: 160px;
     padding-bottom: 50px;
-    padding-top: 50px;*/
-	padding: 50px 160px 50px 160px;
+	padding: 50px 160px 50px 160px;*/
+    padding-top: 50px;
 }
 
 /* Clipboard Icon */
@@ -82,4 +82,18 @@
 	padding-left: 150px;*/
 	padding-right: 5% !important;
 	padding-left: 5% !important;
+}
+
+.about-table {
+    border-collapse: separate; 
+    border-spacing: 1.2em;
+}
+
+.leaflet-control-geosearch form {
+    top: 2px;
+    left: -219px;
+}
+
+.leaflet-touch .leaflet-control-geosearch .message {
+    left: -219px;
 }
