@@ -355,19 +355,19 @@
 		indexSelectors: [
 			{
 				'value': 'drought',
-				'name': 'Drought Index' 
+				'name': 'Drought' 
 			},
 			{
 				'value': 'soil',
-				'name': 'Soil Index'
+				'name': 'Soil'
 			},
 			{
 				'value': 'energyBalance',
-				'name': 'Energy Balance Index'
+				'name': 'Energy Balance'
 			},
 			{
 				'value': 'waterBalance',
-				'name': 'Water Balance Index'
+				'name': 'Water Balance'
 			}
 		],
 		indexOptions: {

@@ -769,13 +769,13 @@
 								legendTitle = $scope.indexOption.option.name;
 
 							if (['baseflow'].indexOf(index) > -1) {
-								legendTitle += ' Baseflow out of the Bottom Layer (mm) '
+								legendTitle += ' Baseflow out of the Bottom Layer (mm) ';
 							} else if (['dryspells'].indexOf(index) > -1) {
 								legendTitle += ' during last 14 days duration ';
 							} else if (['evap', 'rainf','rootmoist', 'runoff'].indexOf(index) > -1) {
 								legendTitle += ' (mm) ';
 							} else if (['net_short', 'net_long', 'latent', 'grnd_flux'].indexOf(index) > -1) {
-								legendTitle += ' (W/m2) '
+								legendTitle += ' (W/m2) ';
 							} else if (['severity'].indexOf(index) > -1) {
 								legendTitle += ' (%) ';
 							} else if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
@@ -1064,7 +1064,7 @@
 		}).on('slideStop', function (event) {
 			var _value = event.value;
 		    if (_value !== $scope.opacityValue) {
-		    	$scope.shownGeojson.setStyle({fillOpacity: _value})
+		    	$scope.shownGeojson.setStyle({fillOpacity: _value});
 		    }
 		});
 
