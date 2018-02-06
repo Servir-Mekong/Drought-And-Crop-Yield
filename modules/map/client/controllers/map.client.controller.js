@@ -1072,7 +1072,8 @@
 		$('#opacitySlider').slider({
 			formatter: function(value) {
 				return 'Opacity: ' + value;
-			}
+			},
+			tooltip_position: 'bottom'
 		}).on('slideStart', function (event) {
 			$scope.opacityValue = event.value;
 		}).on('slideStop', function (event) {

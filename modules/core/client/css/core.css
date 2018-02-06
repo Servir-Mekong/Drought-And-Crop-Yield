@@ -97,3 +97,11 @@
 .leaflet-touch .leaflet-control-geosearch .message {
     left: -219px;
 }
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}

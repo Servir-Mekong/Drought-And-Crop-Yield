@@ -222,7 +222,7 @@
     position: absolute;
     display: inline-block;
     z-index: 1000;
-    margin-top: 200px;
+    margin-top: 50px;
 }
 
 .leaflet-control-opacity {

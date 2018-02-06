@@ -50,10 +50,10 @@
 		<!-- Slider Container -->
 		<div class="opacity-slider leaflet-right" ng-show="showLegend">
 		    <div class="leaflet-control">
-		        <div class="form-group" ng-show="showOpacitySlider">
+		        <div class="form-group float-left" ng-show="showOpacitySlider" style="margin-top:-30px;">
 		        	<input id="opacitySlider" data-slider-id="opacitySlider" type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.1" class="opacity-slider">
 		        </div>
-		        <div class="leaflet-control-opacity">
+		        <div class="leaflet-control-opacity float-right">
 			        <a class="eye" ng-click="opacityIconClick()" href="#" title="Change the opacity of displayed data">
 			        	<i ng-Class="opacitySliderIcon" class="opacity-eye" aria-hidden="true"></i>
 			        </a>
