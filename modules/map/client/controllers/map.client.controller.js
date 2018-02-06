@@ -78,6 +78,10 @@
 		$scope.opacitySliderIcon = 'fa fa-eye-slash fa-2x';
 		$scope.opacityValue = null;
 
+		$scope.activateToolTip = function () {
+			$('.js-tooltip').tooltip();
+		};
+
 		// Sidebar Menu controller
 		$scope.openSidebar = function () {
 
@@ -86,6 +90,7 @@
 				$scope.sidebarClass = 'col-sm-5 col-md-3 col-lg-3 sidebar';
 				$scope.toggleButtonClass = 'toggle-sidebar-button is-open';
 				$scope.alertClass = 'custom-alert';
+				$scope.activateToolTip();
 				//$scope.broadcastTimeSlider();
 			} else {
 				$scope.mapClass = 'col-md-12 col-sm-12 col-lg-12';
@@ -188,6 +193,15 @@
 		$scope.populateVariableOptions = function (option) {
 			$scope.indexOptions = settings.indexOptions[option.value];
 			$scope.showVariableSelect = true;
+			$timeout(function () {			
+				$('#indexOptions > select option').each(function() {
+					for (var i = 0; i < $scope.indexOptions.length; i++) {
+						if ($scope.indexOptions[i].name === this.text) {
+							$(this).attr('title', $scope.indexOptions[i].title);
+						}
+					}
+				});
+			});
 		};
 
 		/*
@@ -230,7 +244,7 @@
 				minZoom: 4,
 				attribution: "Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, " +
 				"<a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, " +
-				"Imagery © <a href='http://mapbox.com'>Mapbox</a>", // jshint ignore:line
+				"Imagery ï¿½ <a href='http://mapbox.com'>Mapbox</a>", // jshint ignore:line
 				id: 'mapbox.light'
 			}
 		);

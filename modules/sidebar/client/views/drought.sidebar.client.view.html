@@ -2,7 +2,9 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h4>
-            <a class="accordion-toggle" 
+            <a class="accordion-toggle js-tooltip"
+               title="Allows to generate drought related information"
+               data-placement="bottom"
                data-toggle="collapse"
                data-parent="#accordion"
                ng-click="broadcastTimeSlider()"
@@ -16,9 +18,12 @@
                     <tr class="border-bottom">
                         <td>
 							<div class="form-group">
-								<label for="area-filter">Area</label>
-								<select name="area-filter" class="form-control" id="area-filter"
-										ng-options="option.name for option in areaFilter.options"
+                                <label for="area-filter" class="js-tooltip"
+                                       title="Allows to select the desired area for generating the drought related information">
+                                    Area
+                                </label>
+                                <select name="area-filter" class="form-control"
+                                        id="area-filter" ng-options="option.name for option in areaFilter.options"
 										ng-model="areaFilter.value"
 										ng-change="adminAreaChange(areaFilter.value)"></select>
 							</div>
@@ -27,8 +32,11 @@
                     <tr>
                         <td>
 							<div class="form-group">
-								<label for="index-filter">Select Index</label>
-								<select name="index-filter" class="form-control"
+								<label for="index-filter" class="js-tooltip"
+                                       title="Allows to select the category of variables which is needed to visualize">
+                                    Select Index
+                                </label>
+                                <select name="index-filter" class="form-control"
 										ng-options="option.name for option in indexSelectors | orderBy:'name'"
 										ng-model="indexSelector"
 										ng-change="populateVariableOptions(indexSelector)"></select>
@@ -37,9 +45,12 @@
                     </tr>
                     <tr ng-show="showVariableSelect">
                         <td>
-							<div class="form-group">
-								<label for="variable-filter">Select Variable</label>
-								<select name="variable-filter" class="form-control"
+							<div class="form-group" id="indexOptions">
+                                <label for="variable-filter" class="js-tooltip"
+                                       title="Select the required variable to visualize">
+                                       Select Variable
+                                </label>
+                                <select name="variable-filter" class="form-control"
 										ng-options="option.name for option in indexOptions | orderBy:'name'"
 										ng-model="indexOption.option"></select>
 							</div>

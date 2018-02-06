@@ -355,7 +355,7 @@
 		indexSelectors: [
 			{
 				'value': 'drought',
-				'name': 'Drought' 
+				'name': 'Drought'
 			},
 			{
 				'value': 'soil',
@@ -374,121 +374,149 @@
 			drought: [
 				{
 					'value': 'severity',
-					'name': 'Drought Severity'
+					'name': 'Drought Severity',
+					'title': 'Agricultural drought severity is derived from the root zone soil moisture expressed as a percentile of the 1981-2010 climatology. Low percentile values show high drought severity'
 				},
 				{
 					'value': 'spi1',
-					'name': 'Standardized Precipitation Index 1 month'
+					'name': 'Standardized Precipitation Index 1 month',
+					'title': 'Reflects short-term wet and dry conditions \n Application: Short-term soil moisture and crop stress (especially during the growing season)'
 				},
 				{
 					'value': 'spi3',
-					'name': 'Standardized Precipitation Index 3 months'
+					'name': 'Standardized Precipitation Index 3 months',
+					'title': 'Reflects short- and medium-term moisture conditions \n Application: A seasonal estimation of precipitation'
 				},
 				{
 					'value': 'spi6',
-					'name': 'Standardized Precipitation Index 6 months'
+					'name': 'Standardized Precipitation Index 6 months',
+					'title': 'Reflects medium-term trends in precipitation \n Application: Potential for effectively showing the precipitation over distinct seasons'
 				},
 				{
 					'value': 'spi12',
-					'name': 'Standardized Precipitation Index 12 months'
+					'name': 'Standardized Precipitation Index 12 months',
+					'title': 'Reflects Long-term precipitation patterns \n Application: Possibly tied to streamflows, reservoir levels, and also groundwater levels'
 				},
 				{
 					'value': 'sri1',
-					'name': 'Standardized Runoff Index 1 month'
+					'name': 'Standardized Runoff Index 1 month',
+					'title': 'Shows short-term potential to complement existing climate indices and local hydro-climatological information'
 				},
 				{
 					'value': 'sri3',
-					'name': 'Standardized Runoff Index 3 months'
+					'name': 'Standardized Runoff Index 3 months',
+					'title': 'Shows short- and medium-term potential to complement existing climate indices and local hydro-climatological information'
 				},
 				{
 					'value': 'sri6',
-					'name': 'Standardized Runoff Index 6 months'
+					'name': 'Standardized Runoff Index 6 months',
+					'title': 'Shows medium-term potential to complement existing climate indices and local hydro-climatological information'
 				},
 				{
 					'value': 'sri12',
-					'name': 'Standardized Runoff Index 12 months'
+					'name': 'Standardized Runoff Index 12 months',
+					'title': 'Shows Long-term potential to complement existing climate indices and local hydro-climatological information'
 				},
 				{
 					'value': 'smdi',
-					'name': 'Soil Moisture Deficit Index'
+					'name': 'Soil Moisture Deficit Index',
+					'title': 'Can be used as in indicator of short-term drought. Useful for identifying and monitoring drought affecting agriculture'
 				},
 				{
 					'value': 'dryspells',
-					'name': 'Dry Spell Events'
-				},
-				{
-					'value': 'rootmoist',
-					'name': 'Root Zone Soil Moisture'
+					'name': 'Dry Spell Events',
+					'title': 'Dry Spell Events show dry days during last at least 14 days'
 				}
 			],
 			soil: [
 				{
+					'value': 'rootmoist',
+					'name': 'Root Zone Soil Moisture',
+					'title': 'Shows soil moisture content [mm] at surface and root zone level'
+				},
+				{
 					'value': 'soil_moist_layer_1',
-					'name': 'Soil Moisture (Layer 0-10 cm)'
+					'name': 'Soil Moisture (Layer 0-10 cm)',
+					'title': 'Shows soil total moisture content [mm] in 0-10 cm soil layer'
 				},
 				{
 					'value': 'soil_moist_layer_2',
-					'name': 'Soil Moisture (Layer 10-40 cm)'
+					'name': 'Soil Moisture (Layer 10-40 cm)',
+					'title': 'Shows soil total moisture content [mm] in 10-40 cm soil layer'
 				},
 				{
 					'value': 'soil_moist_layer_3',
-					'name': 'Soil Moisture (Layer 40-100 cm)'
+					'name': 'Soil Moisture (Layer 40-100 cm)',
+					'title': 'Shows soil total moisture content [mm] in 40-100 cm soil layer'
 				},
 				{
 					'value': 'soil_temp_layer_1',
-					'name': 'Soil Temperature (Layer 0-10 cm)'
+					'name': 'Soil Temperature (Layer 0-10 cm)',
+					'title': 'Shows soil temperature [C] in 0-10 cm soil layer'
 				},
 				{
 					'value': 'soil_temp_layer_2',
-					'name': 'Soil Temperature (Layer 10-40 cm)'
+					'name': 'Soil Temperature (Layer 10-40 cm)',
+					'title': 'Shows soil temperature [C] in 10-40 cm soil layer'
 				},
 				{
 					'value': 'soil_temp_layer_3',
-					'name': 'Soil Temperature (Layer 40-100 cm)'
+					'name': 'Soil Temperature (Layer 40-100 cm)',
+					'title': 'Shows soil temperature [C] in 40-100 cm soil layer'
 				}
 			],
 			energyBalance: [
 				{
 					'value': 'net_short',
-					'name': 'Net Downward Shortwave Flux'
+					'name': 'Net Downward Shortwave Flux [W/m2]',
+					'title': 'This is calculated using the VIC land surface model'
 				},
 				{
 					'value': 'net_long',
-					'name': 'Net Downward Longwave Flux'
+					'name': 'Net Downward Longwave Flux [W/m2]',
+					'title': 'This is calculated using the VIC land surface model'
 				},
 				{
 					'value': 'latent',
-					'name': 'Net Upward Latent Heat Flux'
+					'name': 'Net Upward Latent Heat Flux [W/m2]',
+					'title': 'This is calculated using the VIC land surface model'
 				},
 				/*{
 					'value': 'sensible',
-					'name': 'Net Upward Sensible Heat Flux'
+					'name': 'Net Upward Sensible Heat Flux [W/m2]',
+					'title': 'This is calculated using the VIC land surface model'
 				},*/
 				{
 					'value': 'grnd_flux',
-					'name': 'Net Heat Flux into Ground'
+					'name': 'Net Heat Flux into Ground [W/m2]',
+					'title': 'This is the total of downward longwave and shortwave fluxes calculated using the VIC land surface model'
 				},
 				{
 					'value': 'surf_temp',
-					'name': 'Average Surface Temperature'
+					'name': 'Average Surface Temperature [C]',
+					'title': 'Average surface temperature [C]'
 				}
 			],
 			waterBalance: [
 				{
 					'value': 'baseflow',
-					'name': 'Base Flow'
+					'name': 'Baseflow (mm/day)',
+					'title': 'This shows the portion of streamflow that comes from the sum of deep subsurface flow and delayed shallow subsurface flow'
 				},
 				{
 					'value': 'rainf',
-					'name': 'Rainfall'
+					'name': 'Rainfall (mm)',
+					'title': 'Daily total rainfall in millimeter'
 				},
 				{
 					'value': 'evap',
-					'name': 'Total Net Evaporation'
+					'name': 'Total Net Evaporation [mm]',
+					'title': 'This show the sum of evaporation from bare soil, canopy interception and plant transpiration calculated from the VIC land surface model'
 				},
 				{
 					'value': 'runoff',
-					'name': 'Surface Runoff'
+					'name': 'Surface Runoff',
+					'title': 'Excess water from rain, snow melt or other sources that does not infiltrate due to soil saturation or high intensity but instead flows overland'
 				}
 			]
 		},
