@@ -44,10 +44,10 @@ footer .partner-sei {
 footer .partner-mrc {
     display: block;
     max-width: 182px;
-    max-height: 120px;
+    max-height: 100px;
     width: auto;
     height: auto;
-    margin-bottom: 5px;
+    margin: -5px auto 10px auto;
 }
 
 footer > div img {
