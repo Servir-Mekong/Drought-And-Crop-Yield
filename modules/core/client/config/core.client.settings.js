@@ -1023,14 +1023,13 @@
 			],
 			rainf: [
 				{
-					'name': '1',
-					'color': '#d7191c',
+					'name': '0 < X < 1',
 					'min_value': 0,
 					'max_value': 1
 				},
 				{
 					'name': '2',
-					'color': '#e34a33',
+					'color': '#d7191c',
 					'min_value': 1,
 					'max_value': 2
 				},
@@ -1468,7 +1467,7 @@
 			sri12: spi_sri_legend,
 			surf_temp: [
 				{
-					'name': '10',
+					'name': '<=10',
 					'color': '#ca0020',
 					'min_value': 0,
 					'max_value': 10

@@ -661,7 +661,8 @@
 				style: function (feature) {
 
 					var value = feature.properties.value,
-						index = $scope.indexOption.option.value;
+						index = $scope.indexOption.option.value,
+						color = $scope.getColor([Math.round(value * 100) / 100]);
 
 					if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
 						value -= 273.15;
@@ -669,11 +670,11 @@
 
 					return {
 						weight: 1,
-						opacity: 1,
+						opacity: color ? 1 : 0,
 						color: 'white',
 						dashArray: '3',
-						fillOpacity: 0.7,
-						fillColor: $scope.getColor([Math.round(value * 100) / 100])
+						fillOpacity: color ? 1 : 0,
+						fillColor: color
 					};
 				},
 				onEachFeature: function (feature, layer) {
@@ -686,7 +687,7 @@
 					}
 
 					if (showDecimal) {
-						layer.bindPopup('<h5>Value = ' + Math.round(value * 100) / 100 + '</h5>', { closeButton: false, offset: L.point(10, 10) });	
+						layer.bindPopup('<h5>Value = ' + Math.round(value * 100) / 100 + '</h5>', { closeButton: false, offset: L.point(0, 10) });	
 					} else {
 						layer.bindPopup('<h5>Value = ' + Math.round(value) + '</h5>', { closeButton: false, offset: L.point(0, -10) });
 					}
@@ -786,7 +787,7 @@
 								legendTitle += ' Baseflow out of the Bottom Layer (mm) ';
 							} else if (['dryspells'].indexOf(index) > -1) {
 								legendTitle += ' during last 14 days duration ';
-							} else if (['evap', 'rainf','rootmoist', 'runoff'].indexOf(index) > -1) {
+							} else if (['evap', 'rootmoist', 'runoff'].indexOf(index) > -1) {
 								legendTitle += ' (mm) ';
 							} else if (['net_short', 'net_long', 'latent', 'grnd_flux'].indexOf(index) > -1) {
 								legendTitle += ' (W/m2) ';
