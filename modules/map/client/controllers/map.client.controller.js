@@ -604,7 +604,7 @@
 						}
 					}
 				} else {
-					if (val >= grade.min_value && val <= grade.max_value) {
+					if (val >= grade.min_value && val < grade.max_value) {
 						return grade.color;
 					}
 				}
