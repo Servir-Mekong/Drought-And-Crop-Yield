@@ -57,7 +57,6 @@
 
 		// Other variables
 		$scope.disableCalendar = true;
-		$scope.myDate = new Date();
 		$scope.showLoader = false;
 		$scope.showBanner = true;
 		$scope.defaultHandle = 'default';
@@ -111,7 +110,7 @@
 		/**
 		 * Time Slider
 		 **/
-		var slider = document.getElementById('datePickerSlider');
+		var timeSlider = document.getElementById('datePickerSlider');
 
 		// Create a string representation of the date.
 		$scope.toFormat = function (v, handle) {
@@ -122,15 +121,22 @@
 			if (handle === 'uipipes') {
 				return settings.months[date.getMonth()] + ' ' + date.getFullYear();
 			} else if (handle === $scope.defaultHandle) {
-				return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+				var mm = date.getMonth() + 1; // getMonth() is zero-based
+				var dd = date.getDate();
+			  
+				return [date.getFullYear(),
+						(mm > 9 ? '' : '0') + mm,
+						(dd > 9 ? '' : '0') + dd
+					   ].join('-');
 			}
 		};
 
-		noUiSlider.create(slider, {
+		noUiSlider.create(timeSlider, {
 			// Create two timestamps to define a range.
 			range: {
 				min: new Date('1981').getTime(),
-				max: $scope.myDate.setMonth($scope.myDate.getMonth() + 3)
+				max: new Date().setMonth(new Date().getMonth() + 3)
 			},
 
 			// Steps of one day
@@ -139,7 +145,7 @@
 			// Handle starting positions.
 			start: new Date().getTime(),
 
-			tooltips: true,
+			//tooltips: true,
 
 			format: { to: $scope.toFormat, from: Number },
 
@@ -163,7 +169,7 @@
 		});
 
 		// click tooltip
-		$('.noUi-tooltip').on('click', function () {
+		/*$('.noUi-tooltip').on('click', function () {
 			// Remove before adding
 			$(this).find('.input-tooltip').remove();
 			$(this).append("<input type='text' class='input-tooltip' style='background-color: darkred; color: #fff;'>");
@@ -175,15 +181,71 @@
 					$scope.changeTimeSlider();
 				}
 			});
+		});*/
+
+		var stopPropagation = function (event) {
+			event.stopPropagation();
+		};
+
+		var makeSliderToolTip = function (i, slider) {
+			var tooltip = document.createElement('div'),
+				input = document.createElement('input');
+
+			// Add the input to the tooltip
+			input.className = 'uitooltip-input';
+			tooltip.className = 'noUi-tooltip';
+			tooltip.appendChild(input);
+
+			// On change, set the slider
+			input.addEventListener('change', function () {
+				if (this.value !== $scope.selectedDate) {
+					$scope.selectedDate = this.value;
+					slider.noUiSlider.set(new Date(this.value).getTime());
+					$timeout(function () {
+						$scope.changeTimeSlider();
+					}, 500);
+				}
+
+			});
+
+			// Catch all selections and make sure they don't reach the handle
+			input.addEventListener('mousedown', stopPropagation);
+			input.addEventListener('touchstart', stopPropagation);
+			input.addEventListener('pointerdown', stopPropagation);
+			input.addEventListener('MSPointerDown', stopPropagation);
+
+			// Find the lower slider handle and insert the tooltip
+			document.getElementById('datePickerSlider').querySelector('.noUi-handle-lower').appendChild(tooltip);
+			
+			return input;
+		};
+
+		// An 0 indexed array of input elements
+		var tooltipInput = makeSliderToolTip(0, timeSlider);
+		$scope.selectedDate = [
+			new Date().getFullYear(),
+			((new Date().getMonth() + 1) > 9 ? '' : '0') + (new Date().getMonth() + 1) ,
+			(new Date().getDate() > 9 ? '' : '0') +new Date().getDate()
+		].join('-');
+		tooltipInput.value = $scope.selectedDate;
+
+		// When the slider changes, update the tooltip
+		timeSlider.noUiSlider.on('update', function (values, handle) {
+   			tooltipInput.value = values[handle];
 		});
 
 		// Event Handler for slider
-		slider.noUiSlider.on('end', function (values) {
-			$scope.selectedDate = values[0];
-			// trigger ajax only if it is coming from the default handle, not from input tooltip
-			//if (event.target.className === "noUi-handle noUi-handle-lower") {
-			if (event.target.className.startsWith('noUi')) {
-				$scope.changeTimeSlider();
+		timeSlider.noUiSlider.on('set', function (values, handle) {
+			if (values[handle] !== $scope.selectedDate) {
+				$scope.selectedDate = values[handle];
+				tooltipInput.value = values[handle];
+				// trigger ajax only if it is coming from the default handle, not from input tooltip
+				//if (event.target.className === "noUi-handle noUi-handle-lower") {
+				if (event.target.className.startsWith('noUi')) {
+					$timeout(function () {
+						$scope.changeTimeSlider();
+					}, 500);
+				}
 			}
 		});
 
@@ -568,15 +630,15 @@
 			var dateArray = date.split('-');
 
 			var monthObject = {
-				'1': 'January',
-				'2': 'February',
-				'3': 'March',
-				'4': 'April',
-				'5': 'May',
-				'6': 'June',
-				'7': 'July',
-				'8': 'August',
-				'9': 'September',
+				'01': 'January',
+				'02': 'February',
+				'03': 'March',
+				'04': 'April',
+				'05': 'May',
+				'06': 'June',
+				'07': 'July',
+				'08': 'August',
+				'09': 'September',
 				'10': 'October',
 				'11': 'November',
 				'12': 'December'

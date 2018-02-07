@@ -20,7 +20,7 @@
     "components-font-awesome": "^4.7.0",
     "terraformer": "^1.0.8",
     "terraformer-wkt-parser": "^1.1.2",
-    "nouislider": "^10.1.0",
+    "nouislider": "^11.0.3",
     "highcharts": "^5.0.14",
     "leaflet": "1.0.0",
     "leaflet-draw": "leaflet.draw#^0.4.10",
