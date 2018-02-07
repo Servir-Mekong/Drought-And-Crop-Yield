@@ -1,21 +1,42 @@
 /*Slider*/
 .sliderContainer {
-	display: inline-block;
+	/*display: inline-block;
 	height: 5em;
 	background-color: rgba(238, 238, 238, 1);
 	z-index: 400;
 	position: relative;
 	width: 80%;
 	margin-left: 10%;
-	bottom: 8em;
+	bottom: 8em;*/
+    height: 5em;
+    background-color: rgba(238, 238, 238, 1);
+    z-index: 400;
+    position: absolute;
+    width: 80%;
+    margin-left: 10%;
+    bottom: 4em;
 }
 
 .datePickerSlider {
-	position: absolute;
-	width: 80%;
-	margin-left: 6%;
-	bottom: 1em;
-	border-color: black;
+    position: relative;
+    width: 80%;
+    margin-left: 4%;
+    bottom: -3.5em;
+    border-color: black;
+}
+
+.slide-backward {
+	position: relative;
+    margin-right: 1%;
+    float: right;
+    margin-top: 1%;
+}
+
+.slide-forward {
+	position: relative;
+    margin-right: 3%;
+    float: right;
+    margin-top: 1%;
 }
 
 .noUi-marker {
