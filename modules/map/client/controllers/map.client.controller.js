@@ -76,6 +76,7 @@
 		$scope.showOpacitySlider = false;
 		$scope.opacitySliderIcon = 'fa fa-eye-slash fa-2x';
 		$scope.opacityValue = null;
+		$scope.showTimeSlider = true;
 
 		$scope.activateToolTip = function () {
 			$('.js-tooltip').tooltip();
@@ -233,6 +234,11 @@
 			}
 		});
 
+		$scope.changeTimeSlider = function () {
+
+			$scope.updateMap(true);
+		};
+
 		// Forward Slider
 		$scope.slideForward = function () {
 			$scope.selectedDate = [
@@ -259,6 +265,41 @@
 			$timeout(function () {
 				$scope.changeTimeSlider();
 			}, 500);
+		};
+
+		// Toogle TimeSlider control
+		L.Control.ToogleTimeSlider = L.Control.extend({
+			options: {
+				position: 'bottomright',
+				title: 'Toggle the Time Slider'
+			},
+			onAdd: function (map) {
+				// happens after added to map
+				var className = 'leaflet-control-toogle-time-slider',
+					container = L.DomUtil.create('div', className + ' leaflet-bar'),
+					options = this.options;
+
+				this.button = L.DomUtil.create('button', 'btn btn-default', container);
+				this.button.title = options.title;
+				this.button.style.width = '30px';
+				this.button.style.height = '30px';
+				this.span = L.DomUtil.create('span', 'glyphicon glyphicon-ok-circle toogle-time-slider-icon', this.button);
+				L.DomEvent.addListener(this.button, 'click', this.click, this);
+				return container;
+			},
+			onRemove: function (map) {
+			  	// nothing to do here
+			},
+			click: function(e) {
+				$timeout(function () {	
+					$scope.showTimeSlider = !$scope.showTimeSlider;
+				}, 200);
+				$(this.span).hasClass('glyphicon-ok-circle') ? $(this.span).removeClass('glyphicon-ok-circle').addClass('glyphicon-ban-circle') : $(this.span).removeClass('glyphicon-ban-circle').addClass('glyphicon-ok-circle'); // jshint ignore:line
+			}
+		});
+		  
+		L.control.toogleTimeSlider = function(options) {
+			return new L.Control.ToogleTimeSlider(options);
 		};
 
 		/*
@@ -559,16 +600,6 @@
 			}
 		}).addTo(map);
 
-		// Geosearch
-		new L.Control.GeoSearch({
-			provider: new L.GeoSearch.Provider.OpenStreetMap(),
-			position: 'bottomright',
-			showMarker: false,
-			retainZoomLevel: true,
-			autoComplete: true,
-			autoCompleteDelay: 10
-		}).addTo(map);
-
 		// Event on Error
 		fileLayerControl.loader.on('data:error', function (e) {
 			console.log(e.error);
@@ -635,6 +666,23 @@
 
 		// Add draw control
 		map.addControl($scope.drawControl);
+
+		// Geosearch
+		/*
+		new L.Control.GeoSearch({
+			provider: new L.GeoSearch.Provider.OpenStreetMap(),
+			position: 'bottomright',
+			showMarker: false,
+			retainZoomLevel: true,
+			autoComplete: true,
+			autoCompleteDelay: 10
+		}).addTo(map);
+		*/
+
+		// Time slider toggle control
+		L.control.toogleTimeSlider({
+			position: 'bottomright' 
+		}).addTo(map);
 
 		// Formatted date
 		var formattedDate = function (date) {
@@ -861,14 +909,6 @@
 								legendTitle += ' Baseflow out of the Bottom Layer (mm) ';
 							} else if (['dryspells'].indexOf(index) > -1) {
 								legendTitle += ' during last 14 days duration ';
-							} else if (['evap', 'rootmoist', 'runoff'].indexOf(index) > -1) {
-								legendTitle += ' (mm) ';
-							} else if (['net_short', 'net_long', 'latent', 'grnd_flux'].indexOf(index) > -1) {
-								legendTitle += ' (W/m2) ';
-							} else if (['severity'].indexOf(index) > -1) {
-								legendTitle += ' (%) ';
-							} else if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
-								legendTitle += ' (Celsius) ';
 							}
 
 							$scope.closeAlert();
@@ -898,11 +938,6 @@
 				);
 
 			}
-		};
-
-		$scope.changeTimeSlider = function () {
-
-			$scope.updateMap(true);
 		};
 
 		/**

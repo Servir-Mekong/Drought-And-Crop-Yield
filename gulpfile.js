@@ -91,7 +91,9 @@ gulp.task('jshint', function () {
 	);
 
 	return gulp.src(assets)
-		.pipe(plugins.jshint())
+		.pipe(plugins.jshint().on('error', function (e) {
+			console.log(e);
+		}))
 		.pipe(plugins.jshint.reporter('default'))
 		.pipe(plugins.jshint.reporter('fail'));
 });

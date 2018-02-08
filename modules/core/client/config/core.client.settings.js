@@ -374,7 +374,7 @@
 			drought: [
 				{
 					'value': 'severity',
-					'name': 'Drought Severity',
+					'name': 'Drought Severity (%)',
 					'title': 'Agricultural drought severity is derived from the root zone soil moisture expressed as a percentile of the 1981-2010 climatology. Low percentile values show high drought severity'
 				},
 				{
@@ -431,37 +431,37 @@
 			soil: [
 				{
 					'value': 'rootmoist',
-					'name': 'Root Zone Soil Moisture',
+					'name': 'Root Zone Soil Moisture [mm]',
 					'title': 'Shows soil moisture content [mm] at surface and root zone level'
 				},
 				{
 					'value': 'soil_moist_layer_1',
-					'name': 'Soil Moisture (Layer 0-10 cm)',
+					'name': 'Soil Moisture [mm] (Layer 0-10 cm)',
 					'title': 'Shows soil total moisture content [mm] in 0-10 cm soil layer'
 				},
 				{
 					'value': 'soil_moist_layer_2',
-					'name': 'Soil Moisture (Layer 10-40 cm)',
+					'name': 'Soil Moisture [mm] (Layer 10-40 cm)',
 					'title': 'Shows soil total moisture content [mm] in 10-40 cm soil layer'
 				},
 				{
 					'value': 'soil_moist_layer_3',
-					'name': 'Soil Moisture (Layer 40-100 cm)',
+					'name': 'Soil Moisture [mm] (Layer 40-100 cm)',
 					'title': 'Shows soil total moisture content [mm] in 40-100 cm soil layer'
 				},
 				{
 					'value': 'soil_temp_layer_1',
-					'name': 'Soil Temperature (Layer 0-10 cm)',
+					'name': 'Soil Temperature [C] (Layer 0-10 cm)',
 					'title': 'Shows soil temperature [C] in 0-10 cm soil layer'
 				},
 				{
 					'value': 'soil_temp_layer_2',
-					'name': 'Soil Temperature (Layer 10-40 cm)',
+					'name': 'Soil Temperature [C] (Layer 10-40 cm)',
 					'title': 'Shows soil temperature [C] in 10-40 cm soil layer'
 				},
 				{
 					'value': 'soil_temp_layer_3',
-					'name': 'Soil Temperature (Layer 40-100 cm)',
+					'name': 'Soil Temperature [C] (Layer 40-100 cm)',
 					'title': 'Shows soil temperature [C] in 40-100 cm soil layer'
 				}
 			],
@@ -515,7 +515,7 @@
 				},
 				{
 					'value': 'runoff',
-					'name': 'Surface Runoff',
+					'name': 'Surface Runoff [mm]',
 					'title': 'Excess water from rain, snow melt or other sources that does not infiltrate due to soil saturation or high intensity but instead flows overland'
 				}
 			]

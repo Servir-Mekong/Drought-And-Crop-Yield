@@ -35,7 +35,7 @@
 
 .loader {
 	z-index: 1005;
-	background: #e9e9e9;
+	background: rgb(233, 233, 233);
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -50,13 +50,13 @@
 
 .modal {
 	display: block;
-	position: fixed; /* Stay in place */
-	z-index: 1030; /* Sit on top */
+	position: fixed;
+	z-index: 1030;
 	left: 0;
 	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
+	width: 100%;
+	height: 100%;
+	overflow: auto;
 	background-color: rgb(0,0,0); /* Fallback color */
 	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
@@ -64,9 +64,8 @@
 /* Modal Header */
 .modal-header {
 	padding: 2px 16px;
-	/*background-color: #4267b2;*/
 	background-color: rgba(66, 103, 178, 1);
-	color: white;
+	color: rgb(255, 255, 255);
 }
 
 /* Modal Body */
@@ -77,21 +76,18 @@
 /* Modal Footer */
 .modal-footer {
 	padding: 2px 16px;
-	/*background-color: #4267b2;*/
 	background-color: rgba(66, 103, 178, 1);
-	color: white;
+	color: rgb(255, 255, 255);
 }
 
 /* Modal Content */
 .modal-content {
-	/*top: 10%;*/
 	position: relative;
-	background-color: #fefefe;
+	background-color: rgb(254, 254, 254);
 	margin: auto;
 	margin-top: 7%;
 	padding: 0;
-	border: 1px solid #888;
-	/*width: 50%;*/
+	border: 1px solid rgb(136, 136, 136);
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 	-webkit-animation-name: animatetop;
 	-webkit-animation-duration: 0.4s;
@@ -129,7 +125,7 @@
 /* The Close Button */
 .modal-close {
 	cursor: pointer;
-	color: white;
+	color: rgb(255, 255, 255);
 	float: right;
 	font-size: 28px;
 	font-weight: bold;
@@ -137,7 +133,7 @@
 
 .modal-close:hover,
 .modal-close:focus {
-	color: black;
+	color: rgb(0, 0, 0);
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -147,14 +143,11 @@
  */
 .legend {
 	position: absolute;
-	/* bottom: 20px; */
-	display: inline-block;
-	/*z-index: 403;*/
-	z-index: 1000;
-	margin: 20px;
-	/* float: left; */
-	right: 0;
-	margin-top: 60px;
+    display: inline-block;
+    z-index: 1000;
+    right: 0;
+    margin-top: 60px;
+    margin-right: 10px;
 }
 
 .legend tr td img {
@@ -190,7 +183,7 @@
 .info {
 	padding: 6px 8px;
 	font: 14px/16px Arial, Helvetica, sans-serif;
-	background: white;
+	background: rgb(255, 255, 255);
 	background: rgba(255, 255, 255, 0.8);
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
@@ -198,13 +191,13 @@
 
 .info h4 {
 	margin: 0 0 5px;
-	color: #777;
+	color: rgb(119, 119, 119);
 }
 
 .legend-leaflet {
 	text-align: left;
 	line-height: 18px;
-	color: #555;
+	color: rgb(85, 85, 85);
 }
 
 .legend-leaflet i {
@@ -226,12 +219,12 @@
 }
 
 .leaflet-control-opacity {
-	background-color: white;
+	background-color: rgb(255, 255, 255);
     width: 32px;
     height: 32px;
     position: relative;
     text-align: center;
-    border: 2px solid #a7a7a7;
+    border: 2px solid rgb(167, 167, 167);
     border-radius: 5px;
     float: right;
     bottom: 40px;
@@ -263,5 +256,11 @@
 }
 
 .opacity-slider .slider-selection {
-	background: #BABABA;
+	background: rgb(186, 186, 186);
+}
+
+.toogle-time-slider-icon {
+    font-size: 1.3em;
+    right: 6px;
+    top: -1px;
 }
