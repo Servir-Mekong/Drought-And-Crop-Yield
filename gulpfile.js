@@ -191,12 +191,12 @@ gulp.task('webdriver_standalone', webdriver_standalone);
 
 // Lint CSS and JavaScript files.
 gulp.task('lint', function (done) {
-	runSequence('less', 'sass', ['csslint', 'jshint'], done);
+	runSequence(['csslint', 'jshint'], done);
 });
 
 // Lint project files and minify them into two production files.
 gulp.task('build', function (done) {
-	runSequence('env:dev', 'lint', ['uglify', 'cssmin'], done);
+	runSequence('lint', ['uglify', 'cssmin'], done);
 });
 
 // Run the project in development mode
