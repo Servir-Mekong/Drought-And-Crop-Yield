@@ -260,7 +260,8 @@
 }
 
 .toogle-time-slider-icon {
-    font-size: 1.3em;
-    right: 6px;
+	font-size: 1.3em;
+    right: 7px;
     top: -1px;
+    line-height: 18px;
 }
