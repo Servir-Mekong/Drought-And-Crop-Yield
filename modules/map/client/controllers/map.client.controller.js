@@ -478,6 +478,73 @@
 				});
 		};
 
+		$scope.updateMap = function (apply) {
+
+			if (typeof(apply) === 'undefined') apply = false;
+
+			var url = prepareUrlForAPI('map-data', apply);
+
+			//$scope.$apply();
+			if (url) {
+
+				// Make a request
+				apiCall(url, 'POST', $scope.selectedLayerData).then(
+					function (response) {
+						// Success Callback
+						$scope.showLoader = false;
+						// Clear Admin Layers if they are present
+						//$('#area-filter').val('clearLayer');
+						$scope.areaFilter.value = $scope.areaFilter.options[3];
+						markerCluster.clearLayers();
+						// Clear the drawn Layer
+						//$scope.editableLayers.removeLayer($scope.selectedLayer);
+						if ($scope.selectedLayer) {
+							map.removeLayer($scope.selectedLayer);
+						}
+						$scope.showDrawControl();
+						$scope.showFileUploader();
+						var features = response.data.data.features;
+						var date = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
+						if (features) {
+							$scope.displayedGeoJSON = response.data.data;
+							var index = $scope.indexOption.option.value,
+								legendTitle = $scope.indexOption.option.name;
+
+							if (['baseflow'].indexOf(index) > -1) {
+								legendTitle += ' Baseflow out of the Bottom Layer (mm) ';
+							} else if (['dryspells'].indexOf(index) > -1) {
+								legendTitle += ' during last 14 days duration ';
+							}
+
+							$scope.closeAlert();
+
+							if (['dryspells'].indexOf(index) > -1) {
+								$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date), false);
+							} else {
+								$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date));
+							}
+
+							$scope.showDownloadButton = true;
+
+						} else {
+							$scope.addInfoAlert();
+							$scope.alertContent = 'No data is available for ' + date + '! If you think this is error, please contact us!';
+							$scope.showAlert();
+						}
+					},
+					function () {
+						// Error Callback
+						$scope.showLoader = false;
+						$scope.addDangerAlert();
+						$scope.alertContent = 'problem connecting to database. check if database port is open!';
+						$scope.showAlert();
+						console.log('problem connecting to database. check if database port is open!');
+					}
+				);
+
+			}
+		};
+
 		// Hide Draw Control
 		$scope.hideDrawControl = function () {
 			$('.leaflet-draw.leaflet-control').hide();
@@ -861,74 +928,6 @@
 			return url;
 		};
 
-		// API Request from Server
-		$scope.updateMap = function (apply) {
-
-			if (typeof(apply) === 'undefined') apply = false;
-
-			var url = prepareUrlForAPI('map-data', apply);
-
-			//$scope.$apply();
-			if (url) {
-
-				// Make a request
-				apiCall(url, 'POST', $scope.selectedLayerData).then(
-					function (response) {
-						// Success Callback
-						$scope.showLoader = false;
-						// Clear Admin Layers if they are present
-						//$('#area-filter').val('clearLayer');
-						$scope.areaFilter.value = $scope.areaFilter.options[3];
-						markerCluster.clearLayers();
-						// Clear the drawn Layer
-						//$scope.editableLayers.removeLayer($scope.selectedLayer);
-						if ($scope.selectedLayer) {
-							map.removeLayer($scope.selectedLayer);
-						}
-						$scope.showDrawControl();
-						$scope.showFileUploader();
-						var features = response.data.data.features;
-						var date = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
-						if (features) {
-							$scope.displayedGeoJSON = response.data.data;
-							var index = $scope.indexOption.option.value,
-								legendTitle = $scope.indexOption.option.name;
-
-							if (['baseflow'].indexOf(index) > -1) {
-								legendTitle += ' Baseflow out of the Bottom Layer (mm) ';
-							} else if (['dryspells'].indexOf(index) > -1) {
-								legendTitle += ' during last 14 days duration ';
-							}
-
-							$scope.closeAlert();
-
-							if (['dryspells'].indexOf(index) > -1) {
-								$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date), false);
-							} else {
-								$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date));
-							}
-
-							$scope.showDownloadButton = true;
-
-						} else {
-							$scope.addInfoAlert();
-							$scope.alertContent = 'No data is available for ' + date + '! If you think this is error, please contact us!';
-							$scope.showAlert();
-						}
-					},
-					function () {
-						// Error Callback
-						$scope.showLoader = false;
-						$scope.addDangerAlert();
-						$scope.alertContent = 'problem connecting to database. check if database port is open!';
-						$scope.showAlert();
-						console.log('problem connecting to database. check if database port is open!');
-					}
-				);
-
-			}
-		};
-
 		/**
 		 * Chart in Modal
 		 **/
@@ -1191,6 +1190,48 @@
 			} else {
 				$scope.opacitySliderIcon = 'fa fa-eye-slash fa-2x';
 			}
+		};
+
+		// Turf Clip
+		var turfClip = function (clipping_geojson, input_geojson) {
+			var clipping_geojson_features = turf.flatten(clipping_geojson).features;
+			var input_geojson_features = turf.flatten(input_geojson).features;
+			var output_geojson = {
+				"type": "FeatureCollection",
+				"features": []
+			};
+			for (var i = clipping_geojson_features.length - 1; i >= 0; i--) {
+				var geo1 = clipping_geojson_features[i];
+				for (var j = input_geojson_features.length - 1; j >= 0; j--) {
+					var geo2 = input_geojson_features[j];
+					if (polygonContains(geo1, geo2)) {
+						output_geojson.features.push(geo2);
+					} else if (polygonContains(geo2, geo1)) {
+						geo1.properties = geo2.properties;
+						output_geojson.features.push(geo1);
+					} else {
+						var result = turf.intersect(geo1, geo2);
+						if (result) {
+							result.properties = geo2.properties;
+							output_geojson.features.push(result);
+						}
+					}
+				}
+			}
+			return output_geojson;
+		};
+
+		var polygonContains = function (polygon1, polygon2) {
+
+			var isInside = true;
+			var features = turf.explode(polygon2).features;
+			for (var i = features.length - 1; i >= 0; i--) {
+				if (!turf.inside(features[i], polygon1)) {
+					isInside = false;
+					break;
+			 	}
+			}
+			return isInside;
 		};
 
 	});

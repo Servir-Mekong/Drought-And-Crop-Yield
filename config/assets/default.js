@@ -34,7 +34,8 @@ module.exports = {
 				'public/libs/leaflet-geosearch/geosearch.js',
 				'public/libs/leaflet-geosearch/geosearch.provider.openstreetmap.js',
 				'public/lib/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js',
-				'public/lib/leaflet.markercluster/dist/leaflet.markercluster-src.js'
+				'public/lib/leaflet.markercluster/dist/leaflet.markercluster-src.js',
+				'https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js'
 			]
 		},
 		css: [

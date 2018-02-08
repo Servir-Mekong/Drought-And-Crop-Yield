@@ -20,7 +20,8 @@
 		"io": true,
 		"L": true,
 		"noUiSlider": true,
-		"Terraformer": true
+		"Terraformer": true,
+        "turf": true
 	},
 	"predef": [ // Extra globals.
 		"inject",
