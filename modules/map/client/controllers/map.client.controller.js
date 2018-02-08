@@ -731,18 +731,6 @@
 					}
 				}
 			}
-
-			/*if (val >= grades.extermely_wet.value) {
-				return grades.extermely_wet.color;
-			} else if (val <= grades.extermely_dry.value) {
-				return grades.extermely_dry.color;
-			} else {
-				for (var k in grades) {
-					if (val >= grades[k].min_value && val <= grades[k].max_value) {
-						return grades[k].color;
-					}
-				}
-			}*/
 		};
 
 		$scope.getLegend = function () {
@@ -783,12 +771,13 @@
 				style: function (feature) {
 
 					var value = feature.properties.value,
-						index = $scope.indexOption.option.value,
-						color = $scope.getColor([Math.round(value * 100) / 100]);
+						index = $scope.indexOption.option.value;
 
 					if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
 						value -= 273.15;
 					}
+
+					var color = $scope.getColor([Math.round(value * 100) / 100]);
 
 					return {
 						weight: 1,
