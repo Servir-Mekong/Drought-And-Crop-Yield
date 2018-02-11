@@ -336,6 +336,10 @@
 		mapLayer: 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
 		areaFilterOptions: [
 			{
+				'value': 'basin',
+				'name': 'LMR Basin'
+			},
+			{
 				'value': 'country',
 				'name': 'Country Layer'
 			},
@@ -348,9 +352,9 @@
 				'name': 'Administrative Layer 2'
 			},
 			{
-				'value': 'clearLayer',
-				'name': 'Close All Admin Layers'
-			},
+				'value': '',
+				'name': 'Clear Area Filter'
+			}
 		],
 		indexSelectors: [
 			{

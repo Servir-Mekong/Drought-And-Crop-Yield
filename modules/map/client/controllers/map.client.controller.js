@@ -5,25 +5,34 @@
 	angular.module('rheas').controller('mapCtrl', function ($http, $scope, $state, $timeout, $window, settings) {
 
 		// Settings
+		var legend = settings.legend;
 		$scope.areaFilter = {};
 		$scope.areaFilter.options = settings.areaFilterOptions;
-		$scope.areaFilter.value = $scope.areaFilter.options[3];
+		var getAreaFilterDefault = function () {
+			for (var i in $scope.areaFilter.options) {
+				var option = $scope.areaFilter.options[i];
+				if (option.value === 'clearAreaFilter') {
+					return option;
+				}
+			}
+		};
+		$scope.areaFilter.value = getAreaFilterDefault();
 		$scope.indexSelectors = settings.indexSelectors;
 		$scope.indexOptions = null;
 		$scope.downloadServerURL = settings.downloadServerURL;
 
 		// Map variables
-		var legend = settings.legend;
-		$scope.selectedLayer = null;
+		$scope.areaFilterLayer = null;
 		$scope.shownGeojson = null;
 		$scope.selectedLayerData = {};
-		$scope.selectedLayerBounds = null;
+		//$scope.selectedLayerBounds = null;
+		$scope.basinGeojson = null;
 		$scope.countryGeojson = null;
 		$scope.adminOneGeojson = null;
 		$scope.adminTwoGeojson = null;
-		$scope.layerControl = L.control.layers();
+		//$scope.layerControl = L.control.layers();
 		$scope.editableLayers = new L.FeatureGroup();
-		$scope.fileLayers = null;
+		//$scope.fileLayers = null;
 		$scope.drawOptions = {
 			position: 'bottomright',
 			draw: {
@@ -76,7 +85,9 @@
 		$scope.showOpacitySlider = false;
 		$scope.opacitySliderIcon = 'fa fa-eye-slash fa-2x';
 		$scope.opacityValue = null;
+		$scope.areaFilterOpacityValue = null;
 		$scope.showTimeSlider = true;
+		$scope.showAreaFilterSlider = false;
 
 		$scope.activateToolTip = function () {
 			$('.js-tooltip').tooltip();
@@ -324,28 +335,22 @@
 		 **/
 		$scope.closeAlert = function () {
 			$('.' + $scope.alertClass).addClass('display-none');
+			$scope.alertContent = '';
 		};
 
-		$scope.showAlert = function () {
-			$('.' + $scope.alertClass).removeClass('display-none');
+		var showErrorAlert = function (alertContent) {
+			$scope.alertContent = alertContent;
+			$('.' + $scope.alertClass).removeClass('display-none').removeClass('alert-info').removeClass('alert-success').addClass('alert-danger');
 		};
 
-		$scope.addDangerAlert = function () {
-			$('.' + $scope.alertClass).removeClass('alert-info');
-			$('.' + $scope.alertClass).removeClass('alert-success');
-			$('.' + $scope.alertClass).addClass('alert-danger');
+		var showSuccessAlert = function (alertContent) {
+			$scope.alertContent = alertContent;
+			$('.' + $scope.alertClass).removeClass('display-none').removeClass('alert-info').removeClass('alert-danger').addClass('alert-success');
 		};
 
-		$scope.addSuccessAlert = function () {
-			$('.' + $scope.alertClass).removeClass('alert-info');
-			$('.' + $scope.alertClass).removeClass('alert-danger');
-			$('.' + $scope.alertClass).addClass('alert-success');
-		};
-
-		$scope.addInfoAlert = function () {
-			$('.' + $scope.alertClass).removeClass('alert-success');
-			$('.' + $scope.alertClass).removeClass('alert-danger');
-			$('.' + $scope.alertClass).addClass('alert-info');
+		var showInfoAlert = function (alertContent) {
+			$scope.alertContent = alertContent;
+			$('.' + $scope.alertClass).removeClass('display-none').removeClass('alert-success').removeClass('alert-danger').addClass('alert-info');
 		};
 
 
@@ -376,11 +381,71 @@
 		// Set the max bounds for the map
 		//map.setMaxBounds(map.getBounds());
 
+		// Adds area filter slider to the sidebar
+		var areaFilterSlider = null;
+
+		var addAreaFilter = function (layer) {
+
+			if ($scope.areaFilterLayer) {
+				areaFilterSlider.slider('destroy');
+				areaFilterSlider = null;
+			}
+
+			areaFilterSlider = $('#areaFilterSlider').slider({
+				formatter: function(value) {
+					return 'Opacity: ' + value;
+				},
+				tooltip_position: 'top'
+			}).on('slideStart', function (event) {
+				$scope.areaFilterOpacityValue = event.value;
+			}).on('slideStop', function (event) {
+				var _value = event.value;
+				if (_value !== $scope.areaFilterOpacityValue) {
+					layer.setStyle({fillOpacity: _value});
+				}
+			});
+			$scope.areaFilterLayer = layer;
+			$scope.showAreaFilterSlider = true;
+
+		};
+
+		$scope.loadBasinGeoJSON = function (load) {
+			$scope.showLoader = true;
+			if (typeof(load) === 'undefined') load = false;
+			// Load Basin Geojson
+			$.getJSON('data/basin.geo.json')
+				.done(function (data, status) {
+
+					if (status === 'success') {
+						$scope.showLoader = false;
+						$scope.$apply();
+					}
+
+					$scope.basinGeojson = L.geoJson(data)
+					.on('click', function (e) {
+						var layer = e.layer;
+						if ($scope.areaFilterLayer) {
+							e.target.resetStyle($scope.areaFilterLayer);
+						}
+						$scope.selectedLayerData = { 'table': 'basin', 'gid': 1 };
+						layer.bringToFront();
+						layer.setStyle({
+							'color': 'red'
+						});
+						$timeout(function () { addAreaFilter(layer); });
+					});
+					map.fitBounds($scope.basinGeojson.getBounds());
+					if (load) {
+						markerCluster.addLayer($scope.basinGeojson);
+					}
+				});
+		};
+
 		$scope.loadCountryGeoJSON = function (load) {
 			$scope.showLoader = true;
 			if (typeof(load) === 'undefined') load = false;
 			// Load Country Level Geojson
-			$.getJSON('data/country_geojson.geojson')
+			$.getJSON('data/country.geo.json')
 				.done(function (data, status) {
 
 					if (status === 'success') {
@@ -390,20 +455,21 @@
 
 					$scope.countryGeojson = L.geoJson(data, {
 						onEachFeature: function (feature, layer) {
-							layer.bindPopup(feature.properties.NAME_0);
+							layer.bindPopup(feature.properties.NAME);
 						}
 					}).on('click', function (e) {
-						if ($scope.selectedLayer) {
-							e.target.resetStyle($scope.selectedLayer);
+						var layer = e.layer;
+						if ($scope.areaFilterLayer) {
+							e.target.resetStyle($scope.areaFilterLayer);
 						}
-						$scope.selectedLayerBounds = e.layer.getBounds();
-						$scope.selectedLayer = e.layer;
-						$scope.selectedLayerData = { 'table': 'country', 'iso': e.layer.feature.properties.ISO, "name": e.layer.feature.properties.NAME_0 };
-						$scope.selectedLayer.bringToFront();
-						$scope.selectedLayer.setStyle({
+						$scope.selectedLayerData = { 'table': 'country', 'gid': layer.feature.properties.PID };
+						layer.bringToFront();
+						layer.setStyle({
 							'color': 'red'
 						});
+						$timeout(function () { addAreaFilter(layer); });
 					});
+					map.fitBounds($scope.countryGeojson.getBounds());
 					if (load) {
 						markerCluster.addLayer($scope.countryGeojson);
 					}
@@ -414,7 +480,7 @@
 			$scope.showLoader = true;
 			if (typeof(load) === 'undefined') load = false;
 			// Load Admin Level 1 Geojson
-			$.getJSON('data/admin1_geojson.geojson')
+			$.getJSON('data/admin1.geo.json')
 				.done(function (data, status) {
 
 					if (status === 'success') {
@@ -422,22 +488,20 @@
 						$scope.$apply();
 					}
 
-					$scope.adminOneGeojson = L.geoJson(data, {
-						onEachFeature: function (feature, layer) {
-							layer.bindPopup(feature.properties.VARNAME_1);
+					$scope.adminOneGeojson = L.geoJson(data)
+					.on('click', function (e) {
+						var layer = e.layer;
+						if ($scope.areaFilterLayer) {
+							e.target.resetStyle($scope.areaFilterLayer);
 						}
-					}).on('click', function (e) {
-						if ($scope.selectedLayer) {
-							e.target.resetStyle($scope.selectedLayer);
-						}
-						$scope.selectedLayerBounds = e.layer.getBounds();
-						$scope.selectedLayer = e.layer;
-						$scope.selectedLayerData = { 'table': 'admin1', 'iso': e.layer.feature.properties.ISO, "id": e.layer.feature.properties.ID_1 };
-						$scope.selectedLayer.bringToFront();
-						$scope.selectedLayer.setStyle({
+						$scope.selectedLayerData = { 'table': 'admin1', 'gid': layer.feature.properties.PID };
+						layer.bringToFront();
+						layer.setStyle({
 							'color': 'red'
 						});
+						$timeout(function () { addAreaFilter(layer); });
 					});
+					map.fitBounds($scope.loadAdminOneGeoJSON.getBounds());
 					if (load) {
 						markerCluster.addLayer($scope.adminOneGeojson);
 					}
@@ -448,7 +512,7 @@
 			$scope.showLoader = true;
 			if (typeof(load) === 'undefined') load = false;
 			// Load Admin Level 2 Geojson
-			$.getJSON('data/admin2_geojson.geojson')
+			$.getJSON('data/admin2.geo.json')
 				.done(function (data, status) {
 
 					if (status === 'success') {
@@ -456,22 +520,20 @@
 						$scope.$apply();
 					}
 
-					$scope.adminTwoGeojson = L.geoJson(data, {
-						onEachFeature: function (feature, layer) {
-							layer.bindPopup(feature.properties.VARNAME_2);
+					$scope.adminTwoGeojson = L.geoJson(data)
+					.on('click', function (e) {
+						var layer = e.layer;
+						if ($scope.areaFilterLayer) {
+							e.target.resetStyle($scope.areaFilterLayer);
 						}
-					}).on('click', function (e) {
-						if ($scope.selectedLayer) {
-							e.target.resetStyle($scope.selectedLayer);
-						}
-						$scope.selectedLayerBounds = e.layer.getBounds();
-						$scope.selectedLayer = e.layer;
-						$scope.selectedLayerData = { 'table': 'admin2', 'iso': e.layer.feature.properties.ISO, "id": e.layer.feature.properties.ID_2 };
-						$scope.selectedLayer.bringToFront();
-						$scope.selectedLayer.setStyle({
+						$scope.selectedLayerData = { 'table': 'admin2', 'gid': e.layer.feature.properties.PID };
+						layer.bringToFront();
+						layer.setStyle({
 							'color': 'red'
 						});
+						$timeout(function () { addAreaFilter(layer); });
 					});
+					map.fitBounds($scope.adminTwoGeojson.getBounds());
 					if (load) {
 						markerCluster.addLayer($scope.adminTwoGeojson);
 					}
@@ -493,16 +555,13 @@
 						// Success Callback
 						$scope.showLoader = false;
 						// Clear Admin Layers if they are present
-						//$('#area-filter').val('clearLayer');
-						$scope.areaFilter.value = $scope.areaFilter.options[3];
+						//adminAreaChange('clearAreaFilter');
 						markerCluster.clearLayers();
 						// Clear the drawn Layer
-						//$scope.editableLayers.removeLayer($scope.selectedLayer);
-						if ($scope.selectedLayer) {
-							map.removeLayer($scope.selectedLayer);
+						map.removeLayer($scope.editableLayers);
+						if ($scope.areaFilterLayer) {
+							map.addLayer($scope.areaFilterLayer);
 						}
-						$scope.showDrawControl();
-						$scope.showFileUploader();
 						var features = response.data.data.features;
 						var date = $scope.selectedDate || new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
 						if (features) {
@@ -527,17 +586,13 @@
 							$scope.showDownloadButton = true;
 
 						} else {
-							$scope.addInfoAlert();
-							$scope.alertContent = 'No data is available for ' + date + '! If you think this is error, please contact us!';
-							$scope.showAlert();
+							showInfoAlert('No data is available for ' + date + '! If you think this is error, please contact us!');
 						}
 					},
 					function () {
 						// Error Callback
 						$scope.showLoader = false;
-						$scope.addDangerAlert();
-						$scope.alertContent = 'problem connecting to database. check if database port is open!';
-						$scope.showAlert();
+						showErrorAlert('problem connecting to database. check if database port is open!');
 						console.log('problem connecting to database. check if database port is open!');
 					}
 				);
@@ -545,41 +600,27 @@
 			}
 		};
 
-		// Hide Draw Control
-		$scope.hideDrawControl = function () {
-			$('.leaflet-draw.leaflet-control').hide();
-		};
-
-		// Show Draw Control
-		$scope.showDrawControl = function () {
-			$('.leaflet-draw.leaflet-control').show();
-		};
-
-		// Hide file upload control
-		$scope.hideFileUploader = function () {
-			$('.leaflet-control-filelayer').hide();
-		};
-
-		// Show file upload control
-		$scope.showFileUploader = function () {
-			$('.leaflet-control-filelayer').show();
-		};
-
 		// Marker Cluster for loading the geojson
 		var markerCluster = L.markerClusterGroup();
 		var adminAreaChange = function (type) {
 
-			if ($scope.selectedLayer) {
-				map.removeLayer($scope.selectedLayer);
-				$scope.layerControl.removeLayer($scope.selectedLayer);
-			}
 			markerCluster.clearLayers();
-			// Hide Controls
-			$scope.hideDrawControl();
-			$scope.hideFileUploader();
+			if ($scope.areaFilterLayer) {
+				$scope.editableLayers.removeLayer($scope.areaFilterLayer);
+				map.removeLayer($scope.areaFilterLayer);
+				areaFilterSlider.slider('destroy');
+				areaFilterSlider = null;
+				$scope.showAreaFilterSlider = false;
+				$scope.areaFilterLayer = null;
+				$scope.selectedLayerData = {};
+			}
 
 			if (type === 'country') {
 				if ($scope.countryGeojson) {
+					map.fitBounds($scope.countryGeojson.getBounds());
+					$scope.countryGeojson.eachLayer(function (layer) {
+						$scope.countryGeojson.resetStyle(layer);
+					});
 					markerCluster.addLayer($scope.countryGeojson);
 				} else {
 					$scope.loadCountryGeoJSON(true);
@@ -587,6 +628,10 @@
 				map.addLayer(markerCluster);
 			} else if (type === 'admin1') {
 				if ($scope.adminOneGeojson) {
+					map.fitBounds($scope.adminOneGeojson.getBounds());
+					$scope.adminOneGeojson.eachLayer(function (layer) {
+						$scope.adminOneGeojson.resetStyle(layer);
+					});
 					markerCluster.addLayer($scope.adminOneGeojson);
 				} else {
 					$scope.loadAdminOneGeoJSON(true);
@@ -594,12 +639,33 @@
 				map.addLayer(markerCluster);
 			} else if (type === 'admin2') {
 				if ($scope.adminTwoGeojson) {
+					map.fitBounds($scope.adminTwoGeojson.getBounds());
+					$scope.adminTwoGeojson.eachLayer(function (layer) {
+						$scope.adminTwoGeojson.resetStyle(layer);
+					});
 					markerCluster.addLayer($scope.adminTwoGeojson);
 				} else {
 					$scope.loadAdminTwoGeoJSON(true);
 				}
 				map.addLayer(markerCluster);
-			}
+			} else if (type === 'basin') {
+				if ($scope.basinGeojson) {
+					map.fitBounds($scope.basinGeojson.getBounds());
+					$scope.basinGeojson.eachLayer(function (layer) {
+						$scope.basinGeojson.resetStyle(layer);
+					});
+					markerCluster.addLayer($scope.basinGeojson);
+				} else {
+					$scope.loadBasinGeoJSON(true);
+				}
+			} /*else if (type === 'clearAreaFilter') {
+				if ($scope.areaFilterLayer) {
+					map.removeLayer($scope.areaFilterLayer);
+					$scope.areaFilterLayer = null;
+					$scope.showAreaFilterSlider = false;
+					$scope.selectedLayerData = {};
+				}
+			}*/
 			return false;
 		};
 
@@ -612,40 +678,24 @@
 			position: 'bottomright'
 		}).addTo(map);
 
-		// Show layer control
-		$scope.showLayerControl = function () {
-			$('.leaflet-control-layers').show();
-		};
-		// Hide layer control
-		$scope.hideLayerControl = function () {
-			$('.leaflet-control-layers').hide();
-		};
-
 		// Add editable layers
 		map.addLayer($scope.editableLayers);
-		// Add layer control to display at top
-		map.addControl($scope.layerControl);
-		// Dont show yet
-		$scope.hideLayerControl();
 
 		// When draw is created
 		map.on('draw:created', function (e) {
-			if ($scope.selectedLayer) {
-				map.removeLayer($scope.selectedLayer);
-				$scope.layerControl.removeLayer($scope.selectedLayer);
-			}
+			adminAreaChange();
 			var layer = e.layer;
-			$scope.selectedLayer = layer;
-			$scope.selectedLayerData = { 'drawWKT': Terraformer.WKT.convert(layer.toGeoJSON().geometry) };
-			//$scope.selectedLayerData = { "drawGeojson": JSON.stringify(layer.toGeoJSON()) };
+			$scope.selectedLayerData = { 'wkt': Terraformer.WKT.convert(layer.toGeoJSON().geometry) };
 			$scope.editableLayers.addLayer(layer);
+			map.fitBounds(layer.getBounds());
+			$timeout(function () { addAreaFilter(layer); });
 		});
 
 		// FileLayer (KML/GeoJSON/GPX)
 		var fileLayerStyle = {
 			color: 'red',
-			opacity: 1.0,
-			fillOpacity: 1.0,
+			opacity: 0.2,
+			fillOpacity: 0.2,
 			weight: 1,
 			clickable: false
 		};
@@ -674,61 +724,27 @@
 
 		// Event on data load
 		fileLayerControl.loader.on('data:loaded', function (e) {
-			// Add to map layer switcher
-			if ($scope.selectedLayer) {
-				map.removeLayer($scope.selectedLayer);
-			}
+
+			adminAreaChange();
 			var layer = e.layer;
 			var geojson = layer.toGeoJSON();
-			var layerId = layer._leaflet_id;
-			var layerName = e.filename.substr(0, e.filename.split(e.format)[0].length - 1);
-			var layerObject = { 'layerId': layerId };
-			$scope.selectedLayer = layer;
 			if (geojson.type === 'FeatureCollection') {
 				if (geojson.features.length === 1) {
-					$scope.selectedLayerData = { 'drawWKT': Terraformer.WKT.convert(geojson.features[0].geometry) };
+					if (geojson.features[0].geometry.type === 'GeometryCollection') {
+						map.removeLayer(layer);
+						return alert('GeometryCollection is not supported!!!');
+					} else {
+						$scope.selectedLayerData = { 'wkt': Terraformer.WKT.convert(geojson.features[0].geometry) };
+					}
 				} else {
+					map.removeLayer(layer);
 					return alert('FeatureCollection not supported!!!');
 				}
 			} else {
-				$scope.selectedLayerData = { 'drawFileWKT': Terraformer.WKT.convert(geojson.geometry) };
+				$scope.selectedLayerData = { 'wkt': Terraformer.WKT.convert(geojson.geometry) };
 			}
-
-			//$scope.fileLayers.append(e.layer);
-			if ($scope.fileLayers) {
-				$scope.layerControl.removeLayer($scope.selectedLayer);
-			}
-			$scope.fileLayers = layerObject;
-			//$scope.fileLayers.addLayer(layer);
-			// Show layer control
-			$scope.showLayerControl();
-			$scope.layerControl.addOverlay(layer, "<b><span style='color: red; font-size: 15px;'>" + layerName + "</span></b>");
-
-			$('.leaflet-control-layers-list').find('.leaflet-control-layers-overlays').append("<div id=" + layerId + "></div>");
-
-			var sliderDiv = document.getElementById(layerId);
-			noUiSlider.create(sliderDiv, {
-				// Create two timestamps to define a range.
-				range: {
-					min: 0,
-					max: 1
-				},
-				step: 0.1,
-				start: 1,
-				connect: 'lower'
-			});
-
-			// Event Handler for slider
-			sliderDiv.noUiSlider.on('end', function (values, handle, unencoded) {
-				var layer = $scope.layerControl._getLayer($scope.fileLayers.layerId).layer;
-				layer.setStyle({
-					fillOpacity: unencoded[0],
-					opacity: unencoded[0]
-				});
-			});
-
-			//$scope.hideDrawControl();
-
+			// Add area Filter
+			$timeout(function () { addAreaFilter(layer); });
 		});
 
 		// Add draw control
@@ -907,9 +923,7 @@
 
 		var prepareUrlForAPI = function (action, apply) {
 			if (!$scope.indexOption.option) {
-				$scope.alertContent = 'No parameter specified!';
-				$scope.addDangerAlert();
-				$scope.showAlert();
+				showErrorAlert('No parameter specified!');
 				if (apply) {
 					$scope.$apply();
 				}
@@ -945,8 +959,8 @@
 						// Success Callback
 
 						// Clear Admin Layers if they are present
-						$('#clearLayer').prop('checked', true);
-						markerCluster.clearLayers();
+						//$('#clearLayer').prop('checked', true);
+						//markerCluster.clearLayers();
 
 						var formattedData = [];
 
@@ -969,9 +983,7 @@
 					function () {
 						// Error Callback
 						$scope.showLoader = false;
-						$scope.addDangerAlert();
-						$scope.alertContent = 'problem connecting to database. check if database port is open!';
-						$scope.showAlert();
+						showErrorAlert('problem connecting to database. check if database port is open!');
 						console.log('problem connecting to database. check if database port is open!');
 					}
 				);
@@ -1103,9 +1115,7 @@
 				function () {
 					// Error Callback
 					$scope.showLoader = false;
-					$scope.addDangerAlert();
-					$scope.alertContent = 'problem connecting to database. check if database port is open!';
-					$scope.showAlert();
+					showErrorAlert('problem connecting to database. check if database port is open!');
 					console.log('problem connecting to database. check if database port is open!');
 				}
 			);
@@ -1157,9 +1167,7 @@
 					function () {
 						// Error Callback
 						$scope.showLoader = false;
-						$scope.addDangerAlert();
-						$scope.alertContent = 'problem connecting to database. check if database port is open!';
-						$scope.showAlert();
+						showErrorAlert('problem connecting to database. check if database port is open!');
 						console.log('problem connecting to database. check if database port is open!');
 					}
 				);
@@ -1190,48 +1198,6 @@
 			} else {
 				$scope.opacitySliderIcon = 'fa fa-eye-slash fa-2x';
 			}
-		};
-
-		// Turf Clip
-		var turfClip = function (clipping_geojson, input_geojson) {
-			var clipping_geojson_features = turf.flatten(clipping_geojson).features;
-			var input_geojson_features = turf.flatten(input_geojson).features;
-			var output_geojson = {
-				"type": "FeatureCollection",
-				"features": []
-			};
-			for (var i = clipping_geojson_features.length - 1; i >= 0; i--) {
-				var geo1 = clipping_geojson_features[i];
-				for (var j = input_geojson_features.length - 1; j >= 0; j--) {
-					var geo2 = input_geojson_features[j];
-					if (polygonContains(geo1, geo2)) {
-						output_geojson.features.push(geo2);
-					} else if (polygonContains(geo2, geo1)) {
-						geo1.properties = geo2.properties;
-						output_geojson.features.push(geo1);
-					} else {
-						var result = turf.intersect(geo1, geo2);
-						if (result) {
-							result.properties = geo2.properties;
-							output_geojson.features.push(result);
-						}
-					}
-				}
-			}
-			return output_geojson;
-		};
-
-		var polygonContains = function (polygon1, polygon2) {
-
-			var isInside = true;
-			var features = turf.explode(polygon2).features;
-			for (var i = features.length - 1; i >= 0; i--) {
-				if (!turf.inside(features[i], polygon1)) {
-					isInside = false;
-					break;
-			 	}
-			}
-			return isInside;
 		};
 
 	});

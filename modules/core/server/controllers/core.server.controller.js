@@ -92,10 +92,8 @@ exports.getMapData = function (req, res) {
 	var body = req.body;
 
 	var table = body.table;
-	var id = body.id;
-	var iso = body.iso;
-	var name = body.name;
-	var drawWKT = body.drawWKT || body.drawFileWKT;
+	var gid = body.gid;
+	var wkt = body.wkt;
 
 	// URL Parameters
 	var tableName = params.index;
@@ -107,12 +105,10 @@ exports.getMapData = function (req, res) {
 	var whereClause = "date='" + fdate + "'";
 
 	var clippingGeomQuery = "";
-	if (drawWKT) {
-		clippingGeomQuery = "(SELECT ST_GeomFromText('" + drawWKT + "', 4326) as geom)";
-	} else if (id) {
-		clippingGeomQuery = "(SELECT * FROM " + table + " WHERE iso='" + iso + "' and id=" + id + ")";
-	} else if (name) {
-		clippingGeomQuery = "(SELECT * FROM " + table + " WHERE iso='" + iso + "' and name='" + name + "')";
+	if (wkt) {
+		clippingGeomQuery = "(SELECT ST_GeomFromText('" + wkt + "', 4326) as geom)";
+	} else if (gid) {
+		clippingGeomQuery = "(SELECT geom FROM " + table + " WHERE gid=" + gid + " LIMIT 1)";
 	}
 
 	db.task(t => {

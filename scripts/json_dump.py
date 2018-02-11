@@ -5,7 +5,7 @@ import json
 import os
 import shapefile
 
-foldername = 'MK_Basin_LMR2'
+foldername = 'geojson'
 os.path.dirname(os.path.dirname(__file__))
 path = os.path.join(os.getcwd(), foldername)
 path = os.path.abspath(path)

@@ -221,3 +221,7 @@
 	display: inline-block;
 	font-size: 40px;
 }
+
+#areaFilterSlider .slider-selection {
+	background: rgb(186, 186, 186);
+}
