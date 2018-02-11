@@ -501,7 +501,7 @@
 						});
 						$timeout(function () { addAreaFilter(layer); });
 					});
-					map.fitBounds($scope.loadAdminOneGeoJSON.getBounds());
+					map.fitBounds($scope.adminOneGeojson.getBounds());
 					if (load) {
 						markerCluster.addLayer($scope.adminOneGeojson);
 					}
