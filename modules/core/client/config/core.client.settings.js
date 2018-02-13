@@ -1466,31 +1466,31 @@
 			surf_temp: [
 				{
 					'name': '0 - 10',
-					'color': '#ca0020',
+					'color': '#0571b0',
 					'min_value': 0,
 					'max_value': 10
 				},
 				{
 					'name': '10 - 13',
-					'color': '#da4247',
+					'color': '#3d92c2',
 					'min_value': 10,
 					'max_value': 13
 				},
 				{
 					'name': '13 - 16',
-					'color': '#eb846e',
+					'color': '#75b4d4',
 					'min_value': 13,
 					'max_value': 16
 				},
 				{
 					'name': '16 - 19',
-					'color': '#f4b599',
+					'color': '#a6cfe3',
 					'min_value': 16,
 					'max_value': 19
 				},
 				{
 					'name': '19 - 22',
-					'color': '#f5d6c8',
+					'color': '#cee3ed',
 					'min_value': 19,
 					'max_value': 22
 				},
@@ -1502,31 +1502,31 @@
 				},
 				{
 					'name': '25 - 28',
-					'color': '#cee3ed',
+					'color': '#f5d6c8',
 					'min_value': 25,
 					'max_value': 28
 				},
 				{
 					'name': '28 - 31',
-					'color': '#a6cfe3',
+					'color': '#f4b599',
 					'min_value': 28,
 					'max_value': 31
 				},
 				{
 					'name': '31 - 34',
-					'color': '#75b4d4',
+					'color': '#eb846e',
 					'min_value': 31,
 					'max_value': 34
 				},
 				{
 					'name': '34 - 36',
-					'color': '#3d92c2',
+					'color': '#da4247',
 					'min_value': 34,
 					'max_value': 36
 				},
 				{
 					'name': '36+',
-					'color': '#0571b0',
+					'color': '#ca0020',
 					'value': 36,
 					'nature': 'greater'
 				}
