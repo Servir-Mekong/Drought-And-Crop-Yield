@@ -420,7 +420,9 @@
 						$scope.showLoader = false;
 						$scope.$apply();
 					}
-
+					// Adding default filter for this single polygon geojson
+					//$scope.selectedLayerData = { 'table': 'basin', 'gid': 1 };
+					//$timeout(function () { addAreaFilter(L.GeoJSON.geometryToLayer(data.features[0])); });
 					$scope.basinGeojson = L.geoJson(data)
 					.on('click', function (e) {
 						var layer = e.layer;
@@ -462,6 +464,7 @@
 						if ($scope.areaFilterLayer) {
 							e.target.resetStyle($scope.areaFilterLayer);
 						}
+						
 						$scope.selectedLayerData = { 'table': 'country', 'gid': layer.feature.properties.PID };
 						layer.bringToFront();
 						layer.setStyle({
@@ -658,6 +661,7 @@
 				} else {
 					$scope.loadBasinGeoJSON(true);
 				}
+				map.addLayer(markerCluster);
 			} /*else if (type === 'clearAreaFilter') {
 				if ($scope.areaFilterLayer) {
 					map.removeLayer($scope.areaFilterLayer);
