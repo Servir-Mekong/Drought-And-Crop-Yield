@@ -252,10 +252,10 @@
 
 		// Forward Slider
 		$scope.slideForward = function () {
+			var date = new Date($scope.selectedDate);
+			date.setDate(date.getDate() + 1);
 			$scope.selectedDate = [
-				new Date($scope.selectedDate).getFullYear(),
-				((new Date($scope.selectedDate).getMonth() + 1) > 9 ? '' : '0') + (new Date($scope.selectedDate).getMonth() + 1) ,
-				((new Date($scope.selectedDate).getDate() + 1) > 9 ? '' : '0') + (new Date($scope.selectedDate).getDate() + 1)
+				date.getFullYear(), ((date.getMonth() + 1) > 9 ? '' : '0') + (date.getMonth() + 1) , ((date.getDate()) > 9 ? '' : '0') + (date.getDate())
 			].join('-');
 			tooltipInput.value = $scope.selectedDate;
 			timeSlider.noUiSlider.set(new Date($scope.selectedDate).getTime());
@@ -266,10 +266,10 @@
 
 		// Backward Slider
 		$scope.slideBackward = function () {
+			var date = new Date($scope.selectedDate);
+			date.setDate(date.getDate() - 1);
 			$scope.selectedDate = [
-				new Date($scope.selectedDate).getFullYear(),
-				((new Date($scope.selectedDate).getMonth() + 1) > 9 ? '' : '0') + (new Date($scope.selectedDate).getMonth() + 1) ,
-				((new Date($scope.selectedDate).getDate() - 1) > 9 ? '' : '0') + (new Date($scope.selectedDate).getDate() - 1)
+				date.getFullYear(), ((date.getMonth() + 1) > 9 ? '' : '0') + (date.getMonth() + 1) , ((date.getDate()) > 9 ? '' : '0') + (date.getDate())
 			].join('-');
 			tooltipInput.value = $scope.selectedDate;
 			timeSlider.noUiSlider.set(new Date($scope.selectedDate).getTime());
