@@ -377,6 +377,11 @@
 		indexOptions: {
 			drought: [
 				{
+					'value': 'cdi',
+					'name': 'Combined Drought Index',
+					'title': 'This is an experimental inex and it shows combined drought intensity from SPI-3, SRI-3 and SMDI.  this is suitable for seasonal estimation of drought intensity '
+				},
+				{
 					'value': 'severity',
 					'name': 'Drought Severity (%)',
 					'title': 'Agricultural drought severity is derived from the root zone soil moisture expressed as a percentile of the 1981-2010 climatology. Low percentile values show high drought severity'
@@ -1463,6 +1468,7 @@
 			sri3: spi_sri_legend,
 			sri6: spi_sri_legend,
 			sri12: spi_sri_legend,
+			cdi: spi_sri_legend,
 			surf_temp: [
 				{
 					'name': '0 - 10',
