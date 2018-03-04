@@ -58,6 +58,7 @@ access.log
 .metadata
 *~.nib
 local.properties
+.pydevproject
 
 # IntelliJ
 # ========

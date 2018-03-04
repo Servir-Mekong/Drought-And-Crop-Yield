@@ -223,8 +223,9 @@
 			},
 			{
 				'name': 'How To Use',
-				'url': '#',
-				'show': true
+				'url': 'https://goo.gl/rxeaKN',
+				'show': true,
+				'target': '_blank'
 			},
 			{
 				'name': 'Document',
@@ -233,8 +234,9 @@
 			},
 			{
 				'name': 'Feedback',
-				'url': '#',
-				'show': true
+				'url': 'https://goo.gl/forms/P2Lc5yBOOshT5uem1',
+				'show': true,
+				'target': '_blank'
 			}
 		],
 		applicationName: 'Regional Drought and Crop Yield Information System',

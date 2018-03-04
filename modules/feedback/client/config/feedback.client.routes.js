@@ -10,8 +10,7 @@
 	function routeConfig($stateProvider) {
 		$stateProvider
 			.state('feedback', {
-				url: '/feedback',
-				templateUrl: 'modules/feedback/client/views/feedback.client.view.html'
+				url: '/feedback'
 			});
 	}
 })();

@@ -10,8 +10,7 @@
 	function routeConfig($stateProvider) {
 		$stateProvider
 			.state('how-to-use', {
-				url: '/how-to-use',
-				templateUrl: 'modules/how-to-use/client/views/how-to-use.client.view.html'
+				url: '/how-to-use'
 			});
 	}
 })();

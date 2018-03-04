@@ -10,8 +10,7 @@
 	function routeConfig($stateProvider) {
 		$stateProvider
 			.state('doc', {
-				url: '/doc',
-				templateUrl: 'modules/doc/client/views/doc.client.view.html'
+				url: '/doc'
 			});
 	}
 })();
