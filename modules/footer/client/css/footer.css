@@ -41,14 +41,6 @@ footer .partner-sei {
     width: 250px !important;
     margin: auto;
 }
-footer .partner-mrc {
-    display: block;
-    max-width: 182px;
-    max-height: 100px;
-    width: auto;
-    height: auto;
-    margin: -5px auto 10px auto;
-}
 
 footer > div img {
 	width: 70%;

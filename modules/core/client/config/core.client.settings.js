@@ -326,12 +326,6 @@
 				'url': 'https://www.deltares.nl/en/',
 				'src': 'https://servir.adpc.net/themes/svmk/images/optimized/partner-deltares.png',
 				'className': 'partner-deltares'
-			},
-			{
-				'alt': 'MRC',
-				'url': 'http://www.mrcmekong.org/',
-				'src': '/modules/core/client/img/mrc.jpg',
-				'className': 'partner-mrc'
 			}
 		],
 		months : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],

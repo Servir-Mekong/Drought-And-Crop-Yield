@@ -84,7 +84,7 @@
 	}
 }
 
-.adpc {
+.adpc, .vawr {
     background-size: auto 50px;
     width: 110px !important;
     float: left;
@@ -110,7 +110,7 @@
 	}
 }
 
-.jpl {
+.jpl, .mrc {
 	background-size: auto 50px;
     width: 60px !important;
     float: left;
