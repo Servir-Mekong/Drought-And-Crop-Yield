@@ -21,6 +21,7 @@ coverage/
 # MEAN.js app and assets
 # ======================
 public/dist/
+public/data/countries/
 uploads
 config/env/local.js
 config/env/local-*.js

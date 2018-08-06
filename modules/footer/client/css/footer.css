@@ -39,7 +39,7 @@ footer .partner-sig {
 
 footer .partner-sei {
     width: 250px !important;
-    margin: auto;
+    margin: -5% auto auto auto;
 }
 
 footer > div img {

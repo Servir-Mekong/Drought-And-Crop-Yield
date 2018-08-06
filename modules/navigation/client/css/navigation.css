@@ -118,6 +118,11 @@
     margin-top: 10px;
 }
 
+.sei {
+    width: 130px !important;
+    margin-left: -15px;
+}
+
 .navmenu {
 	color: rgb(255,255,255) !important;
     color: rgba(255,255,255,0.87) !important;

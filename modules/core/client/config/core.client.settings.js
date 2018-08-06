@@ -318,7 +318,7 @@
 			{
 				'alt': 'Stockholm Environment Institute',
 				'url': 'https://www.sei-international.org/',
-				'src': 'https://servir.adpc.net/themes/svmk/images/optimized/partner-sei.png',
+				'src': 'https://servir.adpc.net/themes/svmk/images/optimized/partner-sei-2.png',
 				'className': 'partner-sei'
 			},
 			{
