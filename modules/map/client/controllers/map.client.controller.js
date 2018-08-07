@@ -114,7 +114,7 @@
 
 		// System upgrade notice
 		$scope.chartModalTitle = 'Important: System Upgrade Notice';
-		$('.modal-body').html('<h3>Dear valued user, <br/> We are currently upgrading our RHEAS service with much more robust and accurate model run. As a result, the current database is not updated! We regreat any inconvenience that may have caused during this period.<br/> Thank you for your understanding and being with us!</h3>');
+		$('.modal-body').html('<h3>Dear valued user, <br/> We are currently upgrading our Regional Drought and Crop Yield Information Service with much more robust and accurate information. As a result, the current information database is not updated regularly. Sorry for the inconvenience is being caused during this period.<br/> Thank you for your understanding and being with us!</h3>');
 
 		$scope.showModal();
 
