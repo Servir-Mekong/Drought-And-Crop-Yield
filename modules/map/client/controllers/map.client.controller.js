@@ -89,6 +89,35 @@
 		$scope.showTimeSlider = true;
 		$scope.showAreaFilterSlider = false;
 
+		// Modal Close Function
+		$scope.closeModal = function () {
+			$('.modal-body').html('');
+			$('#chartModal').addClass('display-none-imp');
+		};
+
+		// Modal Open Function
+		$scope.showModal = function () {
+			$('#chartModal').removeClass('display-none-imp');
+		};
+
+		// Close the Modal
+		$('.modal-close').click(function () {
+			$scope.closeModal();
+		});
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function (event) {
+			if (event.target === $('#chartModal')[0]) {
+				$scope.closeModal();
+			}
+		};
+
+		// System upgrade notice
+		$scope.chartModalTitle = 'Important: System Upgrade Notice';
+		$('.modal-body').html('<h3>Dear valued user, <br/> We are currently upgrading our RHEAS service with much more robust and accurate model run. As a result, the current database is not updated! We regreat any inconvenience that may have caused during this period.<br/> Thank you for your understanding and being with us!</h3>');
+
+		$scope.showModal();
+
 		$scope.activateToolTip = function () {
 			$('.js-tooltip').tooltip();
 		};
@@ -994,29 +1023,6 @@
 
 			}
 
-		};
-
-		// Modal Close Function
-		$scope.closeModal = function () {
-			$('.modal-body').html('');
-			$('#chartModal').addClass('display-none-imp');
-		};
-
-		// Modal Open Function
-		$scope.showModal = function () {
-			$('#chartModal').removeClass('display-none-imp');
-		};
-
-		// Close the Modal
-		$('.modal-close').click(function () {
-			$scope.closeModal();
-		});
-
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function (event) {
-			if (event.target === $('#chartModal')[0]) {
-				$scope.closeModal();
-			}
 		};
 
 		// Creates graph from the given data
