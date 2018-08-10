@@ -27,6 +27,7 @@ module.exports = {
 				'public/lib/nouislider/distribute/nouislider.min.js',
 				'public/lib/highcharts/highstock.js',
 				'public/lib/highcharts/modules/exporting.js',
+				'public/lib/highcharts/modules/export-data.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
 				'public/lib/leaflet/dist/leaflet.js',
 				'public/lib/leaflet-draw/dist/leaflet.draw.js',

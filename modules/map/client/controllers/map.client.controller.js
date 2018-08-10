@@ -16,6 +16,7 @@
 				}
 			}
 		};
+
 		$scope.areaFilter.value = getAreaFilterDefault();
 		$scope.indexSelectors = settings.indexSelectors;
 		$scope.indexOptions = null;
@@ -458,7 +459,7 @@
 						if ($scope.areaFilterLayer) {
 							e.target.resetStyle($scope.areaFilterLayer);
 						}
-						$scope.selectedLayerData = { 'table': 'basin', 'gid': 1 };
+						$scope.selectedLayerData = { 'from': 'basin', 'gid': 1 };
 						layer.bringToFront();
 						layer.setStyle({
 							'color': 'red'
@@ -494,7 +495,7 @@
 							e.target.resetStyle($scope.areaFilterLayer);
 						}
 						
-						$scope.selectedLayerData = { 'table': 'country', 'gid': layer.feature.properties.PID };
+						$scope.selectedLayerData = { 'from': 'country', 'name': layer.feature.properties.NAME };
 						layer.bringToFront();
 						layer.setStyle({
 							'color': 'red'
@@ -526,7 +527,7 @@
 						if ($scope.areaFilterLayer) {
 							e.target.resetStyle($scope.areaFilterLayer);
 						}
-						$scope.selectedLayerData = { 'table': 'admin1', 'gid': layer.feature.properties.PID };
+						$scope.selectedLayerData = { 'from': 'admin1', 'country': layer.feature.properties.country, 'gid': layer.feature.properties.gid };
 						layer.bringToFront();
 						layer.setStyle({
 							'color': 'red'
@@ -558,7 +559,7 @@
 						if ($scope.areaFilterLayer) {
 							e.target.resetStyle($scope.areaFilterLayer);
 						}
-						$scope.selectedLayerData = { 'table': 'admin2', 'gid': e.layer.feature.properties.PID };
+						$scope.selectedLayerData = { 'from': 'admin2', 'country': layer.feature.properties.country, 'gid': layer.feature.properties.gid };
 						layer.bringToFront();
 						layer.setStyle({
 							'color': 'red'
@@ -602,7 +603,7 @@
 								legendTitle = $scope.indexOption.option.name;
 
 							if (['baseflow'].indexOf(index) > -1) {
-								legendTitle += ' Baseflow out of the Bottom Layer (mm) ';
+								legendTitle += ' out of the Bottom Layer (mm) ';
 							} else if (['dryspells'].indexOf(index) > -1) {
 								legendTitle += ' during last 14 days duration ';
 							}
@@ -995,18 +996,44 @@
 						//$('#clearLayer').prop('checked', true);
 						//markerCluster.clearLayers();
 
-						var formattedData = [];
+						var mean = [], min = [], max = [], stddev = [];
 
 						for (var i = 0; i < response.data.length; ++i) {
-							var data = [Date.parse(response.data[i].data.date), response.data[i].data.average];
-							formattedData.push(data);
+							mean.push([Date.parse(response.data[i].data.date), response.data[i].data.mean]);
+							min.push([Date.parse(response.data[i].data.date), response.data[i].data.min]);
+							max.push([Date.parse(response.data[i].data.date), response.data[i].data.max]);
+							stddev.push([Date.parse(response.data[i].data.date), response.data[i].data.stddev]);
 						}
+						var seriesOptions = [
+							{
+								name: 'Average',
+								data: mean
+							},
+							{
+								name: 'Minimum',
+								data: min
+							},
+							{
+								name: 'Maximum',
+								data: max
+							},
+							{
+								name: 'Standard Deviation',
+								data: stddev
+							}
+						];
+
+						// Create graph on it
+						var scope = "Regional";
+						if ($scope.selectedLayerData.from === "country") {
+							scope = $scope.selectedLayerData.name.charAt(0).toUpperCase() + $scope.selectedLayerData.name.slice(1);
+						} else if (["admin1", "admin2"].indexOf($scope.selectedLayerData.from) > -1) {
+							scope = $scope.selectedLayerData.country.charAt(0).toUpperCase() + $scope.selectedLayerData.country.slice(1);
+						}
+						$scope.createGraph(seriesOptions, scope);
 
 						// Show Model
 						$scope.showModal();
-
-						// Create graph on it
-						$scope.createGraph(formattedData);
 
 						// Close Loader
 						$scope.showLoader = false;
@@ -1026,68 +1053,40 @@
 		};
 
 		// Creates graph from the given data
-		$scope.createGraph = function (data) {
-			//$(".modal-body").show();
+		$scope.createGraph = function (seriesOptions, scope) {
 			$scope.chartModalTitle = 'Charts and Graphs';
-			$('.modal-body').highcharts({
-				chart: {
-					type: 'spline'
-				},
+
+			Highcharts.stockChart('modal-body', {
 				title: {
-					text: 'Average ' + $scope.indexOption.option.name + ' Value (Regional)'
+					text: $scope.indexOption.option.name + ' (' + scope + ')'
 				},
 				rangeSelector: {
-					enabled: true,
-					inputEnabled: true,
-					buttons: [{
-						type: 'day',
-						count: 3,
-						text: '3d'
-					}, {
-						type: 'week',
-						count: 1,
-						text: '1w'
-					}, {
-						type: 'month',
-						count: 1,
-						text: '1m'
-					}, {
-						type: 'month',
-						count: 3,
-						text: '3m'
-					}, {
-						type: 'month',
-						count: 6,
-						text: '6m'
-					}, {
-						type: 'year',
-						count: 1,
-						text: '1y'
-					}, {
-						type: 'all',
-						text: 'All'
-					}],
-					selected: 3
-				},
-				xAxis: {
-					type: 'datetime',
-					dateTimeLabelFormats: {
-						month: '%e. %b, %Y',
-						year: '%b'
-					},
-					title: {
-						text: 'Date'
-					}
+					selected: 4
 				},
 				yAxis: {
 					title: {
-						text: 'Average ' + $scope.indexOption.option.name + ' (Regional)'
+						text: $scope.indexOption.option.name + ' (' + scope + ')'
+					},
+					labels: {
+						align: 'left'
+					},
+					plotLines: [
+						{
+					  		value: 0,
+					  		width: 2,
+					  		color: 'silver'
+						}
+					]
+				},
+				plotOptions: {
+					series: {
+					  	showInNavigator: true
 					}
 				},
-				series: [{
-					name: $scope.indexOption.option.name,
-					data: data
-				}]
+				tooltip: {
+					pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>'
+				},
+				series: seriesOptions
 			});
 		};
 
