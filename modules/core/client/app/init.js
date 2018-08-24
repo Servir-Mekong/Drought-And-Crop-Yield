@@ -4,11 +4,21 @@
 angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
 
 // Setting HTML5 Location Mode
-angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider', '$httpProvider', '$interpolateProvider',
-	function ($locationProvider, $httpProvider, $interpolateProvider) {
+angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider', '$interpolateProvider', '$translateProvider',
+	function ($locationProvider, $interpolateProvider, $translateProvider) {
 		$interpolateProvider.startSymbol('[[');
 		$interpolateProvider.endSymbol(']]');
 		$locationProvider.html5Mode(true).hashPrefix('!');
+
+		$translateProvider.useStaticFilesLoader({
+			prefix: 'languages/',
+			suffix: '.json'
+		});
+		$translateProvider
+		.preferredLanguage('en')
+		.fallbackLanguage('en')
+		.usePostCompiling(true);
+
 	}
 ]);
 

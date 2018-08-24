@@ -17,6 +17,7 @@
 		"$": true,
 		"angular": true,
 		"ApplicationConfiguration": true,
+		"Highcharts": true,
 		"io": true,
 		"L": true,
 		"noUiSlider": true,

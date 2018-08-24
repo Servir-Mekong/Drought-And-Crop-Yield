@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function () {
 	// Init module configuration options
 	var applicationModuleName = 'rheas';
-	var applicationModuleVendorDependencies = ['ui.router'];
+	var applicationModuleVendorDependencies = ['ui.router', 'pascalprecht.translate'];
 
 	// Add a new vertical module
 	var registerModule = function (moduleName, dependencies) {

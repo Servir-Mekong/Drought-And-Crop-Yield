@@ -27,7 +27,9 @@
     "leaflet-filelayer": "git://github.com/makinacorpus/Leaflet.FileLayer.git#^1.1.0",
     "leaflet.markercluster": "git://github.com/Leaflet/Leaflet.markercluster.git#^1.0.6",
     "normalize-css": "^7.0.0",
-    "seiyria-bootstrap-slider": "^10.0.0"
+    "seiyria-bootstrap-slider": "^10.0.0",
+    "angular-translate": "^2.18.1",
+    "angular-translate-loader-static-files": "^2.18.1"
   },
   "resolutions": {
     "leaflet": "1.0.0"
