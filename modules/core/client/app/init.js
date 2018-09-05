@@ -17,7 +17,8 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 		$translateProvider
 		.preferredLanguage('en')
 		.fallbackLanguage('en')
-		.usePostCompiling(true);
+		.usePostCompiling(true)
+		.useSanitizeValueStrategy('sanitize');
 
 	}
 ]);

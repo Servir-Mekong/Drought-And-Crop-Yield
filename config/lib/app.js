@@ -5,7 +5,7 @@
  */
 var config = require('../config'),
 	chalk = require('chalk'),
-	db = require('./pg-promise'),
+	db = require('./db'),
 	express = require('./express');
 
 chalk.enabled = true;

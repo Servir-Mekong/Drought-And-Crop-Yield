@@ -29,7 +29,8 @@
     "normalize-css": "^7.0.0",
     "seiyria-bootstrap-slider": "^10.0.0",
     "angular-translate": "^2.18.1",
-    "angular-translate-loader-static-files": "^2.18.1"
+    "angular-translate-loader-static-files": "^2.18.1",
+    "angular-sanitize": "1.6.6"
   },
   "resolutions": {
     "leaflet": "1.0.0"

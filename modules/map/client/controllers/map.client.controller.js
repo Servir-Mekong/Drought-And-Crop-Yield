@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	angular.module('rheas').controller('mapCtrl', function ($http, $scope, $state, $timeout, $window, settings) {
+	angular.module('rheas').controller('mapCtrl', function ($http, $scope, $timeout, $window, settings) {
 
 		// Settings
 		var legend = settings.legend;
@@ -965,15 +965,17 @@
 			}
 
 			$scope.showLoader = true;
-			var start = $scope.selectedDate || new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
-				data = {
-					'action': action,
-					'index': $scope.indexOption.option.value,
-					'date': start
-				},
-				url = '/' + $.param(data);
 
-			return url;
+			var data = {
+				'action': action,
+				'index': $scope.indexOption.option.value
+			};
+
+			if (action !== 'graph-data') {
+				var start = $scope.selectedDate || new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+				data.date = start;
+			}
+			return '/' + $.param(data);
 		};
 
 		/**
@@ -1084,7 +1086,8 @@
 					}
 				},
 				tooltip: {
-					pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>'
+					pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
+					valueDecimals: 3
 				},
 				series: seriesOptions
 			});

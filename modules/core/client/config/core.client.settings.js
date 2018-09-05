@@ -375,7 +375,7 @@
 				{
 					'value': 'cdi',
 					'name': 'Combined Drought Index',
-					'title': 'This is an experimental inex and it shows combined drought intensity from SPI-3, SRI-3 and SMDI.  this is suitable for seasonal estimation of drought intensity '
+					'title': 'This index is calculated using SPI3, the anomalies of the fraction of Absorbed Photosynthetically Active Radiation (fAPAR) andsoil suction (pF) .  Four warning categories are available as Watch: Precipitation deficit, Warning: Soil moisture deficit, Alert 1: Vegetation stress following precipitation deficit, Alert 2: Vegetation stress following precipitation/soil moisture deficit.'
 				},
 				{
 					'value': 'severity',
@@ -500,6 +500,16 @@
 					'value': 'surf_temp',
 					'name': 'Average Surface Temperature [C]',
 					'title': 'Average surface temperature [C]'
+				},
+				{
+					'value': 'tmax',
+					'name': 'Maximum Temperature [C]',
+					'title': 'Daily Maximum Temperature [C] measured at 2m above the surface'
+				},
+				{
+					'value': 'tmin',
+					'name': 'Minimum Temperature [C]',
+					'title': 'Daily Minimum Temperature [C] measured at 2m above the surface'
 				}
 			],
 			waterBalance: [
@@ -522,6 +532,26 @@
 					'value': 'runoff',
 					'name': 'Surface Runoff [mm]',
 					'title': 'Excess water from rain, snow melt or other sources that does not infiltrate due to soil saturation or high intensity but instead flows overland'
+				},
+				{
+					'value': 'rel_humid',
+					'name': 'Relative Humidity [%]',
+					'title': 'Relative Humidity [%]'
+				},
+				{
+					'value': 'pet_short',
+					'name': 'PET (Short Green) [mm]',
+					'title': 'Potential evapotranspiration [mm] show the amount of evapotranspiration by a large vegetation of short green crops calculated from the VIC land surface model'
+				},
+				{
+					'value': 'pet_tall',
+					'name': 'PET (Tall Green) [mm]',
+					'title': 'Potential evapotranspiration [mm] show the amount of evapotranspiration by a large vegetation of tall green crops calculated from the VIC land surface model'
+				},
+				{
+					'value': 'pet_natveg',
+					'name': 'PET (Natural Vegetation) [mm]',
+					'title': 'Potential evapotranspiration [mm] show the amount of evapotranspiration by a large vegetation of natural green crops calculated from the VIC land surface model'
 				}
 			]
 		},

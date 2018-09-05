@@ -21,6 +21,7 @@ module.exports = {
 				'public/lib/bootstrap/dist/js/bootstrap.min.js',
 				'public/lib/bootstrap-datepicker/dist/js/boostrap-datepicker.min.js',
 				'public/lib/angular/angular.min.js',
+				'public/lib/angular-sanitize/angular-sanitize.min.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
 				'public/lib/angular-translate/angular-translate.min.js',
 				'public/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',

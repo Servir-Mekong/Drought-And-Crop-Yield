@@ -10,7 +10,7 @@ var options = {
 	promiseLib: promise
 };
 
-var pgp = require("pg-promise")(options);
+var pgp = require('pg-promise')(options);
 
 var dbconfig = {
 	database: config.db.options.database,
