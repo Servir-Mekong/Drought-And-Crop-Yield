@@ -203,6 +203,69 @@
 		}
 	];
 
+	var pet_legend = [
+		{
+			'name': '<1',
+			'color': '#f0f9e8',
+			'value': 1,
+			'nature': 'lesser',
+		},
+		{
+			'name': '1 - 2',
+			'color': '#d8f0d5',
+			'min_value': 1,
+			'max_value': 2
+		},
+		{
+			'name': '2 - 3',
+			'color': '#c0e7c1',
+			'min_value': 2,
+			'max_value': 3
+		},
+		{
+			'name': '3 - 4',
+			'color': '#a5dcbf',
+			'min_value': 3,
+			'max_value': 4
+		},
+		{
+			'name': '4 - 5',
+			'color': '#89d2c2',
+			'min_value': 4,
+			'max_value': 5
+		},
+		{
+			'name': '5 - 6',
+			'color': '#6ec3c6',
+			'min_value': 5,
+			'max_value': 6
+		},
+		{
+			'name': '6 - 7',
+			'color': '#56b0c8',
+			'min_value': 6,
+			'max_value': 7
+		},
+		{
+			'name': '7 - 8',
+			'color': '#3c9cc7',
+			'min_value': 7,
+			'max_value': 8
+		},
+		{
+			'name': '8 - 9',
+			'color': '#2282ba',
+			'min_value': 8,
+			'max_value': 9
+		},
+		{
+			'name': '9+',
+			'color': '#0868ac',
+			'value': 9,
+			'nature': 'greater'
+		}
+	];
+
 	angular.module('rheas').constant('settings', {
 		downloadServerURL: 'http://58.137.55.228/',
 		menus: [
@@ -486,11 +549,6 @@
 					'name': 'Net Upward Latent Heat Flux [W/m2]',
 					'title': 'This is calculated using the VIC land surface model'
 				},
-				/*{
-					'value': 'sensible',
-					'name': 'Net Upward Sensible Heat Flux [W/m2]',
-					'title': 'This is calculated using the VIC land surface model'
-				},*/
 				{
 					'value': 'grnd_flux',
 					'name': 'Net Heat Flux into Ground [W/m2]',
@@ -1265,6 +1323,71 @@
 					'nature': 'greater'
 				}
 			],
+			rel_humid: [
+				{
+					'name': '<10',
+					'color': '#7b3294',
+					'value': 10,
+					'nature': 'lesser',
+				},
+				{
+					'name': '10 - 20',
+					'color': '#9b65ae',
+					'min_value': 10,
+					'max_value': 20
+				},
+				{
+					'name': '20 - 30',
+					'color': '#ba98c9',
+					'min_value': 20,
+					'max_value': 30
+				},
+				{
+					'name': '30 - 40',
+					'color': '#d4c1dd',
+					'min_value': 30,
+					'max_value': 40
+				},
+				{
+					'name': '40 - 50',
+					'color': '#ece5ef',
+					'min_value': 40,
+					'max_value': 50
+				},
+				{
+					'name': '50 - 60',
+					'color': '#e5f1e4',
+					'min_value': 50,
+					'max_value': 60
+				},
+				{
+					'name': '60 - 70',
+					'color': '#c1e5bd',
+					'min_value': 60,
+					'max_value': 70
+				},
+				{
+					'name': '70 - 80',
+					'color': '#94d294',
+					'min_value': 70,
+					'max_value': 80
+				},
+				{
+					'name': '80 - 90',
+					'color': '#4aad66',
+					'min_value': 80,
+					'max_value': 90
+				},
+				{
+					'name': '90+',
+					'color': '#008837',
+					'value': 90,
+					'nature': 'greater'
+				}
+			],
+			pet_short: pet_legend,
+			pet_tall: pet_legend,
+			pet_natveg: pet_legend,
 			severity: [
 				{
 					'name': '0 - 10',
@@ -1494,7 +1617,32 @@
 			sri3: spi_sri_legend,
 			sri6: spi_sri_legend,
 			sri12: spi_sri_legend,
-			cdi: spi_sri_legend,
+			cdi: [
+				{
+					'min_value': 0,
+					'max_value': 1,
+					'color': '#abdda4',
+					'name': 'Normal'
+				},
+				{
+					'min_value': 1,
+					'max_value': 2,
+					'color': '#ffffbf',
+					'name': 'Watch'
+				},
+				{
+					'min_value': 2,
+					'max_value': 3,
+					'color': '#fdae61',
+					'name': 'Warning'
+				},
+				{
+					'min_value': 3,
+					'max_value': 4,
+					'color': '#d7191c',
+					'name': 'Alert'
+				}
+			],
 			surf_temp: [
 				{
 					'name': '0 - 10',
@@ -1560,6 +1708,106 @@
 					'name': '36+',
 					'color': '#ca0020',
 					'value': 36,
+					'nature': 'greater'
+				}
+			],
+			tmax: [
+				{
+					'name': '<16',
+					'color': '#ca0020',
+					'value': 16,
+					'nature': 'lesser'
+				},
+				{
+					'name': '16 - 19',
+					'color': '#df5251',
+					'min_value': 16,
+					'max_value': 19
+				},
+				{
+					'name': '19 - 21',
+					'color': '#f4a582',
+					'min_value': 19,
+					'max_value': 21
+				},
+				{
+					'name': '21 - 24',
+					'color': '#f6cebd',
+					'min_value': 21,
+					'max_value': 24
+				},
+				{
+					'name': '24 - 27',
+					'color': '#f7f7f7',
+					'min_value': 24,
+					'max_value': 27
+				},
+				{
+					'name': '27 - 30',
+					'color': '#c5deeb',
+					'min_value': 27,
+					'max_value': 30
+				},
+				{
+					'name': '30 - 33',
+					'color': '#92c5de',
+					'min_value': 30,
+					'max_value': 33
+				},
+				{
+					'name': '33 - 36',
+					'color': '#4b9bc7',
+					'min_value': 33,
+					'max_value': 36
+				},
+				{
+					'name': '36+',
+					'color': '#0571b0',
+					'value': 36,
+					'nature': 'greater'
+				}
+			],
+			tmin: [
+				{
+					'name': '<9',
+					'color': '#1a9641',
+					'value': 9,
+					'nature': 'lesser'
+				},
+				{
+					'name': '9 - 12',
+					'color': '#77c35c',
+					'min_value': 9,
+					'max_value': 12
+				},
+				{
+					'name': '12 - 15',
+					'color': '#c4e687',
+					'min_value': 12,
+					'max_value': 15
+				},
+				{
+					'name': '15 - 18',
+					'color': '#ffffc0',
+					'min_value': 15,
+					'max_value': 18
+				},
+				{
+					'name': '18 - 21',
+					'color': '#fec981',
+					'min_value': 18,
+					'max_value': 21
+				},
+				{
+					'name': '21 - 25',
+					'color': '#f17c4a',
+					'min_value': 21,
+					'max_value': 25
+				},
+				{
+					'name': '25+',
+					'color': '#d7191c',
+					'value': 25,
 					'nature': 'greater'
 				}
 			]
