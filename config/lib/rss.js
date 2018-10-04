@@ -2,7 +2,8 @@
 
 var Parser = require('rss-parser'),
     parser = new Parser(),
-    db = require('./db');
+    db = require('./db'),
+    fs = require('fs');
 
 var updateOrInsert = function (title, body, link, created_on) {
     db.any('SELECT id FROM rss_item WHERE link=${link}', {
@@ -55,6 +56,12 @@ var fetchSingleRSS = function (url) {
 };
 
 var fetchRSS = function (urls) {
+
+    // adding to the log file
+    fs.appendFile('rss_parser_log.txt', '\ncrob job for: ' + new Date().toString(), (err) => {  
+        if (err) throw err;
+    });
+
     urls.forEach(url => {
         fetchSingleRSS(url);
     });
