@@ -1,10 +1,15 @@
 {
-  "name": "rdcyis",
+  "name": "RDCYIS",
   "description": "Regional Drought and Crop Yield Information System",
+  "private": false,
   "authors": [
-    "servir"
+    "Biplov Bhandari (bionicbiplov45@gmail.com)"
   ],
-  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Servir-Mekong/Drought-And-Crop-Yield"
+  },
+  "homepage": "https://rdcyis-servir.adpc.net/",
   "ignore": [
     "**/.*",
     "node_modules",

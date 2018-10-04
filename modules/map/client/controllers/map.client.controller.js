@@ -90,6 +90,91 @@
 		$scope.showTimeSlider = true;
 		$scope.showAreaFilterSlider = false;
 
+		/*
+		 * Alert
+		 **/
+		$scope.closeAlert = function () {
+			$('.' + $scope.alertClass).addClass('display-none');
+			$scope.alertContent = '';
+		};
+
+		var showErrorAlert = function (alertContent) {
+			$scope.alertContent = alertContent;
+			$('.' + $scope.alertClass).removeClass('display-none').removeClass('alert-info').removeClass('alert-success').addClass('alert-danger');
+		};
+
+		var showSuccessAlert = function (alertContent) {
+			$scope.alertContent = alertContent;
+			$('.' + $scope.alertClass).removeClass('display-none').removeClass('alert-info').removeClass('alert-danger').addClass('alert-success');
+		};
+
+		var showInfoAlert = function (alertContent) {
+			$scope.alertContent = alertContent;
+			$('.' + $scope.alertClass).removeClass('display-none').removeClass('alert-success').removeClass('alert-danger').addClass('alert-info');
+		};
+
+		// Formatted date
+		var formattedDate = function (date) {
+			var dateArray = date.split('-');
+			var monthObject = {
+				'01': 'January',
+				'02': 'February',
+				'03': 'March',
+				'04': 'April',
+				'05': 'May',
+				'06': 'June',
+				'07': 'July',
+				'08': 'August',
+				'09': 'September',
+				'10': 'October',
+				'11': 'November',
+				'12': 'December'
+			};
+
+			return dateArray[0] + ', ' + monthObject[dateArray[1]] + ' ' + dateArray[2];
+		};
+
+		var apiCall = function (url, method, data) {
+			console.log(method, url);
+			if (data) {
+				return $http({
+					method: method,
+					url: url,
+					data: $.param(data),
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+				});
+			} else {
+				return $http({
+					method: method,
+					url: url,
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+				});
+			}
+		};
+
+		var prepareUrlForAPI = function (action, apply) {
+			if (!$scope.indexOption.option) {
+				showErrorAlert('No parameter specified!');
+				if (apply) {
+					$scope.$apply();
+				}
+				return false;
+			}
+
+			$scope.showLoader = true;
+
+			var data = {
+				'action': action,
+				'index': $scope.indexOption.option.value
+			};
+
+			if (action !== 'graph-data') {
+				var start = $scope.selectedDate || new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+				data.date = start;
+			}
+			return '/' + $.param(data);
+		};
+
 		// Modal Close Function
 		$scope.closeModal = function () {
 			$('.modal-body').html('');
@@ -360,30 +445,6 @@
 			});
 		};
 
-		/*
-		 * Alert
-		 **/
-		$scope.closeAlert = function () {
-			$('.' + $scope.alertClass).addClass('display-none');
-			$scope.alertContent = '';
-		};
-
-		var showErrorAlert = function (alertContent) {
-			$scope.alertContent = alertContent;
-			$('.' + $scope.alertClass).removeClass('display-none').removeClass('alert-info').removeClass('alert-success').addClass('alert-danger');
-		};
-
-		var showSuccessAlert = function (alertContent) {
-			$scope.alertContent = alertContent;
-			$('.' + $scope.alertClass).removeClass('display-none').removeClass('alert-info').removeClass('alert-danger').addClass('alert-success');
-		};
-
-		var showInfoAlert = function (alertContent) {
-			$scope.alertContent = alertContent;
-			$('.' + $scope.alertClass).removeClass('display-none').removeClass('alert-success').removeClass('alert-danger').addClass('alert-info');
-		};
-
-
 		/**
 		 * Web Mapping
 		 **/
@@ -407,6 +468,9 @@
 			zoom: 5,
 			zoomControl: false
 		});
+
+		// Marker Clusters
+		var markerCluster = L.markerClusterGroup();
 
 		// Set the max bounds for the map
 		//map.setMaxBounds(map.getBounds());
@@ -634,7 +698,6 @@
 		};
 
 		// Marker Cluster for loading the geojson
-		var markerCluster = L.markerClusterGroup();
 		var adminAreaChange = function (type) {
 
 			markerCluster.clearLayers();
@@ -801,30 +864,6 @@
 			position: 'bottomright' 
 		}).addTo(map);
 
-		// Formatted date
-		var formattedDate = function (date) {
-
-			var dateArray = date.split('-');
-
-			var monthObject = {
-				'01': 'January',
-				'02': 'February',
-				'03': 'March',
-				'04': 'April',
-				'05': 'May',
-				'06': 'June',
-				'07': 'July',
-				'08': 'August',
-				'09': 'September',
-				'10': 'October',
-				'11': 'November',
-				'12': 'December'
-			};
-
-			return dateArray[0] + ', ' + monthObject[dateArray[1]] + ' ' + dateArray[2];
-
-		};
-
 		$scope.getColor = function (val) {
 
 			var index = $scope.indexOption.option.value,
@@ -935,47 +974,6 @@
 			$scope.legendParameter = _legendParameter;
 			$scope.legendDate = _legendDate;
 			$scope.showLegend = true;
-		};
-
-		var apiCall = function (url, method, data) {
-			console.log(method, url);
-			if (data) {
-				return $http({
-					method: method,
-					url: url,
-					data: $.param(data),
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-				});
-			} else {
-				return $http({
-					method: method,
-					url: url,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-				});
-			}
-		};
-
-		var prepareUrlForAPI = function (action, apply) {
-			if (!$scope.indexOption.option) {
-				showErrorAlert('No parameter specified!');
-				if (apply) {
-					$scope.$apply();
-				}
-				return false;
-			}
-
-			$scope.showLoader = true;
-
-			var data = {
-				'action': action,
-				'index': $scope.indexOption.option.value
-			};
-
-			if (action !== 'graph-data') {
-				var start = $scope.selectedDate || new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-				data.date = start;
-			}
-			return '/' + $.param(data);
 		};
 
 		/**

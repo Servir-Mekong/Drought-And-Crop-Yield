@@ -155,3 +155,17 @@ exports.getGraphData = function (req, res) {
 		console.log('ERROR');
 	});
 };
+
+exports.getRSSFeeds = function (req, res) {
+
+	db.any("SELECT json_build_object('title', title, 'body', body, 'link', link, 'datetime', updated_on) AS data FROM rss_item ORDER BY updated_on DESC LIMIT 20;")
+	.then(data => {
+		// success
+		res.setHeader("Content-Type", "application/json");
+		res.send(JSON.stringify(data));
+	})
+	.catch(error => {
+		console.log('ERROR:', error); // print the error;
+		console.log('ERROR');
+	});
+};

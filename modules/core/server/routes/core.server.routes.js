@@ -17,4 +17,7 @@ module.exports = function (app) {
 	app.route('/action=map-data&index=:index?&date=:date?').post(core.getMapData);
 
 	app.route('/action=graph-data&index=:index?').post(core.getGraphData);
+
+	app.route('/action=rss-feeds').post(core.getRSSFeeds);
+
 };

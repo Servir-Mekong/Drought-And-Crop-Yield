@@ -1,8 +1,8 @@
 <div class="main-padding content container-fluid">
 
-    <div class="row">
+    <div class="row" ng-controller="settingsCtrl">
 
-        <div class="col-sm-12 col-lg-6 col-md-6" style="font-size: 18px;font-weight: 300;">
+        <div class="col-sm-12 col-lg-7 col-md-7" style="font-size: 18px;font-weight: 300;">
             <h3 translate><b>TITLE</b></h3>
             <p translate class="text-justify">TITLE_DESCRIPTION</p>
             <br />
@@ -40,7 +40,22 @@
             </p>
         </div>
 
-        <div class="col-sm-12 col-lg-6 col-md-6">
+        <div class="col-sm-12 col-lg-5 col-md-5">
+
+            <div class="col-md-12 well" ng-init="fetchRSSFeeds();" style="overflow-y: scroll; max-height: 50vh;">
+                <h4><b><i class="fa fa-rss fa-2x"></i> RSS Feeds</b></h4>
+                <li ng-repeat="feed in rssFeeds" style="list-style: none;">
+                    <a href="[[ feed.data.link ]]" target="_blank">
+                        <strong class="media-heading"><h3>[[ feed.data.title ]]</h3></strong>
+                    </a>
+                    <span><b>Time: </b></span>
+                    <span>[[ feed.data.datetime ]]</span>
+                    <h5>Description</h5>
+                    <span ng-bind-html="[[ trimDescription(feed.data.body) ]]"></span>
+                    <hr>
+                </li>
+            </div>
+
             <div class="col-md-12 well">
                 <h4><b>Version 1.0
                     <br/>
@@ -88,11 +103,7 @@
                     Portal related: Biplov Bhandari (<b>biplov@adpc.net</b>)
                 </p>
             </div>
-            <div class="col-md-12 well">
-                <h4><b>RSS Feeds</b></h4><br/>
-                <p>coming soon...</p>
 
-            </div>
         </div>    
 
     </div>

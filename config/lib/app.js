@@ -6,7 +6,8 @@
 var config = require('../config'),
 	chalk = require('chalk'),
 	db = require('./db'),
-	express = require('./express');
+	express = require('./express'),
+	cronJobs = require('./cron');
 
 chalk.enabled = true;
 
@@ -48,4 +49,14 @@ module.exports.start = function start(callback) {
 			if (callback) callback(app, db, config);
 		});
 	});
+
+	// Start or Check Cron Job
+	const RSSFeedsJob = cronJobs.getRSSFeedsJob();
+	if (!RSSFeedsJob.running) {
+		// Job is not running
+		RSSFeedsJob.start();
+		console.log('job started');
+	} else {
+		console.log('job already started!');
+	}
 };

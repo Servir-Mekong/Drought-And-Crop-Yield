@@ -1,0 +1,22 @@
+CREATE TABLE severity (
+    rid              bigserial primary key,
+	date             date not null,
+	raster           raster not null,
+	raster_thailand  raster,
+	raster_vietnam   raster,
+	raster_cambodia  raster,
+	raster_laos      raster,
+	raster_myanmar   raster,
+	from_nowcast     boolean default false,
+	from_nmme        boolean default false,
+	exported_to_tiff boolean default false
+);
+
+CREATE TABLE rss_item (
+    id         bigserial primary key,
+    title      varchar (355),
+	body       text not null,
+	link       varchar (355) unique,
+    created_on timestamp not null default now(),
+	updated_on timestamp not null default now()
+);
