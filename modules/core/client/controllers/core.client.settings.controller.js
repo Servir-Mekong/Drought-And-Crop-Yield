@@ -16,7 +16,7 @@
 		};
 
 		$scope.trimDescription = function (description) {
-			return String(description).substring(0, 200);
+			return String(description).substring(0, 500);
 		};
 
 		/**

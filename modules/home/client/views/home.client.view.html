@@ -51,7 +51,8 @@
                     <span><b>Time: </b></span>
                     <span>[[ feed.data.datetime ]]</span>
                     <h5>Description</h5>
-                    <span ng-bind-html="[[ trimDescription(feed.data.body) ]]"></span>
+                    <!--<span ng-bind-html="[[ trimDescription(feed.data.body) ]]"></span>-->
+                    <span ng-bind-html="[[ feed.data.body ]]"></span>
                     <hr>
                 </li>
             </div>
