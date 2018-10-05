@@ -135,7 +135,7 @@
 		};
 
 		var apiCall = function (url, method, data) {
-			console.log(method, url);
+			//console.log(method, url);
 			if (data) {
 				return $http({
 					method: method,
@@ -1091,16 +1091,41 @@
 			});
 		};
 
+		var isEmptyObject = function (obj) {
+			for(var key in obj) {
+				if(obj.hasOwnProperty(key))
+					return false;
+			}
+			return true;
+		};
+
 		$scope.downloadRaster = function () {
 
 			var _date = $scope.selectedDate || new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
 			_date = _date.split('-');
 			var date = _date[0] + '-' + ('0' + _date[1]).slice(-2) + '-' + ('0' + _date[2]).slice(-2);
 			date = date.replace(/-/g, '_');
-			var DownloadURL = $scope.downloadServerURL + $scope.indexOption.option.value + '/' +
-			                  $scope.indexOption.option.value + '_' + date + '_';
 
-			var url = prepareUrlForAPI('method-data');
+			var DownloadURL = $scope.downloadServerURL + $scope.indexOption.option.value + '/';
+
+			if (!isEmptyObject($scope.selectedLayerData)) {
+				if ($scope.selectedLayerData.from === 'country') {
+					DownloadURL += $scope.selectedLayerData.name.toLowerCase() + '/' + 
+								   $scope.indexOption.option.value + '_' + $scope.selectedLayerData.name.toLowerCase()  + '_' + date + '_';
+				} else if ($scope.selectedLayerData.from === 'admin1' || $scope.selectedLayerData.from === 'admin2') {
+					DownloadURL += $scope.selectedLayerData.country.toLowerCase() + '/' + 
+								   $scope.indexOption.option.value + '_' + $scope.selectedLayerData.country.toLowerCase()  + '_' + date + '_';
+				} else {
+					DownloadURL += 'mekong/' + $scope.indexOption.option.value + '_mekong_' + date + '_';
+				}
+			} else {
+				DownloadURL += 'mekong/' + $scope.indexOption.option.value + '_mekong_' + date + '_';
+			}
+
+			//var DownloadURL = $scope.downloadServerURL + $scope.indexOption.option.value + '/' +
+			//                  $scope.indexOption.option.value + '_' + date + '_';
+
+			var url = prepareUrlForAPI('download-data');
 
 			// Make a request
 			apiCall(url, 'POST').then(
@@ -1140,7 +1165,7 @@
 				date = date.replace(/-/g, '_');
 				var fileName = $scope.indexOption.option.value + '_' + date + '_';
 
-				var url = prepareUrlForAPI('method-data');
+				var url = prepareUrlForAPI('download-data');
 
 				// Make a request
 				apiCall(url, 'POST').then(

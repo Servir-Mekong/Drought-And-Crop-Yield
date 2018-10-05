@@ -158,7 +158,32 @@ exports.getGraphData = function (req, res) {
 
 exports.getRSSFeeds = function (req, res) {
 
-	db.any("SELECT json_build_object('title', title, 'body', body, 'link', link, 'datetime', updated_on) AS data FROM rss_item ORDER BY updated_on DESC LIMIT 20;")
+	db.any("SELECT json_build_object('title', title, 'body', body, 'link', link, 'datetime', updated_on) AS data FROM rss_item ORDER BY updated_on DESC LIMIT 25;")
+	.then(data => {
+		// success
+		res.setHeader("Content-Type", "application/json");
+		res.send(JSON.stringify(data));
+	})
+	.catch(error => {
+		console.log('ERROR:', error); // print the error;
+		console.log('ERROR');
+	});
+};
+
+exports.getDownloadData = function (req, res) {
+
+	var params = req.params;
+	// URL Parameters
+	var tableName = params.index;
+	var fdate = params.date;
+
+	var whereClause = "date='" + fdate + "'";
+
+	db.task(t => {
+		return t.any(
+			"SELECT from_nowcast, from_nmme FROM " + tableName + " WHERE " + whereClause + " LIMIT 1;"
+		);
+	})
 	.then(data => {
 		// success
 		res.setHeader("Content-Type", "application/json");

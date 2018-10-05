@@ -20,4 +20,6 @@ module.exports = function (app) {
 
 	app.route('/action=rss-feeds').post(core.getRSSFeeds);
 
+	app.route('/action=download-data&index=:index?&date=:date?').post(core.getDownloadData);
+
 };

@@ -23,7 +23,7 @@
 		 * RSS Feed
 		 */
 		var apiCall = function (url, method) {
-			console.log(method, url);
+			//console.log(method, url);
 			return $http({
 				method: method,
 				url: url,
@@ -38,7 +38,7 @@
 				function (response) {
 					// Success Callback
 					$scope.rssFeeds = response.data;
-					console.log(response.data);
+					//console.log(response.data);
 				},
 				function (error) {
 					// Error Callback
