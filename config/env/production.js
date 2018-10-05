@@ -21,7 +21,7 @@ module.exports = {
 		}
 	},
 	port: process.env.PORT || 8443,
-	secure: {
+	/*secure: {
 		ssl: true,
 		privateKey: './config/sslcerts/key.pem',
 		certificate: './config/sslcerts/cert.pem'
@@ -35,7 +35,7 @@ module.exports = {
 				pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
 			}
 		}
-	},
+	},*/
 	db: {
 		options: {
 			logging: process.env.DB_LOGGING === 'true' ? console.log : false,

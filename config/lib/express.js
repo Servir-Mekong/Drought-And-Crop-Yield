@@ -104,16 +104,19 @@ module.exports.initViewEngine = function (app) {
 module.exports.initSession = function (app, db) {
 
 	// Express session storage
+	const dbURI = 'postgres://' + config.db.options.username + ':' + config.db.options.password + '@' + config.db.options.host + ':' + config.db.options.port + '/' + config.db.options.database;
+	const pgSession = require('connect-pg-simple')(session);
 	app.use(session({
 		saveUninitialized: true,
 		resave: true,
 		secret: config.sessionSecret,
 		cookie: {
-			maxAge: config.sessionCookie.sessionExpiration,
+			maxAge: config.sessionCookie.maxAge,
 			httpOnly: config.sessionCookie.httpOnly,
 			secure: config.sessionCookie.secure && config.secure.ssl
 		},
-		key: config.sessionKey
+		key: config.sessionKey,
+		store: new pgSession({ conString: dbURI })
 	}));
 };
 
@@ -216,7 +219,8 @@ module.exports.init = function (db) {
 	this.initModulesClientRoutes(app);
 
 	// Initialize Express session
-	this.initSession(app, db);
+	// Enable when using sessions
+	//this.initSession(app, db);
 
 	// Initialize modules server routes
 	this.initModulesServerRoutes(app);

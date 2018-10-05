@@ -1,9 +1,6 @@
 'use strict';
 
 var config = require('../config'),
-	env = process.env.NODE_ENV || 'development',
-	fs = require('fs'),
-	path = require('path'),
 	promise = require('bluebird');
 
 var options = {
