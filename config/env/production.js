@@ -20,7 +20,7 @@ module.exports = {
 			}
 		}
 	},
-	port: process.env.PORT || 8443,
+	port: process.env.PORT || 3000,
 	/*secure: {
 		ssl: true,
 		privateKey: './config/sslcerts/key.pem',
