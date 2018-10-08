@@ -18,7 +18,8 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 		.preferredLanguage('en')
 		.fallbackLanguage('en')
 		.usePostCompiling(true)
-		.useSanitizeValueStrategy('sanitize');
+		.useSanitizeValueStrategy('sanitizeParameters');
+		//.useSanitizeValueStrategy('sanitize');
 
 	}
 ]);

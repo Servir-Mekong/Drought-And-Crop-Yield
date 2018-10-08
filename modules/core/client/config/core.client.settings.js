@@ -270,77 +270,66 @@
 		downloadServerURL: 'http://203.170.246.170/',
 		menus: [
 			{
-				'name': 'Home',
-				'url': '/home',
-				'show': false
-			},
-			{
-				'name': 'About',
-				'url': '/about',
-				'show': false
-			},
-			{
-				'name': 'Map',
+				'name': 'MAP',
 				'url': '/map',
 				'show': true
 			},
 			{
-				'name': 'How To Use',
+				'name': 'HOW_TO_USE',
 				'url': 'https://goo.gl/rxeaKN',
 				'show': true,
 				'target': '_blank'
 			},
 			{
-				'name': 'Document',
+				'name': 'DOCUMENT',
 				'url': '#',
 				'show': true
 			},
 			{
-				'name': 'Feedback',
+				'name': 'FEEDBACK',
 				'url': 'https://goo.gl/forms/P2Lc5yBOOshT5uem1',
 				'show': true,
 				'target': '_blank'
 			}
 		],
-		applicationName: 'Regional Drought and Crop Yield Information System',
 		footerLinks: [
 			{
-				'name': 'About',
+				'name': 'ABOUT',
 				'url': 'https://servir.adpc.net/about/about-servir-mekong',
 				'show': true
 			},
 			{
-				'name': 'Tools',
+				'name': 'TOOLS',
 				'url': 'https://servir.adpc.net/tools',
 				'show': true
 			},
 			{
-				'name': 'Geospatial Datasets',
+				'name': 'GEOSPATIAL_DATASETS',
 				'url': 'https://servir.adpc.net/geospatial-datasets',
 				'show': true
 			},
 			{
-				'name': 'Resources and Publications',
+				'name': 'RESOURCES_PUB',
 				'url': 'https://servir.adpc.net/publications',
 				'show': true
 			},
 			{
-				'name': 'News',
+				'name': 'NEWS',
 				'url': 'https://servir.adpc.net/news',
 				'show': true
 			},
 			{
-				'name': 'Events',
+				'name': 'EVENTS',
 				'url': 'https://servir.adpc.net/events',
 				'show': true
 			},
 			{
-				'name': 'Contact Us',
+				'name': 'CONTACT_US',
 				'url': 'https://servir.adpc.net/about/contact-servir-mekong',
 				'show': true
 			},
 			{
-				'name': 'Privacy and Usage Policy',
+				'name': 'PRIVACY_USAGE_POLICY',
 				'url': 'https://servir.adpc.net/policy',
 				'show': true
 			}
@@ -396,41 +385,41 @@
 		areaFilterOptions: [
 			{
 				'value': 'basin',
-				'name': 'LMR Basin'
+				'name': 'LMR_BASIN'
 			},
 			{
 				'value': 'country',
-				'name': 'Country Layer'
+				'name': 'COUNTRY_LAYER'
 			},
 			{
 				'value': 'admin1',
-				'name': 'Administrative Layer 1'
+				'name': 'ADMIN_1'
 			},
 			{
 				'value': 'admin2',
-				'name': 'Administrative Layer 2'
+				'name': 'ADMIN_2'
 			},
 			{
 				'value': '',
-				'name': 'Clear Area Filter'
+				'name': 'CLEAR_AREA_FILTER'
 			}
 		],
 		indexSelectors: [
 			{
 				'value': 'drought',
-				'name': 'Drought'
+				'name': 'DROUGHT'
 			},
 			{
 				'value': 'soil',
-				'name': 'Soil'
+				'name': 'SOIL'
 			},
 			{
 				'value': 'energyBalance',
-				'name': 'Energy Balance'
+				'name': 'ENERGY_BALANCE'
 			},
 			{
 				'value': 'waterBalance',
-				'name': 'Water Balance'
+				'name': 'WATER_BALANCE'
 			}
 		],
 		indexOptions: {

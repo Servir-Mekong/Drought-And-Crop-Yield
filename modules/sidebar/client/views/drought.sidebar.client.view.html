@@ -8,7 +8,7 @@
                data-toggle="collapse"
                data-parent="#accordion"
                ng-click="broadcastTimeSlider()"
-               href="#drought">Drought</a>
+               href="#drought" translate>DROUGHT</a>
         </h4>
     </div>
     <div id="drought" class="panel-collapse collapse out text-center">
@@ -25,11 +25,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="area-filter" class="js-tooltip"
-                                       title="Allows to select the desired area for generating the drought related information">
-                                    Area
+                                       title="Allows to select the desired area for generating the drought related information" translate>
+                                    AREA
                                 </label>
                                 <select name="area-filter" class="form-control"
-                                        id="area-filter" ng-options="option.name for option in areaFilter.options"
+                                        id="area-filter" ng-options="option.name | translate for option in areaFilter.options"
 										ng-model="areaFilter.value"
 										ng-change="adminAreaChange(areaFilter.value)"></select>
 							</div>
@@ -39,11 +39,11 @@
                         <td>
 							<div class="form-group">
 								<label for="index-filter" class="js-tooltip"
-                                       title="Allows to select the category of variables which is needed to visualize">
-                                    Select Index
+                                       title="Allows to select the category of variables which is needed to visualize" translate>
+                                    SELECT_INDEX
                                 </label>
                                 <select name="index-filter" class="form-control"
-										ng-options="option.name for option in indexSelectors | orderBy:'name'"
+										ng-options="option.name | translate for option in indexSelectors | orderBy:'name'"
 										ng-model="indexSelector"
 										ng-change="populateVariableOptions(indexSelector)"></select>
 							</div>
@@ -69,10 +69,10 @@
         <div class="panel-footer">
             <div class="row text-center">
                 <button type="button" class="btn btn-primary" ng-click="updateMap()">
-				    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Show in Map
+				    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> <span translate>SHOW_IN_MAP</span>
 				</button>
 				<button type="button" class="btn btn-primary" ng-click="showChart()">
-					<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Show Chart
+					<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <span translate>SHOW_CHART</span>
 				</button>
             </div>
             <br>
