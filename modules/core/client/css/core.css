@@ -55,6 +55,14 @@ body {
 	display: none !important;
 }
 
+.display-inline-block {
+    display: inline-block;
+}
+
+.display-inline-block-imp {
+    display: inline-block !important;
+}
+
 /* About Page */
 .content {
 	/*padding-right: 160px;

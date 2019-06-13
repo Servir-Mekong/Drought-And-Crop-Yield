@@ -41,6 +41,7 @@
     "PRODUCT_COLLABORATION": "Production Collaboration",
     "REQUEST_TECHNICAL_ASSISTANCE": "Request Technical Assistance",
     "RESOURCES_PUB": "Resources and Publications",
+    "RSS_FEEDS": "RSS Feeds",
     "SELECT_INDEX": "Select Index",
     "SHOW_CHART": "Show Chart",
     "SHOW_IN_MAP": "Show in Map",
@@ -48,6 +49,7 @@
     "TITLE": "Regional Drought and Crop Yield Information System",
     "TITLE_DESCRIPTION": "Droughts in the Lower Mekong region negatively impact ecosystem services, food and water security, and biodiversity. These impacts are exacerbated by climate change, further highlighting the need for improved governance and decision-making in virtually all sectors.",
     "TOOLS": "Tools",
+    "VERSION": "Version 1.0",
     "VIETNAMESE": "Vietnamese",
     "WATER_BALANCE": "Water Balance"
 }

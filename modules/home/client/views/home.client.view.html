@@ -28,7 +28,7 @@
         <div class="col-sm-12 col-lg-5 col-md-5">
 
             <div class="col-md-12 well" ng-init="fetchRSSFeeds();" style="overflow-y: scroll; max-height: 50vh;">
-                <h4><b><i class="fa fa-rss fa-2x"></i> RSS Feeds</b></h4>
+                <i class="fa fa-rss fa-2x"></i><h4 class="display-inline-block" translate><b> RSS_FEEDS</b></h4>
                 <li ng-repeat="feed in rssFeeds" style="list-style: none;">
                     <a href="[[ feed.data.link ]]" target="_blank">
                         <strong class="media-heading"><h3>[[ feed.data.title ]]</h3></strong>
@@ -43,7 +43,7 @@
             </div>
 
             <div class="col-md-12 well">
-                <h4><b>Version 1.0</h4></b></h4>
+                <h4 translate><b>VERSION</h4></b></h4>
                 <br/>
                 <h4 translate><b>COPYRIGHT</h4></b></h4>
                 <br/>
