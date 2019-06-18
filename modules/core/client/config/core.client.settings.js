@@ -277,7 +277,7 @@
 			{
 				'name': 'HOW_TO_USE',
 				'url': 'https://goo.gl/rxeaKN',
-				'show': true,
+				'show': false,
 				'target': '_blank'
 			},
 			{
