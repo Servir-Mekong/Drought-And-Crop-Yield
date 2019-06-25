@@ -483,6 +483,21 @@
 					'value': 'dryspells',
 					'name': 'Dry Spell Events',
 					'title': 'Dry Spell Events show dry days during last at least 14 days'
+				},
+				{
+					'value': 'vci',
+					'name': 'Vegetation Condition Index (VCI)',
+					'title': 'Vegetation Condition Index (VCI)'
+				},
+				{
+					'value': 'ndvi',
+					'name': 'Normalized Difference Vegetation Index (NDVI)',
+					'title': 'NDVI measures the greeness of the plant. More greeness means more NDVI in a scale of zero (0) to one (1)'
+				},
+				{
+					'value': 'lai',
+					'name': 'Leaf Area Index (LAI)',
+					'title': 'Leaf Area Index (LAI)'
 				}
 			],
 			soil: [
@@ -1799,6 +1814,180 @@
 					'value': 25,
 					'nature': 'greater'
 				}
+			],
+			ndvi: [
+				{
+					'name': '<-0.05',
+					'color': '#808080',
+					'value': -0.05,
+					'nature': 'lesser'
+				},
+				{
+					'name': '-0.05 - 0.05',
+					'color': '#e10000',
+					'min_value': -0.05,
+					'max_value': 0.05
+				},
+				{
+					'name': '0.05 - 0.15',
+					'color': '#e1aa00',
+					'min_value': 0.05,
+					'max_value': 0.15
+				},
+				{
+					'name': '0.15 - 0.25',
+					'color': '#ffff00',
+					'min_value': 0.15,
+					'max_value': 0.25
+				},
+				{
+					'name': '0.25 - 0.35',
+					'color': '#55ff00',
+					'min_value': 0.25,
+					'max_value': 0.35
+				},
+				{
+					'name': '0.35 - 0.45',
+					'color': '#00be00',
+					'min_value': 0.35,
+					'max_value': 0.45
+				},
+				{
+					'name': '0.45 - 0.55',
+					'color': '#008700',
+					'min_value': 0.45,
+					'max_value': 0.55
+				},
+				{
+					'name': '0.55 - 0.65',
+					'color': '#006400',
+					'min_value': 0.55,
+					'max_value': 0.65
+				},
+				{
+					'name': '0.65+',
+					'color': '#005000',
+					'value': 0.65,
+					'nature': 'greater'
+				}
+			],
+			vci: [
+				{
+					'name': '<0.15',
+					'color': '#9a0000',
+					'value': 0.15,
+					'nature': 'lesser'
+				},
+				{
+					'name': '0.15 - 0.25',
+					'color': '#ff0000',
+					'min_value': 0.15,
+					'max_value': 0.25
+				},
+				{
+					'name': '0.25 - 0.35',
+					'color': '#ff8700',
+					'min_value': 0.25,
+					'max_value': 0.35
+				},
+				{
+					'name': '0.35 - 0.45',
+					'color': '#ffcd66',
+					'min_value': 0.35,
+					'max_value': 0.45
+				},
+				{
+					'name': '0.45 - 0.55',
+					'color': '#ffff00',
+					'min_value': 0.45,
+					'max_value': 0.55
+				},
+				{
+					'name': '0.55 - 0.65',
+					'color': '#66ff00',
+					'min_value': 0.55,
+					'max_value': 0.65
+				},
+				{
+					'name': '0.65 - 0.75',
+					'color': '#2fcd00',
+					'min_value': 0.65,
+					'max_value': 0.75
+				},
+				{
+					'name': '0.75 - 0.85',
+					'color': '#009a00',
+					'min_value': 0.75,
+					'max_value': 0.85
+				},
+				{
+					'name': '0.85+',
+					'color': '#217400',
+					'value': 0.85,
+					'nature': 'greater'
+				}
+			],
+			lai: [
+				{
+					'name': '0.0 - 0.5',
+					'color': '#cfcf78',
+					'min_value': 0.0,
+					'max_value': 0.5
+				},
+				{
+					'name': '0.5 - 1.0',
+					'color': '#99ffee',
+					'min_value': 0.5,
+					'max_value': 1.0
+				},
+				{
+					'name': '1.0 - 1.5',
+					'color': '#67ffac',
+					'min_value': 1.0,
+					'max_value': 1.5
+				},
+				{
+					'name': '1.5 - 2.0',
+					'color': '#66ccee',
+					'min_value': 1.5,
+					'max_value': 2.0
+				},
+				{
+					'name': '2.0 - 2.5',
+					'color': '#66ff00',
+					'min_value': 2.0,
+					'max_value': 2.5
+				},
+				{
+					'name': '2.5 - 3.0',
+					'color': '#009988',
+					'min_value': 2.5,
+					'max_value': 3.0
+				},
+				{
+					'name': '3.0 - 4.0',
+					'color': '#9aff22',
+					'min_value': 3.0,
+					'max_value': 4.0
+				},
+				{
+					'name': '4.0 - 5.0',
+					'color': '#00f178',
+					'min_value': 4.0,
+					'max_value': 5.0
+				},
+				{
+					'name': '5.0 - 6.0',
+					'color': '#00ab22',
+					'min_value': 5.0,
+					'max_value': 6.0
+				},
+				{
+					'name': '6.0 - 7.0',
+					'color': '#008844',
+					'min_value': 6.0,
+					'max_value': 7.0
+				},
 			]
 		}
 	});

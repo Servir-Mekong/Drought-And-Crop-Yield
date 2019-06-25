@@ -360,7 +360,6 @@
 		});
 
 		$scope.changeTimeSlider = function () {
-
 			$scope.updateMap(true);
 		};
 
@@ -444,6 +443,34 @@
 			});
 		};
 
+		// Adds area filter slider to the sidebar
+		var areaFilterSlider = null;
+
+		var addAreaFilter = function (layer) {
+
+			if ($scope.areaFilterLayer) {
+				areaFilterSlider.slider('destroy');
+				areaFilterSlider = null;
+			}
+
+			areaFilterSlider = $('#areaFilterSlider').slider({
+				formatter: function(value) {
+					return 'Opacity: ' + value;
+				},
+				tooltip_position: 'top'
+			}).on('slideStart', function (event) {
+				$scope.areaFilterOpacityValue = event.value;
+			}).on('slideStop', function (event) {
+				var _value = event.value;
+				if (_value !== $scope.areaFilterOpacityValue) {
+					layer.setStyle({fillOpacity: _value});
+				}
+			});
+			$scope.areaFilterLayer = layer;
+			$scope.showAreaFilterSlider = true;
+
+		};
+
 		/**
 		 * Web Mapping
 		 **/
@@ -489,37 +516,24 @@
 
 		// Marker Clusters
 		var markerCluster = L.markerClusterGroup();
+		markerCluster.on('layeradd', function (e) {
+			console.log('new layer added to the cluster');
+		});
+
+		var selectBasin = function (layer) {
+			if ($scope.areaFilterLayer) {
+				layer.resetStyle($scope.areaFilterLayer);
+			}
+			$scope.selectedLayerData = { 'from': 'basin', 'gid': 1 };
+			//layer.bringToFront();
+			layer.setStyle({
+				'color': 'red'
+			});
+			$timeout(function () { addAreaFilter(layer); });
+		};
 
 		// Set the max bounds for the map
 		//map.setMaxBounds(map.getBounds());
-
-		// Adds area filter slider to the sidebar
-		var areaFilterSlider = null;
-
-		var addAreaFilter = function (layer) {
-
-			if ($scope.areaFilterLayer) {
-				areaFilterSlider.slider('destroy');
-				areaFilterSlider = null;
-			}
-
-			areaFilterSlider = $('#areaFilterSlider').slider({
-				formatter: function(value) {
-					return 'Opacity: ' + value;
-				},
-				tooltip_position: 'top'
-			}).on('slideStart', function (event) {
-				$scope.areaFilterOpacityValue = event.value;
-			}).on('slideStop', function (event) {
-				var _value = event.value;
-				if (_value !== $scope.areaFilterOpacityValue) {
-					layer.setStyle({fillOpacity: _value});
-				}
-			});
-			$scope.areaFilterLayer = layer;
-			$scope.showAreaFilterSlider = true;
-
-		};
 
 		$scope.loadBasinGeoJSON = function (load) {
 			$scope.showLoader = true;
@@ -535,19 +549,8 @@
 					// Adding default filter for this single polygon geojson
 					//$scope.selectedLayerData = { 'table': 'basin', 'gid': 1 };
 					//$timeout(function () { addAreaFilter(L.GeoJSON.geometryToLayer(data.features[0])); });
-					$scope.basinGeojson = L.geoJson(data)
-					.on('click', function (e) {
-						var layer = e.layer;
-						if ($scope.areaFilterLayer) {
-							e.target.resetStyle($scope.areaFilterLayer);
-						}
-						$scope.selectedLayerData = { 'from': 'basin', 'gid': 1 };
-						layer.bringToFront();
-						layer.setStyle({
-							'color': 'red'
-						});
-						$timeout(function () { addAreaFilter(layer); });
-					});
+					$scope.basinGeojson = L.geoJson(data);
+					selectBasin($scope.basinGeojson);
 					map.fitBounds($scope.basinGeojson.getBounds());
 					if (load) {
 						markerCluster.addLayer($scope.basinGeojson);
@@ -768,6 +771,7 @@
 					$scope.basinGeojson.eachLayer(function (layer) {
 						$scope.basinGeojson.resetStyle(layer);
 					});
+					selectBasin($scope.basinGeojson);
 					markerCluster.addLayer($scope.basinGeojson);
 				} else {
 					$scope.loadBasinGeoJSON(true);
@@ -1195,12 +1199,7 @@
 							if (methodData.from_nowcast) {
 								fileName += 'nowcast.geojson';
 							} else {
-								fileName += 'forecast_';
-								if (methodData.from_nmme) {
-									fileName += 'nmme.geojson';
-								} else {
-									fileName += 'esp.geojson';
-								}
+								fileName += 'forecast.geojson';
 							}
 							// extract from https://github.com/mholt/PapaParse/issues/175
 							var blob = new Blob([JSON.stringify($scope.displayedGeoJSON)]);

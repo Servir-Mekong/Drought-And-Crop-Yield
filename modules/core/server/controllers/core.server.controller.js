@@ -61,6 +61,9 @@ exports.getMapData = function (req, res) {
 	var tableName = params.index;
 	var fdate = params.date;
 
+	// schema name
+	var schemaName = 'new_25km_lmr';
+
 	var whereClause = "date='" + fdate + "'";
 
 	var clippingGeomQuery = "";
@@ -91,7 +94,7 @@ exports.getMapData = function (req, res) {
 				"FROM ( SELECT val, geom FROM ( SELECT(ST_DumpAsPolygons(clipped_rast)).* FROM( " +
 				"SELECT ST_Clip(rast, clipping_geom) AS clipped_rast FROM ( " +
 				"SELECT a." + column + " as rast, ST_MakeValid(b.geom) as clipping_geom FROM ( " +
-				"SELECT " + column + " FROM " + tableName + " WHERE " + whereClause + " ) as a, " +
+				"SELECT " + column + " FROM " + schemaName + "." + tableName + " WHERE " + whereClause + " ) as a, " +
 				clippingGeomQuery + " as b ) as foo ) as bar ORDER BY val ) as foobar ) as gv ) as feats ) as fc;"
 			);
 		} else {
@@ -100,8 +103,8 @@ exports.getMapData = function (req, res) {
 				"FROM ( SELECT 'FeatureCollection' as type, array_to_json(array_agg(feats)) as features " +
 				"FROM ( SELECT 'Feature' as type, st_asgeojson((gv).geom)::json as geometry, " + 
 				"row_to_json((SELECT props FROM (SELECT (gv).val as value) as props )) as properties " +
-				"FROM ( SELECT val, geom FROM ( SELECT (ST_DumpAsPolygons( " + column  + ")).*" +
-				"FROM " + tableName + " WHERE " + whereClause + " ) As foo ORDER BY val ) as gv ) as feats ) as fc;"
+				"FROM ( SELECT val, geom FROM ( SELECT (ST_DumpAsPolygons( " + column  + ")).* " +
+				"FROM " + schemaName + "." + tableName + " WHERE " + whereClause + " ) As foo ORDER BY val ) as gv ) as feats ) as fc;"
 			);
 		}
 	})
@@ -127,6 +130,9 @@ exports.getGraphData = function (req, res) {
 	var name = body.name;
 	var graphParameter = body.graphParameter;
 
+	// schema name
+	var schemaName = 'new_25km_lmr';
+
 	// URL Parameters
 	var tableName = params.index;
 
@@ -142,7 +148,7 @@ exports.getGraphData = function (req, res) {
 			"SELECT row_to_json(foobar) As data " +
 			" FROM ( SELECT foo.date as date, round((stats).mean::numeric, 3) as mean, round((stats).min::numeric, 3) as min, " + 
 			"round((stats).max::numeric, 3) as max, round((stats).stddev::numeric, 3) as stddev " +
-			"FROM ( SELECT date, (ST_SummaryStats(" + column + ")) as stats FROM " + tableName + " ORDER BY date ASC ) As foo ) As foobar;"
+			"FROM ( SELECT date, (ST_SummaryStats(" + column + ")) as stats FROM " + schemaName + "." + tableName + " ORDER BY date ASC ) As foo ) As foobar;"
 		);
 	})
 	.then(data => {
@@ -177,11 +183,14 @@ exports.getDownloadData = function (req, res) {
 	var tableName = params.index;
 	var fdate = params.date;
 
+	// schema name
+	var schemaName = 'new_25km_lmr';
+
 	var whereClause = "date='" + fdate + "'";
 
 	db.task(t => {
 		return t.any(
-			"SELECT from_nowcast, from_nmme FROM " + tableName + " WHERE " + whereClause + " LIMIT 1;"
+			"SELECT from_nowcast, from_forecast FROM " + schemaName + "." + tableName + " WHERE " + whereClause + " LIMIT 1;"
 		);
 	})
 	.then(data => {
