@@ -484,21 +484,21 @@
 					'name': 'Dry Spell Events',
 					'title': 'Dry Spell Events show dry days during last at least 14 days'
 				},
-				{
+				/*{
 					'value': 'vci',
 					'name': 'Vegetation Condition Index (VCI)',
 					'title': 'Vegetation Condition Index (VCI)'
-				},
+				},*/
 				{
 					'value': 'ndvi',
 					'name': 'Normalized Difference Vegetation Index (NDVI)',
 					'title': 'NDVI measures the greeness of the plant. More greeness means more NDVI in a scale of zero (0) to one (1)'
 				},
-				{
+				/*{
 					'value': 'lai',
 					'name': 'Leaf Area Index (LAI)',
 					'title': 'Leaf Area Index (LAI)'
-				}
+				}*/
 			],
 			soil: [
 				{
@@ -1871,7 +1871,7 @@
 					'nature': 'greater'
 				}
 			],
-			vci: [
+			/*vci: [
 				{
 					'name': '<0.15',
 					'color': '#9a0000',
@@ -1988,7 +1988,7 @@
 					'min_value': 6.0,
 					'max_value': 7.0
 				},
-			]
+			]*/
 		}
 	});
 })();
