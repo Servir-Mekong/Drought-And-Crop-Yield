@@ -527,7 +527,7 @@
 			$scope.selectedLayerData = { 'from': 'basin', 'gid': 1 };
 			//layer.bringToFront();
 			layer.setStyle({
-				'color': 'red'
+				'color': 'black'
 			});
 			$timeout(function () { addAreaFilter(layer); });
 		};
@@ -583,7 +583,7 @@
 						$scope.selectedLayerData = { 'from': 'country', 'name': layer.feature.properties.NAME };
 						layer.bringToFront();
 						layer.setStyle({
-							'color': 'red'
+							'color': 'black'
 						});
 						$timeout(function () { addAreaFilter(layer); });
 					});
@@ -615,7 +615,7 @@
 						$scope.selectedLayerData = { 'from': 'admin1', 'country': layer.feature.properties.country, 'gid': layer.feature.properties.gid };
 						layer.bringToFront();
 						layer.setStyle({
-							'color': 'red'
+							'color': 'black'
 						});
 						$timeout(function () { addAreaFilter(layer); });
 					});
@@ -647,7 +647,7 @@
 						$scope.selectedLayerData = { 'from': 'admin2', 'country': layer.feature.properties.country, 'gid': layer.feature.properties.gid };
 						layer.bringToFront();
 						layer.setStyle({
-							'color': 'red'
+							'color': 'black'
 						});
 						$timeout(function () { addAreaFilter(layer); });
 					});
@@ -951,9 +951,9 @@
 					var value = feature.properties.value,
 						index = $scope.indexOption.option.value;
 
-					if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
+					/*if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
 						value -= 273.15;
-					}
+					}*/
 
 					var color = $scope.getColor([Math.round(value * 100) / 100]);
 
@@ -971,9 +971,9 @@
 					var value = feature.properties.value,
 						index = $scope.indexOption.option.value;
 
-					if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
+					/*if (['soil_temp_layer_1', 'soil_temp_layer_2', 'soil_temp_layer_3', 'surf_temp'].indexOf(index) > -1) {
 						value -= 273.15;
-					}
+					}*/
 
 					if (showDecimal) {
 						layer.bindPopup('<h5>Value = ' + Math.round(value * 100) / 100 + '</h5>', { closeButton: false, offset: L.point(0, 10) });	
