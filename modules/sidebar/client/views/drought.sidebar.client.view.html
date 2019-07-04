@@ -45,7 +45,8 @@
                                 <select name="index-filter" class="form-control"
 										ng-options="option.name | translate for option in indexSelectors | orderBy:'name'"
 										ng-model="indexSelector"
-										ng-change="populateVariableOptions(indexSelector)"></select>
+                                        ng-change="populateVariableOptions(indexSelector)">
+                                </select>
 							</div>
                         </td>
                     </tr>
@@ -53,12 +54,13 @@
                         <td>
 							<div class="form-group" id="indexOptions">
                                 <label for="variable-filter" class="js-tooltip"
-                                       title="Select the required variable to visualize">
-                                       Select Variable
+                                       title="Select the required variable to visualize" translate>
+                                       SELECT_VARIABLE
                                 </label>
                                 <select name="variable-filter" class="form-control"
-										ng-options="option.name for option in indexOptions | orderBy:'name'"
-										ng-model="indexOption.option"></select>
+										ng-options="option.name | translate for option in indexOptions | orderBy:'name'"
+                                        ng-model="indexOption.option">
+                                </select>
 							</div>
                         </td>
                     </tr>

@@ -426,62 +426,62 @@
 			drought: [
 				{
 					'value': 'cdi',
-					'name': 'Combined Drought Index',
+					'name': 'CDI',
 					'title': 'This index is calculated using SPI3, the anomalies of the fraction of Absorbed Photosynthetically Active Radiation (fAPAR) andsoil suction (pF) .  Four warning categories are available as Watch: Precipitation deficit, Warning: Soil moisture deficit, Alert 1: Vegetation stress following precipitation deficit, Alert 2: Vegetation stress following precipitation/soil moisture deficit.'
 				},
 				{
 					'value': 'severity',
-					'name': 'Drought Severity (%)',
+					'name': 'DROUGHT_SEVERITY',
 					'title': 'Agricultural drought severity is derived from the root zone soil moisture expressed as a percentile of the 1981-2010 climatology. Low percentile values show high drought severity'
 				},
 				{
 					'value': 'spi1',
-					'name': 'Standardized Precipitation Index 1 month',
+					'name': 'SPI_1',
 					'title': 'Reflects short-term wet and dry conditions \n Application: Short-term soil moisture and crop stress (especially during the growing season)'
 				},
 				{
 					'value': 'spi3',
-					'name': 'Standardized Precipitation Index 3 months',
+					'name': 'SPI_3',
 					'title': 'Reflects short- and medium-term moisture conditions \n Application: A seasonal estimation of precipitation'
 				},
 				{
 					'value': 'spi6',
-					'name': 'Standardized Precipitation Index 6 months',
+					'name': 'SPI_6',
 					'title': 'Reflects medium-term trends in precipitation \n Application: Potential for effectively showing the precipitation over distinct seasons'
 				},
 				{
 					'value': 'spi12',
-					'name': 'Standardized Precipitation Index 12 months',
+					'name': 'SPI_12',
 					'title': 'Reflects Long-term precipitation patterns \n Application: Possibly tied to streamflows, reservoir levels, and also groundwater levels'
 				},
 				{
 					'value': 'sri1',
-					'name': 'Standardized Runoff Index 1 month',
+					'name': 'SRI_1',
 					'title': 'Shows short-term potential to complement existing climate indices and local hydro-climatological information'
 				},
 				{
 					'value': 'sri3',
-					'name': 'Standardized Runoff Index 3 months',
+					'name': 'SRI_3',
 					'title': 'Shows short- and medium-term potential to complement existing climate indices and local hydro-climatological information'
 				},
 				{
 					'value': 'sri6',
-					'name': 'Standardized Runoff Index 6 months',
+					'name': 'SRI_6',
 					'title': 'Shows medium-term potential to complement existing climate indices and local hydro-climatological information'
 				},
 				{
 					'value': 'sri12',
-					'name': 'Standardized Runoff Index 12 months',
+					'name': 'SRI_12',
 					'title': 'Shows Long-term potential to complement existing climate indices and local hydro-climatological information'
 				},
 				{
 					'value': 'smdi',
-					'name': 'Soil Moisture Deficit Index',
+					'name': 'SMDI',
 					'title': 'Can be used as in indicator of short-term drought. Useful for identifying and monitoring drought affecting agriculture'
 				},
 				{
 					'value': 'dryspells',
-					'name': 'Dry Spell Events',
+					'name': 'DRY_SPELL',
 					'title': 'Dry Spell Events show dry days during last at least 14 days'
 				},
 				/*{
