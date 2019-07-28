@@ -696,9 +696,9 @@
 							$scope.closeAlert();
 
 							if (['dryspells'].indexOf(index) > -1) {
-								$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date), false);
+								$scope.drawFromDatabase(features, legendTitle, formattedDate(date), false);
 							} else {
-								$scope.drawFromDatabase(features, legendTitle + ' for ', formattedDate(date));
+								$scope.drawFromDatabase(features, legendTitle, formattedDate(date));
 							}
 
 							$scope.showDownloadButton = true;
