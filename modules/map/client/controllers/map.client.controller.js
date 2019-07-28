@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	angular.module('rheas').controller('mapCtrl', function ($http, $scope, $timeout, $window, settings) {
+	angular.module('rheas').controller('mapCtrl', function ($filter, $http, $scope, $timeout, $window, settings) {
 
 		// Settings
 		var legend = settings.legend;
@@ -254,7 +254,7 @@
 				return [date.getFullYear(),
 						(mm > 9 ? '' : '0') + mm,
 						(dd > 9 ? '' : '0') + dd
-					   ].join('-');
+				].join('-');
 			}
 		};
 
@@ -432,10 +432,12 @@
 		$scope.populateVariableOptions = function (option) {
 			$scope.indexOptions = settings.indexOptions[option.value];
 			$scope.showVariableSelect = true;
-			$timeout(function () {			
+			$timeout(function () {
 				$('#indexOptions > select option').each(function() {
 					for (var i = 0; i < $scope.indexOptions.length; i++) {
-						if ($scope.indexOptions[i].name === this.text) {
+						// translatedText
+						// console.log($filter('translate')($scope.indexOptions[i].name));
+						if ($filter('translate')($scope.indexOptions[i].name) === this.text) {
 							$(this).attr('title', $scope.indexOptions[i].title);
 						}
 					}
