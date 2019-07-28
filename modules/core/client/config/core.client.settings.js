@@ -503,116 +503,116 @@
 			soil: [
 				{
 					'value': 'rootmoist',
-					'name': 'Root Zone Soil Moisture [mm]',
+					'name': 'SOIL_MOIST_ROOT',
 					'title': 'Shows soil moisture content [mm] at surface and root zone level'
 				},
 				{
 					'value': 'soil_moist_layer_1',
-					'name': 'Soil Moisture [mm] (Layer 0-10 cm)',
+					'name': 'SOIL_MOIST_0_10',
 					'title': 'Shows soil total moisture content [mm] in 0-10 cm soil layer'
 				},
 				{
 					'value': 'soil_moist_layer_2',
-					'name': 'Soil Moisture [mm] (Layer 10-40 cm)',
+					'name': 'SOIL_MOIST_10_40',
 					'title': 'Shows soil total moisture content [mm] in 10-40 cm soil layer'
 				},
 				{
 					'value': 'soil_moist_layer_3',
-					'name': 'Soil Moisture [mm] (Layer 40-100 cm)',
+					'name': 'SOIL_MOIST_40_100',
 					'title': 'Shows soil total moisture content [mm] in 40-100 cm soil layer'
 				},
 				{
 					'value': 'soil_temp_layer_1',
-					'name': 'Soil Temperature [C] (Layer 0-10 cm)',
+					'name': 'SOIL_TEMP_0_10',
 					'title': 'Shows soil temperature [C] in 0-10 cm soil layer'
 				},
 				{
 					'value': 'soil_temp_layer_2',
-					'name': 'Soil Temperature [C] (Layer 10-40 cm)',
+					'name': 'SOIL_TEMP_10_40',
 					'title': 'Shows soil temperature [C] in 10-40 cm soil layer'
 				},
 				{
 					'value': 'soil_temp_layer_3',
-					'name': 'Soil Temperature [C] (Layer 40-100 cm)',
+					'name': 'SOIL_TEMP_40_100',
 					'title': 'Shows soil temperature [C] in 40-100 cm soil layer'
 				}
 			],
 			energyBalance: [
 				{
 					'value': 'net_short',
-					'name': 'Net Downward Shortwave Flux [W/m2]',
+					'name': 'SHORTWAVE_FLUX',
 					'title': 'This is calculated using the VIC land surface model'
 				},
 				{
 					'value': 'net_long',
-					'name': 'Net Downward Longwave Flux [W/m2]',
+					'name': 'LONGWAVE_FLUX',
 					'title': 'This is calculated using the VIC land surface model'
 				},
 				{
 					'value': 'latent',
-					'name': 'Net Upward Latent Heat Flux [W/m2]',
+					'name': 'HEAT_FLUX_UPWARD_LATENT',
 					'title': 'This is calculated using the VIC land surface model'
 				},
 				{
 					'value': 'grnd_flux',
-					'name': 'Net Heat Flux into Ground [W/m2]',
+					'name': 'HEAT_FLUX_GROUND',
 					'title': 'This is the total of downward longwave and shortwave fluxes calculated using the VIC land surface model'
 				},
 				{
 					'value': 'surf_temp',
-					'name': 'Average Surface Temperature [C]',
-					'title': 'Average surface temperature [C]'
+					'name': 'AST',
+					'title': 'AST'
 				},
 				{
 					'value': 'tmax',
-					'name': 'Maximum Temperature [C]',
+					'name': 'MAX_TEMP',
 					'title': 'Daily Maximum Temperature [C] measured at 2m above the surface'
 				},
 				{
 					'value': 'tmin',
-					'name': 'Minimum Temperature [C]',
+					'name': 'MIN_TEMP',
 					'title': 'Daily Minimum Temperature [C] measured at 2m above the surface'
 				}
 			],
 			waterBalance: [
 				{
 					'value': 'baseflow',
-					'name': 'Baseflow (mm/day)',
+					'name': 'BASEFLOW',
 					'title': 'This shows the portion of streamflow that comes from the sum of deep subsurface flow and delayed shallow subsurface flow'
 				},
 				{
 					'value': 'rainf',
-					'name': 'Rainfall (mm)',
+					'name': 'RAINFALL',
 					'title': 'Daily total rainfall in millimeter'
 				},
 				{
 					'value': 'evap',
-					'name': 'Total Net Evaporation [mm]',
+					'name': 'NET_EVAPORATION',
 					'title': 'This show the sum of evaporation from bare soil, canopy interception and plant transpiration calculated from the VIC land surface model'
 				},
 				{
 					'value': 'runoff',
-					'name': 'Surface Runoff [mm]',
+					'name': 'SURFACE_RUNOFF',
 					'title': 'Excess water from rain, snow melt or other sources that does not infiltrate due to soil saturation or high intensity but instead flows overland'
 				},
 				{
 					'value': 'rel_humid',
-					'name': 'Relative Humidity [%]',
+					'name': 'REL_HUMIDITY',
 					'title': 'Relative Humidity [%]'
 				},
 				{
 					'value': 'pet_short',
-					'name': 'PET (Short Green) [mm]',
+					'name': 'PET_SHORT_GREEN',
 					'title': 'Potential evapotranspiration [mm] show the amount of evapotranspiration by a large vegetation of short green crops calculated from the VIC land surface model'
 				},
 				{
 					'value': 'pet_tall',
-					'name': 'PET (Tall Green) [mm]',
+					'name': 'PET_TALL_GREEN',
 					'title': 'Potential evapotranspiration [mm] show the amount of evapotranspiration by a large vegetation of tall green crops calculated from the VIC land surface model'
 				},
 				{
 					'value': 'pet_natveg',
-					'name': 'PET (Natural Vegetation) [mm]',
+					'name': 'PET_NATURAL_VEG',
 					'title': 'Potential evapotranspiration [mm] show the amount of evapotranspiration by a large vegetation of natural green crops calculated from the VIC land surface model'
 				}
 			]
@@ -1395,61 +1395,61 @@
 			severity: [
 				{
 					'name': '0 - 10',
-					'color': '#bd0026',
+					'color': '#ffffb2',
 					'min_value': 0,
 					'max_value': 10
 				},
 				{
 					'name': '10 - 20',
-					'color': '#d31a23',
+					'color': '#fee88b',
 					'min_value': 10,
 					'max_value': 20
 				},
 				{
 					'name': '20 - 30',
-					'color': '#ea3420',
+					'color': '#fed165',
 					'min_value': 20,
 					'max_value': 30
 				},
 				{
 					'name': '30 - 40',
-					'color': '#f45629',
+					'color': '#fdb751',
 					'min_value': 30,
 					'max_value': 40
 				},
 				{
 					'name': '40 - 50',
-					'color': '#fa7a35',
+					'color': '#fd9b43',
 					'min_value': 40,
 					'max_value': 50
 				},
 				{
 					'name': '50 - 60',
-					'color': '#fd9b43',
+					'color': '#fa7a35',
 					'min_value': 50,
 					'max_value': 60
 				},
 				{
 					'name': '60 - 70',
-					'color': '#fdb751',
+					'color': '#f45629',
 					'min_value': 60,
 					'max_value': 70
 				},
 				{
 					'name': '70 - 80',
-					'color': '#fed165',
+					'color': '#ea3420',
 					'min_value': 70,
 					'max_value': 80
 				},
 				{
 					'name': '80 - 90',
-					'color': '#fee88b',
+					'color': '#d31a23',
 					'min_value': 80,
 					'max_value': 90
 				},
 				{
 					'name': '90 - 100',
-					'color': '#ffffb2',
+					'color': '#bd0026',
 					'min_value': 90,
 					'max_value': 100
 				}
@@ -1718,25 +1718,25 @@
 			tmax: [
 				{
 					'name': '<16',
-					'color': '#ca0020',
+					'color': '#0571b0',
 					'value': 16,
 					'nature': 'lesser'
 				},
 				{
 					'name': '16 - 19',
-					'color': '#df5251',
+					'color': '#4b9bc7',
 					'min_value': 16,
 					'max_value': 19
 				},
 				{
 					'name': '19 - 21',
-					'color': '#f4a582',
+					'color': '#92c5de',
 					'min_value': 19,
 					'max_value': 21
 				},
 				{
 					'name': '21 - 24',
-					'color': '#f6cebd',
+					'color': '#c5deeb',
 					'min_value': 21,
 					'max_value': 24
 				},
@@ -1748,25 +1748,25 @@
 				},
 				{
 					'name': '27 - 30',
-					'color': '#c5deeb',
+					'color': '#f6cebd',
 					'min_value': 27,
 					'max_value': 30
 				},
 				{
 					'name': '30 - 33',
-					'color': '#92c5de',
+					'color': '#f4a582',
 					'min_value': 30,
 					'max_value': 33
 				},
 				{
 					'name': '33 - 36',
-					'color': '#4b9bc7',
+					'color': '#df5251',
 					'min_value': 33,
 					'max_value': 36
 				},
 				{
 					'name': '36+',
-					'color': '#0571b0',
+					'color': '#ca0020',
 					'value': 36,
 					'nature': 'greater'
 				}
