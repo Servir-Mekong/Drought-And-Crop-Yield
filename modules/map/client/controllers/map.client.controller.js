@@ -477,7 +477,6 @@
 		 * Web Mapping
 		 **/
 
-		// Base Map
 		var basemap_mapbox = L.tileLayer(settings.mapLayer,
 			{
 				minZoom: 4,
@@ -488,27 +487,28 @@
 			}
 		);
 
-		// Initialize the Map
-		var map = L.map('map', {
-			center: [18.041, 98.218],
-			layers: [basemap_mapbox],
-			minZoom: 4,
-			zoom: 5,
-			zoomControl: false
-		});
-
 		// Base Layers
         var Esri_WorldTopoMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, ' +
             'Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
         });
 
+		// Base Map
         var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 		});
 
+		// Initialize the Map
+		var map = L.map('map', {
+			center: [18.041, 98.218],
+			layers: [Esri_WorldImagery],
+			minZoom: 4,
+			zoom: 5,
+			zoomControl: false
+		});
+
         var baseLayers = {
-			'Grayscale': basemap_mapbox,
+			//'Grayscale': basemap_mapbox,
             'Satellite Imagery': Esri_WorldImagery,
             'Topo Map': Esri_WorldTopoMap
         };
