@@ -90,6 +90,34 @@
 		$scope.showTimeSlider = true;
 		$scope.showAreaFilterSlider = false;
 
+		// Modal Close Function
+		$scope.closeModal = function () {
+			$('.modal-body').html('');
+			$('#chartModal').addClass('display-none-imp');
+		};
+
+		// Modal Open Function
+		$scope.showModal = function () {
+			$('#chartModal').removeClass('display-none-imp');
+		};
+
+		// Close the Modal
+		$('.modal-close').click(function () {
+			$scope.closeModal();
+		});
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function (event) {
+			if (event.target === $('#chartModal')[0]) {
+				$scope.closeModal();
+			}
+		};
+
+		// System upgrade notice
+		$scope.chartModalTitle = 'Important: Information System is under Maintenance';
+		$('.modal-body').html('<h3>Dear user, our information system is currently undergoing some updates. Pls check back by 01 August 2019.!<br/> Sorry for the inconvenience!</h3>');
+
+		$scope.showModal();
 		/*
 		 * Alert
 		 **/

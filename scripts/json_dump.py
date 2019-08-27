@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from jsmin import jsmin
-import json
 import os
-import shapefile
 
 foldername = 'geojson'
 os.path.dirname(os.path.dirname(__file__))
