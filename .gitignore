@@ -85,3 +85,4 @@ obj/
 # =========
 .pm2/
 rss_parser_log.txt
+console.log.txt

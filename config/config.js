@@ -7,7 +7,8 @@ var _ = require('lodash'),
 	chalk = require('chalk'),
 	glob = require('glob'),
 	fs = require('fs'),
-	path = require('path');
+	path = require('path'),
+	logging = require('./lib/logging');
 
 /**
  * Get files by glob patterns
@@ -59,8 +60,10 @@ var validateEnvironmentVariable = function () {
 	if (!environmentFiles.length) {
 		if (process.env.NODE_ENV) {
 			console.error(chalk.red('+ Error: No configuration file found for "' + process.env.NODE_ENV + '" environment using development instead'));
+			logging.console_error('+ Error: No configuration file found for "' + process.env.NODE_ENV + '" environment using development instead');
 		} else {
 			console.error(chalk.red('+ Error: NODE_ENV is not defined! Using default development environment'));
+			logging.console_error('+ Error: NODE_ENV is not defined! Using default development environment');
 		}
 		process.env.NODE_ENV = 'development';
 	}
@@ -83,7 +86,9 @@ var validateSecureMode = function (config) {
 
 	if (!privateKey || !certificate) {
 		console.log(chalk.red('+ Error: Certificate file or key file is missing, falling back to non-SSL mode'));
+		logging.console_log('+ Error: Certificate file or key file is missing, falling back to non-SSL mode');
 		console.log(chalk.red('  To create them, simply run the following from your shell: sh ./scripts/generate-ssl-certs.sh'));
+		logging.console_log('  To create them, simply run the following from your shell: sh ./scripts/generate-ssl-certs.sh');
 		console.log();
 		config.secure.ssl = false;
 	}
@@ -101,8 +106,11 @@ var validateSessionSecret = function (config, testing) {
 	if (config.sessionSecret === 'PEAN') {
 		if (!testing) {
 			console.log(chalk.red('+ WARNING: It is strongly recommended that you change sessionSecret config while running in production!'));
+			logging.console_log('+ WARNING: It is strongly recommended that you change sessionSecret config while running in production!');
 			console.log(chalk.red('  Please add `sessionSecret: process.env.SESSION_SECRET || \'super amazing secret\'` to '));
+			logging.console_log('  Please add `sessionSecret: process.env.SESSION_SECRET || \'super amazing secret\'` to ');
 			console.log(chalk.red('  `config/env/production.js` or `config/env/local.js`'));
+			logging.console_log('  `config/env/production.js` or `config/env/local.js`');
 			console.log();
 		}
 		return false;
