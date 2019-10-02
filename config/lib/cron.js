@@ -11,7 +11,9 @@ var rssLinks = [
 ];
 
 // runs everyday at 11:30
-const fetchRSSFeedsJob = new CronJob('00 30 11 * * 0-6', function() {
+const fetchRSSFeedsJob = new CronJob('00 30 11 * * 0-6', function () {
+// every 2 minutes for debugging purpose
+//const fetchRSSFeedsJob = new CronJob('*/2 * * * *', function () {
     rss.fetchRSS(rssLinks);
 });
 

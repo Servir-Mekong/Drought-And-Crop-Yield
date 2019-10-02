@@ -43,10 +43,13 @@ var fetchSingleRSS = function (url) {
         items.forEach(item => {
             var title = item.title;
             var body = item.description || item.content;
-            var link = item.link;
-            var created_on = item.pubDate || new Date();
+            // start with drought and check to see if any of the keywords matches
             if (title.toLowerCase().indexOf('drought') !== -1 || body.toLowerCase().indexOf('drought') !== -1) {
-                updateOrInsert(title, body, link, created_on);
+                if (body.toLocaleLowerCase().match(/mekong|vietnam|cambodia|thailand|laos|myanmar|asia/g)) {
+                    var link = item.link;
+                    var created_on = item.pubDate || new Date();
+                    updateOrInsert(title, body, link, created_on);
+                }
             }
         });
     })
