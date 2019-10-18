@@ -115,7 +115,7 @@
 
 		// System upgrade notice
 		$scope.chartModalTitle = 'Important: Information System is under Maintenance';
-		$('.modal-body').html('<h3>Dear user, our information system is currently undergoing some updates. Pls check back by 01 August 2019.!<br/> Sorry for the inconvenience!</h3>');
+		$('.modal-body').html('<h3>Dear user, our information system is currently undergoing some updates. It will be back soon!<br/> Sorry for the inconvenience!</h3>');
 
 		$scope.showModal();
 		/*
