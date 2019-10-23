@@ -60,11 +60,27 @@ exports.getMapData = function (req, res) {
 	// URL Parameters
 	var tableName = params.index;
 	var fdate = params.date;
+	var dateObject = new Date(fdate);
+	var timeFrequency = params.timeFrequency;
+	var whereClause = "";
+	if (timeFrequency === '5day') {
+		dateObject.setDate(dateObject.getDate() + 5);
+		var mm = dateObject.getMonth() + 1; // getMonth() is zero-based
+		var dd = dateObject.getDate();
+		var endDate = [ dateObject.getFullYear(), (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd ].join('-');
+		whereClause = "date>='" + fdate + "' and date<='" + endDate + "'";
+	} else if (timeFrequency === '10day') {
+		dateObject.setDate(dateObject.getDate() + 10);
+		var m = dateObject.getMonth() + 1; // getMonth() is zero-based
+		var d = dateObject.getDate();
+		var finalDate = [ dateObject.getFullYear(), (m > 9 ? '' : '0') + m, (d > 9 ? '' : '0') + d ].join('-');
+		whereClause = "date>='" + fdate + "' and date<='" + finalDate + "'";
+	} else {
+		whereClause = "date>='" + fdate + "' and date<='" + fdate + "'";
+	}
 
 	// schema name
 	var schemaName = 'new_25km_lmr';
-
-	var whereClause = "date='" + fdate + "'";
 
 	var clippingGeomQuery = "";
 	if (wkt) {
@@ -93,8 +109,8 @@ exports.getMapData = function (req, res) {
 				"row_to_json((SELECT props FROM (SELECT round(((gv).val)::numeric, 2) as value) as props)) as properties " +
 				"FROM ( SELECT val, geom FROM ( SELECT(ST_DumpAsPolygons(clipped_rast)).* FROM( " +
 				"SELECT ST_Clip(rast, clipping_geom) AS clipped_rast FROM ( " +
-				"SELECT a." + column + " as rast, ST_MakeValid(b.geom) as clipping_geom FROM ( " +
-				"SELECT " + column + " FROM " + schemaName + "." + tableName + " WHERE " + whereClause + " ) as a, " +
+				"SELECT a.st_union as rast, ST_MakeValid(b.geom) as clipping_geom FROM ( " +
+				"SELECT ST_UNION(" + column + ", 'MEAN') FROM " + schemaName + "." + tableName + " WHERE " + whereClause + " ) as a, " +
 				clippingGeomQuery + " as b ) as foo ) as bar ORDER BY val ) as foobar ) as gv ) as feats ) as fc;"
 			);
 		} else {
@@ -103,7 +119,7 @@ exports.getMapData = function (req, res) {
 				"FROM ( SELECT 'FeatureCollection' as type, array_to_json(array_agg(feats)) as features " +
 				"FROM ( SELECT 'Feature' as type, st_asgeojson((gv).geom)::json as geometry, " + 
 				"row_to_json((SELECT props FROM (SELECT (gv).val as value) as props )) as properties " +
-				"FROM ( SELECT val, geom FROM ( SELECT (ST_DumpAsPolygons( " + column  + ")).* " +
+				"FROM ( SELECT val, geom FROM ( SELECT (ST_DumpAsPolygons( ST_UNION(" + column + ", 'MEAN'))).* " +
 				"FROM " + schemaName + "." + tableName + " WHERE " + whereClause + " ) As foo ORDER BY val ) as gv ) as feats ) as fc;"
 			);
 		}

@@ -405,6 +405,21 @@
 				'name': 'CLEAR_AREA_FILTER'
 			}
 		],
+		timeOptions: [
+			{
+				'value': 'daily',
+				'name': 'Daily',
+				'checked': 'checked'
+			},
+			{
+				'value': '5day',
+				'name': '5 Day'
+			},
+			{
+				'value': '10day',
+				'name': '10 Day'
+			}
+		],
 		indexSelectors: [
 			{
 				'value': 'drought',

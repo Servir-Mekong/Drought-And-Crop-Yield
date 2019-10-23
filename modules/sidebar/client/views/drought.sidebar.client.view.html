@@ -50,7 +50,7 @@
 							</div>
                         </td>
                     </tr>
-                    <tr ng-show="showVariableSelect">
+                    <tr ng-show="showVariableSelect" class="border-bottom">
                         <td>
 							<div class="form-group" id="indexOptions">
                                 <label for="variable-filter" class="js-tooltip"
@@ -62,6 +62,17 @@
                                         ng-model="indexOption.option">
                                 </select>
 							</div>
+                        </td>
+                    </tr>
+                    <tr ng-show="showVariableSelect">
+                        <td style="padding-top: 12px;">
+                            <div class="display-inline-block col-md-4" id="timeOptions" ng-repeat="option in timeOptions">
+                                <label name="time-filter" class="radio-inline">
+                                    <input type="radio" id="option.value" name="time-filter" ng-value="option.value"
+                                           ng-model="timeOptionSelector" ng-checked="option.checked"
+                                           ng-change="changeTimeOptionSelector(timeOptionSelector)">[[option.name]]
+                                </label>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

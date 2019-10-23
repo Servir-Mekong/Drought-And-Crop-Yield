@@ -14,7 +14,7 @@ module.exports = function (app) {
 	app.route('/*').get(core.renderIndex);
 
 	// APIs
-	app.route('/action=map-data&index=:index?&date=:date?').post(core.getMapData);
+	app.route('/action=map-data&index=:index?&timeFrequency=:timeFrequency&date=:date?').post(core.getMapData);
 
 	app.route('/action=graph-data&index=:index?').post(core.getGraphData);
 

@@ -20,6 +20,14 @@
 		$scope.areaFilter.value = getAreaFilterDefault();
 		$scope.indexSelectors = settings.indexSelectors;
 		$scope.indexOptions = null;
+		$scope.timeOptions = settings.timeOptions;
+		for (var index in $scope.timeOptions) {
+			var option = $scope.timeOptions[index];
+			if (option.checked) {
+				$scope.timeOptionSelector = option.value;
+				break;
+			}
+		}
 		$scope.downloadServerURL = settings.downloadServerURL;
 
 		// Map variables
@@ -97,6 +105,11 @@
 				toggle: false
 			});
 		}, 2000);
+
+		// change function for time selector
+		$scope.changeTimeOptionSelector = function (value) {
+			$scope.timeOptionSelector = value;
+		};
 
 		// Modal Close Function
 		$scope.closeModal = function () {
@@ -203,6 +216,10 @@
 				'action': action,
 				'index': $scope.indexOption.option.value
 			};
+
+			if (action === 'map-data') {
+				data.timeFrequency = $scope.timeOptionSelector;
+			}
 
 			if (action !== 'graph-data') {
 				var start = $scope.selectedDate || new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
@@ -618,7 +635,7 @@
 							e.target.resetStyle($scope.areaFilterLayer);
 						}
 						
-						$scope.selectedLayerData = { 'from': 'country', 'name': layer.feature.properties.NAME };
+						$scope.selectedLayerData = { 'from': 'country', 'name': layer.feature.properties.NAME, 'gid': layer.feature.properties.gid };
 						layer.bringToFront();
 						layer.setStyle({
 							'color': 'black'
@@ -697,6 +714,8 @@
 		};
 
 		$scope.updateMap = function (apply) {
+
+			console.log($scope.timeOptionSelector);
 
 			if (typeof(apply) === 'undefined') apply = false;
 
