@@ -90,6 +90,14 @@
 		$scope.showTimeSlider = true;
 		$scope.showAreaFilterSlider = false;
 
+		// Hide collapse for disclaimer
+		$timeout(function () {
+			$('#disclaimer-collapse').collapse('show');
+			$('#disclaimer-collapse').collapse({
+				toggle: false
+			});
+		}, 2000);
+
 		// Modal Close Function
 		$scope.closeModal = function () {
 			$('.modal-body').html('');
@@ -114,10 +122,10 @@
 		};
 
 		// System upgrade notice
-		$scope.chartModalTitle = 'Important: Information System is under Maintenance';
-		$('.modal-body').html('<h3>Dear user, our information system is currently undergoing some updates. It will be back soon!<br/> Sorry for the inconvenience!</h3>');
+		//$scope.chartModalTitle = 'Important: Information System is under Maintenance';
+		//$('.modal-body').html('<h3>Dear user, our information system is currently undergoing some updates. It will be back soon!<br/> Sorry for the inconvenience!</h3>');
+		//$scope.showModal();
 
-		$scope.showModal();
 		/*
 		 * Alert
 		 **/

@@ -225,3 +225,8 @@
 #areaFilterSlider .slider-selection {
 	background: rgb(186, 186, 186);
 }
+
+.disclaimer-collapse-heading .accordion-toggle:after {
+    content: "";
+    content: none;
+}

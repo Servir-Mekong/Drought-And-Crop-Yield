@@ -22,6 +22,8 @@
     "CROP_RELATED_INFO": "Allows to Generate Crop Yield Related Information",
     "CROP_YIELD": "Crop Yield",
     "DATA_INFORMATION_RELATED": "Data and Information Related:",
+    "DISCLAIMER_TITLE": "DISCLAIMER",
+    "DISCLAIMER_MESSAGE": " This product has been created with the highest degree of accuracy possible and depicts information at regional and national scales. Local conditions are subject to variations based on local climatic conditions.  The product has been produced based on the latest available satellite and global modeled data and subject to update every two weeks.",
     "DOCUMENT": "Document",
     "DROUGHT": "Drought",
     "DROUGHT_RELATED_INFO": "Allows to Generate Drought Related Information",

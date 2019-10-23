@@ -282,8 +282,9 @@
 			},
 			{
 				'name': 'DOCUMENT',
-				'url': '#',
-				'show': true
+				'url': 'http://bit.ly/TechnicalDocsRDCYIS',
+				'show': true,
+				'target': '_blank'
 			},
 			{
 				'name': 'FEEDBACK',
