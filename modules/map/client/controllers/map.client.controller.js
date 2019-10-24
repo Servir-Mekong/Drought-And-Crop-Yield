@@ -28,6 +28,7 @@
 				break;
 			}
 		}
+		//console.log($scope.timeOptionSelector);
 		$scope.downloadServerURL = settings.downloadServerURL;
 
 		// Map variables
@@ -109,6 +110,7 @@
 		// change function for time selector
 		$scope.changeTimeOptionSelector = function (value) {
 			$scope.timeOptionSelector = value;
+			//console.log($scope.timeOptionSelector);
 		};
 
 		// Modal Close Function
@@ -715,7 +717,7 @@
 
 		$scope.updateMap = function (apply) {
 
-			console.log($scope.timeOptionSelector);
+			//console.log($scope.timeOptionSelector);
 
 			if (typeof(apply) === 'undefined') apply = false;
 

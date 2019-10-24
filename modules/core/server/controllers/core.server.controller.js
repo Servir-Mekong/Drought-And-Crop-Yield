@@ -64,13 +64,13 @@ exports.getMapData = function (req, res) {
 	var timeFrequency = params.timeFrequency;
 	var whereClause = "";
 	if (timeFrequency === '5day') {
-		dateObject.setDate(dateObject.getDate() + 5);
+		dateObject.setDate(dateObject.getDate() + 4);
 		var mm = dateObject.getMonth() + 1; // getMonth() is zero-based
 		var dd = dateObject.getDate();
 		var endDate = [ dateObject.getFullYear(), (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd ].join('-');
 		whereClause = "date>='" + fdate + "' and date<='" + endDate + "'";
 	} else if (timeFrequency === '10day') {
-		dateObject.setDate(dateObject.getDate() + 10);
+		dateObject.setDate(dateObject.getDate() + 9);
 		var m = dateObject.getMonth() + 1; // getMonth() is zero-based
 		var d = dateObject.getDate();
 		var finalDate = [ dateObject.getFullYear(), (m > 9 ? '' : '0') + m, (d > 9 ? '' : '0') + d ].join('-');
