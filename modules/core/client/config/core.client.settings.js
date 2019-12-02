@@ -1660,7 +1660,13 @@
 					'min_value': 3,
 					'max_value': 4,
 					'color': '#d7191c',
-					'name': 'Alert'
+					'name': 'Alert-1'
+				},
+				{
+					'min_value': 4,
+					'max_value': 5,
+					'color': '#6b0002',
+					'name': 'Alert-2'
 				}
 			],
 			surf_temp: [
@@ -1833,57 +1839,33 @@
 			],
 			ndvi: [
 				{
-					'name': '<-0.05',
-					'color': '#808080',
-					'value': -0.05,
+					'name': 'Extermely Dry',//'<0',
+					'color': '#f41707',
+					'value': 0,
 					'nature': 'lesser'
 				},
 				{
-					'name': '-0.05 - 0.05',
-					'color': '#e10000',
-					'min_value': -0.05,
-					'max_value': 0.05
+					'name': 'Dry', //'0 - 0.2',
+					'color': '#e9fc16',
+					'min_value': 0,
+					'max_value': 0.2
 				},
 				{
-					'name': '0.05 - 0.15',
-					'color': '#e1aa00',
-					'min_value': 0.05,
-					'max_value': 0.15
+					'name': 'Moderate Wet', //'0.2 - 0.4',
+					'color': '#53f1ea',
+					'min_value': 0.2,
+					'max_value': 0.4
 				},
 				{
-					'name': '0.15 - 0.25',
-					'color': '#ffff00',
-					'min_value': 0.15,
-					'max_value': 0.25
+					'name': 'Wet', //'0.4 - 0.6',
+					'color': '#5490f2',
+					'min_value': 0.4,
+					'max_value': 0.6
 				},
 				{
-					'name': '0.25 - 0.35',
-					'color': '#55ff00',
-					'min_value': 0.25,
-					'max_value': 0.35
-				},
-				{
-					'name': '0.35 - 0.45',
-					'color': '#00be00',
-					'min_value': 0.35,
-					'max_value': 0.45
-				},
-				{
-					'name': '0.45 - 0.55',
-					'color': '#008700',
-					'min_value': 0.45,
-					'max_value': 0.55
-				},
-				{
-					'name': '0.55 - 0.65',
-					'color': '#006400',
-					'min_value': 0.55,
-					'max_value': 0.65
-				},
-				{
-					'name': '0.65+',
-					'color': '#005000',
-					'value': 0.65,
+					'name': 'Extremely Wet', //'0.6+',
+					'color': '#0c367a',
+					'value': 0.6,
 					'nature': 'greater'
 				}
 			],
