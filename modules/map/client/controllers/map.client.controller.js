@@ -1191,50 +1191,106 @@
 
 			if (!isEmptyObject($scope.selectedLayerData)) {
 				if ($scope.selectedLayerData.from === 'country') {
-					DownloadURL += $scope.selectedLayerData.name.toLowerCase() + '/' + 
-								   $scope.indexOption.option.value + '_' + $scope.selectedLayerData.name.toLowerCase()  + '_' + date + '_';
+					if ($scope.timeOptionSelector === '10day') {
+						DownloadURL += $scope.selectedLayerData.name.toLowerCase() + '/' + 'average_10_days_' + 
+						$scope.indexOption.option.value + '_' + $scope.selectedLayerData.name.toLowerCase()  + '_' + date + '.tif';
+					} else if ($scope.timeOptionSelector === '5day') {
+						DownloadURL += $scope.selectedLayerData.name.toLowerCase() + '/' + 'average_5_days_' +
+						$scope.indexOption.option.value + '_' + $scope.selectedLayerData.name.toLowerCase()  + '_' + date + '.tif';
+					} else {
+						DownloadURL += $scope.selectedLayerData.name.toLowerCase() + '/' + 
+						$scope.indexOption.option.value + '_' + $scope.selectedLayerData.name.toLowerCase()  + '_' + date + '_';
+					}
 				} else if ($scope.selectedLayerData.from === 'admin1' || $scope.selectedLayerData.from === 'admin2') {
-					DownloadURL += $scope.selectedLayerData.country.toLowerCase() + '/' + 
-								   $scope.indexOption.option.value + '_' + $scope.selectedLayerData.country.toLowerCase()  + '_' + date + '_';
+					if ($scope.timeOptionSelector === '10day') {
+						DownloadURL += $scope.selectedLayerData.country.toLowerCase() + '/' + 'average_10_days_' + 
+						$scope.indexOption.option.value + '_' + $scope.selectedLayerData.country.toLowerCase()  + '_' + date + '.tif';
+					} else if ($scope.timeOptionSelector === '5day') {
+						DownloadURL += $scope.selectedLayerData.country.toLowerCase() + '/' + 'average_5_days_' +
+						$scope.indexOption.option.value + '_' + $scope.selectedLayerData.country.toLowerCase()  + '_' + date + '.tif';
+					} else {
+						DownloadURL += $scope.selectedLayerData.country.toLowerCase() + '/' + 
+						$scope.indexOption.option.value + '_' + $scope.selectedLayerData.country.toLowerCase()  + '_' + date + '_';
+					}
+				} else {
+					if ($scope.timeOptionSelector === '10day') {
+						DownloadURL += 'mekong/' + 'average_10_days_' + $scope.indexOption.option.value + '_mekong_' + date + '.tif';
+					} else if ($scope.timeOptionSelector === '5day') {
+						DownloadURL += 'mekong/' + 'average_5_days_' + $scope.indexOption.option.value + '_mekong_' + date + '.tif';
+					} else {
+						DownloadURL += 'mekong/' + $scope.indexOption.option.value + '_mekong_' + date + '_';
+					}
+				}
+			} else {
+				if ($scope.timeOptionSelector === '10day') {
+					DownloadURL += 'mekong/' + 'average_10_days_' + $scope.indexOption.option.value + '_mekong_' + date + '.tif';
+				} else if ($scope.timeOptionSelector === '5day') {
+					DownloadURL += 'mekong/' + 'average_5_days_' + $scope.indexOption.option.value + '_mekong_' + date + '.tif';
 				} else {
 					DownloadURL += 'mekong/' + $scope.indexOption.option.value + '_mekong_' + date + '_';
 				}
-			} else {
-				DownloadURL += 'mekong/' + $scope.indexOption.option.value + '_mekong_' + date + '_';
 			}
 
-			//var DownloadURL = $scope.downloadServerURL + $scope.indexOption.option.value + '/' +
-			//                  $scope.indexOption.option.value + '_' + date + '_';
+			if ($scope.timeOptionSelector === '10day' || $scope.timeOptionSelector === '5day') {
+				$scope.showLoader = false;
 
-			var url = prepareUrlForAPI('download-data');
-
-			// Make a request
-			apiCall(url, 'POST').then(
-				function (response) {
-					// Success Callback
-					$scope.showLoader = false;
-					if (response.data) {
-						var methodData = response.data[0];
-						if (methodData.from_nowcast) {
-							DownloadURL += 'nowcast.tif';
+				// send early request to see there is no error
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState === 4) {
+						if (xhr.status === 200) {
+							window.location.href = DownloadURL;
 						} else {
-							DownloadURL += 'forecast_';
-							if (methodData.from_nmme) {
-								DownloadURL += 'nmme.tif';
-							} else {
-								DownloadURL += 'esp.tif';
-							}
+							$timeout(function () { showErrorAlert('the raster is not available for the date!'); });
 						}
-						$window.location.href = DownloadURL;
 					}
-				},
-				function () {
-					// Error Callback
-					$scope.showLoader = false;
-					showErrorAlert('problem connecting to database. check if database port is open!');
-					console.log('problem connecting to database. check if database port is open!');
-				}
-			);
+				};
+				xhr.open('head', DownloadURL);
+				xhr.send(null);
+			} else {
+				var url = prepareUrlForAPI('download-data');
+
+				// Make a request
+				apiCall(url, 'POST').then(
+					function (response) {
+						// Success Callback
+						$scope.showLoader = false;
+						if (response.data) {
+							var methodData = response.data[0];
+							if (methodData.from_nowcast) {
+								DownloadURL += 'nowcast.tif';
+							} else {
+								DownloadURL += 'forecast_';
+								if (methodData.from_nmme) {
+									DownloadURL += 'nmme.tif';
+								} else {
+									DownloadURL += 'esp.tif';
+								}
+							}
+
+							// send early request to see there is no error
+							var xhr = new XMLHttpRequest();
+							xhr.onreadystatechange = function() {
+								if (xhr.readyState === 4) {
+									if (xhr.status === 200) {
+										window.location.href = DownloadURL;
+									} else {
+										$timeout(function () { showErrorAlert('the raster is not available for the date!'); });
+									}
+								}
+							};
+							xhr.open('head', DownloadURL);
+							xhr.send(null);
+						}
+					},
+					function () {
+						// Error Callback
+						$scope.showLoader = false;
+						showErrorAlert('problem connecting to database. check if database port is open!');
+						console.log('problem connecting to database. check if database port is open!');
+					}
+				);
+			}
 		};
 
 		$scope.downloadVector = function () {

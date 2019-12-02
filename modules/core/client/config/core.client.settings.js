@@ -282,7 +282,7 @@
 			},
 			{
 				'name': 'DOCUMENT',
-				'url': 'http://bit.ly/TechnicalDocsRDCYIS',
+				'url': 'http://bit.ly/RDCYIS-Technical-Docs',
 				'show': true,
 				'target': '_blank'
 			},
