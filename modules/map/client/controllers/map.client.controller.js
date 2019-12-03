@@ -1293,6 +1293,19 @@
 			}
 		};
 
+		var downloadBlob = function (blob, fileName) {
+			if (window.navigator.msSaveOrOpenBlob) { // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
+				window.navigator.msSaveBlob(blob, fileName);
+			} else {
+				var a = window.document.createElement('a');
+				a.href = window.URL.createObjectURL(blob, {type: 'text/json'});
+				a.download = fileName;
+				document.body.appendChild(a);
+				a.click();  // IE: "Access is denied"; see: https://connect.microsoft.com/IE/feedback/details/797361/ie-10-treats-blob-url-as-cross-origin-and-denies-access
+				document.body.removeChild(a);
+			}
+		};
+
 		$scope.downloadVector = function () {
 
 			if ($scope.displayedGeoJSON) {
@@ -1300,44 +1313,47 @@
 				_date = _date.split('-');
 				var date = _date[0] + '-' + ('0' + _date[1]).slice(-2) + '-' + ('0' + _date[2]).slice(-2);
 				date = date.replace(/-/g, '_');
-				var fileName = $scope.indexOption.option.value + '_' + date + '_';
 
-				var url = prepareUrlForAPI('download-data');
+				var fileName = '';
+				if ($scope.timeOptionSelector === '10day') {
+					fileName += 'average_10_days_' + $scope.indexOption.option.value + '_' + date + '.geojson';
+				} else if ($scope.timeOptionSelector === '5day') {
+					fileName += 'average_5_days_' + $scope.indexOption.option.value + '_' + date + '.geojson';
+				} else {
+					fileName += $scope.indexOption.option.value + '_' + date + '_';
+				}
 
-				// Make a request
-				apiCall(url, 'POST').then(
-					function (response) {
-						// Success Callback
-						$scope.showLoader = false;
-						if (response.data) {
-							var methodData = response.data[0];
-							if (methodData.from_nowcast) {
-								fileName += 'nowcast.geojson';
-							} else {
-								fileName += 'forecast.geojson';
+				if ($scope.timeOptionSelector === '10day' || $scope.timeOptionSelector === '5day') {
+					$scope.showLoader = false;
+					var blob = new Blob([JSON.stringify($scope.displayedGeoJSON)]);
+					downloadBlob(blob, fileName);
+				} else {
+					var url = prepareUrlForAPI('download-data');
+
+					// Make a request
+					apiCall(url, 'POST').then(
+						function (response) {
+							// Success Callback
+							$scope.showLoader = false;
+							if (response.data) {
+								var methodData = response.data[0];
+								if (methodData.from_nowcast) {
+									fileName += 'nowcast.geojson';
+								} else {
+									fileName += 'forecast.geojson';
+								}
+								var blob = new Blob([JSON.stringify($scope.displayedGeoJSON)]);
+								downloadBlob(blob, fileName);
 							}
-							// extract from https://github.com/mholt/PapaParse/issues/175
-							var blob = new Blob([JSON.stringify($scope.displayedGeoJSON)]);
-							if (window.navigator.msSaveOrOpenBlob)  // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
-							    window.navigator.msSaveBlob(blob, fileName);
-							else
-							{
-							    var a = window.document.createElement('a');
-							    a.href = window.URL.createObjectURL(blob, {type: 'text/json'});
-							    a.download = fileName;
-							    document.body.appendChild(a);
-							    a.click();  // IE: "Access is denied"; see: https://connect.microsoft.com/IE/feedback/details/797361/ie-10-treats-blob-url-as-cross-origin-and-denies-access
-							    document.body.removeChild(a);
-							}
+						},
+						function () {
+							// Error Callback
+							$scope.showLoader = false;
+							showErrorAlert('problem connecting to database. check if database port is open!');
+							console.log('problem connecting to database. check if database port is open!');
 						}
-					},
-					function () {
-						// Error Callback
-						$scope.showLoader = false;
-						showErrorAlert('problem connecting to database. check if database port is open!');
-						console.log('problem connecting to database. check if database port is open!');
-					}
-				);
+					);
+				}
 			}
 		};
 
