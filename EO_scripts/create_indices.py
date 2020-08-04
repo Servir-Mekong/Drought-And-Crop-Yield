@@ -98,7 +98,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         selected_modis_refl = modis09.filterDate(startdate, enddate).filterBounds(aoi).map(maskMOD09)
         processed = selected_modis_refl.map(calc_indices_mod09)
         outputsubfolder = 'MODIS'
-    elif indx == 'VIIRS':
+    else:  # default processing is for VIIRS
         viirsdata = ee.ImageCollection("NOAA/VIIRS/001/VNP13A1")
         selected_viirs = viirsdata.filterDate(startdate, enddate).filterBounds(aoi).map(maskVIIRS)
         processed = selected_viirs.map(calc_indices_viirs)
@@ -109,7 +109,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
 
     for i in value:
         image = ee.Image(processed.filter(
-            ee.Filter.eq('system:index', i)).first())  # .clip(aoi)
+            ee.Filter.eq('system:index', i)).first())
         saviimage = image.select('SAVI')
 
         task_ordered1 = ee.batch.Export.image.toAsset(
@@ -157,7 +157,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         task_ordered3.start()
         task_ordered4.start()
     print("order no:", i)
-    return "Done"
+    return "Processing Done."
 
 
 def main(argument):
@@ -223,6 +223,6 @@ def main(argument):
 
 
 if __name__ == '__main__':
-    # main(sys.argv[1:])
+    main(sys.argv[1:])
     # python create_indices.py -p MODIS -s 2015-03-04 -e 2018-03-04 -d "users/seiasia/internal_SERVIR" -a "projects/servir-mekong/Lower_mekong_boundary"
-    localtest = create_veg_indices("MODIS","2015-03-04", "2018-03-04", "users/seiasia/internal_SERVIR", "projects/servir-mekong/Lower_mekong_boundary")
+    # localtest = create_veg_indices("MODIS","2015-03-04", "2018-03-04", "users/seiasia/internal_SERVIR", "projects/servir-mekong/Lower_mekong_boundary")
