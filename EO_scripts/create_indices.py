@@ -97,10 +97,12 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         modis09 = ee.ImageCollection("MODIS/006/MOD09A1")
         selected_modis_refl = modis09.filterDate(startdate, enddate).filterBounds(aoi).map(maskMOD09)
         processed = selected_modis_refl.map(calc_indices_mod09)
+        outputsubfolder = 'MODIS'
     elif indx == 'VIIRS':
         viirsdata = ee.ImageCollection("NOAA/VIIRS/001/VNP13A1")
         selected_viirs = viirsdata.filterDate(startdate, enddate).filterBounds(aoi).map(maskVIIRS)
         processed = selected_viirs.map(calc_indices_viirs)
+        outputsubfolder = 'VIIRS'
 
     imageIds = processed.aggregate_array('system:index')
     value = imageIds.getInfo()
@@ -113,7 +115,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         task_ordered1 = ee.batch.Export.image.toAsset(
             image=saviimage,
             description='Export_' + i + '_SAVI',
-            assetId=repository_name + "/VIIRS_SAVI_INT/SAVI_" + i,
+            assetId= repository_name + "/" + outputsubfolder + "_SAVI_INT/SAVI_" + i,
             region=aoi.bounds().getInfo()['coordinates'][0],
             # in special case of error use .bounds().getInfo()['coordinates'][0] or else only bounds()
             scale=500,
@@ -124,7 +126,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         task_ordered2 = ee.batch.Export.image.toAsset(
             image=msiimage,
             description='Export_' + i + '_MSI',
-            assetId=repository_name + "/VIIRS_MSI_INT/MSI_" + i,
+            assetId=repository_name + "/" + outputsubfolder + "_MSI_INT/MSI_" + i,
             region=aoi.bounds().getInfo()['coordinates'][0],
             scale=500,
             crs='EPSG:4326',
@@ -134,7 +136,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         task_ordered3 = ee.batch.Export.image.toAsset(
             image=vsdiimage,
             description='Export_' + i + '_VSDI',
-            assetId=repository_name + "/VIIRS_VSDI_INT/VSDI_" + i,
+            assetId=repository_name + "/" + outputsubfolder + "_VSDI_INT/VSDI_" + i,
             region=aoi.bounds().getInfo()['coordinates'][0],
             scale=500,
             crs='EPSG:4326',
@@ -144,7 +146,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         task_ordered4 = ee.batch.Export.image.toAsset(
             image=arviimage,
             description='Export_' + i + '_ARVI',
-            assetId=repository_name + "/VIIRS_ARVI_INT/ARVI_" + i,
+            assetId=repository_name + "/" + outputsubfolder + "_ARVI_INT/ARVI_" + i,
             region=aoi.bounds().getInfo()['coordinates'][0],
             scale=500,
             crs='EPSG:4326',
@@ -193,7 +195,9 @@ def main(argument):
             -d, -EEAsset   Location to save in GEE asset. it will automatically save in each of indices sub folder.       
                            e.g. projects/servir-mekong/EODrought
                            NOTE: you have to create subfolders in EEAsset manually if they dont exist.
-                           naming convention used: VIIRS_ARVI_INT,VIIRS_SAVI_INT, VIIRS_MSI_INT, VIIRS_VSDI_INT
+                           naming convention used: 
+                           For VIIRS : VIIRS_ARVI_INT,VIIRS_SAVI_INT, VIIRS_MSI_INT, VIIRS_VSDI_INT
+                               MODIS : MODIS_ARVI_INT,MODIS_SAVI_INT, MODIS_MSI_INT, MODIS_VSDI_INT
             -a, -aoi       aoi file location. Should be a feature collection. 
                            e.g. projects/servir-mekong/Lower_mekong_boundary
             ''')
@@ -219,6 +223,6 @@ def main(argument):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
-    # python create_indices.py -p MODIS -s 2015-03-04 -e 2018-03-04 -d "users/seiasia/internal_SERVIR/" -a "projects/servir-mekong/Lower_mekong_boundary"
-    # localtest = create_indices("2015-03-04", "2018-03-04", "users/seiasia/internal_SERVIR/", "projects/servir-mekong/Lower_mekong_boundary")
+    # main(sys.argv[1:])
+    # python create_indices.py -p MODIS -s 2015-03-04 -e 2018-03-04 -d "users/seiasia/internal_SERVIR" -a "projects/servir-mekong/Lower_mekong_boundary"
+    localtest = create_veg_indices("MODIS","2015-03-04", "2018-03-04", "users/seiasia/internal_SERVIR", "projects/servir-mekong/Lower_mekong_boundary")
