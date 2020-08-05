@@ -94,7 +94,9 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
     aoi = area_of_interest.geometry()
 
     if indx == 'MODIS':
-        modis09 = ee.ImageCollection("MODIS/006/MOD09A1")
+        modis09a = ee.ImageCollection("MODIS/006/MOD09A1")
+        modis09b = ee.ImageCollection("MODIS/006/MYD09A1")
+	modis09 = modis09a.merge(modis09b)
         selected_modis_refl = modis09.filterDate(startdate, enddate).filterBounds(aoi).map(maskMOD09)
         processed = selected_modis_refl.map(calc_indices_mod09)
         outputsubfolder = 'MODIS'
@@ -115,7 +117,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         task_ordered1 = ee.batch.Export.image.toAsset(
             image=saviimage,
             description='Export_' + i + '_SAVI',
-            assetId= repository_name + "/" + outputsubfolder + "_SAVI_INT/SAVI_" + i,
+            assetId= repository_name + "/" + outputsubfolder + "/SAVI/SAVI_" + i,
             region=aoi.bounds().getInfo()['coordinates'][0],
             # in special case of error use .bounds().getInfo()['coordinates'][0] or else only bounds()
             scale=500,
@@ -126,7 +128,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         task_ordered2 = ee.batch.Export.image.toAsset(
             image=msiimage,
             description='Export_' + i + '_MSI',
-            assetId=repository_name + "/" + outputsubfolder + "_MSI_INT/MSI_" + i,
+            assetId=repository_name + "/" + outputsubfolder + "/MSI/MSI_" + i,
             region=aoi.bounds().getInfo()['coordinates'][0],
             scale=500,
             crs='EPSG:4326',
@@ -136,7 +138,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         task_ordered3 = ee.batch.Export.image.toAsset(
             image=vsdiimage,
             description='Export_' + i + '_VSDI',
-            assetId=repository_name + "/" + outputsubfolder + "_VSDI_INT/VSDI_" + i,
+            assetId=repository_name + "/" + outputsubfolder + "/VSDI/VSDI_" + i,
             region=aoi.bounds().getInfo()['coordinates'][0],
             scale=500,
             crs='EPSG:4326',
@@ -146,7 +148,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
         task_ordered4 = ee.batch.Export.image.toAsset(
             image=arviimage,
             description='Export_' + i + '_ARVI',
-            assetId=repository_name + "/" + outputsubfolder + "_ARVI_INT/ARVI_" + i,
+            assetId=repository_name + "/" + outputsubfolder + "/ARVI/ARVI_" + i,
             region=aoi.bounds().getInfo()['coordinates'][0],
             scale=500,
             crs='EPSG:4326',
