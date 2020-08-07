@@ -69,13 +69,13 @@ def calc_indices_mod09(image):
     nir = image.select('sur_refl_b02')
     red = image.select('sur_refl_b01')
     blue = image.select('sur_refl_b03')
-    swir = image.select('sur_refl_b07')
+    swir = image.select('sur_refl_b06')
 
     msi = calc_msi(swir, nir)
     arvi = calc_arvi(nir, red, blue)
     savi = calc_savi(nir, red)
     # vsdi = calc_vsdi(image, 'sur_refl_b07', 'sur_refl_b01', 'sur_refl_b03')
-    vsdi = calc_vsdi_rescaled(image, 'sur_refl_b07', 'sur_refl_b01', 'sur_refl_b03')
+    vsdi = calc_vsdi_rescaled(image, 'sur_refl_b06', 'sur_refl_b01', 'sur_refl_b03')
 
     return msi.addBands(arvi).addBands(vsdi).addBands(savi).copyProperties(image,
                                                                            ['system:time_start', 'system:time_end'])
@@ -96,7 +96,7 @@ def create_veg_indices(indx, startdate, enddate, repository_name, area_of_intere
     if indx == 'MODIS':
         modis09a = ee.ImageCollection("MODIS/006/MOD09A1")
         modis09b = ee.ImageCollection("MODIS/006/MYD09A1")
-	modis09 = modis09a.merge(modis09b)
+        modis09 = modis09a.merge(modis09b)
         selected_modis_refl = modis09.filterDate(startdate, enddate).filterBounds(aoi).map(maskMOD09)
         processed = selected_modis_refl.map(calc_indices_mod09)
         outputsubfolder = 'MODIS'
