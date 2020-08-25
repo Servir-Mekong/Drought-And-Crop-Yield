@@ -1,0 +1,483 @@
+{% extends 'base.html'%}
+<html>
+<head>
+  {% block head %}
+  <title>MD&CW</title>
+  {% endblock %}
+</head>
+<body>
+
+  {% block body%}
+  <!-- ======= Hero Section ======= -->
+  <div class="row" style="background: #5d4f3f;color:#FFF;margin-bottom: 30px;">
+    <div class="container ">
+      <div class="row">
+        <div class="col-lg-2 menu-tab active">
+          DROUGHT
+        </div>
+        <div class="col-lg-2 menu-tab">
+          CROP YIELD
+        </div>
+      </div>
+    </div>
+  </div>
+  <main id="main">
+    <section class="content-lists">
+      <div class="container">
+        <div class="row" ng-controller="CurrentMapController">
+          <div class="col-lg-12 col-md-6" id="map-nav" style="display:none;">
+            <a href="#" id="mekong-map">Mekong</a> <span>/ </span>
+            <a href="#" id="country-map"></a> <span>/ </span>
+            <a href="#" id="province-map"></a> <span> </span>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="map-title">Current Conditions</div>
+                <p>Map Updated: 01/01/2020</p>
+              </div>
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <input type="radio" id="current-d" name="current-radio-group" checked>
+                    <label for="current-d">*CURRENT</label>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="radio" id="current-8d" name="current-radio-group">
+                    <label for="current-8d">*8D</label>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="radio" id="current-16d" name="current-radio-group">
+                    <label for="current-16d">*16D</label>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="radio" id="current-24d" name="current-radio-group">
+                    <label for="current-24d">*24D</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="map-1" id="map1"></div>
+            <p id="mouseover-feature"></p>
+            <hr>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 legend-list">
+                <h2>Intensity of Current Conditions</h2>
+                <ul>
+                  <li>
+                    <div class="row col-lg-12">
+                      <div class="col-lg-2">
+                        <div class="intensity-class" style="background: #FFF; border:1px solid #C3C3C3;"></div>
+                      </div>
+                      <div class="col-lg-10">
+                        No Drought
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row col-lg-12">
+                      <div class="col-lg-2">
+                        <div class="intensity-class" style="background:#FF7F27"></div>
+                      </div>
+                      <div class="col-lg-10">
+                        Moderately Dry
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row col-lg-12">
+                      <div class="col-lg-2">
+                        <div class="intensity-class" style="background: #B97A57"></div>
+                      </div>
+                      <div class="col-lg-10">
+                        Severely Dry
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row col-lg-12">
+                      <div class="col-lg-2">
+                        <div class="intensity-class" style="background:#880015"></div>
+                      </div>
+                      <div class="col-lg-10">
+                        Extermely Dry
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row col-lg-12">
+                      <div class="col-lg-2">
+                        <div class="intensity-class" style="background: #C3C3C3"></div>
+                      </div>
+                      <div class="col-lg-10">
+                        No Data
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <h2>Map Download</h2>
+                <button type="button" class="btn btn-color1" id="current-btn-download">Current Conditions</button>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="map-title">Outlooks</div>
+                <p>Map Updated: 01/01/2020</p>
+              </div>
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-4">
+                    <input type="radio" id="outlook-m1" name="radio-group" checked>
+                    <label for="outlook-m1">1M</label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input type="radio" id="outlook-m2" name="radio-group">
+                    <label for="outlook-m2">2M</label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input type="radio" id="outlook-m3" name="radio-group">
+                    <label for="outlook-m3">3M</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="map-2" id="map2"></div>
+            <hr>
+            <div class="row" style="border-left: 1px solid #c3c3c3;">
+              <div class="col-lg-6 col-md-6 legend-list">
+
+                <h2>Outlook Warning</h2>
+                <ul>
+                  <li>
+                    <div class="row col-lg-12">
+                      <div class="col-lg-2">
+                        <div class="intensity-class" style="background: #FFF; border:1px solid #C3C3C3;"></div>
+                      </div>
+                      <div class="col-lg-10">
+                        None
+                      </div>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="row col-lg-12">
+                      <div class="col-lg-2">
+                        <div class="intensity-class" style="background:#FF7F27"></div>
+                      </div>
+                      <div class="col-lg-10">
+                        Watch
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row col-lg-12">
+                      <div class="col-lg-2">
+                        <div class="intensity-class" style="background: #B97A57"></div>
+                      </div>
+                      <div class="col-lg-10">
+                        Warning
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row col-lg-12">
+                      <div class="col-lg-2">
+                        <div class="intensity-class" style="background:#880015"></div>
+                      </div>
+                      <div class="col-lg-10">
+                        Alert
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <h2>Map Download</h2>
+                <button type="button" class="btn btn-color1">1M</button>
+                <button type="button" class="btn btn-color2">2M</button>
+                <button type="button" class="btn btn-color3">3M</button>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <section class="content-lists">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-6">
+            <hr>
+            <p class="products-desc">These product have been created with the highest degree of accuracy possible and depicts information at regional and national scales. Local conditions are subject to variations based on local climatic conditions. The product has been produced based on the latest available satellite and global modeled data and subject to update every two weeks.</p>
+            <hr>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="content-lists">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-6 intensity-table">
+            <h3>Table -1: Intensity of Current Conditions</h3>
+            <table>
+             <tbody>
+               <tr>
+                 <th>Drought Category</th>
+                 <th>Probability of Occurrence</th>
+                 <th>Risk Level</th>
+                 <th>Possible Observe Conditions and Impacts</th>
+               </tr>
+               <tr>
+                 <td>Moderate Drought</td>
+                 <td>0-60 %</td>
+                 <td>Medium</td>
+                 <td>
+                   <ul style="list-style-type: circle;margin-left: 20px;">
+                     <li> Warmer weather </li>
+                     <li> Less rainfall</li>
+                     <li> Delayed or shorter monsoon rains</li>
+                   </ul>
+                   <br>
+                   <ul style="list-style-type: circle;margin-left: 20px;">
+                     <li>Falling agricultural crop production </li>
+                     <li>Water shortages</li>
+                   </ul>
+                 </td>
+               </tr>
+               <tr>
+                 <td>Severe Drought</td>
+                 <td>0-20 %</td>
+                 <td>High</td>
+                 <td>
+                   <ul style="list-style-type: circle;margin-left: 20px;">
+                     <li>Warmer weather </li>
+                     <li>Significantly less rainfall</li>
+                     <li>Delayed or shorter monsoon rains</li>
+                   </ul>
+                   <br>
+                   <ul style="list-style-type: circle;margin-left: 20px;">
+                     <li>Falling agricultural crop production and disruptions to food production </li>
+                     <li>Water shortages in fresh water sources</li>
+                     <li>Water level drops in Mekong river</li>
+                     <li>Water level drops in Tonle sap</li>
+                     <li>Increasing salinity  in the Mekong Delta</li>
+                     <li>Impact on fish reproduction in the Mekong river and Tonle Sap</li>
+                   </ul>
+                 </td>
+               </tr>
+               <tr>
+                 <td>Extreme Drought</td>
+                 <td>0-20 %</td>
+                 <td>High</td>
+                 <td>
+                   <ul style="list-style-type: circle;margin-left: 20px;">
+                     <li>Warmer weather</li>
+                     <li>Significantly less rainfall</li>
+                     <li>Delayed or shorter monsoon rains</li>
+                   </ul>
+                   <br>
+                   <ul style="list-style-type: circle;margin-left: 20px;">
+                     <li>Exceptional Falling agricultural crop production and disruptions to food production </li>
+                     <li>Emergencies of water shortages in fresh water sources</li>
+                     <li>Significant water level drops in Mekong river and Tonle sap</li>
+                     <li>Severe increasing of salinity in the Mekong Delta</li>
+                     <li>Significant impact on fish reproduction in the Mekong river and Tonle sap</li>
+                     <li>Disruptions to the entire ecosystem around Mekong river</li>
+                   </ul>
+                 </td>
+               </tr>
+             </tbody>
+
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="content-lists">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-6 intensity-table">
+            <h3>Table -2: Outlook Warning</h3>
+            <table>
+              <tr>
+                <th>Warning Category</th>
+                <th>Description (Source: G. Sepulcre-Canto et al, 2012)</th>
+              </tr>
+              <tr>
+                <td>Watch</td>
+                <td>short-term dryness slowing planting, growth of crops or pastures</td>
+              </tr>
+              <tr>
+                <td>Warning</td>
+                <td>Soil moisture is in deficit. Drought that affects agriculture is expected. Put response strategies into action in order to minimise exposure.</td>
+              </tr>
+              <tr>
+                <td>Alarm</td>
+                <td>Precipitation is less than normal. There is an increased likelihood that there will be a drought affecting agriculture. The situation should be monitored closely and responses should be put into preparation.</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr>
+    <section id="summary" class="summary">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 justify-content-center summary-content">
+            <div class="section-title">
+              <h2>DROUGHT SUMMARY</h2>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <p class="summary_date">Last Update: 01/01/2020</p>
+          </div>
+
+          <div class="col-lg-12" id="Cambodia">
+            <div class="summary-country">Cambodia:</div>
+            <p class="summary-detail">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.</p>
+          </div>
+
+          <div class="col-lg-12" id="Laos">
+            <div class="summary-country">Lao PDR:</div>
+            <p class="summary-detail">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.</p>
+          </div>
+
+          <div class="col-lg-12" id="Myanmar">
+            <div class="summary-country">Myanmar:</div>
+            <p class="summary-detail">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.</p>
+          </div>
+
+          <div class="col-lg-12" id="Thailand">
+            <div class="summary-country">Thailand:</div>
+            <p class="summary-detail">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.</p>
+          </div>
+
+          <div class="col-lg-12" id="Vietnam">
+            <div class="summary-country">Vietnam:</div>
+            <p class="summary-detail">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.</p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End summary Us Section -->
+
+
+
+    <section class="content-lists">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="">
+
+          </div>
+          <div class="col-lg-4 col-md-6 content-item" data-aos="fade-up">
+            <div class="highlight-icon">
+              <a href="/map"><img src="/static/images/icons/Interractive_map.png" alt="INTERACTIVE MAP"></a>
+            </div>
+            <h4>INTERACTIVE MAP</h4>
+            <p></p>
+          </div>
+
+          <div class="col-lg-4 col-md-6 content-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="highlight-icon">
+              <img src="/static/images/icons/feature_articles.png" alt="FEATURE ARTICLES" style="height:140px;">
+            </div>
+            <h4>FEATURE ARTICLES/KNOWLEDGE CENTER</h4>
+            <p></p>
+          </div>
+
+          <div class="col-lg-4 col-md-6 content-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="highlight-icon">
+              <img src="/static/images/icons/feature_articles.png" alt="FEATURE ARTICLES" style="height:140px;">
+            </div>
+            <h4>CLIMATE STUDIES</h4>
+            <p></p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- ======= End Info Section ======= -->
+
+    <section id="about" class="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-6">
+            <div class="about-div">Regional Drought and Crop Yield Information System:</p>
+            <p>Droughts in the Lower Mekong region negatively impact ecosystem services, food and water security, and biodiversity. These impacts are exacerbated by climate change, further highlighting the need for improved governance and decision-making in virtually all sectors.</p>
+            <div class="about-div">Application Purpose</p>
+            <ul style="list-style-type: circle;margin-left: 25px;">
+              <li>improve the operational, technological, and institutional capabilities to prepare for and respond to droughts in the Lower Mekong region.</li>
+              <li>support local decision-makers in drought monitoring, analysis, and forecasting.</li>
+              <li>provide policy makers and growers with current and forecast drought indices to facilitate decision-making within the current growing season. </li>
+              <li>provide ecological and financial forecasting information to inform seasonal cropping decisions. Subsequent functionality may include additional information relevant to decisions at sub-seasonal or multi-year temporal scales.</li>
+            </ul>
+
+
+            <div class="about-div">Application Uses</p>
+            <p>The system can be used to assist local governments and the agricultural sector with seasonal drought forecasting and in implementing short and long-term mitigation measures during and in advance of droughts. It can also be used to characterize droughts through accurate, reliable, and timely estimates of their severity and impacts. In addition, the system can inform assessments of the economic, social, and environmental impacts of drought on vulnerable people and water-related resource systems. And finally, it can help develop critical regional and local thresholds reflecting increasing levels of risk and vulnerability to drought, as agreed by stakeholders.</p>
+
+          </div>
+        </div>
+      </section><!-- End summary Us Section -->
+
+      <!-- ======= Services Section ======= -->
+      <section id="services" class="services">
+        <div class="container">
+
+          <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
+              <img src="/static/images/partners/nasa.png" alt="" style="width:auto; height:70px;">
+              <img src="/static/images/partners/jpl.png" alt="" style="width:auto; height:50px;">
+              <p>NASA Jet Propulsion Laboratory (JPL)</p>
+            </div>
+            <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+              <img src="/static/images/partners/mrc.png" alt="" style="width:auto; height:80px;">
+              <p>Mekong River Commission</p>
+            </div>
+            <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+              <img src="/static/images/partners/vawr.png" alt="" style="width:auto; height:70px;">
+              <p>Vietnam Academy of Water Resources</p>
+            </div>
+          </div>
+          <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+              <img src="/static/images/partners/sig.png" alt="" style="width:auto; height:50px;">
+            </div>
+            <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+              <img src="/static/images/partners/sei.png" alt="" style="width:auto; height:60px;">
+            </div>
+            <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+              <img src="/static/images/partners/deltares.png" alt="" style="width:auto; height:70px;">
+            </div>
+          </div>
+
+        </div>
+
+      </section><!-- End Services Section -->
+
+    </main><!-- End #main -->
+    {% endblock %}
+  </body>
+  </html>

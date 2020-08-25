@@ -1,0 +1,179 @@
+{% extends 'base.html'%}
+<html>
+<head>
+  {% block head %}
+  <title>MD&CW</title>
+  {% endblock %}
+</head>
+
+<body>
+
+  {% block body%}
+  <!-- ======= Hero Section ======= -->
+
+  <main id="main" style="padding: 20px;">
+
+      <div class="" ng-controller="MapController">
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <div class="map" id="map">
+
+              <div id="menu-left" class="sidenav sidenav-menu">
+                <div class="">
+                  <div class="searching-form">
+                  <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label for="select-areaIndexSelectors">AREA</label>
+                                <!-- <input type="text" class="form-control" id="start_date" value="" placeholder="dd/mm/yyyy"> -->
+                                <select class="form-control" name="" id="select-areaIndexSelectors" >
+                                  <option ng-repeat="x in areaIndexSelectors" value="[[x.value]]">[[x.name]]</option>
+                                </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label for="map-select-indices1">SELECT INDICATOR</label>
+                            <select class="form-control" name="" id="map-select-indices1" >
+                              <option ng-repeat="x in variables" value="[[x.value]]">[[x.name]]</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label for="select-periodicity">SELECT PERIODICITY</label>
+                              <select class="form-control" name="" id="select-periodicity" >
+                                <option ng-repeat="x in periodicity" value="[[x.value]]">[[x.name]]</option>
+                              </select>
+                          </div>
+                        </div>
+
+
+
+                      </div>
+                  </div>
+
+                </div>
+                </div>
+              </div>
+
+              <div id="show-menu" class="show-menu">
+                <p>Show Menu</p>
+
+              </div>
+
+              <div id="hide-menu" class="close-menu">
+                <p>Hide Menu</p>
+              </div>
+
+              <div class="date-picker">
+                <div id="dp5" data-date-format="yyyy-mm-dd"></div>
+              </div>
+
+              <div class="control-panel map-component">
+                <div class="scalebar-container"></div>
+                <!-- Map Munu -->
+                {% include "panels/map-menu.html" %}
+              </div>
+
+
+            </div>
+
+          </div>
+          <div class="col-lg-6 col-md-6" style="padding-top:30px;">
+            <div class="row">
+              <div class="col-lg-12 col-md-6">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 select-opt">
+                    SELECT INDICES
+                    <select class="form-control" name="" id="select-indices1" >
+                      <option ng-repeat="x in variables" value="[[x.value]]">[[x.name]]</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <figure class="highcharts-figure">
+                  <p class="highcharts-description"  id="chart-description-c1">
+
+                  </p>
+                  <div class="chart-area" id="container"></div>
+              </figure>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <figure class="highcharts-figure">
+                  <p class="highcharts-description"  id="chart-description-c2">
+
+                  </p>
+                  <div class="chart-area" id="area-container"></div>
+              </figure>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12 col-md-6">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 select-opt">
+                    SELECT INDICES
+                    <select class="form-control" name="" id="select-indices2">
+                      <option ng-repeat="x in variables" value="[[x.value]]">[[x.name]]</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <figure class="highcharts-figure">
+                  <p class="highcharts-description" id="chart-description-c3">
+                  </p>
+                  <div class="chart-area" id="container-chart3"></div>
+              </figure>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <figure class="highcharts-figure">
+                  <p class="highcharts-description"  id="chart-description-c4">
+                  </p>
+                  <div class="chart-area" id="area-container-chart3"></div>
+              </figure>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12 col-md-6">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 select-opt">
+                    SELECT INDICES
+                    <select class="form-control" name="" id="select-indices3">
+                      <option ng-repeat="x in variables" value="[[x.value]]">[[x.name]]</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <figure class="highcharts-figure">
+                  <p class="highcharts-description"  id="chart-description-c5">
+                  </p>
+                  <div class="chart-area" id="container-chart5"></div>
+              </figure>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <figure class="highcharts-figure">
+                  <p class="highcharts-description"  id="chart-description-c6">
+                  </p>
+                  <div class="chart-area" id="area-container-chart5"></div>
+              </figure>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </main><!-- End #main -->
+    {% endblock %}
+  </body>
+  </html>

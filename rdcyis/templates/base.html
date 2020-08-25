@@ -1,0 +1,257 @@
+
+{% load cms_tags menu_tags sekizai_tags staticfiles %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" data-framework="angularjs">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<meta name="keywords" content="Drought tool, Drought, vietnam, cambodia, laos, myanmar, thailand">
+	<meta name="viewport" content="width=1024">
+	<meta name="description" content="Regional Drought and Crop Yield Information System">
+	<meta name="author" content="Thannarot Kunlamai, Servir-Mekong">
+
+	{% block head%}
+	<title>MD&CW</title>
+	{% endblock %}
+
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+
+	{% addtoblock "css" %}
+	    <style type="text/css">
+	        /** Hide when Angular is not yet loaded and initialized */
+	        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	            display: none !important;
+	        }
+	    </style>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+		<!-- Mapping -->
+		<link href="{% static 'vendor/leaflet/dist/leaflet.css' %}" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.control.min.css" />
+
+		<!-- Vendor CSS Files -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/venobox/venobox.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+		<link href="{% static 'vendor/chart.js/dist/Chart.min.css' %}" rel="stylesheet">
+		<link href="{% static 'vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css' %}" rel="stylesheet">
+
+
+		<!-- Load CSS -->
+
+		<!-- Custom CSS -->
+
+		<link href="{% static 'css/navigation.css' %}" rel="stylesheet">
+		<link href="{% static 'css/main.css' %}" rel="stylesheet">
+		<link href="{% static 'css/map.css' %}" rel="stylesheet">
+
+	{% endaddtoblock %}
+
+	{% render_block "css" %}
+</head>
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header">
+			<div class="row">
+				<div class="container">
+					<div class="navbar-container"  ng-controller="utilsController">
+            <div ng-repeat="partner in partnersHeader" class="">
+              <a href="[[partner.url]]" target="_blank">
+                <img class="grow img-responsive [[partner.className]]" src="{% static '' %}[[partner.src]]" alt="[[partner.alt]]">
+              </a>
+            </div>
+				</div>
+
+	      </div>
+			</div>
+			<div class="row" style="background:#293433;color:#FFF;border-bottom: 3px solid #293433;">
+				<div class="container">
+
+	        <div class="logo float-left">
+	          <h1 class="text-light"><a href="/home"><span>Mekong Drought and Crop Watch</span></a></h1>
+	        </div>
+
+	        <nav class="nav-menu float-right d-none d-lg-block">
+	          <ul>
+							<li><a href="/map/" style="color: white;" target="_blank">INTERACTIVE MAP</a></li>
+	            <!-- <li><a href="http://bit.ly/RDCYIS-Technical-Docs" target="_blank" style="color: white;">DOCUMENT</a></li> -->
+							<li><a href="#" target="_blank" style="color: white;">CREATE REPORT</a></li>
+	            <!-- <li><a href="https://goo.gl/forms/P2Lc5yBOOshT5uem1" target="_blank" style="color: white;">FEEDBACK</a></li> -->
+							<li class="dropdown">
+								<a href="#" class="navmenu dropdown-toggle display-inline-block-imp" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									HOW TO USE <span class="caret" style="color: white;"></span>
+								</a>
+								<ul style="cursor: pointer;color:#333;" class="dropdown-menu">
+									<li><a href="https://goo.gl/rxeaKN" target="_blank" translate>English</a></li>
+									<li><a href="http://bit.ly/rheas-how-to-vi" target="_blank" translate>Vietnamese</a></li>
+								</ul>
+							</li>
+
+	          </ul>
+	        </nav>
+
+	      </div>
+			</div>
+
+
+    </header>
+		<!-- End Header -->
+
+    {% block body%}
+
+
+    {%  endblock%}
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-lg-6 col-md-6 footer-info">
+              <h3><img src="/static/images/partners/servir-mekong.png" alt="" style="width:auto; height:35px;"></h3>
+
+              <p>
+                <b>ASIAN DISASTER PREPAREDNESS CENTER (ADPC)</b> <br>
+                SM Tower, 24th Floor, 979/69 Paholyothin Road, Samsen Nai Phayathai,<br>
+                Bangkok 10400 Thailand<br>
+                BTS Skytrain: Sanam Pao, Exit 1<br>
+                <strong>Phone:</strong> +66 2 298 0681-92<br>
+                <strong>Fax:</strong> +66 2 298 0012<br>
+								<strong>For technical queries: </strong>susantha@adpc.net
+              </p>
+              <div class="social-links mt-3">
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Menu Links</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="/http://bit.ly/RDCYIS-Technical-Docs">Technical Document</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/https://goo.gl/forms/P2Lc5yBOOshT5uem1">Feedback</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/https://goo.gl/rxeaKN">How to use</a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Services</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="/home" target="_blank">Drought</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#" target="_blank">Crop Yield</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>MD&CW</span></strong>. All Rights Reserved
+        </div>
+      </div>
+    </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+	{% addtoblock "js" %}
+		<!-- Load JS Lib -->
+
+
+		<!-- jQuery -->
+		<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+		<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+		<!-- Bootstrap Plugins -->
+	    <script src="{% static 'vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
+	    <!-- Slider -->
+	    <script src="{% static 'vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js' %}"></script>
+	    <!-- Ion Range Slider -->
+	    <script src="{% static 'vendor/ion.rangeSlider/js/ion.rangeSlider.min.js' %}"></script>
+
+			<!-- Vendor JS Files -->
+
+	    <!-- <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script> -->
+	    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	    <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+	    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+	    <script src="{% static 'vendor/jquery-sticky/jquery.sticky.js' %}"></script>
+	    <script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
+	    <script src="{% static 'vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+	    <script src="{% static 'vendor/counterup/counterup.min.js' %}"></script>
+	    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+	    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+
+
+		<!-- Moment -->
+		<!-- <script src="{% static 'vendor/moment/min/moment.min.js' %}"></script> -->
+
+		<!-- Mapping Library -->
+
+		<!-- Leaflet -->
+		<script src="{% static 'vendor/leaflet/dist/leaflet.js' %}"></script>
+		<script src="{% static 'vendor/leaflet-side-by-side/leaflet-side-by-side.js' %}"></script>
+        <!--<script type="text/javascript" src="https://cdn.rawgit.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
+        <script type="text/javascript" src="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.min.js"></script>-->
+
+		<!--  Load Angular  -->
+		<script src="{% static 'vendor/angular/angular.min.js' %}"></script>
+
+		<!-- Angular Plugins -->
+		<script src="{% static 'vendor/angular-sanitize/angular-sanitize.min.js' %}"></script>
+		<script src="{% static 'vendor/ngstorage/ngStorage.min.js' %}"></script>
+
+		<!-- Spatial Libraries -->
+		<script src="{% static 'vendor/togeojson/togeojson.js' %}"></script>
+
+		<!-- Graphs DASHBOARD-->
+		<script src="{% static 'vendor/highcharts/highcharts.js' %}"></script>
+		<script src="{% static 'vendor/highcharts/highcharts-more.js' %}"></script>
+		<script src="{% static 'vendor/highcharts/modules/exporting.js' %}"></script>
+		<script src="{% static 'vendor/highcharts/modules/export-data.js' %}"></script>
+
+
+		<!-- Bootstrap Application -->
+		<script src="{% static 'app/init.js' %}"></script>
+
+		<!-- Load Settings -->
+		<script src="{% static 'app/config/settings.js' %}"></script>
+
+		<script src="{% static 'data/adm0.js' %}"></script>
+		<script src="{% static 'data/adm1.js' %}"></script>
+		<script src="{% static 'data/adm2.js' %}"></script>
+		<script src="{% static 'data/outboundary.js' %}"></script>
+		<script src="{% static 'data/mekong.js' %}"></script>
+
+
+	<!-- Services -->
+	<script src="{% static 'app/services/map.js' %}"></script>
+		<!-- Controllers -->
+		<script src="{% static 'app/controllers/utils-controller.js' %}"></script>
+	 <script src="{% static 'app/controllers/currentmap-controller.js' %}"></script>
+	 <script src="{% static 'app/controllers/map-controller.js' %}"></script>
+
+
+		<!-- Directives -->
+		<!--<script src="{% static 'app/directives/text-collapse.js' %}"></script>-->
+		<script src="{% static 'app/directives/validate-email.js' %}"></script>
+
+    <!--  main JS File -->
+    <script src="{% static 'app/controllers/main.js' %}"></script>
+
+
+
+	{% endaddtoblock %}
+
+
+	{% render_block "js" %}
+
+
+</body>
+</html>
