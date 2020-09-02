@@ -11,8 +11,12 @@
     var geojsondata, selectedFeature, wmsLayer, selectedAreaLevel;
     var areaid0 = '';
     var areaid1 = '';
-    var type = 'basin';
+    var type = 'mekong_country';
     var selectedArea = 'Mekong region';
+    var $modalCompare = $("#compare-modal");
+    var lwmsLayer;
+    var rwmsLayer;
+    var compare;
 
 
     var map = L.map('map').setView([14.705, 100.09], 5);
@@ -21,6 +25,11 @@
     	attribution: ''
     }).addTo(map);
     map.removeControl(map.zoomControl);
+
+    lwmsLayer = L.tileLayer.wms();
+
+		rwmsLayer = L.tileLayer.wms();
+
 
 
     //////////////////////////////Regoin Boundary onclick event////////////////////////////////////
@@ -76,7 +85,7 @@
 
           $scope.getDroughtData();
           $scope.getDroughtData2();
-          $scope.getDroughtData3();
+          //$scope.getDroughtData3();
 
       });
       layer.on('mouseover', function (e){
@@ -88,9 +97,19 @@
       });
     }
 
-    $scope.getDateAvailable = function () {
+    $scope.getDateAvailable = function (type) {
       var enableDatesArray = [];
-      var dataset = $("#map-select-indices1 option:selected").val();
+      if (type===1){
+        var dataset = $("#map-select-indices1 option:selected").val();
+        var datePicker = $("#dp5");
+      }else if (type===2) {
+        var dataset = $("#map-left-indices option:selected").val();
+        var datePicker = $("#datepicker-left");
+      }else{
+        var dataset = $("#map-right-indices option:selected").val();
+        var datePicker = $("#datepicker-right");
+      }
+
       var parameters = {
         dataset: dataset,
       };
@@ -100,9 +119,8 @@
           enableDatesArray.push(result[i]['date']);
         }
 
-        $("#dp5").datepicker("destroy");
-
-        $('#dp5').datepicker({
+        datePicker.datepicker("destroy");
+        datePicker.datepicker({
           beforeShowDay: function (date) {
                     var mm = date.getMonth() + 1;
                     var dd = date.getDate();
@@ -123,7 +141,8 @@
     				        }
     				    }
         });
-          $("#dp5").datepicker("setDate", enableDatesArray[enableDatesArray.length - 1]);
+          datePicker.datepicker("setDate", enableDatesArray[enableDatesArray.length - 1]);
+
       }), function (error){
         console.log(error);
       };
@@ -160,9 +179,9 @@
           averageArr.push(result[i]['average']);
           areaChartData.push([result[i]['date'], result[i]['min'], result[i]['max']])
         }
-        genChart(categoriesArr, minArr, maxArr, averageArr, dataset, chartid);
+        //genChart(categoriesArr, minArr, maxArr, averageArr, dataset, chartid);
         var areachartid =  'area-'+chartid;
-        genAreaChart(categoriesArr, areaChartData, areaChartData, areachartid);
+        genAreaChart(categoriesArr, areaChartData, averageArr, areachartid);
       }), function (error){
         console.log(error);
       };
@@ -173,7 +192,7 @@
       var datasetTxt = $("#select-indices1 option:selected").text();
       var period = $("#select-periodicity option:selected").text();
       $scope.getData(dataset, 'container');
-      $("#chart-description-c1").text("This line chart shows Min, Max, Mean values of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
+      //$("#chart-description-c1").text("This line chart shows Min, Max, Mean values of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
       $("#chart-description-c2").text("An area chart compares Min and Max values of nowcast and forecasted data of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
     };
     $scope.getDroughtData2 = function () {
@@ -181,18 +200,18 @@
       var datasetTxt = $("#select-indices2 option:selected").text();
       var period = $("#select-periodicity  option:selected").text();
       $scope.getData(dataset, 'container-chart3');
-      $("#chart-description-c3").text("This line chart shows Min, Max, Mean values of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
+      //$("#chart-description-c3").text("This line chart shows Min, Max, Mean values of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
       $("#chart-description-c4").text("An area chart compares Min and Max values of nowcast and forecasted data of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
 
     };
-    $scope.getDroughtData3 = function () {
-      var dataset = $("#select-indices3 option:selected").val();
-      var datasetTxt = $("#select-indices3 option:selected").text();
-      var period = $("#select-periodicity  option:selected").text();
-      $scope.getData(dataset, 'container-chart5');
-      $("#chart-description-c5").text("This line chart shows Min, Max, Mean values of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
-      $("#chart-description-c6").text("An area chart compares Min and Max values of nowcast and forecasted data of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
-    };
+    // $scope.getDroughtData3 = function () {
+    //   var dataset = $("#select-indices3 option:selected").val();
+    //   var datasetTxt = $("#select-indices3 option:selected").text();
+    //   var period = $("#select-periodicity  option:selected").text();
+    //   $scope.getData(dataset, 'container-chart5');
+    //   $("#chart-description-c5").text("This line chart shows Min, Max, Mean values of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
+    //   $("#chart-description-c6").text("An area chart compares Min and Max values of nowcast and forecasted data of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
+    // };
 
     $scope.showWMSLayer = function(selected_date) {
       var selectedopt = $("#map-select-indices1 option:selected").val();
@@ -202,25 +221,25 @@
       }
       selected_date = selected_date.replace('-', '_');
       selected_date = selected_date.replace('-', '_');
-      if(selectedopt === 'vsdi'){
+      if(selectedopt === 'sb-vsdi'){
         layers =  'rdcyis-eo_based:vsdi_'+selected_date;
         style = 'drought-vsdi';
-      }else if(selectedopt === 'ndvi'){
+      }else if(selectedopt === 'sb-ndvi'){
         layers =  'rdcyis-eo_based:ndvi_'+selected_date;
         style = 'drought-ndvi';
-      }else if(selectedopt === 'evi'){
+      }else if(selectedopt === 'sb-evi'){
         layers =  'rdcyis-eo_based:evi_'+selected_date;
         style = 'drought-evi';
-      }else if(selectedopt === 'msi'){
+      }else if(selectedopt === 'sb-msi'){
         layers =  'rdcyis-eo_based:msi_'+selected_date;
         style = 'drought-msi';
-      }else if(selectedopt === 'kbdi'){
+      }else if(selectedopt === 'sb-kbdi'){
         layers =  'rdcyis-eo_based:kbdi_'+selected_date;
         style = 'drought-kbdi';
-      }else if(selectedopt === 'arvi'){
+      }else if(selectedopt === 'sb-arvi'){
         layers =  'rdcyis-eo_based:arvi_'+selected_date;
         style = 'drought-arvi';
-      }else if(selectedopt === 'savi'){
+      }else if(selectedopt === 'sb-savi'){
         layers =  'rdcyis-eo_based:savi_'+selected_date;
         style = 'drought-savi';
       }
@@ -259,7 +278,7 @@
 
         $scope.getDroughtData();
         $scope.getDroughtData2();
-        $scope.getDroughtData3();
+        //$scope.getDroughtData3();
 
     });
 
@@ -271,14 +290,15 @@
     // A $( document ).ready() block.
     $( document ).ready(function() {
 
-      $("#select-indices1 option[value=vsdi]").attr('selected','selected');
-      $("#select-indices2 option[value=savi]").attr('selected','selected');
-      $("#select-indices3 option[value=msi]").attr('selected','selected');
+      $("#select-indices1 option[value=sb-vsdi]").attr('selected','selected');
+      $("#select-indices2 option[value=sb-savi]").attr('selected','selected');
       $("#select-periodicity option[value=3month]").attr('selected','selected');
         // $scope.getDroughtData();
         // $scope.getDroughtData2();
         // $scope.getDroughtData3();
-        $scope.getDateAvailable();
+        $scope.getDateAvailable(1);
+        $scope.getDateAvailable(2);
+        $scope.getDateAvailable(3);
 
 
     });
@@ -289,14 +309,14 @@
     $("#select-indices2").on('change', function(){
       $scope.getDroughtData2();
     });
-    $("#select-indices3").on('change', function(){
-      $scope.getDroughtData3();
-    });
+    // $("#select-indices3").on('change', function(){
+    //   $scope.getDroughtData3();
+    // });
 
     $("#select-periodicity").on('change', function(){
       $scope.getDroughtData();
       $scope.getDroughtData2();
-      $scope.getDroughtData3();
+      //$scope.getDroughtData3();
     });
 
     $("#select-areaIndexSelectors").on('change', function(){
@@ -306,8 +326,14 @@
       }
 
       if(selectedopt === 'mekong'){
-        type='basin';
+        type='mekong_country';
         geojsondata = L.geoJson(mekong,{
+            style: style,
+            onEachFeature: onEachCountry
+          }).addTo(map);
+      }else if(selectedopt === 'lmr'){
+        type='lmr';
+        geojsondata = L.geoJson(mekong_basin,{
             style: style,
             onEachFeature: onEachCountry
           }).addTo(map);
@@ -328,8 +354,13 @@
     });
 
     $("#map-select-indices1").on('change', function(){
-      $scope.getDateAvailable();
-
+      $scope.getDateAvailable(1);
+    });
+    $("#map-left-indices").on('change', function(){
+      $scope.getDateAvailable(2);
+    });
+    $("#map-right-indices").on('change', function(){
+      $scope.getDateAvailable(3);
     });
 
 
@@ -350,9 +381,137 @@
       $("#menu-left").css("top", "0");
       $("#menu-left").css("height", "100px");
       $('#hide-menu').css("top", "100px");
-
-
     });
+
+    $('#hide-calendar').click(function() {
+      $(".date-picker").css("display", "none");
+      $('#hide-calendar').css("left", "-20px");
+    });
+    $('#show-calendar').click(function() {
+      $(".date-picker").css("display", "block");
+      $('#hide-calendar').css("left", "220px");
+    });
+
+    $("#compare-layers").click(function() {
+			if($modalCompare.modal('hide')){
+				if(map.hasLayer(lwmsLayer)){
+					$modalCompare.modal('hide');
+					map.removeControl(compare);
+					map.removeLayer(lwmsLayer);
+					map.removeLayer(rwmsLayer);
+					wmsLayer.addTo(map);
+				}else{
+					$modalCompare.modal('show');
+				}
+			}
+		});
+
+    /**
+		* layers comparing function
+		*/
+		var add_compare = function(){
+			$modalCompare.modal('hide');
+			var lindicator =  ($("#map-left-indices option:selected").val());
+			var rindicator =  ($("#map-right-indices option:selected").val());
+			var l_date = $("#datepicker-left").val();
+			var r_date = $("#datepicker-right").val();
+      if(map.hasLayer(wmsLayer)){
+        map.removeLayer(wmsLayer);
+      }
+      var llayer, lstyle, rlayer, rstyle;
+      if(map.hasLayer(lwmsLayer)){
+        map.removeLayer(lwmsLayer);
+      }
+      if(map.hasLayer(rwmsLayer)){
+        map.removeLayer(rwmsLayer);
+      }
+
+      var ldate = l_date.replace('-', '_');
+      ldate = ldate.replace('-', '_');
+      var rdate = r_date.replace('-', '_');
+      rdate = rdate.replace('-', '_');
+
+      if(lindicator === 'sb-vsdi'){
+        llayer =  'rdcyis-eo_based:vsdi_'+ldate;
+        lstyle = 'drought-vsdi';
+      }else if(lindicator === 'sb-ndvi'){
+        llayer =  'rdcyis-eo_based:ndvi_'+ldate;
+        lstyle = 'drought-ndvi';
+      }else if(lindicator === 'sb-evi'){
+        llayer =  'rdcyis-eo_based:evi_'+ldate;
+        lstyle = 'drought-evi';
+      }else if(lindicator === 'sb-msi'){
+        llayer =  'rdcyis-eo_based:msi_'+ldate;
+        lstyle = 'drought-msi';
+      }else if(lindicator === 'sb-kbdi'){
+        llayer =  'rdcyis-eo_based:kbdi_'+ldate;
+        lstyle = 'drought-kbdi';
+      }else if(lindicator === 'sb-arvi'){
+        llayer =  'rdcyis-eo_based:arvi_'+ldate;
+        lstyle = 'drought-arvi';
+      }else if(lindicator === 'sb-savi'){
+        llayer =  'rdcyis-eo_based:savi_'+ldate;
+        lstyle = 'drought-savi';
+      }
+
+      if(rindicator === 'sb-vsdi'){
+        rlayer =  'rdcyis-eo_based:vsdi_'+rdate;
+        rstyle = 'drought-vsdi';
+      }else if(rindicator === 'sb-ndvi'){
+        rlayer =  'rdcyis-eo_based:ndvi_'+rdate;
+        rstyle = 'drought-ndvi';
+      }else if(rindicator === 'sb-evi'){
+        rlayer =  'rdcyis-eo_based:evi_'+rdate;
+        rstyle = 'drought-evi';
+      }else if(rindicator === 'sb-msi'){
+        rlayer =  'rdcyis-eo_based:msi_'+rdate;
+        rstyle = 'drought-msi';
+      }else if(rindicator === 'sb-kbdi'){
+        rlayer =  'rdcyis-eo_based:kbdi_'+rdate;
+        rstyle = 'drought-kbdi';
+      }else if(rindicator === 'sb-arvi'){
+        rlayer =  'rdcyis-eo_based:arvi_'+rdate;
+        rstyle = 'drought-arvi';
+      }else if(rindicator === 'sb-savi'){
+        rlayer =  'rdcyis-eo_based:savi_'+rdate;
+        rstyle = 'drought-savi';
+      }
+
+      lwmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms?', {
+            service:'WMS',
+            version:'1.1.0',
+            request:'GetMap',
+            layers:llayer,
+            format:'image/png',
+            transparent:true,
+            styles:lstyle
+        });
+
+      rwmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms?', {
+            service:'WMS',
+            version:'1.1.0',
+            request:'GetMap',
+            layers:rlayer,
+            format:'image/png',
+            transparent:true,
+            styles:rstyle
+        });
+
+			lwmsLayer.addTo(map);
+			rwmsLayer.addTo(map);
+			compare = L.control.sideBySide(lwmsLayer,rwmsLayer);
+			compare.addTo(map);
+		};
+
+		/**
+		* open compare layers popup
+		*/
+		$("#btn-add-compare").on('click',add_compare);
+		$("#btn-close-compare").on('click', function(){
+			$modalCompare.modal('hide');
+		})
+
+
 
 
 
@@ -422,7 +581,7 @@ function genChart(categoriesData, minData, maxData, averageData, dataset, charti
 }
 
 
-function genAreaChart(categoriesData, data1, data2, chartid){
+function genAreaChart(categoriesData, data1, average, chartid){
   Highcharts.chart(chartid, {
           chart: {
               type: 'arearange',
@@ -451,22 +610,23 @@ function genAreaChart(categoriesData, data1, data2, chartid){
 
           tooltip: {
               shared: true,
-              valueSuffix: ' units'
+              valueSuffix: ''
           },
           credits: {
               enabled: false
           },
 
           series: [{
-              name: 'Nowcast',
+              name: 'Min and Max',
               data: data1,
               color: '#85a3c3',
               fillOpacity: 0.1
           },
           {
-              name: 'Forecasted',
-              data: data2,
-              color: '#ff8507',
+              name: 'Average',
+              type: 'spline',
+              data: average,
+              color: '#dd614a',
               fillOpacity: 0.1
           },
         ]

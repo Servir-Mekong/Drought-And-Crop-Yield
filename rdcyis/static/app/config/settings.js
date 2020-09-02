@@ -121,6 +121,10 @@ var settings = {
             'name': 'Mekong Region'
         },
         {
+            'value': 'lmr',
+            'name': 'LMR Basin'
+        },
+        {
             'value': 'country',
             'name': 'Country Level'
         },
@@ -135,39 +139,111 @@ var settings = {
 
     variables: [
         {
-            'name': 'Visible and Shortwave Infrared Drought Index (VSDI)',
-            'value': 'vsdi'
+            'name': 'SB: Visible and Shortwave Infrared Drought Index (VSDI)',
+            'value': 'sb-vsdi'
         },
         {
-            'name': 'Moisture Stress Index (MSI)',
-            'value': 'msi'
+            'name': 'SB: Moisture Stress Index (MSI)',
+            'value': 'sb-msi'
         },
         {
-            'name': 'Atmospherically Resistant Vegetation Index (ARVI)',
-            'value': 'arvi'
+            'name': 'SB: Atmospherically Resistant Vegetation Index (ARVI)',
+            'value': 'sb-arvi'
         },
         {
-          'name': 'Soil-adjusted Vegetation Index (SAVI)',
-          'value': 'savi'
+          'name': 'SB: Soil-adjusted Vegetation Index (SAVI)',
+          'value': 'sb-savi'
         },
         {
-            'name': 'Enhanced Vegetation Index (EVI)',
-            'value': 'evi'
+            'name': 'SB: Enhanced Vegetation Index (EVI)',
+            'value': 'sb-evi'
         },
         {
-            'name': 'Keetch–Byram Drought Index (KBDI)',
-            'value': 'kbdi'
+            'name': 'SB: Keetch–Byram Drought Index (KBDI)',
+            'value': 'sb-kbdi'
         },
         {
-            'name': 'Normalized Difference Vegetation Index (NDVI)',
-            'value': 'ndvi'
+            'name': 'SB: Normalized Difference Vegetation Index (NDVI)',
+            'value': 'sb-ndvi'
+        },
+        {
+          'name': 'MB: Keetch-Byram Drought Index (KBDI)',
+          'value': 'mb-kbdi'
+        },
+        {
+          'name': 'MB: Combined Drought Index (CDI)',
+          'value': 'mb-cdi'
+        },
+        {
+          'name': 'MB: Drought Severity (%)',
+          'value': 'mb-drought-severity'
+        },
+        {
+          'name': 'MB: Dry Spell Events',
+          'value': 'mb-dry-spell'
+        },
+        {
+          'name': 'MB: SMDI: Soil Moisture Deficit Index (SMDI)',
+          'value': 'mb-smdi'
+        },
+        {
+          'name': 'MB: SPI 1 month: Standardized Precipitation Index (1 month)',
+          'value': 'mb-spt1'
+        },
+        {
+          'name': 'MB: SPI 3 month: Standardized Precipitation Index (3 month)',
+          'value': 'mb-spt3'
+        },
+        {
+          'name': 'MB: SRI 1 month: Standardized Runoff Index (1 month)',
+          'value': 'mb-sri2'
+        },
+        {
+          'name': 'MB: SRI 3 month: Standardized Runoff Index (3 month)',
+          'value': 'mb-sri3'
+        },
+        {
+          'name': 'MB: Root Zone Soil Moisture (mm)',
+          'value': 'mb-root-soil-zone-moist'
+        },
+        {
+          'name': 'MB: Soil Moisture (mm)',
+          'value': 'mb-soil-moist'
+        },
+        {
+          'name': 'MB: Soil Temperature (C)',
+          'value': 'mb-soil-temp'
+        },
+        {
+          'name': 'MB: Rainfall (mm)',
+          'value': 'mb-rainfall'
+        },
+        {
+          'name': 'MB: Average Surface Temperature (C)',
+          'value': 'mb-average-surface'
+        },
+        {
+          'name': 'MB: Relative Humidity (%)',
+          'value': 'mb-relative-humidity'
+        },
+        {
+          'name': 'MB: Evaporation (mm)',
+          'value': 'mb-evaporation'
+        },
+        {
+          'name': 'MB: PET (mm)',
+          'value': 'mb-pet'
+        },
+        {
+          'name': 'MB: Baseflow (mm/day)',
+          'value': 'mb-baseflow'
+        },
+        {
+          'name': 'MB: Surface Runoff (mm)',
+          'value': 'mb-surface-runoff'
         }
     ],
     periodicity: [
-      {
-        'name': '1 Week',
-        'value': '1week'
-      },
       {
         'name': '1 Month',
         'value': '1month'
