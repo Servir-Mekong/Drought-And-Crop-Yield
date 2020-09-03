@@ -8,6 +8,8 @@
     $scope.periodicity = appSettings.periodicity;
     $scope.areaIndexSelectors = appSettings.areaIndexSelectors;
     $scope.downloadServerURL = appSettings.downloadServerURL;
+    $scope.legendsSB = appSettings.legendsSB;
+    console.log($scope.legendsSB)
     var geojsondata, selectedFeature, wmsLayer, selectedAreaLevel;
     var areaid0 = '';
     var areaid1 = '';
@@ -222,25 +224,25 @@
       selected_date = selected_date.replace('-', '_');
       selected_date = selected_date.replace('-', '_');
       if(selectedopt === 'sb-vsdi'){
-        layers =  'rdcyis-eo_based:vsdi_'+selected_date;
+        layers =  'rdcyis-eo_based:vsdi_'+selected_date+'_mekong';
         style = 'drought-vsdi';
       }else if(selectedopt === 'sb-ndvi'){
-        layers =  'rdcyis-eo_based:ndvi_'+selected_date;
+        layers =  'rdcyis-eo_based:ndvi_'+selected_date+'_mekong';
         style = 'drought-ndvi';
       }else if(selectedopt === 'sb-evi'){
-        layers =  'rdcyis-eo_based:evi_'+selected_date;
+        layers =  'rdcyis-eo_based:evi_'+selected_date+'_mekong';
         style = 'drought-evi';
       }else if(selectedopt === 'sb-msi'){
-        layers =  'rdcyis-eo_based:msi_'+selected_date;
+        layers =  'rdcyis-eo_based:msi_'+selected_date+'_mekong';
         style = 'drought-msi';
       }else if(selectedopt === 'sb-kbdi'){
-        layers =  'rdcyis-eo_based:kbdi_'+selected_date;
+        layers =  'rdcyis-eo_based:kbdi_'+selected_date+'_mekong';
         style = 'drought-kbdi';
       }else if(selectedopt === 'sb-arvi'){
-        layers =  'rdcyis-eo_based:arvi_'+selected_date;
+        layers =  'rdcyis-eo_based:arvi_'+selected_date+'_mekong';
         style = 'drought-arvi';
       }else if(selectedopt === 'sb-savi'){
-        layers =  'rdcyis-eo_based:savi_'+selected_date;
+        layers =  'rdcyis-eo_based:savi_'+selected_date+'_mekong';
         style = 'drought-savi';
       }
 
@@ -406,6 +408,17 @@
 			}
 		});
 
+    var slider = document.getElementById("opacity-slider");
+    var output = document.getElementById("opacity-value");
+    output.innerHTML = slider.value/100;
+
+    slider.oninput = function() {
+      output.innerHTML = this.value/100;
+      wmsLayer.setOpacity(this.value/100);
+    }
+
+
+
     /**
 		* layers comparing function
 		*/
@@ -432,48 +445,48 @@
       rdate = rdate.replace('-', '_');
 
       if(lindicator === 'sb-vsdi'){
-        llayer =  'rdcyis-eo_based:vsdi_'+ldate;
+        llayer =  'rdcyis-eo_based:vsdi_'+ldate+'_mekong';
         lstyle = 'drought-vsdi';
       }else if(lindicator === 'sb-ndvi'){
-        llayer =  'rdcyis-eo_based:ndvi_'+ldate;
+        llayer =  'rdcyis-eo_based:ndvi_'+ldate+'_mekong';
         lstyle = 'drought-ndvi';
       }else if(lindicator === 'sb-evi'){
-        llayer =  'rdcyis-eo_based:evi_'+ldate;
+        llayer =  'rdcyis-eo_based:evi_'+ldate+'_mekong';
         lstyle = 'drought-evi';
       }else if(lindicator === 'sb-msi'){
-        llayer =  'rdcyis-eo_based:msi_'+ldate;
+        llayer =  'rdcyis-eo_based:msi_'+ldate+'_mekong';
         lstyle = 'drought-msi';
       }else if(lindicator === 'sb-kbdi'){
-        llayer =  'rdcyis-eo_based:kbdi_'+ldate;
+        llayer =  'rdcyis-eo_based:kbdi_'+ldate+'_mekong';
         lstyle = 'drought-kbdi';
       }else if(lindicator === 'sb-arvi'){
-        llayer =  'rdcyis-eo_based:arvi_'+ldate;
+        llayer =  'rdcyis-eo_based:arvi_'+ldate+'_mekong';
         lstyle = 'drought-arvi';
       }else if(lindicator === 'sb-savi'){
-        llayer =  'rdcyis-eo_based:savi_'+ldate;
+        llayer =  'rdcyis-eo_based:savi_'+ldate+'_mekong';
         lstyle = 'drought-savi';
       }
 
       if(rindicator === 'sb-vsdi'){
-        rlayer =  'rdcyis-eo_based:vsdi_'+rdate;
+        rlayer =  'rdcyis-eo_based:vsdi_'+rdate+'_mekong';
         rstyle = 'drought-vsdi';
       }else if(rindicator === 'sb-ndvi'){
-        rlayer =  'rdcyis-eo_based:ndvi_'+rdate;
+        rlayer =  'rdcyis-eo_based:ndvi_'+rdate+'_mekong';
         rstyle = 'drought-ndvi';
       }else if(rindicator === 'sb-evi'){
-        rlayer =  'rdcyis-eo_based:evi_'+rdate;
+        rlayer =  'rdcyis-eo_based:evi_'+rdate+'_mekong';
         rstyle = 'drought-evi';
       }else if(rindicator === 'sb-msi'){
-        rlayer =  'rdcyis-eo_based:msi_'+rdate;
+        rlayer =  'rdcyis-eo_based:msi_'+rdate+'_mekong';
         rstyle = 'drought-msi';
       }else if(rindicator === 'sb-kbdi'){
-        rlayer =  'rdcyis-eo_based:kbdi_'+rdate;
+        rlayer =  'rdcyis-eo_based:kbdi_'+rdate+'_mekong';
         rstyle = 'drought-kbdi';
       }else if(rindicator === 'sb-arvi'){
-        rlayer =  'rdcyis-eo_based:arvi_'+rdate;
+        rlayer =  'rdcyis-eo_based:arvi_'+rdate+'_mekong';
         rstyle = 'drought-arvi';
       }else if(rindicator === 'sb-savi'){
-        rlayer =  'rdcyis-eo_based:savi_'+rdate;
+        rlayer =  'rdcyis-eo_based:savi_'+rdate+'_mekong';
         rstyle = 'drought-savi';
       }
 

@@ -19,7 +19,7 @@ from django.conf.urls import include, url
 from django.conf import settings
 from django.views.static import serve
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from .views import home, map
+from .views import home, map, report
 from mapclient import api as mapclient_api
 
 urlpatterns = [
@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^$', home),
     url(r'^home/', home),
     url(r'^map/', map),
+    url(r'^report/', report),
     url(r'^api/mapclient/$', mapclient_api.api),
 ]

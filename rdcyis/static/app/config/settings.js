@@ -255,7 +255,28 @@ var settings = {
     months : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
     downloadServerURL: 'ftp://ftpuser:gvamuru@203.146.112.247',
 
-
+    legendsSB: [
+      {
+        'class': 'No Drought',
+        'color': 'FFF',
+      },
+      {
+        'class': 'Moderate Drought',
+        'color': 'FF7F27',
+      },
+      {
+        'class': 'Severe Drought',
+        'color': 'B97A57',
+      },
+      {
+        'class': 'Extream Drought',
+        'color': '880015',
+      },
+      {
+        'class': 'No Data',
+        'color': 'C3C3C3',
+      }
+    ],
 };
 
 /*var myanmarPrimitiveClasses = JSON.parse(JSON.stringify(settings.myanmarFRALandCoverClasses));

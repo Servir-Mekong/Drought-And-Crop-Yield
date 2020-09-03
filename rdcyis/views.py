@@ -14,3 +14,6 @@ def home(request):
 
 def map(request):
     return render(request, 'map.html', {})
+
+def report(request):
+    return render(request, 'report.html', {})
