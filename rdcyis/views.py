@@ -17,3 +17,9 @@ def map(request):
 
 def report(request):
     return render(request, 'report.html', {})
+
+def featureArticles(request):
+    return render(request, 'feature-articles.html', {})
+
+def climateStudies(request):
+    return render(request, 'climate-studies.html', {})

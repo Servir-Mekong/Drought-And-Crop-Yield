@@ -28,5 +28,7 @@ urlpatterns = [
     url(r'^home/', home),
     url(r'^map/', map),
     url(r'^report/', report),
+    url(r'^feature-articles/', report),
+    url(r'^climate-studies/', report),
     url(r'^api/mapclient/$', mapclient_api.api),
 ]
