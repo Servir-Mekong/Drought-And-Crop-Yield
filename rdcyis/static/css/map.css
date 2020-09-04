@@ -524,7 +524,7 @@ ul {
     z-index: 999;
 }
 .legend-panel {
-    top: 59%;
+    bottom: 3%;
     left: 15px;
     width: auto;
     background: #e9ecef;

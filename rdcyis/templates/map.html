@@ -82,34 +82,34 @@
                 {% include "panels/map-menu.html" %}
               </div>
 
-
-            </div>
-            <div class="legend-panel map-legend">
-              <div class="slidecontainer">
-                <p>Opacity: <span id="opacity-value"></span></p> 
-                <input type="range" min="1" max="100" value="100" class="slider" id="opacity-slider">
-              </div>
-              <div class="row">
-                <div class="col-lg-12 col-md-6 legend-list">
-                  <ul>
-                    <li ng-repeat="x in legendsSB">
-                      <div class="row">
-                        <div class="col-lg-2">
-                          <div class="intensity-class" style="background: #[[x.color]]; border:1px solid #C3C3C3;"></div>
-                        </div>
-                        <div class="col-lg-10">
-                          [[x.class]]
-                        </div>
-                      </div>
-                    </li>
-
-                  </ul>
-
+              <div class="legend-panel map-legend">
+                <div class="slidecontainer">
+                  <p>Opacity: <span id="opacity-value"></span></p>
+                  <input type="range" min="1" max="100" value="100" class="slider" id="opacity-slider">
                 </div>
+                <div class="row">
+                  <div class="col-lg-12 col-md-6 legend-list">
+                    <ul>
+                      <li ng-repeat="x in legendsSB">
+                        <div class="row">
+                          <div class="col-lg-2">
+                            <div class="intensity-class" style="background: #[[x.color]]; border:1px solid #C3C3C3;"></div>
+                          </div>
+                          <div class="col-lg-10">
+                            [[x.class]]
+                          </div>
+                        </div>
+                      </li>
+
+                    </ul>
+
+                  </div>
+                </div>
+
+
               </div>
-
-
             </div>
+
 
             <div id="compare-modal" class="model map-modal map-modal--vertical-smaller map-modal--horizontal-smaller" tabindex="-1" role="dialog"  style="display: none;">
                 <div class="map-modal__header">
