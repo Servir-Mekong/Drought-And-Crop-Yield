@@ -13,7 +13,7 @@
 	<meta name="author" content="Thannarot Kunlamai, Servir-Mekong">
 
 	{% block head%}
-	<title>MD&CW</title>
+	<title>MDCW</title>
 	{% endblock %}
 
 	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
@@ -58,7 +58,7 @@
     <!-- ======= Header ======= -->
     <header id="header">
 			<div class="row">
-				<div class="container">
+				<div class="container" id="header-logo">
 					<div class="navbar-container"  ng-controller="utilsController">
             <div ng-repeat="partner in partnersHeader" class="">
               <a href="[[partner.url]]" target="_blank">
@@ -69,10 +69,10 @@
 
 	      </div>
 			</div>
-			<div class="row" style="background:#293433;color:#FFF;border-bottom: 3px solid #293433;">
-				<div class="container">
-
+			<div class="row" style="background:#293433;color:#FFF;border-bottom: 0px solid #293433;">
+				<div class="container" id="header-menu">
 	        <div class="logo float-left">
+						<img src="/static/images/icons/drought-icon.png" alt="">
 	          <h1 class="text-light"><a href="/home"><span>Mekong Drought and Crop Watch</span></a></h1>
 	        </div>
 
@@ -94,12 +94,11 @@
 
 	          </ul>
 	        </nav>
-
 	      </div>
 			</div>
-
-
     </header>
+
+
 		<!-- End Header -->
 
     {% block body%}
@@ -152,7 +151,7 @@
 
       <div class="container">
         <div class="copyright">
-          &copy; Copyright <strong><span>MD&CW</span></strong>. All Rights Reserved
+          &copy; Copyright <strong><span>MDCW</span></strong>. All Rights Reserved
         </div>
       </div>
     </footer><!-- End Footer -->
@@ -164,20 +163,9 @@
 
 
 		<!-- jQuery -->
-		<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
-		<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
-		<!-- Bootstrap Core JavaScript -->
-		<script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-		<!-- Bootstrap Plugins -->
-	    <script src="{% static 'vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
-	    <!-- Slider -->
-	    <script src="{% static 'vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js' %}"></script>
-	    <!-- Ion Range Slider -->
-	    <script src="{% static 'vendor/ion.rangeSlider/js/ion.rangeSlider.min.js' %}"></script>
 
 			<!-- Vendor JS Files -->
-
-	    <!-- <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script> -->
+	   	<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 	    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 	    <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
 	    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
@@ -188,7 +176,16 @@
 	    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
 	    <script src="{% static 'vendor/aos/aos.js' %}"></script>
 
-
+			<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+			<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+			<!-- Bootstrap Core JavaScript -->
+			<script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+			<!-- Bootstrap Plugins -->
+			<script src="{% static 'vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
+			<!-- Slider -->
+			<script src="{% static 'vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js' %}"></script>
+			<!-- Ion Range Slider -->
+			<script src="{% static 'vendor/ion.rangeSlider/js/ion.rangeSlider.min.js' %}"></script>
 		<!-- Moment -->
 		<!-- <script src="{% static 'vendor/moment/min/moment.min.js' %}"></script> -->
 
@@ -217,6 +214,8 @@
 		<script src="{% static 'vendor/highcharts/modules/export-data.js' %}"></script>
 
 
+
+
 		<!-- Bootstrap Application -->
 		<script src="{% static 'app/init.js' %}"></script>
 
@@ -229,6 +228,7 @@
 		<script src="{% static 'data/outboundary.js' %}"></script>
 		<script src="{% static 'data/mekong.js' %}"></script>
 		<script src="{% static 'data/mekong_basin.js' %}"></script>
+		<script src="{% static 'data/mekong_permanent_water.js' %}"></script>
 
 
 	<!-- Services -->

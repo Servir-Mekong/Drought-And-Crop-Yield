@@ -23,6 +23,9 @@ def get_mekong_data(dataset, type, date, areaid0, areaid1, periodicity):
     elif periodicity == '3month':
         month_ago = dateStart - DT.timedelta(days=92)
         start_date = month_ago.strftime("%Y-%m-%d")
+    elif periodicity == '1year':
+        _ago = dateStart - DT.timedelta(days=365)
+        start_date = _ago.strftime("%Y-%m-%d")
 
     with connection.cursor() as cursor:
         if type == 'mekong_country':

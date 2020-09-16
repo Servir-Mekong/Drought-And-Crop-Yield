@@ -70,6 +70,7 @@ hr {
 .products-desc {
   font-size: 14px;
   color: #495057;
+  text-align: center;
 }
 
 .padding-10{
@@ -559,7 +560,7 @@ hr {
 # Header
 --------------------------------------------------------------*/
 #header {
-  height: 100px;
+  height: 96px;
   transition: all 0.5s;
   transition: all 0.5s;
   padding: 10px 0;
@@ -579,6 +580,8 @@ hr {
   font-weight: 400;
   letter-spacing: 0;
   text-transform: uppercase;
+  display: inline;
+  padding-left: 10px;
 }
 
 #header .logo h1 a, #header .logo h1 a:hover {
@@ -832,14 +835,14 @@ hr {
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  height: calc(100vh - 114px);
+  height: 500px;
   padding: 0;
   overflow: hidden;
 }
 
 #hero .carousel-item {
   width: 100%;
-  height: calc(100vh - 114px);
+  height: 500px;
   background-size: cover;
   background-position: top right;
   background-repeat: no-repeat;
@@ -848,7 +851,7 @@ hr {
 
 #hero .carousel-item::before {
   content: '';
-  background-color: rgba(13, 30, 45, 0.25);
+  background-color: rgba(43, 0, 0, 0.5);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -869,6 +872,7 @@ hr {
   left: 0;
   right: 0;
   overflow: hidden;
+  margin-left: 30px;
 }
 
 #hero .carousel-content {
@@ -887,7 +891,7 @@ hr {
 #hero h2 {
   color: #fff;
   margin-bottom: 30px;
-  font-size: 48px;
+  font-size: 38px;
   font-weight: 900;
 }
 
@@ -913,7 +917,7 @@ hr {
 #hero .carousel-inner .carousel-item-next.carousel-item-left,
 #hero .carousel-inner .carousel-item-prev.carousel-item-right {
   opacity: 1;
-  transition: 0.5s;
+  transition: 0.9s;
 }
 
 #hero .carousel-inner .carousel-item-next,
@@ -951,8 +955,8 @@ hr {
   line-height: 1;
   margin: 10px;
   color: #fff;
-  -webkit-animation-delay: 0.8s;
-  animation-delay: 0.8s;
+  -webkit-animation-delay: 1s;
+  animation-delay: 1s;
   border: 0;
   background: #428bca;
 }
@@ -970,7 +974,7 @@ hr {
 @media (min-width: 1024px) {
   #hero p {
     width: 80%;
-    font-size: 18px;
+    font-size: 14px;
   }
   #hero .carousel-control-prev, #hero .carousel-control-next {
     width: 5%;
@@ -2271,7 +2275,7 @@ table.dataTable.no-footer {
   text-align: center;
 }
 .highlight-icon img{
-  width: 150px;
+  height: 150px;
 }
 
 .map-1{

@@ -8,12 +8,20 @@
 }
 
 .chart-area {
-  height: 300px;
+  height: 400px;
 }
 
 .select-opt{
   font-size: 14px;
   font-weight: 800;
+}
+
+.container-fluid {
+    width: 100%;
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .form-control {
@@ -101,15 +109,16 @@ ul {
 }
 
 .control-panel li {
-    background: #212529;
-    border-radius: 25px;
-    box-sizing: border-box;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    height: 30px;
-    width: 30px;
-    margin-top: 5px;
+  background: #f8f9fa;
+  border-radius: 25px;
+  border: 2px solid #ff8507;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 30px;
+  width: 30px;
+  margin-top: 5px;
 }
 
 .control-panel li:hover {
@@ -430,7 +439,7 @@ ul {
 }
 
 .searching-form label{
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 800;
   color: #444;
 }
@@ -524,8 +533,8 @@ ul {
     z-index: 999;
 }
 .legend-panel {
-    bottom: 3%;
-    left: 15px;
+    bottom: 10px;
+    right: 15px;
     width: auto;
     background: #e9ecef;
     color: #212529;
@@ -575,4 +584,15 @@ ul {
   height: 25px;
   background: #4CAF50;
   cursor: pointer;
+}
+
+.tooltip-btn {
+  text-transform: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background: #ff8507;
+  border: none;
+  color: #FFF;
+  padding-top: 0px;
 }

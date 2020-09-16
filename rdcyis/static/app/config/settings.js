@@ -151,8 +151,8 @@ var settings = {
             'value': 'sb-arvi'
         },
         {
-          'name': 'SB: Soil-adjusted Vegetation Index (SAVI)',
-          'value': 'sb-savi'
+            'name': 'SB: Soil-adjusted Vegetation Index (SAVI)',
+            'value': 'sb-savi'
         },
         {
             'name': 'SB: Enhanced Vegetation Index (EVI)',
@@ -179,7 +179,7 @@ var settings = {
           'value': 'mb-drought-severity'
         },
         {
-          'name': 'MB: Dry Spell Events',
+          'name': 'MB: Dry Spell Events (during last 2 weeks)',
           'value': 'mb-dry-spell'
         },
         {
@@ -251,7 +251,12 @@ var settings = {
       {
         'name': '3 Months',
         'value': '3month'
-    }],
+      },
+      {
+        'name': '1 Year',
+        'value': '1year'
+      }
+  ],
     months : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
     downloadServerURL: 'ftp://ftpuser:gvamuru@203.146.112.247',
 

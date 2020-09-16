@@ -8,6 +8,7 @@
     var selectedADM1Feature = '';
     var geojsonCountry_2, geojsonCountry_1, geojsonAdm1OutBBox_1, geojsonAdm1OutBBox_2, geojsonAdm2OutBBox_1, geojsonAdm2OutBBox_2, geojsonOutBBOX_1, geojsonADM0_1,geojsonOutBBOX_2, geojsonADM0_2;
     var geojsonADM2_2, geojsonADM2_1, adm0FeatureClicked, adm1FeatureClicked;
+    var geojsonWater_1, geojsonWater_2;
     var summaryCountryName = ['Cambodia','Laos','Myanmar','Thailand','Vietnam']
     var polygonstyle = {
       fillColor: "#FFF",
@@ -16,6 +17,15 @@
       color: '#6c757d',
       fillOpacity: 0
     }
+
+    var waterstyle = {
+      fillColor: "#00008b",
+      weight: 0.5,
+      opacity: 1,
+      color: '#00008b',
+      fillOpacity: 1
+    }
+
     var outBBoxstyle = {
       fillColor: "#fafafa",
       weight: 2,
@@ -41,6 +51,11 @@
         style: polygonstyle,
         onEachFeature: onEachCountry
       }).addTo(map1);
+
+      geojsonWater_1 = L.geoJson(permanent_water,{
+        style: waterstyle
+      }).addTo(map1);
+
       map1.fitBounds(geojsonADM0_1.getBounds());
     }
 
@@ -60,6 +75,10 @@
         style: polygonstyle,
         onEachFeature: onEachCountry
       }).addTo(map2);
+      geojsonWater_2 = L.geoJson(permanent_water,{
+        style: waterstyle
+      }).addTo(map2);
+
       map2.fitBounds(geojsonADM0_2.getBounds());
     }
 
@@ -310,6 +329,8 @@
 			// a.click()
 			// document.body.removeChild(a);
     });
+
+
 
 
   });

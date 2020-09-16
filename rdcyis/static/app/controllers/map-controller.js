@@ -4,6 +4,8 @@
   angular.module('landcoverportal')
   .controller('MapController', function ($http, $rootScope, $scope, $sanitize, $timeout, appSettings, MapService) {
 
+
+
     $scope.variables = appSettings.variables;
     $scope.periodicity = appSettings.periodicity;
     $scope.areaIndexSelectors = appSettings.areaIndexSelectors;
@@ -262,7 +264,8 @@
       var selected_date = $('#dp5').datepicker('getFormattedDate');
       selected_date = selected_date.replace('-', '_');
       selected_date = selected_date.replace('-', '_');
-      var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/eo_based/gee_orgnl/'+ selectedopt + '/' +selectedopt+'_'+selected_date+'.tif';
+      selectedopt = selectedopt.split("-")[1];
+      var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/eo_based/'+ selectedopt + '/mekong/' +selectedopt+'_'+selected_date+'_mekong.tif';
       var file_path = DownloadURL;
 				var a = document.createElement('A');
 				a.href = file_path;
@@ -535,7 +538,8 @@ function genChart(categoriesData, minData, maxData, averageData, dataset, charti
         type: 'line',
         style: {
             fontFamily: 'Montserrat'
-        }
+        },
+        height: 400,
     },
     title: {
         text: ''
@@ -600,7 +604,8 @@ function genAreaChart(categoriesData, data1, average, chartid){
               type: 'arearange',
               style: {
                   fontFamily: 'Montserrat'
-              }
+              },
+              height: 400,
           },
 
           title: {
@@ -623,7 +628,8 @@ function genAreaChart(categoriesData, data1, average, chartid){
 
           tooltip: {
               shared: true,
-              valueSuffix: ''
+              valueSuffix: ' | ',
+
           },
           credits: {
               enabled: false
@@ -646,5 +652,13 @@ function genAreaChart(categoriesData, data1, average, chartid){
   });
 
 }
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+      $("#header-logo").removeClass("container");
+      $("#header-logo").addClass("container-fluid");
+      $("#header-menu").removeClass("container");
+      $("#header-menu").addClass("container-fluid");
+    });
+
   });
 })();
