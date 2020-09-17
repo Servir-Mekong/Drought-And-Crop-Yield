@@ -29,11 +29,11 @@ def get_mekong_data(dataset, type, date, areaid0, areaid1, periodicity):
 
     with connection.cursor() as cursor:
         if type == 'mekong_country':
-            sql = """SELECT dataset, date, min, max, average, time_start from eo_mekong where dataset = '"""+dataset+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' order by time_start ASC"""
+            sql = """SELECT dataset, date, max(min), max(max), max(average), time_start from eo_mekong where dataset = '"""+dataset+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' group by date, dataset, time_start order by time_start ASC"""
         elif type == 'adm0':
-            sql = """SELECT dataset, date, min, max, average, time_start from eo_adm0 where dataset = '"""+dataset+"""' and adm0_id='"""+areaid0+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' order by time_start ASC"""
+            sql = """SELECT dataset, date, max(min), max(max), max(average), time_start from eo_adm0 where dataset = '"""+dataset+"""' and adm0_id='"""+areaid0+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' group by date, dataset, time_start order by time_start ASC"""
         elif type == 'adm1':
-            sql = """SELECT dataset, date, min, max, average, time_start from eo_adm1 where dataset = '"""+dataset+"""' and adm0_id='"""+areaid0+"""' and adm1_id='"""+areaid1+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' order by time_start ASC"""
+            sql = """SELECT dataset, date, max(min), max(max), max(average), time_start from eo_adm1 where dataset = '"""+dataset+"""' and adm0_id='"""+areaid0+"""' and adm1_id='"""+areaid1+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' group by date, dataset, time_start order by time_start ASC"""
         cursor.execute(sql)
         result = cursor.fetchall()
         data=[]
