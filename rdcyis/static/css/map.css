@@ -11,6 +11,16 @@
   height: 400px;
 }
 
+.fade:not(.show) {
+    opacity: 1;
+}
+.tooltip.fade .top .in{
+  top: 48.0139px;
+  left: 160.479px;
+  display: block;
+}
+}
+
 .select-opt{
   font-size: 14px;
   font-weight: 800;

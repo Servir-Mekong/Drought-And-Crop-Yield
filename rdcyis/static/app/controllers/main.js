@@ -15,12 +15,6 @@
     $('#header').addClass('header-scrolled');
   }
 
-  // Stick the header at top on scroll
-  $("#header").sticky({
-    topSpacing: 0,
-    zIndex: '9999'
-  });
-
   // Smooth scroll for the navigation menu and links with .scrollto classes
   $(document).on('click', '.nav-menu a, .mobile-nav a, .scrollto', function(e) {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
@@ -144,11 +138,6 @@
       scrollTop: 0
     }, 1500, 'easeInOutExpo');
     return false;
-  });
-
-  // Initiate the venobox plugin
-  $(window).on('load', function() {
-    $('.venobox').venobox();
   });
 
 

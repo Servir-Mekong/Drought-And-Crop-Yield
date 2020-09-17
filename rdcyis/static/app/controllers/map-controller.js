@@ -652,6 +652,7 @@ function genAreaChart(categoriesData, data1, average, chartid){
   });
 
 }
+
     $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();
       $("#header-logo").removeClass("container");
