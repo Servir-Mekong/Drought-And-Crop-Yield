@@ -2,13 +2,13 @@
 
   'use strict';
   angular.module('landcoverportal')
-  .controller('CurrentMapController', function ($http, $rootScope, $scope, $sanitize, $timeout, appSettings) {
+  .controller('CurrentMapController', function ($http, $rootScope, $scope, $sanitize, $timeout, appSettings, MapService) {
 
     var selectedFeature = '';
     var selectedADM1Feature = '';
     var geojsonCountry_2, geojsonCountry_1, geojsonAdm1OutBBox_1, geojsonAdm1OutBBox_2, geojsonAdm2OutBBox_1, geojsonAdm2OutBBox_2, geojsonOutBBOX_1, geojsonADM0_1,geojsonOutBBOX_2, geojsonADM0_2;
     var geojsonADM2_2, geojsonADM2_1, adm0FeatureClicked, adm1FeatureClicked;
-    var geojsonWater_1, geojsonWater_2;
+    var geojsonWater_1, geojsonWater_2, currentDateList, currentLayer;
     var summaryCountryName = ['Cambodia','Laos','Myanmar','Thailand','Vietnam']
     var polygonstyle = {
       fillColor: "#FFF",
@@ -41,6 +41,8 @@
     map1.dragging.disable();
     map1.doubleClickZoom.disable();
     map1.scrollWheelZoom.disable();
+    map1.createPane('currentLayer');
+		map1.getPane('currentLayer').style.zIndex = 300;
 
     function initMap1(){
       geojsonOutBBOX_1 = L.geoJson(outboundary,{
@@ -58,6 +60,49 @@
 
       map1.fitBounds(geojsonADM0_1.getBounds());
     }
+
+    // function to add and update tile layer to map
+  		function addMapLayer(layer,url, pane){
+  			layer = L.tileLayer(url,{
+  				attribution: '<a href="https://earthengine.google.com" target="_">' +
+  				'Google Earth Engine</a>;',
+  			 	pane: pane}).addTo(map1);
+  				return layer;
+  		}
+
+
+      var parameters = {
+        dataset: 'front_gcdi',
+      };
+      MapService.get_current_date(parameters)
+      .then(function (result){
+        currentDateList = result;
+        console.log(result);
+        $scope.currentLayer(0);
+
+      }), function (error){
+        console.log(error);
+      };
+
+    $scope.currentLayer = function(index) {
+      var parameters = {
+        date: currentDateList[index],
+      };
+      MapService.get_map_current_id(parameters)
+      .then(function (result){
+        if(map1.hasLayer(currentLayer)){
+          map1.removeLayer(currentLayer);
+        }
+        console.log(result.eeMapURL)
+        currentLayer = addMapLayer(currentLayer, result.eeMapURL, 'currentLayer');
+        $scope.showLoader = false;
+
+
+      }), function (error){
+        console.log(error);
+      };
+
+    };
 
     var map2 = L.map('map2').setView([51.505, -0.09], 13);
     L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckd8mk8ky0vbh1ipdns7ji9wz/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {}).addTo(map2);
@@ -86,15 +131,15 @@
     initMap2();
 
     ////////////////////////////Current Condition Map////////////////////////////
-    var wmsCurrentConditionLayer= L.tileLayer.wms("https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms", {
-    format: 'image/png',
-    layers: 'rdcyis-eo_based:front_gcdi_mekong_2020_01_01',
-    format: 'image/png',
-    version: '1.3.0',
-    styles:'intensity-drought',
-    transparent: true,
-    });
-    wmsCurrentConditionLayer.addTo(map1);
+    // var wmsCurrentConditionLayer= L.tileLayer.wms("https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms", {
+    // format: 'image/png',
+    // layers: 'rdcyis-eo_based:front_gcdi_mekong_2020_01_01',
+    // format: 'image/png',
+    // version: '1.3.0',
+    // styles:'intensity-drought',
+    // transparent: true,
+    // });
+    // wmsCurrentConditionLayer.addTo(map1);
 
     ////////////////////////////Outlooks Map////////////////////////////
     function showOutlookLayer(m){
@@ -317,6 +362,19 @@
       resetMap();
       whenClicked(adm0FeatureClicked);
       $( "#province-map" ).text("");
+    });
+
+    $( "#current-d" ).click(function() {
+      $scope.currentLayer(0);
+    });
+    $( "#current-8d" ).click(function() {
+      $scope.currentLayer(1);
+    });
+    $( "#current-16d" ).click(function() {
+      $scope.currentLayer(2);
+    });
+    $( "#current-24d" ).click(function() {
+      $scope.currentLayer(3);
     });
 
     $("#current-btn-download").click(function(){

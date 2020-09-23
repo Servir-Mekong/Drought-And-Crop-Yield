@@ -11,7 +11,9 @@
     $scope.areaIndexSelectors = appSettings.areaIndexSelectors;
     $scope.downloadServerURL = appSettings.downloadServerURL;
     $scope.legendsSB = appSettings.legendsSB;
-    console.log($scope.legendsSB)
+    $scope.droughtLegend = appSettings.droughtLegend;
+    $scope.legend = []
+    $scope.showLoader = true;
     var geojsondata, selectedFeature, wmsLayer, selectedAreaLevel;
     var areaid0 = '';
     var areaid1 = '';
@@ -23,7 +25,7 @@
     var compare;
 
 
-    var map = L.map('map').setView([14.705, 100.09], 5);
+    var map = L.map('map').setView([15.255, 100.09], 6);
     L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckduef35613el19qlsoug6u2h/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {
     	maxZoom: 20,
     	attribution: ''
@@ -33,6 +35,12 @@
     lwmsLayer = L.tileLayer.wms();
 
 		rwmsLayer = L.tileLayer.wms();
+    map.createPane('droughtwmsLayer');
+		map.getPane('droughtwmsLayer').style.zIndex = 455;
+    map.createPane('lwmsLayer');
+		map.getPane('lwmsLayer').style.zIndex = 555;
+    map.createPane('rwmsLayer');
+		map.getPane('rwmsLayer').style.zIndex = 555;
 
 
 
@@ -71,7 +79,7 @@
         style: style,
         onEachFeature: onEachCountry
       }).addTo(map);
-    map.fitBounds(geojsondata.getBounds());
+    //map.fitBounds(geojsondata.getBounds());
 
 
     function onEachCountry(feature, layer) {
@@ -104,6 +112,18 @@
     $scope.getDateAvailable = function (type) {
       var enableDatesArray = [];
       if (type===1){
+        $('.legend-list ul li').html('');
+        var selectedopt = $("#map-select-indices1 option:selected").val();
+
+        for(var i=0; i<$scope.droughtLegend.length; i++){
+          if($scope.droughtLegend[i].name === selectedopt){
+            for(var j=0; j< $scope.droughtLegend[i].colors.length; j++){
+              var item = {color: $scope.droughtLegend[i].colors[j], label: $scope.droughtLegend[i].label[j]};
+              $scope.legend.push(item)
+            }
+          }
+        }
+
         var dataset = $("#map-select-indices1 option:selected").val();
         var datePicker = $("#dp5");
       }else if (type===2) {
@@ -120,9 +140,8 @@
       MapService.get_date_list(parameters)
       .then(function (result){
         for(var i=0; i<result.length; i++){
-          enableDatesArray.push(result[i]['date']);
+          enableDatesArray.push(result[i]);
         }
-
         datePicker.datepicker("destroy");
         datePicker.datepicker({
           beforeShowDay: function (date) {
@@ -145,14 +164,23 @@
     				        }
     				    }
         });
+          $('#hide-calendar').css("display", "block");
           datePicker.datepicker("setDate", enableDatesArray[enableDatesArray.length - 1]);
+          $scope.showLoader = false;
 
       }), function (error){
         console.log(error);
       };
     };
 
-
+  // function to add and update tile layer to map
+		function addMapLayer(layer,url, pane){
+			layer = L.tileLayer(url,{
+				attribution: '<a href="https://earthengine.google.com" target="_">' +
+				'Google Earth Engine</a>;',
+			 	pane: pane}).addTo(map);
+				return layer;
+		}
 
     $scope.getData = function (dataset, chartid) {
       //line chart data
@@ -165,7 +193,6 @@
 
       var periodicity = $("#select-periodicity option:selected").val();
       var date = $('#dp5').datepicker('getFormattedDate');
-      console.log(date)
       var parameters = {
         dataset: dataset,
         type: type,
@@ -208,55 +235,24 @@
       $("#chart-description-c4").text("An area chart compares Min and Max values of nowcast and forecasted data of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
 
     };
-    // $scope.getDroughtData3 = function () {
-    //   var dataset = $("#select-indices3 option:selected").val();
-    //   var datasetTxt = $("#select-indices3 option:selected").text();
-    //   var period = $("#select-periodicity  option:selected").text();
-    //   $scope.getData(dataset, 'container-chart5');
-    //   $("#chart-description-c5").text("This line chart shows Min, Max, Mean values of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
-    //   $("#chart-description-c6").text("An area chart compares Min and Max values of nowcast and forecasted data of "+datasetTxt+ " in "+ selectedArea +" | Periodicity: "+ period);
-    // };
 
     $scope.showWMSLayer = function(selected_date) {
       var selectedopt = $("#map-select-indices1 option:selected").val();
-      var layers, style;
-      if(map.hasLayer(wmsLayer)){
-        map.removeLayer(wmsLayer);
-      }
-      selected_date = selected_date.replace('-', '_');
-      selected_date = selected_date.replace('-', '_');
-      if(selectedopt === 'sb-vsdi'){
-        layers =  'rdcyis-eo_based:vsdi_'+selected_date+'_mekong';
-        style = 'drought-vsdi';
-      }else if(selectedopt === 'sb-ndvi'){
-        layers =  'rdcyis-eo_based:ndvi_'+selected_date+'_mekong';
-        style = 'drought-ndvi';
-      }else if(selectedopt === 'sb-evi'){
-        layers =  'rdcyis-eo_based:evi_'+selected_date+'_mekong';
-        style = 'drought-evi';
-      }else if(selectedopt === 'sb-msi'){
-        layers =  'rdcyis-eo_based:msi_'+selected_date+'_mekong';
-        style = 'drought-msi';
-      }else if(selectedopt === 'sb-kbdi'){
-        layers =  'rdcyis-eo_based:kbdi_'+selected_date+'_mekong';
-        style = 'drought-kbdi';
-      }else if(selectedopt === 'sb-arvi'){
-        layers =  'rdcyis-eo_based:arvi_'+selected_date+'_mekong';
-        style = 'drought-arvi';
-      }else if(selectedopt === 'sb-savi'){
-        layers =  'rdcyis-eo_based:savi_'+selected_date+'_mekong';
-        style = 'drought-savi';
-      }
+      var parameters = {
+        dataset: selectedopt,
+        date: selected_date,
+      };
+      MapService.get_map_id(parameters)
+      .then(function (result){
+        if(map.hasLayer(wmsLayer)){
+          map.removeLayer(wmsLayer);
+        }
+        wmsLayer = addMapLayer(wmsLayer, result.eeMapURL, 'droughtwmsLayer');
+        $scope.showLoader = false;
 
-      wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms?', {
-            service:'WMS',
-            version:'1.1.0',
-            request:'GetMap',
-            layers:layers,
-            format:'image/png',
-            transparent:true,
-            styles:style
-        }).addTo(map);
+      }), function (error){
+        console.log(error);
+      };
 
     };
     $scope.downloadRaster = function(){
@@ -278,6 +274,7 @@
 
 
     $('#dp5').on('changeDate', function() {
+        $scope.showLoader = true;
         var date = $('#dp5').datepicker('getFormattedDate');
         $scope.showWMSLayer(date);
 
@@ -359,12 +356,15 @@
     });
 
     $("#map-select-indices1").on('change', function(){
+      $scope.showLoader = true;
       $scope.getDateAvailable(1);
     });
     $("#map-left-indices").on('change', function(){
+      $scope.showLoader = true;
       $scope.getDateAvailable(2);
     });
     $("#map-right-indices").on('change', function(){
+      $scope.showLoader = true;
       $scope.getDateAvailable(3);
     });
 
@@ -427,6 +427,7 @@
 		*/
 		var add_compare = function(){
 			$modalCompare.modal('hide');
+      $scope.showLoader = true;
 			var lindicator =  ($("#map-left-indices option:selected").val());
 			var rindicator =  ($("#map-right-indices option:selected").val());
 			var l_date = $("#datepicker-left").val();
@@ -435,88 +436,117 @@
         map.removeLayer(wmsLayer);
       }
       var llayer, lstyle, rlayer, rstyle;
-      if(map.hasLayer(lwmsLayer)){
-        map.removeLayer(lwmsLayer);
-      }
-      if(map.hasLayer(rwmsLayer)){
-        map.removeLayer(rwmsLayer);
-      }
+      /////////////////////////left map/////////////////////////////////
+      var lparameters = {
+        dataset: lindicator,
+        date: l_date,
+      };
+      MapService.get_map_id(lparameters)
+      .then(function (result){
+        if(map.hasLayer(lwmsLayer)){
+          map.removeLayer(lwmsLayer);
+        }
+        lwmsLayer = addMapLayer(lwmsLayer, result.eeMapURL, 'lwmsLayer');
 
-      var ldate = l_date.replace('-', '_');
-      ldate = ldate.replace('-', '_');
-      var rdate = r_date.replace('-', '_');
-      rdate = rdate.replace('-', '_');
+        }), function (error){
+          console.log(error);
+        };
+        /////////////////////////right map/////////////////////////////////
+      var rparameters = {
+        dataset: rindicator,
+        date: r_date,
+      };
+      MapService.get_map_id(rparameters)
+      .then(function (result){
+        if(map.hasLayer(rwmsLayer)){
+          map.removeLayer(rwmsLayer);
+        }
+        rwmsLayer = addMapLayer(rwmsLayer, result.eeMapURL, 'rwmsLayer');
+        //$scope.showLoader = false;
+        if(map.hasLayer(rwmsLayer) && map.hasLayer(lwmsLayer)){
+          compare = L.control.sideBySide(lwmsLayer,rwmsLayer);
+    			compare.addTo(map);
+          $scope.showLoader = false;
+        }
 
-      if(lindicator === 'sb-vsdi'){
-        llayer =  'rdcyis-eo_based:vsdi_'+ldate+'_mekong';
-        lstyle = 'drought-vsdi';
-      }else if(lindicator === 'sb-ndvi'){
-        llayer =  'rdcyis-eo_based:ndvi_'+ldate+'_mekong';
-        lstyle = 'drought-ndvi';
-      }else if(lindicator === 'sb-evi'){
-        llayer =  'rdcyis-eo_based:evi_'+ldate+'_mekong';
-        lstyle = 'drought-evi';
-      }else if(lindicator === 'sb-msi'){
-        llayer =  'rdcyis-eo_based:msi_'+ldate+'_mekong';
-        lstyle = 'drought-msi';
-      }else if(lindicator === 'sb-kbdi'){
-        llayer =  'rdcyis-eo_based:kbdi_'+ldate+'_mekong';
-        lstyle = 'drought-kbdi';
-      }else if(lindicator === 'sb-arvi'){
-        llayer =  'rdcyis-eo_based:arvi_'+ldate+'_mekong';
-        lstyle = 'drought-arvi';
-      }else if(lindicator === 'sb-savi'){
-        llayer =  'rdcyis-eo_based:savi_'+ldate+'_mekong';
-        lstyle = 'drought-savi';
-      }
+        }), function (error){
+          console.log(error);
+        };
+      // var ldate = l_date.replace('-', '_');
+      // ldate = ldate.replace('-', '_');
+      // var rdate = r_date.replace('-', '_');
+      // rdate = rdate.replace('-', '_');
+      //
+      // if(lindicator === 'sb-vsdi'){
+      //   llayer =  'rdcyis-eo_based:vsdi_'+ldate+'_mekong';
+      //   lstyle = 'drought-vsdi';
+      // }else if(lindicator === 'sb-ndvi'){
+      //   llayer =  'rdcyis-eo_based:ndvi_'+ldate+'_mekong';
+      //   lstyle = 'drought-ndvi';
+      // }else if(lindicator === 'sb-evi'){
+      //   llayer =  'rdcyis-eo_based:evi_'+ldate+'_mekong';
+      //   lstyle = 'drought-evi';
+      // }else if(lindicator === 'sb-msi'){
+      //   llayer =  'rdcyis-eo_based:msi_'+ldate+'_mekong';
+      //   lstyle = 'drought-msi';
+      // }else if(lindicator === 'sb-kbdi'){
+      //   llayer =  'rdcyis-eo_based:kbdi_'+ldate+'_mekong';
+      //   lstyle = 'drought-kbdi';
+      // }else if(lindicator === 'sb-arvi'){
+      //   llayer =  'rdcyis-eo_based:arvi_'+ldate+'_mekong';
+      //   lstyle = 'drought-arvi';
+      // }else if(lindicator === 'sb-savi'){
+      //   llayer =  'rdcyis-eo_based:savi_'+ldate+'_mekong';
+      //   lstyle = 'drought-savi';
+      // }
+      //
+      // if(rindicator === 'sb-vsdi'){
+      //   rlayer =  'rdcyis-eo_based:vsdi_'+rdate+'_mekong';
+      //   rstyle = 'drought-vsdi';
+      // }else if(rindicator === 'sb-ndvi'){
+      //   rlayer =  'rdcyis-eo_based:ndvi_'+rdate+'_mekong';
+      //   rstyle = 'drought-ndvi';
+      // }else if(rindicator === 'sb-evi'){
+      //   rlayer =  'rdcyis-eo_based:evi_'+rdate+'_mekong';
+      //   rstyle = 'drought-evi';
+      // }else if(rindicator === 'sb-msi'){
+      //   rlayer =  'rdcyis-eo_based:msi_'+rdate+'_mekong';
+      //   rstyle = 'drought-msi';
+      // }else if(rindicator === 'sb-kbdi'){
+      //   rlayer =  'rdcyis-eo_based:kbdi_'+rdate+'_mekong';
+      //   rstyle = 'drought-kbdi';
+      // }else if(rindicator === 'sb-arvi'){
+      //   rlayer =  'rdcyis-eo_based:arvi_'+rdate+'_mekong';
+      //   rstyle = 'drought-arvi';
+      // }else if(rindicator === 'sb-savi'){
+      //   rlayer =  'rdcyis-eo_based:savi_'+rdate+'_mekong';
+      //   rstyle = 'drought-savi';
+      // }
+      //
+      // lwmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms?', {
+      //       service:'WMS',
+      //       version:'1.1.0',
+      //       request:'GetMap',
+      //       layers:llayer,
+      //       format:'image/png',
+      //       transparent:true,
+      //       styles:lstyle
+      //   });
+      //
+      // rwmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms?', {
+      //       service:'WMS',
+      //       version:'1.1.0',
+      //       request:'GetMap',
+      //       layers:rlayer,
+      //       format:'image/png',
+      //       transparent:true,
+      //       styles:rstyle
+      //   });
 
-      if(rindicator === 'sb-vsdi'){
-        rlayer =  'rdcyis-eo_based:vsdi_'+rdate+'_mekong';
-        rstyle = 'drought-vsdi';
-      }else if(rindicator === 'sb-ndvi'){
-        rlayer =  'rdcyis-eo_based:ndvi_'+rdate+'_mekong';
-        rstyle = 'drought-ndvi';
-      }else if(rindicator === 'sb-evi'){
-        rlayer =  'rdcyis-eo_based:evi_'+rdate+'_mekong';
-        rstyle = 'drought-evi';
-      }else if(rindicator === 'sb-msi'){
-        rlayer =  'rdcyis-eo_based:msi_'+rdate+'_mekong';
-        rstyle = 'drought-msi';
-      }else if(rindicator === 'sb-kbdi'){
-        rlayer =  'rdcyis-eo_based:kbdi_'+rdate+'_mekong';
-        rstyle = 'drought-kbdi';
-      }else if(rindicator === 'sb-arvi'){
-        rlayer =  'rdcyis-eo_based:arvi_'+rdate+'_mekong';
-        rstyle = 'drought-arvi';
-      }else if(rindicator === 'sb-savi'){
-        rlayer =  'rdcyis-eo_based:savi_'+rdate+'_mekong';
-        rstyle = 'drought-savi';
-      }
+			// lwmsLayer.addTo(map);
+			// rwmsLayer.addTo(map);
 
-      lwmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms?', {
-            service:'WMS',
-            version:'1.1.0',
-            request:'GetMap',
-            layers:llayer,
-            format:'image/png',
-            transparent:true,
-            styles:lstyle
-        });
 
-      rwmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms?', {
-            service:'WMS',
-            version:'1.1.0',
-            request:'GetMap',
-            layers:rlayer,
-            format:'image/png',
-            transparent:true,
-            styles:rstyle
-        });
-
-			lwmsLayer.addTo(map);
-			rwmsLayer.addTo(map);
-			compare = L.control.sideBySide(lwmsLayer,rwmsLayer);
-			compare.addTo(map);
 		};
 
 		/**

@@ -14,6 +14,9 @@
   <main id="main" style="padding: 20px;">
 
       <div class="" ng-controller="MapController">
+        <div id="loader" class="loader" ng-show="showLoader">
+    			<div class="loading-img"></div>
+    		</div>
         <div class="row">
           <div class="col-lg-8 col-md-6">
 
@@ -89,13 +92,13 @@
                 <div class="row">
                   <div class="col-lg-12 col-md-6 legend-list">
                     <ul>
-                      <li ng-repeat="x in legendsSB">
+                      <li ng-repeat="x in legend">
                         <div class="row">
                           <div class="col-lg-2">
-                            <div class="intensity-class" style="background: #[[x.color]]; border:1px solid #C3C3C3;"></div>
+                            <div class="intensity-class" style="background: [[x.color]]; border:1px solid #C3C3C3;"></div>
                           </div>
-                          <div class="col-lg-10">
-                            [[x.class]]
+                          <div class="col-lg-9">
+                            [[x.label]]
                           </div>
                         </div>
                       </li>

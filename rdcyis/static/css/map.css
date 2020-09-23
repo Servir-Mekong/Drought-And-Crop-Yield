@@ -409,6 +409,7 @@ ul {
   border-radius: 0px 10px 10px 0px;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
   z-index: 999;
+  display: none;
 }
 
 
@@ -605,4 +606,37 @@ ul {
   border: none;
   color: #FFF;
   padding-top: 0px;
+}
+
+/*
+ * Loader
+ */
+
+.loading-img {
+	width: 120px;
+	height: 120px;
+	margin-left: 50%;
+	margin-top: 25%;
+	background: url(/static/images/spinner.gif) center center no-repeat, url(/static/images/spinner.gif) center center no-repeat;
+}
+
+.loader {
+	z-index: 99999;
+	background: rgb(233, 233, 233);
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0,0,0,0.6);
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.6);
 }
