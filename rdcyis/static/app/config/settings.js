@@ -137,41 +137,42 @@ var settings = {
     countries: ['Cambodia', 'Laos', 'Myanmar', 'Thailand', 'Vietnam'],
     // this list is generated from python script at /scripts/list-provience.py
 
+
     variables: [
         {
-            'name': 'SB: Visible and Shortwave Infrared Drought Index (VSDI)',
+            'name': 'SB: VSDI: Visible and Shortwave infrared Drought Index',
             'value': 'sb-vsdi'
         },
         {
-            'name': 'SB: Moisture Stress Index (MSI)',
+            'name': 'SB: MSI: Moisture Stress Index',
             'value': 'sb-msi'
         },
         {
-            'name': 'SB: Atmospherically Resistant Vegetation Index (ARVI)',
+            'name': 'SB: ARVI: Atmospherically Resistant Vegetation Index',
             'value': 'sb-arvi'
         },
         {
-            'name': 'SB: Soil-adjusted Vegetation Index (SAVI)',
+            'name': 'SB: SAVI: Soil Adjusted Vegetation Index',
             'value': 'sb-savi'
         },
         {
-            'name': 'SB: Enhanced Vegetation Index (EVI)',
+            'name': 'SB: EVI: Enhanced Vegetation Index',
             'value': 'sb-evi'
         },
+        // {
+        //     'name': 'SB: Keetch–Byram Drought Index (KBDI)',
+        //     'value': 'sb-kbdi'
+        // },
         {
-            'name': 'SB: Keetch–Byram Drought Index (KBDI)',
-            'value': 'sb-kbdi'
-        },
-        {
-            'name': 'SB: Normalized Difference Vegetation Index (NDVI)',
+            'name': 'SB: NDVI: Normalized Difference Vegetation Index',
             'value': 'sb-ndvi'
         },
         {
-          'name': 'MB: Keetch-Byram Drought Index (KBDI)',
+          'name': 'MB: KBDI: Keetch-Byram Drought Index',
           'value': 'mb-kbdi'
         },
         {
-          'name': 'MB: Combined Drought Index (CDI)',
+          'name': 'MB: CDI: Combined Drought Index',
           'value': 'mb-cdi'
         },
         {
@@ -179,11 +180,11 @@ var settings = {
           'value': 'mb-severity'
         },
         {
-          'name': 'MB: Dry Spell Events (during last 2 weeks)',
+          'name': 'MB: Dry Spell Events',
           'value': 'mb-dryspells'
         },
         {
-          'name': 'MB: SMDI: Soil Moisture Deficit Index (SMDI)',
+          'name': 'MB: SMDI: Soil Moisture Deficit Index',
           'value': 'mb-smdi'
         },
         {
@@ -283,51 +284,52 @@ var settings = {
       }
     ],
 
+
     droughtLegend: [
             {
                 'name': 'current',
                 'colors': ['#0000ff' ,'#00ff00', '#007f30', '#30b855', '#ff0001','#ffff00'],
-                'label':['No Data (-9999 or nodata)', 'EXD (0.0 - 0.2)', 'SED (0.2 - 0.4)', 'MOD (0.4 - 0.8)', 'No Drought (> 0.8)'],
+                'label':['No Data', 'EXD', 'SED', 'MOD', 'No Drought'],
             },
             {
                 'name': 'sb-vsdi',
-                'colors': ['#C3C3C3' ,'#880015', '#B97A57', '#F89F1D','#FFFFFF'],
-                'label':['No Data (-9999 or nodata)', 'EXD (0.0 - 0.2)', 'SED (0.2 - 0.4)', 'MOD (0.4 - 0.8)', 'No Drought (> 0.8)'],
+                'colors': ['#F89F1D', '#B97A57', '#880015','#FFFFFF','#C3C3C3'],
+                'label':['MOD', 'SED', 'EXD', 'No Drought','No Data'],
             },
             {
                 'name': 'sb-arvi',
                 'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641'],
-                'label':['High Stress (-1)','','','','','','','',' Low Stress (+1)'],
+                'label':['High Stress','','','','','','','',' Low Stress'],
             },
             {
                 'name': 'sb-savi',
                 'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641'],
-                'label':['High Stress (-1)','','','','','','','',' Low Stress (+1)'],
+                'label':['High Stress','','','','','','','',' Low Stress'],
             },
             {
                 'name': 'sb-evi',
                 'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641'],
-                'label':['High Stress (-1)','','','','','','','',' Low Stress (+1)'],
+                'label':['High Stress','','','','','','','',' Low Stress'],
             },
             {
                 'name': 'sb-ndvi',
                 'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641'],
-                'label':['High Stress (-1)','','','','','','','',' Low Stress (+1)'],
+                'label':['High Stress','','','','','','','',' Low Stress'],
             },
             {
                 'name': 'sb-ndvi_ano',
                 'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641'],
-                'label':['High Stress (-2)','','','','','','','',' Low Stress (+2)'],
+                'label':['High Stress','','','','','','','',' Low Stress'],
             },
             {
                 'name': 'mb-kdbi',
-                'colors': ['#C3C3C3','#FFFFFF','#F89F1D','#B97A57','#880015'],
-                'label':['#C3C3C3','#FFFFFF','#F89F1D','#B97A57','#880015'],
+                'colors': ['#F89F1D', '#B97A57', '#880015','#FFFFFF','#C3C3C3'],
+                'label':['MOD', 'SED', 'EXD', 'No Drought','No Data'],
             },
             {
-                'name': 'sb-kdbi',
+                'name': 'mb-kbdi',
                 'colors': ['#C3C3C3','#FFFFFF','#F89F1D','#B97A57','#880015'],
-                'label':['No Data (-9999 or nodata)','No Drought (< 399)','MOD (400 - 499)','SED (500 - 649)','EXD (650 - 800)'],
+                'label':['No Data','No Drought','MOD','SED','EXD'],
             },
             {
                 'name': 'mb-cdi',
@@ -336,33 +338,38 @@ var settings = {
             },
             {
                 'name': 'mb-spi1',
-                'colors': ['#880015','#B97A57','#F89F1D','#FFFFFF'],
-                'label':['EXD (< -2.0)','SED (-1.5 - -1.99)','MOD (-1.0 - -1.49)','Normal or Wet (> -0.99)'],
+                'colors': ['#F89F1D','#B97A57','#880015','#FFFFFF'],
+                'label':['MOD','SED','EXD','Normal or Wet'],
             },
             {
                 'name': 'mb-spi3',
-                'colors': ['#880015','#B97A57','#F89F1D','#FFFFFF'],
-                'label':['EXD (< -2.0)','SED (-1.5 - -1.99)','MOD (-1.0 - -1.49)','Normal or Wet (> -0.99)'],
+                'colors': ['#F89F1D','#B97A57','#880015','#FFFFFF'],
+                'label':['MOD','SED','EXD','Normal or Wet'],
             },
             {
                 'name': 'mb-sri1',
-                'colors': ['#880015','#B97A57','#F89F1D','#FFFFFF'],
-                'label':['EXD (< -2.0)','SED (-1.5 - -1.99)','MOD (-1.0 - -1.49)','Normal or Wet (> -0.99)'],
+                'colors': ['#F89F1D','#B97A57','#880015','#FFFFFF'],
+                'label':['MOD','SED','EXD','Normal or Wet'],
             },
             {
                 'name': 'mb-sri3',
-                'colors': ['#880015','#B97A57','#F89F1D','#FFFFFF'],
-                'label':['EXD (< -2.0)','SED (-1.5 - -1.99)','MOD (-1.0 - -1.49)','Normal or Wet (> -0.99)'],
+                'colors': ['#F89F1D','#B97A57','#880015','#FFFFFF'],
+                'label':['MOD','SED','EXD','Normal or Wet'],
+            },
+            {
+                'name': 'mb-smdi',
+                'colors': ['#F89F1D','#B97A57','#880015','#FFFFFF'],
+                'label':['MOD','SED','EXD','Normal or Wet'],
             },
             {
                 'name': 'mb-soil_moist',
-                'colors': ['#880015','#B97A57','#F89F1D','#FFFFFF'],
-                'label':['EXD (0 - 5)','SED (6 - 10)','MOD (11 - 20)','Normal or Wet (> 21)'],
+                'colors': ['#F89F1D','#B97A57','#880015','#FFFFFF'],
+                'label':['MOD','SED','EXD','Normal or Wet'],
             },
             {
                 'name': 'sb-msi',
                 'colors': ['#1A9641', '#58B453', '#97D265', '#C4E687', '#F7FCDF', '#FFEDAB', '#FEC981', '#F99E59', '#E85B3A'],
-                'label':['#1A9641', '#58B453', '#97D265', '#C4E687', '#F7FCDF', '#FFEDAB', '#FEC981', '#F99E59', '#E85B3A'],
+                'label':['Low Stress', '', '', '', '', '', '', '', 'High Stress'],
             },
             {
                 'name': 'mb-severity',
@@ -387,15 +394,15 @@ var settings = {
             {
                 'name': 'mb-soil_temp',
                 'colors': ['#2C7BB6','#569AC7','#A0CBE2','#ABD9E9','#E5F3EF','#E2F2CC','#FFFFBF','#FEE49F','#FDC77B','#FDAA5B','#F07C4A','#E34A33','#D7191C'],
-                'label':['Less than 8','8 - 10','10 - 12','12 - 14','14 - 16','16 - 18','18 - 20','20 - 22','22 - 24','24 - 26','26 - 28','28 - 30','30 +'],
+                'label':['0 - 5','5 - 10','10 - 15','15 - 20','20 - 21','21 - 22','22 - 23','24 - 25','25 - 26','26 - 27','27 - 28','28 - 29','30 +'],
             },
             {
                 'name': 'mb-baseflow',
                 'colors': ['#FFFFCC','#DFF2C4','#C0E6BC','#A1DAB4','#81CEB9','#61C2BE','#41B6C4','#3AA3C0','#3391BC','#2C7FB8','#2965AC','#274DA0','#253494'],
-                'label':['< 0','0 - 0.2','0.2 - 0.4','0.4 - 0.6','0.6 - 0.8','0.8 - 1.0','1.0 - 1.4','1.4 - 1.8','1.8 - 2.0','2.0 - 3.0','3.0 - 4.0','4.0 - 5.0','30 +'],
+                'label':['0 - 2','2 - 4','4 - 6','6 - 8','8 - 10','10 - 12','12 - 14','14 - 16','16 - 18','18 - 20','20 - 22','22 - 24','24 +'],
             },
             {
-                'name': 'mb-pet_netveg',
+                'name': 'mb-pet_natveg',
                 'colors': ['#F0F9E8','#D8F0D5','#C0E7C1','#A5DCBF','#89D2C2','#6EC3C6','#56B0C8','#3C9CC7','#2282BA','#0868AC'],
                 'label':['< 1' ,'1 - 2' ,'2 - 3' ,'3 - 4' ,'4 - 5' ,'5 - 6' ,'6 - 7' ,'7 - 8' ,'8 - 9' ,'9 +']
             },
@@ -407,12 +414,12 @@ var settings = {
             {
                 'name': 'mb-runoff',
                 'colors': ['#A6621C' ,'#BA843E' ,'#CFA762' ,'#E1C687' ,'#E9D9B3' ,'#F1EBDF' ,'#DFEDEB' ,'#B5DFD8' ,'#8AD0C5' ,'#5DB9AB' ,'#5DB9AB' ,'#018571' ],
-                'label':['Less than 0.0','0.0 - 0.1','0.1 - 0.2','0.2 - 0.3','0.3 - 0.4','0.4 - 0.5','0.5 - 0.6','0.6 - 0.7','0.7 - 0.8','0.8 - 0.9','0.9 - 1.0','10 +']
+                'label':['0 - 5','5 - 10','10 - 20','20 - 30','30 - 40','40 - 50','50 - 60','60 - 70','70 - 80','80 - 90','90 - 100','100 +']
             },
             {
                 'name': 'mb-evap',
                 'colors': ['#51125F','#482172','#423E84','#38588B','#2C6F8E','#24848E','#1E9B89','#2AB07E','#50C469','#85D44A','#C1DF23','#FDE725'],
-                'label':['< 0.0','0.0 - 0.3','0.3 - 0.6','0.6 - 0.9','0.9 - 1.2','1.2 - 1.6','1.6 - 2.0','2.0 - 2.5','2.5 - 3.0','3.0 - 3.5','3.5 - 4.0','4.0 +']
+                'label':['0 - 2','2 - 4','4 - 6','6 - 8','8 - 10','10 - 12','12 - 14','14 - 16','16 - 18','18 - 20','20 - 22','22 +']
             },
             {
                 'name': 'mb-rel_humid',

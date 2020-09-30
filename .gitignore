@@ -2,6 +2,7 @@
 # python compile files
 # ===========
 *.pyc
+credentials/
 static/*
 # Setting and config files
 rdcyis/settings.py

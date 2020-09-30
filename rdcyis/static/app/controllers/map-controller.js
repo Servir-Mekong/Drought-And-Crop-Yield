@@ -35,40 +35,40 @@
     lwmsLayer = L.tileLayer.wms();
 
 		rwmsLayer = L.tileLayer.wms();
-    map.createPane('droughtwmsLayer');
-		map.getPane('droughtwmsLayer').style.zIndex = 455;
-    map.createPane('lwmsLayer');
-		map.getPane('lwmsLayer').style.zIndex = 555;
-    map.createPane('rwmsLayer');
-		map.getPane('rwmsLayer').style.zIndex = 555;
 
+		map.createPane('admin');
+		map.createPane('droughtwmsLayer');
+		map.getPane('admin').style.zIndex = 650;
+		map.getPane('droughtwmsLayer').style.zIndex = 560;
+    map.createPane('lwmsLayer');
+		map.getPane('lwmsLayer').style.zIndex = 655;
+    map.createPane('rwmsLayer');
+		map.getPane('rwmsLayer').style.zIndex = 655;
 
 
     //////////////////////////////Regoin Boundary onclick event////////////////////////////////////
     // Set style function that sets fill color property
     function style(feature) {
         return {
-            fillColor: 'green',
+            fillColor: '#000000',
             fillOpacity: 0,
             weight: 1,
             opacity: 1,
-            color: 'green',
-            dashArray: '3'
+            color: '#000000'
         };
     }
     // Set style function that sets fill color property
     function style2(feature) {
         return {
             fillColor: 'gray',
-            fillOpacity: 0.5,
-            weight: 2,
+            fillOpacity: 0.9,
+            weight: 1,
             opacity: 1,
-            color: '#ffffff',
-            dashArray: '3'
+            color: '#ffffff'
         };
     }
   	var highlight = {
-  		'fillColor': 'yellow',
+  		'fillColor': 'blue',
   		'weight': 2,
   		'opacity': 1,
       'color': '#dd614a',
@@ -77,7 +77,8 @@
 
     geojsondata = L.geoJson(mekong,{
         style: style,
-        onEachFeature: onEachCountry
+        onEachFeature: onEachCountry,
+        pane: 'admin'
       }).addTo(map);
     //map.fitBounds(geojsondata.getBounds());
 
@@ -258,10 +259,18 @@
     $scope.downloadRaster = function(){
       var selectedopt = $("#map-select-indices1 option:selected").val();
       var selected_date = $('#dp5').datepicker('getFormattedDate');
-      selected_date = selected_date.replace('-', '_');
-      selected_date = selected_date.replace('-', '_');
       selectedopt = selectedopt.split("-")[1];
-      var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/eo_based/'+ selectedopt + '/mekong/' +selectedopt+'_'+selected_date+'_mekong.tif';
+      var sensortype = $("#map-select-indices1 option:selected").val().split("-")[0];
+      console.log(sensortype);
+      var DownloadURL = '';
+      if(sensortype === 'sb'){
+        selected_date = selected_date.replace('-', '_');
+        selected_date = selected_date.replace('-', '_');
+        DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/eo_based/'+ selectedopt + '/myanmar/' +selectedopt+'_'+selected_date+'_myanmar.tif';
+      }else{
+        DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/rheas_based/'+ selectedopt + '/8day/' +selectedopt+'_8day_'+selected_date+'.tif';
+      }
+
       var file_path = DownloadURL;
 				var a = document.createElement('A');
 				a.href = file_path;
@@ -331,25 +340,29 @@
         type='mekong_country';
         geojsondata = L.geoJson(mekong,{
             style: style,
-            onEachFeature: onEachCountry
+            onEachFeature: onEachCountry,
+            pane: 'admin'
           }).addTo(map);
       }else if(selectedopt === 'lmr'){
         type='lmr';
         geojsondata = L.geoJson(mekong_basin,{
             style: style,
-            onEachFeature: onEachCountry
+            onEachFeature: onEachCountry,
+            pane: 'admin'
           }).addTo(map);
       }else if(selectedopt === 'country'){
         type='adm0';
         geojsondata = L.geoJson(adm0,{
             style: style,
-            onEachFeature: onEachCountry
+            onEachFeature: onEachCountry,
+            pane: 'admin'
           }).addTo(map);
       }else{
         type='adm1';
         geojsondata = L.geoJson(adm1,{
             style: style,
-            onEachFeature: onEachCountry
+            onEachFeature: onEachCountry,
+            pane: 'admin'
           }).addTo(map);
       }
       map.fitBounds(geojsondata.getBounds());
@@ -658,7 +671,7 @@ function genAreaChart(categoriesData, data1, average, chartid){
 
           tooltip: {
               shared: true,
-              valueSuffix: ' | ',
+              valueSuffix: '',
 
           },
           credits: {
@@ -669,14 +682,24 @@ function genAreaChart(categoriesData, data1, average, chartid){
               name: 'Min and Max',
               data: data1,
               color: '#85a3c3',
-              fillOpacity: 0.1
+              fillOpacity: 0.1,
+              tooltip: {
+                 formatter: function() {
+                   return this.series.name + ': <b>'+  this.point.low + ' and ' + this.point.high +'</b><br/>'
+                 }
+               }
           },
           {
               name: 'Average',
               type: 'spline',
               data: average,
               color: '#dd614a',
-              fillOpacity: 0.1
+              fillOpacity: 0.1,
+              tooltip: {
+                 formatter: function() {
+                   return this.series.name + ': <b>'+ this.point.y+'</b><br/>'
+                 }
+               }
           },
         ]
   });

@@ -26,8 +26,8 @@
       <div class="container">
         <div class="row" ng-controller="CurrentMapController">
           <div class="col-lg-12 col-md-6" id="map-nav" style="display:none;">
-            <a href="#" id="mekong-map">Mekong</a> <span>/ </span>
-            <a href="#" id="country-map"></a> <span>/ </span>
+            <a href="#" id="mekong-map">Mekong</a> <span> </span>
+            <a href="#" id="country-map"></a> <span> </span>
             <a href="#" id="province-map"></a> <span> </span>
           </div>
 
@@ -35,21 +35,31 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="map-title">Current Conditions</div>
-                <p>Map Updated: 01/01/2020</p>
+                <p>Map Updated: <span id="map-updated-date"></span></p>
               </div>
               <div class="col-lg-12">
                 <div class="row">
                   <div class="col-lg-3">
                     <input type="radio" id="current-24d" name="current-radio-group">
-                    <label for="current-24d">24D</label>
+                    <label for="current-24d" data-toggle="tooltip" data-html="true" data-placement="right" title="24 days ago">24D</label>
+                    <div class="" style="float: right;display: inline;">
+                      <
+                    </div>
+
                   </div>
                   <div class="col-lg-3">
                     <input type="radio" id="current-16d" name="current-radio-group">
-                    <label for="current-16d">16D</label>
+                    <label for="current-16d" data-toggle="tooltip" data-html="true" data-placement="right" title="16 days ago">16D</label>
+                    <div class="" style="float: right;display: inline;">
+                      <
+                    </div>
                   </div>
                   <div class="col-lg-3">
                     <input type="radio" id="current-8d" name="current-radio-group">
-                    <label for="current-8d">8D</label>
+                    <label for="current-8d" data-toggle="tooltip" data-html="true" data-placement="right" title="8 days ago">8D</label>
+                    <div class="" style="float: right;display: inline;">
+                      <
+                    </div>
                   </div>
                   <div class="col-lg-3">
                     <input type="radio" id="current-d" name="current-radio-group" checked>
@@ -79,7 +89,7 @@
                   <li>
                     <div class="row col-lg-12">
                       <div class="col-lg-2">
-                        <div class="intensity-class" style="background:#FF7F27"></div>
+                        <div class="intensity-class" style="background:#F89F1D"></div>
                       </div>
                       <div class="col-lg-10">
                         Moderately Dry
@@ -130,21 +140,21 @@
             <div class="row" style="text-align: right;">
               <div class="col-lg-12">
                 <div class="map-title">Outlooks</div>
-                <p>Map Updated: 01/01/2020</p>
+                <p>Map Updated: <span id="map-outlook-date"></span></p>
               </div>
               <div class="col-lg-12">
                 <div class="row">
                   <div class="col-lg-4">
                     <input type="radio" id="outlook-m1" name="radio-group" checked>
-                    <label for="outlook-m1">1M</label>
+                    <label for="outlook-m1" data-toggle="tooltip" data-html="true" data-placement="left" title="For next month">1M</label>
                   </div>
                   <div class="col-lg-4">
                     <input type="radio" id="outlook-m2" name="radio-group">
-                    <label for="outlook-m2">2M</label>
+                    <label for="outlook-m2" data-toggle="tooltip" data-html="true" data-placement="left" title="For next 2 months">2M</label>
                   </div>
                   <div class="col-lg-4">
                     <input type="radio" id="outlook-m3" name="radio-group">
-                    <label for="outlook-m3">3M</label>
+                    <label for="outlook-m3" data-toggle="tooltip" data-html="true" data-placement="left" title="For next 3 months">3M</label>
                   </div>
                 </div>
               </div>
@@ -154,7 +164,6 @@
             <hr>
             <div class="row" style="border-left: 1px solid #c3c3c3;">
               <div class="col-lg-6 col-md-6 legend-list">
-
                 <h2>Outlook Warning</h2>
                 <ul>
                   <li>
@@ -171,7 +180,7 @@
                   <li>
                     <div class="row col-lg-12">
                       <div class="col-lg-2">
-                        <div class="intensity-class" style="background:#FF7F27"></div>
+                        <div class="intensity-class" style="background:#F89F1D"></div>
                       </div>
                       <div class="col-lg-10">
                         Watch
@@ -203,9 +212,9 @@
               </div>
               <div class="col-lg-6 col-md-6">
                 <h2>Map Download</h2>
-                <button type="button" class="btn btn-color1">1M</button>
-                <button type="button" class="btn btn-color2">2M</button>
-                <button type="button" class="btn btn-color3">3M</button>
+                <button type="button" class="btn btn-color1" id="btn-download-outlook1m">1M</button>
+                <button type="button" class="btn btn-color2" id="btn-download-outlook2m">2M</button>
+                <button type="button" class="btn btn-color3" id="btn-download-outlook3m">3M</button>
 
               </div>
             </div>
@@ -222,7 +231,7 @@
         <div class="row">
           <div class="col-lg-12 col-md-6">
             <hr>
-            <p class="products-desc">These products have been created with the highest degree of accuracy possible and depict information at regional and national scales. Local conditions are subject to variations based on local climatic conditions. The product has been produced based on the latest available satellite and global modeled data and subject to update every two weeks.</p>
+            <p class="products-desc">These products have been generated with the highest degree of accuracy possible and depict the information at regional and national scales. Local conditions are subjected to change based on the local climatic conditions. These products have been produced based on the latest available satellite and global modeled data and subject to update every two weeks.</p>
             <hr>
           </div>
         </div>
@@ -428,12 +437,12 @@
 
           <div class="about-div" style="margin-bottom:20px;">
               <div class="row">
-                <div class="col-lg-3 col-md-6" style="text-align:center;">
+                <div class="col-lg-12 col-md-6" style="text-align:center;">
                   <img src="/static/images/icons/drought-color-icon.png" alt="" height="250px">
                 </div>
-                <div class="col-lg-9  col-md-6">
+                <div class="col-lg-12  col-md-6">
                   <div class="about-div">
-                  <h1 style="margin-top:50px;"><b>Mekong Drought and Crop Watch</b></h1>
+                  <h1 style="margin-top:50px;text-align:center;"><b>Mekong Drought and Crop Watch</b></h1>
                   <p>Droughts in the Lower Mekong region negatively impact ecosystem services, food and water security, and biodiversity. These impacts are exacerbated by climate change, further highlighting the need for improved governance and decision-making in virtually all sectors.</p>
                 </div>
               </div>
@@ -468,19 +477,30 @@
               <p>NASA Jet Propulsion Laboratory (JPL)</p>
             </div>
             <div class="col-lg-4 col-md-6 icon-box">
-              <img src="/static/images/partners/mrc.png" alt="" style="width:auto; height:80px;">
+              <img src="/static/images/partners/michigan-state.png" alt="" style="width:auto; height:80px;">
+              <p>Michigan State University</p>
+            </div>
+            <div class="col-lg-4 col-md-6 icon-box">
+              <img src="/static/images/partners/massachusetts.png" alt="" style="width:auto; height:80px;">
+              <p>University of Massachusetts Amherst</p>
+            </div>
+
+          </div>
+          <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-md-6 icon-box">
+              <img src="/static/images/partners/mrc.png" alt="" style="width:auto; height:70px;">
               <p>Mekong River Commission</p>
             </div>
             <div class="col-lg-4 col-md-6 icon-box">
               <img src="/static/images/partners/vawr.png" alt="" style="width:auto; height:70px;">
               <p>Vietnam Academy of Water Resources</p>
             </div>
-          </div>
-          <div class="row justify-content-md-center">
             <div class="col-lg-4 col-md-6 icon-box">
-              <img src="/static/images/partners/sig.png" alt="" style="width:auto; height:50px;">
+              <img src="/static/images/partners/sig.png" alt="" style="width:auto; height:60px;">
               <p>Spatial Informatics Group</p>
             </div>
+          </div>
+          <div class="row ">
             <div class="col-lg-4 col-md-6 icon-box">
               <img src="/static/images/partners/sei.png" alt="" style="width:auto; height:60px;">
               <p>Stockholm Environment Institute</p>
@@ -488,17 +508,6 @@
             <div class="col-lg-4 col-md-6 icon-box">
               <img src="/static/images/partners/deltares.png" alt="" style="width:auto; height:70px;">
               <p>Deltares</p>
-            </div>
-          </div>
-
-          <div class="row ">
-            <div class="col-lg-4 col-md-6 icon-box">
-              <img src="/static/images/partners/michigan-state.png" alt="" style="width:auto; height:80px;">
-              <p>Michigan State University</p>
-            </div>
-            <div class="col-lg-4 col-md-6 icon-box">
-              <img src="/static/images/partners/massachusetts.png" alt="" style="width:auto; height:80px;">
-              <p>University of Massachusetts Amherst</p>
             </div>
           </div>
 

@@ -21,6 +21,7 @@ class GEEApi():
 
     def __init__(self):
 
+        #ee.Initialize(settings.EE_CREDENTIALS)
         ee.Initialize()
 
         WEST, SOUTH, EAST, NORTH = 92.0, 9.5, 101.5, 29
@@ -77,13 +78,12 @@ class GEEApi():
             '</RasterSymbolizer>'''
 
         self.sld_outlooksDroght ='''<RasterSymbolizer>'
-         '<ColorMap type="intervals" extended="false" >'
-           '<ColorMapEntry color="#0000ff" quantity="0" label="0"/>'
-           '<ColorMapEntry color="#00ff00" quantity="100" label="1-100" />'
-           '<ColorMapEntry color="#007f30" quantity="200" label="110-200" />'
-           '<ColorMapEntry color="#30b855" quantity="300" label="210-300" />'
-           '<ColorMapEntry color="#ff0000" quantity="400" label="310-400" />'
-         '</ColorMap>'
+          '<ColorMap type="intervals" extended="false" >'
+            '<ColorMapEntry color="#FFFFFF" quantity="0" label="Normal" />'
+            '<ColorMapEntry color="#F89F1D" quantity="1" label="Watch" />'
+            '<ColorMapEntry color="#B97A57" quantity="2" label="Warning" />'
+            '<ColorMapEntry color="#880015" quantity="3" label="Alert" />'
+          '</ColorMap>'
         '</RasterSymbolizer>'''
 
         self.sld_vsdi ='''<RasterSymbolizer>
@@ -149,6 +149,15 @@ class GEEApi():
         '</RasterSymbolizer>'''
 
         self.sld_sri3 ='''<RasterSymbolizer>'
+          '<ColorMap type="intervals" extended="false" >'
+            '<ColorMapEntry color="#880015" quantity="-2.0" label="EXD (less than -2.0)" />'
+            '<ColorMapEntry color="#B97A57" quantity="-1.50" label="SED (-1.5 - -1.99)" />'
+            '<ColorMapEntry color="#F89F1D" quantity="-1.0" label="MOD (-1.0 - -1.49)" />'
+            '<ColorMapEntry color="#FFFFFF" quantity="10" label="Normal or Wet (gt -0.99)" />'
+          '</ColorMap>'
+        '</RasterSymbolizer>'''
+
+        self.sld_smdi ='''<RasterSymbolizer>'
           '<ColorMap type="intervals" extended="false" >'
             '<ColorMapEntry color="#880015" quantity="-2.0" label="EXD (less than -2.0)" />'
             '<ColorMapEntry color="#B97A57" quantity="-1.50" label="SED (-1.5 - -1.99)" />'
@@ -228,17 +237,17 @@ class GEEApi():
 
         self.sld_soil_temp = '''<RasterSymbolizer>'
           '<ColorMap type="intervals" extended="false" >'
-            '<ColorMapEntry color="#2C7BB6" quantity="8" label="Less than 8"/>'
+            '<ColorMapEntry color="#2C7BB6" quantity="5" label="Less than 8"/>'
             '<ColorMapEntry color="#569AC7" quantity="10" label="8 - 10" />'
-            '<ColorMapEntry color="#A0CBE2" quantity="12" label="10 - 12" />'
-            '<ColorMapEntry color="#ABD9E9" quantity="14" label="12 - 14" />'
-            '<ColorMapEntry color="#E5F3EF" quantity="16" label="14 - 16"/>'
-            '<ColorMapEntry color="#E2F2CC" quantity="18" label="16 - 18" />'
-            '<ColorMapEntry color="#FFFFBF" quantity="20" label="18 - 20" />'
-            '<ColorMapEntry color="#FEE49F" quantity="22" label="20 - 22" />'
-            '<ColorMapEntry color="#FDC77B" quantity="24" label="22 - 24"/>'
-            '<ColorMapEntry color="#FDAA5B" quantity="26" label="24 - 26" />'
-            '<ColorMapEntry color="#F07C4A" quantity="28" label="26 - 28" />'
+            '<ColorMapEntry color="#A0CBE2" quantity="15" label="10 - 12" />'
+            '<ColorMapEntry color="#ABD9E9" quantity="20" label="12 - 14" />'
+            '<ColorMapEntry color="#E5F3EF" quantity="21" label="14 - 16"/>'
+            '<ColorMapEntry color="#E2F2CC" quantity="22" label="16 - 18" />'
+            '<ColorMapEntry color="#FFFFBF" quantity="23" label="18 - 20" />'
+            '<ColorMapEntry color="#FEE49F" quantity="24" label="20 - 22" />'
+            '<ColorMapEntry color="#FDC77B" quantity="26" label="22 - 24"/>'
+            '<ColorMapEntry color="#FDAA5B" quantity="28" label="24 - 26" />'
+            '<ColorMapEntry color="#F07C4A" quantity="29" label="26 - 28" />'
             '<ColorMapEntry color="#E34A33" quantity="30" label="28 - 30"/>'
             '<ColorMapEntry color="#D7191C" quantity="100" label="30 +" />'
           '</ColorMap>'
@@ -246,23 +255,23 @@ class GEEApi():
 
         self.sld_baseflow = '''<RasterSymbolizer>'
           '<ColorMap type="intervals" extended="false" >'
-            '<ColorMapEntry color="#FFFFCC" quantity="0" label="Less than 0"/>'
-            '<ColorMapEntry color="#DFF2C4" quantity="0.2" label="0 - 0.2" />'
-            '<ColorMapEntry color="#C0E6BC" quantity="0.4" label="0.2 - 0.4" />'
-            '<ColorMapEntry color="#A1DAB4" quantity="0.6" label="0.4 - 0.6" />'
-            '<ColorMapEntry color="#81CEB9" quantity="0.8" label="0.6 - 0.8"/>'
-            '<ColorMapEntry color="#61C2BE" quantity="1.0" label="0.8 - 1.0" />'
-            '<ColorMapEntry color="#41B6C4" quantity="1.4" label="1.0 - 1.4" />'
-            '<ColorMapEntry color="#3AA3C0" quantity="1.8" label="1.4 - 1.8" />'
-            '<ColorMapEntry color="#3391BC" quantity="2.0" label="1.8 - 2.0"/>'
-            '<ColorMapEntry color="#2C7FB8" quantity="3.0" label="2.0 - 3.0" />'
-            '<ColorMapEntry color="#2965AC" quantity="4.0" label="3.0 - 4.0" />'
-            '<ColorMapEntry color="#274DA0" quantity="5.0" label="4.0 - 5.0"/>'
-            '<ColorMapEntry color="#253494" quantity="100" label="30 +" />'
+            '<ColorMapEntry color="#FFFFCC" quantity="2" label="Less than 0"/>'
+            '<ColorMapEntry color="#DFF2C4" quantity="4" label="0 - 0.2" />'
+            '<ColorMapEntry color="#C0E6BC" quantity="6" label="0.2 - 0.4" />'
+            '<ColorMapEntry color="#A1DAB4" quantity="8" label="0.4 - 0.6" />'
+            '<ColorMapEntry color="#81CEB9" quantity="10" label="0.6 - 0.8"/>'
+            '<ColorMapEntry color="#61C2BE" quantity="12" label="0.8 - 1.0" />'
+            '<ColorMapEntry color="#41B6C4" quantity="14" label="1.0 - 1.4" />'
+            '<ColorMapEntry color="#3AA3C0" quantity="16" label="1.4 - 1.8" />'
+            '<ColorMapEntry color="#3391BC" quantity="18" label="1.8 - 2.0"/>'
+            '<ColorMapEntry color="#2C7FB8" quantity="20" label="2.0 - 3.0" />'
+            '<ColorMapEntry color="#2965AC" quantity="22" label="3.0 - 4.0" />'
+            '<ColorMapEntry color="#274DA0" quantity="24" label="4.0 - 5.0"/>'
+            '<ColorMapEntry color="#253494" quantity="1000" label="30 +" />'
           '</ColorMap>'
         '</RasterSymbolizer>'''
 
-        self.sld_pet_netveg = '''<RasterSymbolizer>'
+        self.sld_pet_natveg = '''<RasterSymbolizer>'
           '<ColorMap type="intervals" extended="false" >'
             '<ColorMapEntry color="#F0F9E8" quantity="1" label="Less than 1"/>'
             '<ColorMapEntry color="#D8F0D5" quantity="2" label="1 - 2" />'
@@ -297,35 +306,35 @@ class GEEApi():
 
         self.sld_runoff = '''<RasterSymbolizer>'
           '<ColorMap type="intervals" extended="false" >'
-            '<ColorMapEntry color="#A6621C" quantity="0.0" label="Less than 0.0"/>'
-            '<ColorMapEntry color="#BA843E" quantity="0.1" label="0.0 - 0.1" />'
-            '<ColorMapEntry color="#CFA762" quantity="0.2" label="0.1 - 0.2" />'
-            '<ColorMapEntry color="#E1C687" quantity="0.3" label="0.2 - 0.3" />'
-            '<ColorMapEntry color="#E9D9B3" quantity="0.4" label="0.3 - 0.4"/>'
-            '<ColorMapEntry color="#F1EBDF" quantity="0.5" label="0.4 - 0.5" />'
-            '<ColorMapEntry color="#DFEDEB" quantity="0.6" label="0.5 - 0.6" />'
-            '<ColorMapEntry color="#B5DFD8" quantity="0.7" label="0.6 - 0.7" />'
-            '<ColorMapEntry color="#8AD0C5" quantity="0.8" label="0.7 - 0.8"/>'
-            '<ColorMapEntry color="#5DB9AB" quantity="0.9" label="0.8 - 0.9" />'
-            '<ColorMapEntry color="#5DB9AB" quantity="1.0" label="0.9 - 1.0" />'
-            '<ColorMapEntry color="#018571" quantity="10" label="10 +"/>'
+            '<ColorMapEntry color="#A6621C" quantity="5" label="Less than 0.0"/>'
+            '<ColorMapEntry color="#BA843E" quantity="10" label="0.0 - 0.1" />'
+            '<ColorMapEntry color="#CFA762" quantity="20" label="0.1 - 0.2" />'
+            '<ColorMapEntry color="#E1C687" quantity="30" label="0.2 - 0.3" />'
+            '<ColorMapEntry color="#E9D9B3" quantity="40" label="0.3 - 0.4"/>'
+            '<ColorMapEntry color="#F1EBDF" quantity="50" label="0.4 - 0.5" />'
+            '<ColorMapEntry color="#DFEDEB" quantity="60" label="0.5 - 0.6" />'
+            '<ColorMapEntry color="#B5DFD8" quantity="70" label="0.6 - 0.7" />'
+            '<ColorMapEntry color="#8AD0C5" quantity="80" label="0.7 - 0.8"/>'
+            '<ColorMapEntry color="#5DB9AB" quantity="90" label="0.8 - 0.9" />'
+            '<ColorMapEntry color="#5DB9AB" quantity="100" label="0.9 - 1.0" />'
+            '<ColorMapEntry color="#018571" quantity="1000" label="10 +"/>'
           '</ColorMap>'
         '</RasterSymbolizer>'''
 
         self.sld_evap = '''<RasterSymbolizer>'
           '<ColorMap type="intervals" extended="false" >'
-            '<ColorMapEntry color="#51125F" quantity="0.0" label="Less than 0.0"/>'
-            '<ColorMapEntry color="#482172" quantity="0.3" label="0.0 - 0.3" />'
-            '<ColorMapEntry color="#423E84" quantity="0.6" label="0.3 - 0.6" />'
-            '<ColorMapEntry color="#38588B" quantity="0.9" label="0.6 - 0.9" />'
-            '<ColorMapEntry color="#2C6F8E" quantity="1.2" label="0.9 - 1.2"/>'
-            '<ColorMapEntry color="#24848E" quantity="1.6" label="1.2 - 1.6" />'
-            '<ColorMapEntry color="#1E9B89" quantity="2.0" label="1.6 - 2.0" />'
-            '<ColorMapEntry color="#2AB07E" quantity="2.5" label="2.0 - 2.5" />'
-            '<ColorMapEntry color="#50C469" quantity="3.0" label="2.5 - 3.0"/>'
-            '<ColorMapEntry color="#85D44A" quantity="3.5" label="3.0 - 3.5" />'
-            '<ColorMapEntry color="#C1DF23" quantity="4.0" label="3.5 - 4.0" />'
-            '<ColorMapEntry color="#FDE725" quantity="10" label="4.0 +"/>'
+            '<ColorMapEntry color="#51125F" quantity="2" label="Less than 0.0"/>'
+            '<ColorMapEntry color="#482172" quantity="4" label="0.0 - 0.3" />'
+            '<ColorMapEntry color="#423E84" quantity="6" label="0.3 - 0.6" />'
+            '<ColorMapEntry color="#38588B" quantity="8" label="0.6 - 0.9" />'
+            '<ColorMapEntry color="#2C6F8E" quantity="10" label="0.9 - 1.2"/>'
+            '<ColorMapEntry color="#24848E" quantity="12" label="1.2 - 1.6" />'
+            '<ColorMapEntry color="#1E9B89" quantity="14" label="1.6 - 2.0" />'
+            '<ColorMapEntry color="#2AB07E" quantity="16" label="2.0 - 2.5" />'
+            '<ColorMapEntry color="#50C469" quantity="18" label="2.5 - 3.0"/>'
+            '<ColorMapEntry color="#85D44A" quantity="20" label="3.0 - 3.5" />'
+            '<ColorMapEntry color="#C1DF23" quantity="22" label="3.5 - 4.0" />'
+            '<ColorMapEntry color="#FDE725" quantity="100" label="4.0 +"/>'
           '</ColorMap>'
         '</RasterSymbolizer>'''
 
@@ -354,6 +363,14 @@ class GEEApi():
                 'max':10000,
                 'sld': 'True',
                 'band': 'front_gcdi'
+            },
+            {
+                'name': 'front_rcdi',
+                'value': self.sld_outlooksDroght,
+                'min':0,
+                'max':10,
+                'sld': 'True',
+                'band': 'front_rcdi'
             },
             {
                 'name': 'vsdi',
@@ -410,6 +427,14 @@ class GEEApi():
                 'max':10,
                 'sld': 'True',
                 'band': 'sri3'
+            },
+            {
+                'name': 'smdi',
+                'value': self.sld_smdi,
+                'min':-10,
+                'max':10,
+                'sld': 'True',
+                'band': 'smdi'
             },
             {
                 'name': 'soil_moist',
@@ -517,7 +542,7 @@ class GEEApi():
             },
             {
                 'name': 'pet_natveg',
-                'value': self.sld_pet_netveg,
+                'value': self.sld_pet_natveg,
                 'min':0,
                 'max':100,
                 'sld': 'True',
@@ -638,8 +663,8 @@ class GEEApi():
     def get_ImageCollection_ID(self, dataset):
         dataset = dataset.split("-")[1]
         #RHEAS_based products
-        eo_dataset = ["baseflow", "surf_temp", "sri1", "sri3", "spi1", "spi3", "soil_moist", "soil_temp", "smdi", "severity", "runoff", "rootmoist", "rel_humid", "rainf", "pet_natveg", "front_rcdi", "evap", "dryspells", "cdi"]
-        if dataset.lower() in eo_dataset:
+        rheas_dataset = ["baseflow", "surf_temp", "sri1", "sri3", "spi1", "spi3", "soil_moist", "soil_temp", "smdi", "severity", "runoff", "rootmoist", "rel_humid", "rainf", "pet_natveg", "front_rcdi", "evap", "dryspells", "cdi"]
+        if dataset.lower() in rheas_dataset:
             icid = "projects/servir-mekong/RHEASDrought/{}".format(dataset.lower())
             ic = ee.ImageCollection(icid)
         elif dataset == "evi":
@@ -700,7 +725,7 @@ class GEEApi():
         return dates
 
     # -------------------------------------------------------------------------
-    def get_date(self, dataset):
+    def get_date(self):
         ic = ee.ImageCollection(settings.FRONT_GCDI).sort("system:time_start", False)
         dates = ee.List(ic.aggregate_array("system:time_start")).getInfo()
         return dates
@@ -726,3 +751,32 @@ class GEEApi():
         return {
             'eeMapURL': str(map_id['tile_fetcher'].url_format)
         }
+
+    # -------------------------------------------------------------------------
+    def get_outlook_map_id(self, date):
+
+        ic = ee.ImageCollection(settings.FRONT_RCDI)
+
+        image = ic.filter(ee.Filter.eq("system:time_start",int(date))).first()
+        image = image.updateMask(self.maskedArea)
+
+        INDEX_CLASS = {}
+        for _class in self.MAP_CLASSES:
+            if (_class['name'] == 'front_rcdi'):
+                style = _class['value']
+                print(_class['sld'])
+                image = image.select(_class['band'])
+                style = _class['value']
+                map_id = image.sldStyle(style).getMapId()
+
+
+        return {
+            'eeMapURL': str(map_id['tile_fetcher'].url_format)
+        }
+
+    # -------------------------------------------------------------------------
+    def get_date_outlook(self):
+        _currentDate = datetime.today().strftime('%Y-%m-%d')
+        ic = ee.ImageCollection(settings.FRONT_RCDI).filterDate(_currentDate, "2040-01-01").sort("system:time_start", False)
+        dates = ee.List(ic.aggregate_array("system:time_start")).getInfo()
+        return dates

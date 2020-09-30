@@ -42,8 +42,20 @@
 		service.get_current_date = function (options) {
 			var config = {
 				params: {
-					action: 'get-current-date',
-					date: options.date,
+					action: 'get-current-date'
+				}
+			};
+			var promise = $http.get('/api/mapclient/', config)
+			.then(function (response) {
+				return response.data;
+			});
+			return promise;
+		};
+
+		service.get_outlook_date = function (options) {
+			var config = {
+				params: {
+					action: 'get-outlook-date'
 				}
 			};
 			var promise = $http.get('/api/mapclient/', config)
@@ -82,6 +94,19 @@
 			return promise;
 		};
 
+		service.get_outlook_map_id = function (options) {
+			var config = {
+				params: {
+					action: 'get-outlook-map-id',
+					date: options.date,
+				}
+			};
+			var promise = $http.get('/api/mapclient/', config)
+			.then(function (response) {
+				return response.data;
+			});
+			return promise;
+		};
 
 
 	});

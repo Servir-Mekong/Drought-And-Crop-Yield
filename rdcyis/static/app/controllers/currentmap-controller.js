@@ -4,11 +4,13 @@
   angular.module('landcoverportal')
   .controller('CurrentMapController', function ($http, $rootScope, $scope, $sanitize, $timeout, appSettings, MapService) {
 
+    $scope.downloadServerURL = appSettings.downloadServerURL;
     var selectedFeature = '';
     var selectedADM1Feature = '';
     var geojsonCountry_2, geojsonCountry_1, geojsonAdm1OutBBox_1, geojsonAdm1OutBBox_2, geojsonAdm2OutBBox_1, geojsonAdm2OutBBox_2, geojsonOutBBOX_1, geojsonADM0_1,geojsonOutBBOX_2, geojsonADM0_2;
     var geojsonADM2_2, geojsonADM2_1, adm0FeatureClicked, adm1FeatureClicked;
-    var geojsonWater_1, geojsonWater_2, currentDateList, currentLayer;
+    var geojsonWater_1, geojsonWater_2, currentDateList, currentLayer, outlookLayer, outlookDateList;
+    var selectedCurrentDate = ''
     var summaryCountryName = ['Cambodia','Laos','Myanmar','Thailand','Vietnam']
     var polygonstyle = {
       fillColor: "#FFF",
@@ -70,15 +72,27 @@
   				return layer;
   		}
 
+      function addOutlookLayer(layer,url, pane){
+  			layer = L.tileLayer(url,{
+  				attribution: '<a href="https://earthengine.google.com" target="_">' +
+  				'Google Earth Engine</a>;',
+  			 	pane: pane}).addTo(map2);
+  				return layer;
+  		}
 
-      var parameters = {
-        dataset: 'front_gcdi',
-      };
+
+
+      var parameters = {};
       MapService.get_current_date(parameters)
       .then(function (result){
         currentDateList = result;
         console.log(result);
         $scope.currentLayer(0);
+        var dateObj = new Date(currentDateList[0]);
+
+        var _date = dateObj.toISOString().slice(0,10)
+        selectedCurrentDate = _date.replace("-","_").replace("-","_");
+        $("#map-updated-date").text(_date);
 
       }), function (error){
         console.log(error);
@@ -104,6 +118,8 @@
 
     };
 
+
+
     var map2 = L.map('map2').setView([51.505, -0.09], 13);
     L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckd8mk8ky0vbh1ipdns7ji9wz/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {}).addTo(map2);
     map2.removeControl(map2.zoomControl);
@@ -111,6 +127,8 @@
     map2.dragging.disable();
     map2.doubleClickZoom.disable();
     map2.scrollWheelZoom.disable();
+    map2.createPane('outlookLayer');
+		map2.getPane('outlookLayer').style.zIndex = 300;
 
     function initMap2(){
       geojsonOutBBOX_2 = L.geoJson(outboundary,{
@@ -130,6 +148,42 @@
     initMap1();
     initMap2();
 
+
+    var parametersOutlook = {};
+    MapService.get_outlook_date(parametersOutlook)
+    .then(function (result){
+      outlookDateList = result;
+      console.log(result);
+      $scope.showOutlookLayer(2);
+      var dateObj = new Date(outlookDateList[2]);
+      var _date = dateObj.toISOString().slice(0,10)
+      selectedCurrentDate = _date.replace("-","_").replace("-","_");
+      $("#map-outlook-date").text(_date);
+
+    }), function (error){
+      console.log(error);
+    };
+
+    $scope.showOutlookLayer = function(index) {
+      var parameters = {
+        date: outlookDateList[index],
+      };
+      MapService.get_outlook_map_id(parameters)
+      .then(function (result){
+        if(map1.hasLayer(outlookLayer)){
+          map1.removeLayer(outlookLayer);
+        }
+        console.log(result.eeMapURL)
+        outlookLayer = addOutlookLayer(outlookLayer, result.eeMapURL, 'outlookLayer');
+        $scope.showLoader = false;
+
+
+      }), function (error){
+        console.log(error);
+      };
+
+    };
+
     ////////////////////////////Current Condition Map////////////////////////////
     // var wmsCurrentConditionLayer= L.tileLayer.wms("https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms", {
     // format: 'image/png',
@@ -142,28 +196,28 @@
     // wmsCurrentConditionLayer.addTo(map1);
 
     ////////////////////////////Outlooks Map////////////////////////////
-    function showOutlookLayer(m){
-      if(map2.hasLayer(wmsOutlookLayer)){
-        map2.removeLayer(wmsOutlookLayer);
-      }
-      if(m==="m1"){
-        var layer_id = 'rdcyis-rheas_based:front_rcdi_mekong_2020_01';
-      }else if (m==="m2") {
-        var layer_id = 'rdcyis-rheas_based:front_rcdi_mekong_2020_02';
-      }else if (m==="m3") {
-        var layer_id = 'rdcyis-rheas_based:front_rcdi_mekong_2020_03';
-      }
-      var wmsOutlookLayer= L.tileLayer.wms("https://geoserver.adpc.net/geoserver/rdcyis-rheas_based/wms", {
-      format: 'image/png',
-      layers: layer_id,
-      format: 'image/png',
-      version: '1.3.0',
-      styles:'intensity-drought',
-      transparent: true,
-      });
-      wmsOutlookLayer.addTo(map2);
-    }
-    showOutlookLayer("m1");
+    // function showOutlookLayer(m){
+    //   if(map2.hasLayer(wmsOutlookLayer)){
+    //     map2.removeLayer(wmsOutlookLayer);
+    //   }
+    //   if(m==="m1"){
+    //     var layer_id = 'rdcyis-rheas_based:front_rcdi_mekong_2020_01';
+    //   }else if (m==="m2") {
+    //     var layer_id = 'rdcyis-rheas_based:front_rcdi_mekong_2020_02';
+    //   }else if (m==="m3") {
+    //     var layer_id = 'rdcyis-rheas_based:front_rcdi_mekong_2020_03';
+    //   }
+    //   var wmsOutlookLayer= L.tileLayer.wms("https://geoserver.adpc.net/geoserver/rdcyis-rheas_based/wms", {
+    //   format: 'image/png',
+    //   layers: layer_id,
+    //   format: 'image/png',
+    //   version: '1.3.0',
+    //   styles:'intensity-drought',
+    //   transparent: true,
+    //   });
+    //   wmsOutlookLayer.addTo(map2);
+    // }
+    // showOutlookLayer("m1");
 
     //////////////////////////////Regoin Boundary onclick event////////////////////////////////////
     function geojsonFilter(feature) {
@@ -184,7 +238,7 @@
       $("#map-nav").css("display", "block");
       adm0FeatureClicked = e;
       selectedFeature = e.sourceTarget.feature.properties.NAME_0;
-      $("#country-map").text(selectedFeature);
+      $("#country-map").text('/ ' + selectedFeature);
       map2.removeLayer(geojsonADM0_2);
       map1.removeLayer(geojsonADM0_1);
       if(map2.hasLayer(geojsonCountry_2)){
@@ -256,7 +310,7 @@
     function whenADM1Clicked(e) {
       adm1FeatureClicked = e;
       selectedADM1Feature = e.sourceTarget.feature.properties.NAME_1;
-      $("#province-map").text(selectedADM1Feature);
+      $("#province-map").text('/ ' + sselectedADM1Feature);
       map2.removeLayer(geojsonCountry_2);
       if(map2.hasLayer(geojsonADM2_2)){
         map2.removeLayer(geojsonADM2_2);
@@ -340,13 +394,25 @@
 
 
     $( "#outlook-m1" ).click(function() {
-      showOutlookLayer(1);
+      $scope.showOutlookLayer(2);
+      var dateObj = new Date(outlookDateList[2]);
+      var _date = dateObj.toISOString().slice(0,10)
+      selectedCurrentDate = _date.replace("-","_").replace("-","_");
+      $("#map-outlook-date").text(_date);
     });
     $( "#outlook-m2" ).click(function() {
-      showOutlookLayer(2);
+      $scope.showOutlookLayer(1);
+      var dateObj = new Date(outlookDateList[1]);
+      var _date = dateObj.toISOString().slice(0,10)
+      selectedCurrentDate = _date.replace("-","_").replace("-","_");
+      $("#map-outlook-date").text(_date);
     });
     $( "#outlook-m3" ).click(function() {
-      showOutlookLayer(3);
+      $scope.showOutlookLayer(0);
+      var dateObj = new Date(outlookDateList[0]);
+      var _date = dateObj.toISOString().slice(0,10)
+      selectedCurrentDate = _date.replace("-","_").replace("-","_");
+      $("#map-outlook-date").text(_date);
     });
     $( "#mekong-map" ).click(function() {
       resetMap();
@@ -365,27 +431,85 @@
     });
 
     $( "#current-d" ).click(function() {
+      $("#map-updated-date").text();
       $scope.currentLayer(0);
+      var dateObj = new Date(currentDateList[0]);
+      var _date = dateObj.toISOString().slice(0,10)
+      selectedCurrentDate = _date.replace("-","_").replace("-","_");
+      $("#map-updated-date").text(_date);
     });
     $( "#current-8d" ).click(function() {
+      $("#map-updated-date").text();
       $scope.currentLayer(1);
+      var dateObj = new Date(currentDateList[1]);
+      var _date = dateObj.toISOString().slice(0,10)
+      selectedCurrentDate = _date.replace("-","_").replace("-","_");
+      $("#map-updated-date").text(_date);
     });
     $( "#current-16d" ).click(function() {
+      $("#map-updated-date").text();
       $scope.currentLayer(2);
+      var dateObj = new Date(currentDateList[2]);
+      var _date = dateObj.toISOString().slice(0,10)
+      selectedCurrentDate = _date.replace("-","_").replace("-","_");
+      $("#map-updated-date").text(_date);
     });
     $( "#current-24d" ).click(function() {
+      $("#map-updated-date").text();
       $scope.currentLayer(3);
+      var dateObj = new Date(currentDateList[3]);
+      var _date = dateObj.toISOString().slice(0,10)
+      selectedCurrentDate = _date.replace("-","_").replace("-","_");
+      $("#map-updated-date").text(_date);
     });
 
     $("#current-btn-download").click(function(){
+      var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/eo_based/front_gcdi/gcdi_'+selectedCurrentDate+'_mekong.tif';
+      var file_path = DownloadURL;
+				var a = document.createElement('A');
+				a.href = file_path;
+				//a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
+				document.body.appendChild(a);
+				a.click()
+				document.body.removeChild(a);
+    });
 
-      // var file_path = DownloadURL;
-			// var a = document.createElement('A');
-			// a.href = file_path;
-			// a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
-			// document.body.appendChild(a);
-			// a.click()
-			// document.body.removeChild(a);
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    $("#btn-download-outlook1m").click(function(){
+      var dateObj = new Date(outlookDateList[2]);
+      var _date = dateObj.toISOString().slice(0,10)
+      var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/rheas_based/front_rcdi/front_rcdi_'+_date+'_mekong.tif';
+      var file_path = DownloadURL;
+        var a = document.createElement('A');
+        a.href = file_path;
+        document.body.appendChild(a);
+        a.click()
+        document.body.removeChild(a);
+    });
+    $("#btn-download-outlook2m").click(function(){
+      var dateObj = new Date(outlookDateList[1]);
+      var _date = dateObj.toISOString().slice(0,10)
+      var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/rheas_based/front_rcdi/front_rcdi_'+_date+'_mekong.tif';
+      var file_path = DownloadURL;
+        var a = document.createElement('A');
+        a.href = file_path;
+        document.body.appendChild(a);
+        a.click()
+        document.body.removeChild(a);
+    });
+    $("#btn-download-outlook3m").click(function(){
+      var dateObj = new Date(outlookDateList[0]);
+      var _date = dateObj.toISOString().slice(0,10)
+      var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/rheas_based/front_rcdi/front_rcdi_'+_date+'_mekong.tif';
+      var file_path = DownloadURL;
+        var a = document.createElement('A');
+        a.href = file_path;
+        document.body.appendChild(a);
+        a.click()
+        document.body.removeChild(a);
     });
 
 
