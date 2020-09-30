@@ -157,7 +157,6 @@
       $scope.showOutlookLayer(2);
       var dateObj = new Date(outlookDateList[2]);
       var _date = dateObj.toISOString().slice(0,10)
-      selectedCurrentDate = _date.replace("-","_").replace("-","_");
       $("#map-outlook-date").text(_date);
 
     }), function (error){
@@ -397,21 +396,18 @@
       $scope.showOutlookLayer(2);
       var dateObj = new Date(outlookDateList[2]);
       var _date = dateObj.toISOString().slice(0,10)
-      selectedCurrentDate = _date.replace("-","_").replace("-","_");
       $("#map-outlook-date").text(_date);
     });
     $( "#outlook-m2" ).click(function() {
       $scope.showOutlookLayer(1);
       var dateObj = new Date(outlookDateList[1]);
       var _date = dateObj.toISOString().slice(0,10)
-      selectedCurrentDate = _date.replace("-","_").replace("-","_");
       $("#map-outlook-date").text(_date);
     });
     $( "#outlook-m3" ).click(function() {
       $scope.showOutlookLayer(0);
       var dateObj = new Date(outlookDateList[0]);
       var _date = dateObj.toISOString().slice(0,10)
-      selectedCurrentDate = _date.replace("-","_").replace("-","_");
       $("#map-outlook-date").text(_date);
     });
     $( "#mekong-map" ).click(function() {
