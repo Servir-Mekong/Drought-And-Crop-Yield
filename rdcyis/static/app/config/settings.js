@@ -116,7 +116,8 @@ var settings = {
             'className': 'partner-deltares'
         }
     ],
-    areaIndexSelectors: [{
+    areaIndexSelectors: [
+        {
             'value': 'mekong',
             'name': 'Mekong Region'
         },
@@ -131,6 +132,10 @@ var settings = {
         {
             'value': 'province',
             'name': 'Administrative Level'
+        },
+        {
+            'value': 'clear',
+            'name': 'Clear Area'
         }
     ],
 

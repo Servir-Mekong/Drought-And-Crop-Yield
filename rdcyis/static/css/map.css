@@ -13,13 +13,25 @@
 
 .fade:not(.show) {
     opacity: 1;
+    width: 115px;
 }
+.tooltip-inner {
+    max-width: 200px;
+    font-size: 13px;
+    padding: 3px;
+    color: #fff;
+    text-align: center;
+    background-color: #000;
+    border-radius: .25rem;
+}
+
 .tooltip.fade .top .in{
   top: 48.0139px;
   left: 160.479px;
   display: block;
 }
-}
+
+
 
 .select-opt{
   font-size: 14px;

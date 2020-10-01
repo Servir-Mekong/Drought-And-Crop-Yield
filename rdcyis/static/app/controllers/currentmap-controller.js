@@ -439,7 +439,6 @@
       $scope.currentLayer(1);
       var dateObj = new Date(currentDateList[1]);
       var _date = dateObj.toISOString().slice(0,10)
-      selectedCurrentDate = _date.replace("-","_").replace("-","_");
       $("#map-updated-date").text(_date);
     });
     $( "#current-16d" ).click(function() {
@@ -447,7 +446,6 @@
       $scope.currentLayer(2);
       var dateObj = new Date(currentDateList[2]);
       var _date = dateObj.toISOString().slice(0,10)
-      selectedCurrentDate = _date.replace("-","_").replace("-","_");
       $("#map-updated-date").text(_date);
     });
     $( "#current-24d" ).click(function() {
@@ -455,7 +453,6 @@
       $scope.currentLayer(3);
       var dateObj = new Date(currentDateList[3]);
       var _date = dateObj.toISOString().slice(0,10)
-      selectedCurrentDate = _date.replace("-","_").replace("-","_");
       $("#map-updated-date").text(_date);
     });
 

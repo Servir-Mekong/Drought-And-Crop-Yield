@@ -14,7 +14,7 @@
     $scope.droughtLegend = appSettings.droughtLegend;
     $scope.legend = []
     $scope.showLoader = true;
-    var geojsondata, selectedFeature, wmsLayer, selectedAreaLevel;
+    var geojsondata, geojsonClipedBasin, selectedFeature, wmsLayer, selectedAreaLevel;
     var areaid0 = '';
     var areaid1 = '';
     var type = 'mekong_country';
@@ -37,8 +37,10 @@
 		rwmsLayer = L.tileLayer.wms();
 
 		map.createPane('admin');
+    map.createPane('maskedout');
 		map.createPane('droughtwmsLayer');
 		map.getPane('admin').style.zIndex = 650;
+    map.getPane('maskedout').style.zIndex = 649;
 		map.getPane('droughtwmsLayer').style.zIndex = 560;
     map.createPane('lwmsLayer');
 		map.getPane('lwmsLayer').style.zIndex = 655;
@@ -94,6 +96,12 @@
           if(type=="adm1") {
             areaid1 = e.sourceTarget.feature.properties.ID_1;
             selectedArea = e.sourceTarget.feature.properties.NAME_1;
+          }
+          if(type=="lmr"){
+            geojsonClipedBasin = L.geoJson(cliped_mekong_basin,{
+                style: style2,
+                pane: 'maskedout'
+              }).addTo(map);
           }
 
           $scope.getDroughtData();
@@ -335,7 +343,9 @@
       if(map.hasLayer(geojsondata)){
         map.removeLayer(geojsondata);
       }
-
+      if(map.hasLayer(geojsonClipedBasin)){
+        map.removeLayer(geojsonClipedBasin);
+      }
       if(selectedopt === 'mekong'){
         type='mekong_country';
         geojsondata = L.geoJson(mekong,{
@@ -345,6 +355,7 @@
           }).addTo(map);
       }else if(selectedopt === 'lmr'){
         type='lmr';
+
         geojsondata = L.geoJson(mekong_basin,{
             style: style,
             onEachFeature: onEachCountry,
@@ -357,13 +368,17 @@
             onEachFeature: onEachCountry,
             pane: 'admin'
           }).addTo(map);
-      }else{
+      }else if(selectedopt === 'province'){
         type='adm1';
         geojsondata = L.geoJson(adm1,{
             style: style,
             onEachFeature: onEachCountry,
             pane: 'admin'
           }).addTo(map);
+      }else{
+        // type='mekong_country';
+        // $scope.getDroughtData();
+        // $scope.getDroughtData2();
       }
       map.fitBounds(geojsondata.getBounds());
     });
