@@ -309,7 +309,7 @@
     function whenADM1Clicked(e) {
       adm1FeatureClicked = e;
       selectedADM1Feature = e.sourceTarget.feature.properties.NAME_1;
-      $("#province-map").text('/ ' + sselectedADM1Feature);
+      $("#province-map").text('/ ' + selectedADM1Feature);
       map2.removeLayer(geojsonCountry_2);
       if(map2.hasLayer(geojsonADM2_2)){
         map2.removeLayer(geojsonADM2_2);
