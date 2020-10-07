@@ -561,6 +561,7 @@ ul {
     position: absolute;
     z-index: 999;
 }
+
 .legend-panel {
     bottom: 10px;
     right: 15px;
@@ -574,6 +575,58 @@ ul {
 .legend-panel .legend-list ul li{
   font-size: 12px;
 }
+
+.left-legend-panel {
+    bottom: 10px;
+    left: 15px;
+    width: auto;
+    background: #e9ecef;
+    color: #212529;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.right-legend-panel {
+    bottom: 10px;
+    right: 15px;
+    width: auto;
+    background: #e9ecef;
+    color: #212529;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.left-map-desc {
+    max-width: 250px;
+    position: absolute;
+    z-index: 999;
+    bottom: 10px;
+    left: 180px;
+    width: auto;
+    background: #e9ecef;
+    color: #212529;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.right-map-desc {
+    max-width: 250px;
+    position: absolute;
+    z-index: 999;
+    bottom: 10px;
+    right: 180px;
+    width: auto;
+    background: #e9ecef;
+    color: #212529;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.right-map-desc p, .left-map-desc p{
+   margin-top: 0;
+   margin-bottom: 2px;
+}
+
 
 .slidecontainer {
   width: 100%;

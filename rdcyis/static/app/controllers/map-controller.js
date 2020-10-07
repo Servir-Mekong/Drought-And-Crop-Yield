@@ -12,7 +12,9 @@
     $scope.downloadServerURL = appSettings.downloadServerURL;
     $scope.legendsSB = appSettings.legendsSB;
     $scope.droughtLegend = appSettings.droughtLegend;
-    $scope.legend = []
+    $scope.legend = [];
+    $scope.left_legend = [];
+    $scope.right_legend = [];
     $scope.showLoader = true;
     var geojsondata, geojsonClipedBasin, selectedFeature, wmsLayer, selectedAreaLevel;
     var areaid0 = '';
@@ -40,8 +42,8 @@
 		map.createPane('admin');
     map.createPane('maskedout');
 		map.createPane('droughtwmsLayer');
-		map.getPane('admin').style.zIndex = 650;
-    map.getPane('maskedout').style.zIndex = 649;
+		map.getPane('admin').style.zIndex = 660;
+    map.getPane('maskedout').style.zIndex = 659;
 		map.getPane('droughtwmsLayer').style.zIndex = 560;
     map.createPane('lwmsLayer');
 		map.getPane('lwmsLayer').style.zIndex = 655;
@@ -103,6 +105,7 @@
                 style: style2,
                 pane: 'maskedout'
               }).addTo(map);
+            selectedArea = "Mekong River Basin";
           }
 
           $scope.getDroughtData();
@@ -459,6 +462,14 @@
 					map.removeLayer(lwmsLayer);
 					map.removeLayer(rwmsLayer);
 					wmsLayer.addTo(map);
+          $('.legend-panel').removeClass("hide");
+          $("#show-menu").click();
+          $("#show-calendar").click();
+          $("#left-legend").addClass("hide");
+          $("#right-legend").addClass("hide");
+          $(".left-map-desc").addClass("hide");
+          $(".right-map-desc").addClass("hide");
+
 				}else{
 					$modalCompare.modal('show');
 				}
@@ -480,12 +491,44 @@
 		* layers comparing function
 		*/
 		var add_compare = function(){
+
+      $('.legend-panel').addClass("hide");
+      $("#hide-menu").click();
+      $("#hide-calendar").click();
 			$modalCompare.modal('hide');
       $scope.showLoader = true;
 			var lindicator =  ($("#map-left-indices option:selected").val());
 			var rindicator =  ($("#map-right-indices option:selected").val());
+      var lindicator_text =  ($("#map-left-indices option:selected").text());
+			var rindicator_text =  ($("#map-right-indices option:selected").text());
+      $("#left-variable").text(lindicator_text);
+      $("#right-variable").text(rindicator_text);
+
+      $('#right-legend ul li').html('');
+      $('#left-legend ul li').html('');
+      for(var i=0; i<$scope.droughtLegend.length; i++){
+        if($scope.droughtLegend[i].name === lindicator){
+          for(var j=0; j< $scope.droughtLegend[i].colors.length; j++){
+            var item = {color: $scope.droughtLegend[i].colors[j], label: $scope.droughtLegend[i].label[j]};
+            $scope.left_legend.push(item)
+          }
+        }
+        if($scope.droughtLegend[i].name === rindicator){
+          for(var j=0; j< $scope.droughtLegend[i].colors.length; j++){
+            var item = {color: $scope.droughtLegend[i].colors[j], label: $scope.droughtLegend[i].label[j]};
+            $scope.right_legend.push(item)
+          }
+        }
+      }
+
 			var l_date = $("#datepicker-left").val();
 			var r_date = $("#datepicker-right").val();
+      $("#left-date").text(l_date);
+      $("#right-date").text(r_date);
+      $("#left-legend").removeClass("hide");
+      $("#right-legend").removeClass("hide");
+      $(".left-map-desc").removeClass("hide");
+      $(".right-map-desc").removeClass("hide");
       if(map.hasLayer(wmsLayer)){
         map.removeLayer(wmsLayer);
       }
@@ -502,104 +545,31 @@
         }
         lwmsLayer = addMapLayer(lwmsLayer, result.eeMapURL, 'lwmsLayer');
 
-        }), function (error){
-          console.log(error);
-        };
         /////////////////////////right map/////////////////////////////////
-      var rparameters = {
-        dataset: rindicator,
-        date: r_date,
-      };
-      MapService.get_map_id(rparameters)
-      .then(function (result){
-        if(map.hasLayer(rwmsLayer)){
-          map.removeLayer(rwmsLayer);
-        }
-        rwmsLayer = addMapLayer(rwmsLayer, result.eeMapURL, 'rwmsLayer');
-        //$scope.showLoader = false;
-        if(map.hasLayer(rwmsLayer) && map.hasLayer(lwmsLayer)){
-          compare = L.control.sideBySide(lwmsLayer,rwmsLayer);
-    			compare.addTo(map);
-          $scope.showLoader = false;
-        }
+          var rparameters = {
+            dataset: rindicator,
+            date: r_date,
+          };
+          MapService.get_map_id(rparameters)
+          .then(function (result){
+            if(map.hasLayer(rwmsLayer)){
+              map.removeLayer(rwmsLayer);
+            }
+            rwmsLayer = addMapLayer(rwmsLayer, result.eeMapURL, 'rwmsLayer');
+            //$scope.showLoader = false;
+            if(map.hasLayer(rwmsLayer) && map.hasLayer(lwmsLayer)){
+              compare = L.control.sideBySide(lwmsLayer,rwmsLayer);
+        			compare.addTo(map);
+              $scope.showLoader = false;
+            }
+
+            }), function (error){
+              console.log(error);
+            };
 
         }), function (error){
           console.log(error);
         };
-      // var ldate = l_date.replace('-', '_');
-      // ldate = ldate.replace('-', '_');
-      // var rdate = r_date.replace('-', '_');
-      // rdate = rdate.replace('-', '_');
-      //
-      // if(lindicator === 'sb-vsdi'){
-      //   llayer =  'rdcyis-eo_based:vsdi_'+ldate+'_mekong';
-      //   lstyle = 'drought-vsdi';
-      // }else if(lindicator === 'sb-ndvi'){
-      //   llayer =  'rdcyis-eo_based:ndvi_'+ldate+'_mekong';
-      //   lstyle = 'drought-ndvi';
-      // }else if(lindicator === 'sb-evi'){
-      //   llayer =  'rdcyis-eo_based:evi_'+ldate+'_mekong';
-      //   lstyle = 'drought-evi';
-      // }else if(lindicator === 'sb-msi'){
-      //   llayer =  'rdcyis-eo_based:msi_'+ldate+'_mekong';
-      //   lstyle = 'drought-msi';
-      // }else if(lindicator === 'sb-kbdi'){
-      //   llayer =  'rdcyis-eo_based:kbdi_'+ldate+'_mekong';
-      //   lstyle = 'drought-kbdi';
-      // }else if(lindicator === 'sb-arvi'){
-      //   llayer =  'rdcyis-eo_based:arvi_'+ldate+'_mekong';
-      //   lstyle = 'drought-arvi';
-      // }else if(lindicator === 'sb-savi'){
-      //   llayer =  'rdcyis-eo_based:savi_'+ldate+'_mekong';
-      //   lstyle = 'drought-savi';
-      // }
-      //
-      // if(rindicator === 'sb-vsdi'){
-      //   rlayer =  'rdcyis-eo_based:vsdi_'+rdate+'_mekong';
-      //   rstyle = 'drought-vsdi';
-      // }else if(rindicator === 'sb-ndvi'){
-      //   rlayer =  'rdcyis-eo_based:ndvi_'+rdate+'_mekong';
-      //   rstyle = 'drought-ndvi';
-      // }else if(rindicator === 'sb-evi'){
-      //   rlayer =  'rdcyis-eo_based:evi_'+rdate+'_mekong';
-      //   rstyle = 'drought-evi';
-      // }else if(rindicator === 'sb-msi'){
-      //   rlayer =  'rdcyis-eo_based:msi_'+rdate+'_mekong';
-      //   rstyle = 'drought-msi';
-      // }else if(rindicator === 'sb-kbdi'){
-      //   rlayer =  'rdcyis-eo_based:kbdi_'+rdate+'_mekong';
-      //   rstyle = 'drought-kbdi';
-      // }else if(rindicator === 'sb-arvi'){
-      //   rlayer =  'rdcyis-eo_based:arvi_'+rdate+'_mekong';
-      //   rstyle = 'drought-arvi';
-      // }else if(rindicator === 'sb-savi'){
-      //   rlayer =  'rdcyis-eo_based:savi_'+rdate+'_mekong';
-      //   rstyle = 'drought-savi';
-      // }
-      //
-      // lwmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms?', {
-      //       service:'WMS',
-      //       version:'1.1.0',
-      //       request:'GetMap',
-      //       layers:llayer,
-      //       format:'image/png',
-      //       transparent:true,
-      //       styles:lstyle
-      //   });
-      //
-      // rwmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms?', {
-      //       service:'WMS',
-      //       version:'1.1.0',
-      //       request:'GetMap',
-      //       layers:rlayer,
-      //       format:'image/png',
-      //       transparent:true,
-      //       styles:rstyle
-      //   });
-
-			// lwmsLayer.addTo(map);
-			// rwmsLayer.addTo(map);
-
 
 		};
 
