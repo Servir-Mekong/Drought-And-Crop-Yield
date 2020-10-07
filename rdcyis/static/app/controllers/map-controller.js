@@ -26,7 +26,8 @@
 
 
     var map = L.map('map').setView([15.255, 100.09], 6);
-    L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckduef35613el19qlsoug6u2h/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {
+    // Base Layers
+    var basemapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckduef35613el19qlsoug6u2h/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {
     	maxZoom: 20,
     	attribution: ''
     }).addTo(map);
@@ -304,6 +305,31 @@
     $("#download-btn").click(function(){
       $scope.downloadRaster();
     });
+
+    $("#legend-btn").click(function(){
+      $('.legend-panel').toggleClass("hide");
+    });
+
+    $("#layers-btn").click(function(){
+      $(".layer-control").toggleClass("hide");
+    });
+
+    /**
+		* Change basemap layer(satellite, terrain, street)
+		*/
+		$('input[type=radio][name=basemap_selection]').change(function(){
+			var selected_basemap = $(this).val();
+			if(selected_basemap === "satellite-v9"){
+        basemapLayer.setUrl('https://api.mapbox.com/styles/v1/servirmekong/ckecozln92fkk19mjhuoqxhuw/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g');
+			}else if(selected_basemap === "dark-v10"){
+				basemapLayer.setUrl('https://api.mapbox.com/styles/v1/servirmekong/ckecoool62f6n19r9jrf3ldtd/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g');
+			}else if(selected_basemap === "light-v10"){
+				basemapLayer.setUrl('https://api.mapbox.com/styles/v1/servirmekong/ckduef35613el19qlsoug6u2h/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g');
+
+			}
+
+		});
+
 
 
     // A $( document ).ready() block.
@@ -595,7 +621,7 @@ function genChart(categoriesData, minData, maxData, averageData, dataset, charti
     chart: {
         type: 'line',
         style: {
-            fontFamily: 'Montserrat'
+            fontFamily: 'Questrial'
         },
         height: 400,
     },
@@ -661,7 +687,7 @@ function genAreaChart(categoriesData, data1, average, chartid){
           chart: {
               type: 'arearange',
               style: {
-                  fontFamily: 'Montserrat'
+                  fontFamily: 'Questrial'
               },
               height: 400,
           },

@@ -9,7 +9,7 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Questrial', sans-serif;
   color: #444;
 }
 
@@ -23,7 +23,7 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6, .font-primary {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Questrial', sans-serif;
 }
 
 hr {
@@ -113,7 +113,7 @@ hr {
 }
 
 .publication-title a{
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Questrial', sans-serif;
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 20px;
@@ -586,7 +586,8 @@ hr {
 
 #header .logo h1 a, #header .logo h1 a:hover {
   color: #fff;
-  font-weight: 500;
+  font-weight: 1000;
+  font-size: 18px;
   text-decoration: none;
 }
 
@@ -2246,7 +2247,7 @@ table.dataTable.no-footer {
 }
 
 .training-content a {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Questrial', sans-serif;
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 20px;

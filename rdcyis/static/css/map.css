@@ -3,8 +3,12 @@
   width: 100%;
 }
 
+.hide{
+  display: none;
+}
+
 .leaflet-container{
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Questrial', sans-serif;
 }
 
 .chart-area {
@@ -69,7 +73,7 @@
 }
 
 .highcharts-data-table table {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Questrial', sans-serif;
     border-collapse: collapse;
     border: 1px solid #EBEBEB;
     margin: 10px auto;
@@ -331,6 +335,8 @@ ul {
 .tooltipmap5{bottom:35%}
 .tooltipmap6{bottom:20%}
 .tooltipmap7{bottom:5%}
+.tooltipmap8{bottom:3%}
+.tooltipmap9{bottom:1%}
 .tabs div:hover .tooltipmap{opacity:1;visibility:visible}
 .control-panel ul li:hover
 .tooltipmap{opacity:1;visibility:visible}
@@ -651,4 +657,172 @@ ul {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.6);
+}
+
+
+
+.layer-control {
+  position: absolute;
+  z-index: 9999;
+  background: #FFF;
+  color: #343a40;
+  right: 55px;
+  margin-top: 300px;
+  padding: 10px;
+}
+
+
+/* The container_radio */
+.container_radio {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+/* The container_radio */
+.container_radio {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container_radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark_radio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #eee;
+  border-radius: 50%;
+  margin-left: 11px;
+}
+
+/* On mouse-over, add a grey background color */
+.container_radio:hover input ~ .checkmark_radio {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container_radio input:checked ~ .checkmark_radio {
+  background-color: #ff8507;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark_radio:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container_radio input:checked ~ .checkmark_radio:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container_radio .checkmark_radio:after {
+ 	top: 4px;
+	left: 4px;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: white;
+}
+
+
+.toggles-list .toggle {
+    display: flex;
+    align-items: center;
+}
+
+.toggles-list .toggle label {
+    margin-left: 11px;
+}
+
+.switch_layer {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 12px;
+}
+
+.switch_layer input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+
+.slider_toggle {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #bbb;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider_toggle:before {
+  position: absolute;
+  content: "";
+  height: 9px;
+  width: 9px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider_toggle {
+  background-color: #ff8507;
+}
+
+input:focus + .slider_toggle {
+  box-shadow: 0 0 1px #ff8507;
+}
+
+input:checked + .slider_toggle:before {
+  -webkit-transform: translateX(12px);
+  -ms-transform: translateX(12px);
+  transform: translateX(12px);
+}
+
+/* Rounded sliders */
+.slider_toggle.round {
+  border-radius: 34px;
+}
+
+.slider_toggle.round:before {
+  border-radius: 50%;
+}
+
+.layer-control ul, ol {
+    list-style-type: decimal;
+    padding-left: 0;
+    color: #666;
 }

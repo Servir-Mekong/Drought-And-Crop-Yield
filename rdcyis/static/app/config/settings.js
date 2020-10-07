@@ -298,18 +298,18 @@ var settings = {
             },
             {
                 'name': 'sb-vsdi',
-                'colors': ['#F89F1D', '#B97A57', '#880015','#FFFFFF','#C3C3C3'],
+                'colors': ['#F89F1D', '#B97A57', '#880015','#88A541','#C3C3C3'],
                 'label':['MOD', 'SED', 'EXD', 'No Drought','No Data'],
             },
             {
                 'name': 'sb-arvi',
-                'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641'],
-                'label':['High Stress','','','','','','','',' Low Stress'],
+                'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641', '#FFFFFF'],
+                'label':['High Stress','','','','','','','',' Low Stress', 'No Data'],
             },
             {
                 'name': 'sb-savi',
-                'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641'],
-                'label':['High Stress','','','','','','','',' Low Stress'],
+                'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641', '#FFFFFF'],
+                'label':['High Stress','','','','','','','',' Low Stress', 'No Data'],
             },
             {
                 'name': 'sb-evi',
@@ -333,8 +333,8 @@ var settings = {
             },
             {
                 'name': 'mb-kbdi',
-                'colors': ['#C3C3C3','#FFFFFF','#F89F1D','#B97A57','#880015'],
-                'label':['No Data','No Drought','MOD','SED','EXD'],
+                'colors': ['#F89F1D','#B97A57','#880015', '#FFFFFF', '#C3C3C3'],
+                'label':['MOD','SED','EXD', 'No Drought', 'No Data'],
             },
             {
                 'name': 'mb-cdi',
@@ -373,8 +373,8 @@ var settings = {
             },
             {
                 'name': 'sb-msi',
-                'colors': ['#1A9641', '#58B453', '#97D265', '#C4E687', '#F7FCDF', '#FFEDAB', '#FEC981', '#F99E59', '#E85B3A'],
-                'label':['Low Stress', '', '', '', '', '', '', '', 'High Stress'],
+                'colors': ['#1A9641', '#58B453', '#97D265', '#C4E687', '#F7FCDF', '#FFEDAB', '#FEC981', '#F99E59', '#E85B3A', '#FFFFFF'],
+                'label':['Low Stress', '', '', '', '', '', '', '', 'High Stress', 'No Data'],
             },
             {
                 'name': 'mb-severity',

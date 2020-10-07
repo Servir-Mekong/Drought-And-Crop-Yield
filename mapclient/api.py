@@ -13,7 +13,7 @@ def api(request):
     action = get('action', '')
 
     if action:
-        public_methods = ['get-map-id', 'get-data', 'get-date', 'get-map-current-id', 'get-current-date', 'get-outlook-map-id', 'get-outlook-date']
+        public_methods = ['get-map-id', 'get-data', 'get-date', 'get-map-current-id', 'get-current-date', 'get-outlook-map-id', 'get-outlook-date', 'get-summary']
         if action in public_methods:
             dataset = get('dataset', '')
             type = get('type', '')
@@ -36,5 +36,7 @@ def api(request):
                 data = core.get_outlook_map_id(date=date)
             elif action == 'get-outlook-date':
                 data = core.get_date_outlook()
+            elif action == 'get-summary':
+                data = core.get_drought_summary()
 
             return JsonResponse(data, safe=False)

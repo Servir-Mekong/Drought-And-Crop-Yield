@@ -4,6 +4,15 @@
   angular.module('landcoverportal')
   .controller('CurrentMapController', function ($http, $rootScope, $scope, $sanitize, $timeout, appSettings, MapService) {
 
+    //Get Drought Summary content from Google Sheet
+    $scope.SummmaryList = [];
+      var parameters = {};
+      MapService.getSummary(parameters)
+      .then(function (data) {
+        $scope.SummmaryList = JSON.parse(data);
+      }, function (error) {
+    });
+
     $scope.downloadServerURL = appSettings.downloadServerURL;
     var selectedFeature = '';
     var selectedADM1Feature = '';
@@ -38,7 +47,7 @@
 
     var map1 = L.map('map1').setView([51.505, -0.09], 13);
     L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckd8mk8ky0vbh1ipdns7ji9wz/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {}).addTo(map1);
-    map1.removeControl(map1.zoomControl);
+    //map1.removeControl(map1.zoomControl);
     map1.touchZoom.disable();
     map1.dragging.disable();
     map1.doubleClickZoom.disable();
@@ -86,7 +95,6 @@
       MapService.get_current_date(parameters)
       .then(function (result){
         currentDateList = result;
-        console.log(result);
         $scope.currentLayer(0);
         var dateObj = new Date(currentDateList[0]);
 
@@ -107,7 +115,6 @@
         if(map1.hasLayer(currentLayer)){
           map1.removeLayer(currentLayer);
         }
-        console.log(result.eeMapURL)
         currentLayer = addMapLayer(currentLayer, result.eeMapURL, 'currentLayer');
         $scope.showLoader = false;
 
@@ -122,7 +129,7 @@
 
     var map2 = L.map('map2').setView([51.505, -0.09], 13);
     L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckd8mk8ky0vbh1ipdns7ji9wz/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {}).addTo(map2);
-    map2.removeControl(map2.zoomControl);
+    //map2.removeControl(map2.zoomControl);
     map2.touchZoom.disable();
     map2.dragging.disable();
     map2.doubleClickZoom.disable();
@@ -153,7 +160,6 @@
     MapService.get_outlook_date(parametersOutlook)
     .then(function (result){
       outlookDateList = result;
-      console.log(result);
       $scope.showOutlookLayer(2);
       var dateObj = new Date(outlookDateList[2]);
       var _date = dateObj.toISOString().slice(0,10)
@@ -172,7 +178,6 @@
         if(map1.hasLayer(outlookLayer)){
           map1.removeLayer(outlookLayer);
         }
-        console.log(result.eeMapURL)
         outlookLayer = addOutlookLayer(outlookLayer, result.eeMapURL, 'outlookLayer');
         $scope.showLoader = false;
 
@@ -237,7 +242,7 @@
       $("#map-nav").css("display", "block");
       adm0FeatureClicked = e;
       selectedFeature = e.sourceTarget.feature.properties.NAME_0;
-      $("#country-map").text('/ ' + selectedFeature);
+      $("#country-map").text('> ' + selectedFeature);
       map2.removeLayer(geojsonADM0_2);
       map1.removeLayer(geojsonADM0_1);
       if(map2.hasLayer(geojsonCountry_2)){
@@ -309,7 +314,7 @@
     function whenADM1Clicked(e) {
       adm1FeatureClicked = e;
       selectedADM1Feature = e.sourceTarget.feature.properties.NAME_1;
-      $("#province-map").text('/ ' + selectedADM1Feature);
+      $("#province-map").text('> ' + selectedADM1Feature);
       map2.removeLayer(geojsonCountry_2);
       if(map2.hasLayer(geojsonADM2_2)){
         map2.removeLayer(geojsonADM2_2);
@@ -419,6 +424,7 @@
         document.getElementById(summaryCountryName[i]).classList.add("show-element");
       }
       $( "#country-map" ).text("");
+      $( "#province-map" ).text("");
     });
     $( "#country-map" ).click(function() {
       resetMap();

@@ -21,10 +21,10 @@
       </div>
     </div>
   </div>
-  <main id="main">
+  <main id="main" ng-controller="CurrentMapController">
     <section class="content-lists">
       <div class="container">
-        <div class="row" ng-controller="CurrentMapController">
+        <div class="row">
           <div class="col-lg-12 col-md-6" id="map-nav" style="display:none;">
             <a href="#" id="mekong-map">Mekong</a> <span> </span>
             <a href="#" id="country-map"></a> <span> </span>
@@ -73,7 +73,7 @@
                   <li>
                     <div class="row col-lg-12">
                       <div class="col-lg-2">
-                        <div class="intensity-class" style="background: #FFF; border:1px solid #C3C3C3;"></div>
+                        <div class="intensity-class" style="background: #88A541; border:1px solid #C3C3C3;"></div>
                       </div>
                       <div class="col-lg-10">
                         No Drought
@@ -137,16 +137,16 @@
                 <p>Map Updated: <span id="map-outlook-date"></span></p>
               </div>
               <div class="col-lg-12">
-                <div class="row">
-                  <div class="col-lg-4">
+                <div class="row justify-content-end">
+                  <div class="col-lg-2">
                     <input type="radio" id="outlook-m1" name="radio-group" checked>
                     <label for="outlook-m1" data-toggle="tooltip" data-html="true" data-placement="left" title="For next month">1M</label>
                   </div>
-                  <div class="col-lg-4">
+                  <div class="col-lg-2">
                     <input type="radio" id="outlook-m2" name="radio-group">
                     <label for="outlook-m2" data-toggle="tooltip" data-html="true" data-placement="left" title="For next 2 months">2M</label>
                   </div>
-                  <div class="col-lg-4">
+                  <div class="col-lg-2">
                     <input type="radio" id="outlook-m3" name="radio-group">
                     <label for="outlook-m3" data-toggle="tooltip" data-html="true" data-placement="left" title="For next 3 months">3M</label>
                   </div>
@@ -163,7 +163,7 @@
                   <li>
                     <div class="row col-lg-12">
                       <div class="col-lg-2">
-                        <div class="intensity-class" style="background: #FFF; border:1px solid #C3C3C3;"></div>
+                        <div class="intensity-class" style="background: #88A541; border:1px solid #C3C3C3;"></div>
                       </div>
                       <div class="col-lg-10">
                         None
@@ -241,12 +241,14 @@
             <table>
              <tbody>
                <tr>
+                 <th></th>
                  <th>Drought Category</th>
                  <th>Probability of Occurrence</th>
                  <th>Risk Level</th>
                  <th>Possible Observe Conditions and Impacts</th>
                </tr>
                <tr>
+                 <td style="background: #F89F1D;"></td>
                  <td>Moderate Drought</td>
                  <td style="text-align: center;">0-60 %</td>
                  <td style="text-align: center;">Medium</td>
@@ -264,6 +266,7 @@
                  </td>
                </tr>
                <tr>
+                 <td style="background: #B97A57;"></td>
                  <td>Severe Drought</td>
                  <td style="text-align: center;">0-20 %</td>
                  <td style="text-align: center;">High</td>
@@ -285,6 +288,7 @@
                  </td>
                </tr>
                <tr>
+                 <td style="background: #880015;"></td>
                  <td>Extreme Drought</td>
                  <td style="text-align: center;">0-20 %</td>
                  <td style="text-align: center;">High</td>
@@ -322,19 +326,23 @@
             <h3>Outlook Warning</h3>
             <table>
               <tr>
+                <th></th>
                 <th>Warning Category</th>
                 <th>Description (Source: G. Sepulcre-Canto et al, 2012)</th>
               </tr>
               <tr>
+                <td style="background: #F89F1D;"></td>
                 <td>Watch</td>
                 <td>Precipitation is less than normal. There is an increased likelihood that there will be a drought affecting
                   agriculture. The situation should be monitored closely and responses should be put into preparation.</td>
               </tr>
               <tr>
+                <td style="background: #B97A57;"></td>
                 <td>Warning</td>
                 <td>Soil moisture is in deficit. Drought that affects agriculture is expected. Put response strategies into action in order to minimise exposure.</td>
               </tr>
               <tr>
+                <td style="background: #880015;"></td>
                 <td>Alarm</td>
                 <td>Vegetation shows signs of stress. Drought has begun to affect agriculture. Continue with or strengthen response strategies and monitor the situation closely</td>
               </tr>
@@ -354,35 +362,11 @@
             </div>
           </div>
 
-          <div class="col-lg-12">
-            <p class="summary_date">Last Update: 01/01/2020</p>
+          <div class="col-lg-12" id="[[item.Items]]" ng-repeat="item in SummmaryList">
+            <div class="summary-country">[[item.Items]]</div>
+            <p class="summary-detail">[[item.Desc]]</p>
           </div>
 
-          <div class="col-lg-12" id="Cambodia">
-            <div class="summary-country">Cambodia:</div>
-            <p class="summary-detail">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.</p>
-          </div>
-
-          <div class="col-lg-12" id="Laos">
-            <div class="summary-country">Lao PDR:</div>
-            <p class="summary-detail">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.</p>
-          </div>
-
-          <div class="col-lg-12" id="Myanmar">
-            <div class="summary-country">Myanmar:</div>
-            <p class="summary-detail">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.</p>
-          </div>
-
-          <div class="col-lg-12" id="Thailand">
-            <div class="summary-country">Thailand:</div>
-            <p class="summary-detail">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.</p>
-          </div>
-
-          <div class="col-lg-12" id="Vietnam">
-            <div class="summary-country">Vietnam:</div>
-            <p class="summary-detail">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document. To make your document look professionally produced, Word provides header, footer, cover page, and text box designs that complement each other.</p>
-          </div>
-        </div>
 
       </div>
     </section><!-- End summary Us Section -->
@@ -437,6 +421,7 @@
                 <div class="col-lg-12  col-md-6">
                   <div class="about-div">
                   <h1 style="margin-top:50px;text-align:center;"><b>Mekong Drought and Crop Watch</b></h1>
+                  <br>
                   <p>Droughts in the Lower Mekong region negatively impact ecosystem services, food and water security, and biodiversity. These impacts are exacerbated by climate change, further highlighting the need for improved governance and decision-making in virtually all sectors.</p>
                 </div>
               </div>
@@ -471,22 +456,22 @@
               <p>NASA Jet Propulsion Laboratory (JPL)</p>
             </div>
             <div class="col-lg-4 col-md-6 icon-box">
-              <img src="/static/images/partners/michigan-state.png" alt="" style="width:auto; height:80px;">
+              <img src="/static/images/partners/michigan-state.png" alt="" style="width:auto; height:70px;">
               <p>Michigan State University</p>
             </div>
             <div class="col-lg-4 col-md-6 icon-box">
-              <img src="/static/images/partners/massachusetts.png" alt="" style="width:auto; height:80px;">
+              <img src="/static/images/partners/massachusetts.png" alt="" style="width:auto; height:70px;">
               <p>University of Massachusetts Amherst</p>
             </div>
           </div>
           <br>
           <div class="row justify-content-md-center">
             <div class="col-lg-4 col-md-6 icon-box">
-              <img src="/static/images/partners/mrc.png" alt="" style="width:auto; height:70px;">
+              <img src="/static/images/partners/mrc.png" alt="" style="width:auto; height:85px;">
               <p>Mekong River Commission</p>
             </div>
             <div class="col-lg-4 col-md-6 icon-box">
-              <img src="/static/images/partners/vawr.png" alt="" style="width:auto; height:70px;">
+              <img src="/static/images/partners/vawr.png" alt="" style="width:auto; height:70px;margin-bottom:15px;">
               <p>Vietnam Academy of Water Resources</p>
             </div>
           </div>
@@ -501,7 +486,7 @@
               <p>Stockholm Environment Institute</p>
             </div>
             <div class="col-lg-4 col-md-6 icon-box">
-              <img src="/static/images/partners/deltares.png" alt="" style="width:auto; height:70px;">
+              <img src="/static/images/partners/deltares.png" alt="" style="width:auto; height:60px;">
               <p>Deltares</p>
             </div>
           </div>

@@ -2,17 +2,19 @@
 # -*- coding: utf-8 -*-
 from django.core import serializers
 from datetime import datetime
+from datetime import datetime, timedelta
 import numpy as np
 import base64
-
 from django.conf import settings
 import ee, json,sys, os, time
-from django.http import JsonResponse
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from ee.ee_exception import EEException
 from django.db import connection
 import datetime as DT
 import psycopg2
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
 
 # -----------------------------------------------------------------------------
 class GEEApi():
@@ -21,8 +23,8 @@ class GEEApi():
 
     def __init__(self):
 
-        #ee.Initialize(settings.EE_CREDENTIALS)
-        ee.Initialize()
+        ee.Initialize(settings.EE_CREDENTIALS)
+        #ee.Initialize()
 
         WEST, SOUTH, EAST, NORTH = 92.0, 9.5, 101.5, 29
         BOUNDING_BOX = (WEST,SOUTH,EAST,NORTH)
@@ -73,13 +75,13 @@ class GEEApi():
                 '<ColorMapEntry color="#880015" quantity="2000" label="EXD (0.0 - 0.2)" />'
                 '<ColorMapEntry color="#B97A57" quantity="4000" label="SED (0.2 - 0.4)" />'
                 '<ColorMapEntry color="#F89F1D" quantity="8000" label="MOD (0.4 - 0.8)" />'
-                '<ColorMapEntry color="#FFFFFF" quantity="10000" label="No Drought (> 0.8)" />'
+                '<ColorMapEntry color="#88A541" quantity="10000" label="No Drought (> 0.8)" />'
               '</ColorMap>'
             '</RasterSymbolizer>'''
 
         self.sld_outlooksDroght ='''<RasterSymbolizer>'
           '<ColorMap type="intervals" extended="false" >'
-            '<ColorMapEntry color="#FFFFFF" quantity="0" label="Normal" />'
+            '<ColorMapEntry color="#88A541" quantity="0" label="Normal" />'
             '<ColorMapEntry color="#F89F1D" quantity="1" label="Watch" />'
             '<ColorMapEntry color="#B97A57" quantity="2" label="Warning" />'
             '<ColorMapEntry color="#880015" quantity="3" label="Alert" />'
@@ -92,7 +94,7 @@ class GEEApi():
                 '<ColorMapEntry color="#880015" quantity="2000" label="EXD (0.0 - 0.2)" />'
                 '<ColorMapEntry color="#B97A57" quantity="4000" label="SED (0.2 - 0.4)" />'
                 '<ColorMapEntry color="#F89F1D" quantity="8000" label="MOD (0.4 - 0.8)" />'
-                '<ColorMapEntry color="#FFFFFF" quantity="10000" label="No Drought (> 0.8)" />'
+                '<ColorMapEntry color="#88A541" quantity="10000" label="No Drought (> 0.8)" />'
               '</ColorMap>'
             '</RasterSymbolizer>'''
 
@@ -726,21 +728,21 @@ class GEEApi():
 
     # -------------------------------------------------------------------------
     def get_date(self):
-        ic = ee.ImageCollection(settings.FRONT_GCDI).sort("system:time_start", False)
+        ic = ee.ImageCollection(settings.VSDI).sort("system:time_start", False)
         dates = ee.List(ic.aggregate_array("system:time_start")).getInfo()
         return dates
 
     # -------------------------------------------------------------------------
     def get_map_current_id(self, date):
 
-        ic = ee.ImageCollection(settings.FRONT_GCDI)
+        ic = ee.ImageCollection(settings.VSDI)
 
         image = ic.filter(ee.Filter.eq("system:time_start",int(date))).first()
         image = image.updateMask(self.maskedArea)
 
         INDEX_CLASS = {}
         for _class in self.MAP_CLASSES:
-            if (_class['name'] == 'front_gcdi'):
+            if (_class['name'] == 'vsdi'):
                 style = _class['value']
                 print(_class['sld'])
                 image = image.select(_class['band'])
@@ -769,14 +771,25 @@ class GEEApi():
                 style = _class['value']
                 map_id = image.sldStyle(style).getMapId()
 
-
         return {
             'eeMapURL': str(map_id['tile_fetcher'].url_format)
         }
 
     # -------------------------------------------------------------------------
     def get_date_outlook(self):
+        _oneMonthAgo = (datetime.today() - DT.timedelta(days = 30 )).strftime('%Y-%m-%d')
         _currentDate = datetime.today().strftime('%Y-%m-%d')
-        ic = ee.ImageCollection(settings.FRONT_RCDI).filterDate(_currentDate, "2040-01-01").sort("system:time_start", False)
+        ic = ee.ImageCollection(settings.FRONT_RCDI).filterDate(_oneMonthAgo, "2040-01-01").sort("system:time_start", False)
         dates = ee.List(ic.aggregate_array("system:time_start")).getInfo()
         return dates
+
+    # -------------------------------------------------------------------------
+    def get_drought_summary(request):
+        scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+        creds = ServiceAccountCredentials.from_json_keyfile_name('credentials/privatekey.json', scope)
+        client = gspread.authorize(creds)
+        sheet = client.open('Drought_Summary').sheet1
+        res_list = sheet.get_all_records()
+        # res_list = sorted(res_list, key=lambda x: int(x['Order']), reverse=True)
+        list_as_json = json.dumps(res_list)
+        return list_as_json
