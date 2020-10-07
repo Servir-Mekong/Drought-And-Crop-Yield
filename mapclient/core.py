@@ -107,7 +107,7 @@ class GEEApi():
         self.sld_kbdi ='''<RasterSymbolizer>'
             '<ColorMap type="intervals" extended="false" >'
               '<ColorMapEntry color="#C3C3C3" quantity="-9999" label="No Data (-9999 or nodata)"/>'
-              '<ColorMapEntry color="#FFFFFF" quantity="0" label="No Drought (less than 399)" />'
+              '<ColorMapEntry color="#88A541" quantity="0" label="No Drought (less than 399)" />'
               '<ColorMapEntry color="#F89F1D" quantity="400" label="MOD (400 - 499)" />'
               '<ColorMapEntry color="#B97A57" quantity="500" label="SED (500 - 649)" />'
               '<ColorMapEntry color="#880015" quantity="650" label="EXD (650 - 800)" />'

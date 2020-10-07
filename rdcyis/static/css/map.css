@@ -137,7 +137,7 @@ ul {
 .control-panel li {
   background: #f8f9fa;
   border-radius: 25px;
-  border: 2px solid #ff8507;
+  border: 0px solid #ff8507;
   box-sizing: border-box;
   display: -webkit-box;
   display: -ms-flexbox;

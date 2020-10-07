@@ -164,18 +164,18 @@ var settings = {
             'name': 'SB: EVI: Enhanced Vegetation Index',
             'value': 'sb-evi'
         },
-        // {
-        //     'name': 'SB: Keetch–Byram Drought Index (KBDI)',
-        //     'value': 'sb-kbdi'
-        // },
+        {
+            'name': 'SB: Keetch–Byram Drought Index (KBDI)',
+            'value': 'sb-kbdi'
+        },
         {
             'name': 'SB: NDVI: Normalized Difference Vegetation Index',
             'value': 'sb-ndvi'
         },
-        {
-          'name': 'MB: KBDI: Keetch-Byram Drought Index',
-          'value': 'mb-kbdi'
-        },
+        // {
+        //   'name': 'MB: KBDI: Keetch-Byram Drought Index',
+        //   'value': 'mb-kbdi'
+        // },
         {
           'name': 'MB: CDI: Combined Drought Index',
           'value': 'mb-cdi'
@@ -327,8 +327,8 @@ var settings = {
                 'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
             },
             {
-                'name': 'mb-kdbi',
-                'colors': ['#F89F1D', '#B97A57', '#880015','#FFFFFF','#C3C3C3'],
+                'name': 'sb-kbdi',
+                'colors': ['#F89F1D', '#B97A57', '#880015','#88A541','#C3C3C3'],
                 'label':['MOD', 'SED', 'EXD', 'No Drought','No Data'],
             },
             {
