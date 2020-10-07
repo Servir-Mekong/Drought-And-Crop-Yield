@@ -303,13 +303,13 @@ var settings = {
             },
             {
                 'name': 'sb-arvi',
-                'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641', '#FFFFFF'],
-                'label':['High Stress','','','','','','','',' Low Stress', 'No Data'],
+                'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+                'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
             },
             {
                 'name': 'sb-savi',
-                'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641', '#FFFFFF'],
-                'label':['High Stress','','','','','','','',' Low Stress', 'No Data'],
+                'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+                'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
             },
             {
                 'name': 'sb-evi',
@@ -318,13 +318,13 @@ var settings = {
             },
             {
                 'name': 'sb-ndvi',
-                'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641'],
-                'label':['High Stress','','','','','','','',' Low Stress'],
+                'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+                'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
             },
             {
                 'name': 'sb-ndvi_ano',
-                'colors': ['#E85B3A','#F99E59','#FEC981','#FFEDAB','#F7FCDF','#C4E687','#97D265','#58B453','#1A9641'],
-                'label':['High Stress','','','','','','','',' Low Stress'],
+                'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+                'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
             },
             {
                 'name': 'mb-kdbi',
@@ -373,8 +373,8 @@ var settings = {
             },
             {
                 'name': 'sb-msi',
-                'colors': ['#1A9641', '#58B453', '#97D265', '#C4E687', '#F7FCDF', '#FFEDAB', '#FEC981', '#F99E59', '#E85B3A', '#FFFFFF'],
-                'label':['Low Stress', '', '', '', '', '', '', '', 'High Stress', 'No Data'],
+                'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+                'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
             },
             {
                 'name': 'mb-severity',
