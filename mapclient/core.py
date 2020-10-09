@@ -21,7 +21,7 @@ class GEEApi():
 
     def __init__(self):
 
-        ee.Initialize()
+        ee.Initialize(settings.EE_CREDENTIALS)
 
         WEST, SOUTH, EAST, NORTH = 92.0, 9.5, 101.5, 29
         BOUNDING_BOX = (WEST,SOUTH,EAST,NORTH)
