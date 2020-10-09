@@ -1,0 +1,328 @@
+{% extends 'base.html'%}
+<html>
+<head>
+  {% block head %}
+  <title>CDIS</title>
+  {% endblock %}
+</head>
+
+<body>
+
+  {% block body%}
+  <!-- ======= Hero Section ======= -->
+
+  <main id="main" style="padding: 0;">
+      <div class="" ng-controller="MapController">
+        <div id="loader" class="loader" ng-show="showLoader">
+    			<div class="loading-img"></div>
+    		</div>
+        <div class="row">
+          <div class="col-lg-12 col-md-6">
+
+            <!-- The Modal for Chart -->
+	<div id="chartModal" class="modal display-none-imp">
+		<div class="modal-container">
+			<div class="modal-background"></div>
+			<div class="modal-window ">
+				<div title="close" class="modal-close close-icon pointer">
+					<svg id="shape-close" viewBox="0 0 25 25" fill="#FFF">
+						<path d="M 5 19 L 19 5 L 21 7 L 7 21 L 5 19 ZM 7 5 L 21 19 L 19 21 L 5 7 L 7 5 Z"></path>
+					</svg>
+				</div>
+				<div class="modal-wrapper custom-scroll">
+					<div class="chart-modal-title">
+						[[chartModalTitle]]
+					</div>
+					<div class="modal-body" id="modal-body">
+            <div class="col-lg-12 col-md-6" style="padding-top:0px;">
+              <div class="row">
+                <div class="col-lg-12 col-md-6">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 select-opt">
+                      SELECT PERIODICITY
+                      <select class="form-control" name="" id="select-periodicity" >
+                        <option ng-repeat="x in periodicity" value="[[x.value]]">[[x.name]]</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-6">
+                  <figure class="highcharts-figure">
+                    <p class="highcharts-description"  id="chart-description-c2"></p>
+                    <div class="chart-area" id="area-container"></div>
+                </figure>
+                </div>
+              </div>
+
+            </div>
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="supporterModal" class="modal hide">
+		<div class="modal-container">
+			<div class="modal-background"></div>
+			<div class="modal-window">
+				<!-- <div title="close" class="modal-close close-icon pointer">
+					<svg id="shape-close" viewBox="0 0 25 25">
+						<path d="M 5 19 L 19 5 L 21 7 L 7 21 L 5 19 ZM 7 5 L 21 19 L 19 21 L 5 7 L 7 5 Z"></path>
+					</svg>
+				</div> -->
+				<div class="modal-wrapper custom-scroll">
+					<div class="supporter-modal-title">
+						CAMBODIA DROUGHT INFORMATION SYSTEM
+					</div>
+					<div class="supporter-content" id="disclaimer-body">
+						<p><b>VERSION 1.0</b></p>
+						<p>2020</p>
+						<table style="width:80%">
+						  <tr>
+							 <td ng-repeat="partner in partners"  width="33%">
+								  <a href="[[partner.url]]" target="_blank">
+				                  	<img class="grow img-responsive [[partner.className]]" src="[[partner.src]]" alt="[[partner.alt]]">
+				           </a>
+							  </td>
+						  </tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+  	<div id="disclaimerModal" class="modal hide">
+  		<div class="modal-container">
+  			<div class="modal-background"></div>
+  			<div class="modal-window">
+  				<!-- <div title="close" class="modal-close close-icon pointer">
+  					<svg id="shape-close" viewBox="0 0 25 25">
+  						<path d="M 5 19 L 19 5 L 21 7 L 7 21 L 5 19 ZM 7 5 L 21 19 L 19 21 L 5 7 L 7 5 Z"></path>
+  					</svg>
+  				</div> -->
+  				<div class="modal-wrapper custom-scroll">
+  					<div class="supporter-modal-title">
+  						DISCLAIMER
+  					</div>
+  					<div class="supporter-content" id="disclaimer-body">
+  						This product has been created with the highest degree of accuracy possible and depicts information at regional and national scales. Local conditions are subject to variations based on local climatic conditions.
+  						The product has been produced based on the latest available satellite and global modeled data and subject to update every two weeks.
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+
+
+
+
+            <div style="position:relative;" >
+              <div class="map" id="map">
+
+                <div class="control-panel map-component">
+                  <div class="scalebar-container"></div>
+                  <!-- Map Munu -->
+                  {% include "panels/map-menu.html" %}
+                </div>
+
+              </div>
+
+              <div class="legend-panel map-legend" ng-show="showLegend">
+
+                <div class="row">
+                  <div class="col-lg-12 col-md-6 legend-list">
+                    <ul>
+                      <li ng-repeat="x in legend">
+                        <div class="row">
+                          <div class="col-lg-2">
+                            <div class="intensity-class" style="background: [[x.color]]; border:1px solid #C3C3C3;"></div>
+                          </div>
+                          <div class="col-lg-9">
+                            [[x.label]]
+                          </div>
+                        </div>
+                      </li>
+
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="map-panel__toggle">
+              <div class="map-panel__tabs">
+        			<span id="toggle_drought" class="map-panel__tabs--item active" data-target="layers">
+        				<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 90 90" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+        					<path class="cls-1" d="M91.64,97.93,73.4,101.39,43.61,85.19,54.45,71.68l24.36,8.1Zm28.05-31.66v2l-19.22,6.08-19,2.7L57.15,69l-5.74-2.71H54.7c-.78-7.25-1.83-12.73-2.35-19.92h0c0-.22-.26-5-.32-7.09-.38-2.16-1.41-3-4.78-5.35a8.18,8.18,0,0,0-4-1.6c-1.25,0-2.35,1.34-2.62,5.39,5.43.92,5.8,6.93,5.8,6.93.48,4.25-1.62,10.49-6.45,12.11-8.92,3-8-14.22-3-18.33.14-5,1.49-9.49,6.23-9.69a11.51,11.51,0,0,1,6,2.18,18.58,18.58,0,0,1,2.65,1.94c-.09-1.63-.19-3.3-.19-5,0-3.6.56-7.53,3.75-10.32a7.93,7.93,0,0,1,5.34-2.26c4.75.22,7.72,4.34,9.44,8.53a9.9,9.9,0,0,1,7.38-.31C84.85,26,88.85,38.79,85.75,43.24c-7.23,10.4-25.43-8.93-20.61-15.69a12.86,12.86,0,0,1,2-1.92c-1.42-3.72-4.26-7-6.38-6.82a4.54,4.54,0,0,0-3,1.37c-2,1.78-2.53,4.33-2.54,7.64,0,2.34.28,5,.28,7.55,0,1.37.09,2.56.13,3.89a36.69,36.69,0,0,1,.29,6.58c.51,7.15,3.41,13,4.21,20.43ZM68.42,27.06l13.79,15C79.74,31.42,71,25.49,71,25.49ZM39.84,40l-2.47,1s-1.23,8.41,0,12.78ZM27.5,90.61l11-6.6L49.88,69.88l-3.57-3.61H21.08l-5,10Zm12.79-2.27L20.87,101.56l2.58,3.2H68.13l-.15-.67ZM.31,66.27V81.51l12.46-6.67,3.76-8.57ZM85.13,80.34,97.19,97.81l22.5,5.27v-20l-16.21-5.22Zm34.56-1.59V71.68L107,75.11Zm-106.63,1L.31,85.8v19H9.68L23.54,93.39Zm66.79,25H109l-13.94-3.37Z"/>
+        				</svg>
+        				Drought
+        			</span>
+        			<span id="toggle_disclaimer" class="map-panel__tabs--item" data-target="layers">
+        				<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 350 350" height="1.5em" width="1.5em"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        					<g>
+        						<g>
+        							<path d="M165,0C74.019,0,0,74.02,0,165.001C0,255.982,74.019,330,165,330s165-74.018,165-164.999C330,74.02,255.981,0,165,0z
+        								 M165,300c-74.44,0-135-60.56-135-134.999C30,90.562,90.56,30,165,30s135,60.562,135,135.001C300,239.44,239.439,300,165,300z"/>
+        							<path d="M164.998,70c-11.026,0-19.996,8.976-19.996,20.009c0,11.023,8.97,19.991,19.996,19.991
+        								c11.026,0,19.996-8.968,19.996-19.991C184.994,78.976,176.024,70,164.998,70z"/>
+        							<path d="M165,140c-8.284,0-15,6.716-15,15v90c0,8.284,6.716,15,15,15c8.284,0,15-6.716,15-15v-90C180,146.716,173.284,140,165,140z
+        								"/>
+        						</g>
+        					</g>
+        				</svg>
+        				Disclaimer
+        			</span>
+
+        		</div>
+
+
+        		<div id="toggle_drought_box" class="map-panel__toggle--panel shadow" style="display: block;">
+
+        			<div class="layer-category">
+        				<div id="caret-area"  class="layer-category-label-container pointer">
+        					<div class="layer-category-label">
+        						Area
+        					</div>
+        					<span class="layer-category-caret">▼</span>
+        				</div>
+        				<div id="content-area" class="layer-category-content">
+        					<div class="layer-checkbox relative active">
+                    <div class="form-group">
+        							<label for="area-filter" class="js-tooltip"
+        								   title="Allows to select the desired area for generating the drought related information">
+        								Defind Area
+        							</label>
+                      <select class="form-control" name="" id="select-areaIndexSelectors" >
+                                    <option ng-repeat="x in areaFilter" value="[[x.value]]">[[x.name]]</option>
+                                  </select>
+                      <br>
+                      <p>Selected Area: <span id="selectedAreaText" style="color:#ae0f0a;"></span></p>
+
+        						</div>
+
+        						<div class="form-group" ng-show="showAreaFilterSlider">
+        							<label for="areaFilterSlider">Area Filter Opacity</label>
+        							<input id="areaFilterSlider" data-slider-id="areaFilterSlider" type="text"
+        								   data-slider-min="0" data-slider-max="1" data-slider-step="0.1"
+        								   data-slider-value="0.1">
+        								   <span> value: </span><span id="opacity-area-val">10</span><span>%</span>
+        						</div>
+
+
+        					</div>
+        				</div>
+        			</div>
+
+        			<div class="layer-category">
+        				<div id="caret-dataset" class="layer-category-label-container pointer">
+        					<div class="layer-category-label">
+        						Dataset
+        					</div>
+        					<span class="layer-category-caret">▼</span>
+        				</div>
+        				<div id="content-dataset" class="layer-category-content">
+        					<div class="layer-checkbox relative active">
+
+        						<div class="form-group" id="indexOptions">
+        							<label for="variable-filter" class="js-tooltip"
+        								   title="Select the required variable to visualize" translate>
+        								   Select Variable
+                           <button data-toggle="tooltip" data-html="true" data-placement="bottom" title="SB: Satellite Based <br>MB: Model Based" class="tooltip-btn" >i</a></button>
+        							</label>
+                      <select class="form-control" name="" id="map-select-indices1" >
+                        <option ng-repeat="x in variables" value="[[x.value]]">[[x.name]]</option>
+                      </select>
+        						</div>
+
+                    <div class="form-group" id="indexOptions">
+        							<label>
+        								   Select Date
+                      </label>
+                      <!-- <div class="date-picker">
+                        <div id="dp5" data-date-format="yyyy-mm-dd"></div>
+                      </div> -->
+                      <div>
+                        <input id="dp5" class="form-control" data-date-format="yyyy-mm-dd"/>
+                      </div>
+        						</div>
+
+        						<!-- Slider Container -->
+                    <div ng-show="showOpacitySlider" class="form-group" >
+                      <div class="">
+                        <div class="slidecontainer">
+                          <p style="font-size:12px;">Opacity: <span id="opacity-value"></span></p>
+                          <input type="range" min="1" max="100" value="100" class="slider" id="opacity-slider">
+                        </div>
+                      </div>
+
+                    </div>
+
+
+        						<div class="display-inline-block col-md-4" id="timeOptions" ng-repeat="option in timeOptions">
+        							<label name="time-filter" class="radio-inline">
+        								<input type="radio" id="option.value" name="time-filter" ng-value="option.value"
+        										 ng-model="timeOptionSelector" ng-checked="option.checked"
+        										 ng-click="changeTimeOptionSelector(timeOptionSelector)">[[option.name]]
+        							</label>
+        						</div>
+        						<div class="panel-footer">
+        							<div class="row justify-content-center">
+        								<button id="btn-update-map" type="button" class="btn btn-primary-red" ng-click="downloadRaster()">
+        									<span class="glyphicon glyphicon-th" aria-hidden="true"></span> <span translate>DOWNLOAD RESTER</span>
+        								</button>
+        								<button id="btn-show-chart" type="button" class="btn btn-primary-red" ng-click="showChart()">
+        									<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <span translate>SHOW CHART</span>
+        								</button>
+        							</div>
+        							<br>
+        							<div class="row text-center">
+        								<div class="btn-group" ng-show="showDownloadButton">
+        									<button id="btn-download" type="button" class="btn btn-primary-blue">
+        										<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download
+        									</button>
+        									<button type="button" class="btn btn-primary-blue dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        										<span class="caret"></span>
+        										<span class="sr-only">Toggle Dropdown</span>
+        									</button>
+        									<ul class="dropdown-menu">
+        										<li><a href="" target="_blank" class="download-btn" ng-click="downloadRaster()">Download Raster</a></li>
+        										<li><a href="" ng-click="downloadVector()">Download Vector</a></li>
+        									</ul>
+        								</div>
+        								<!--<button type="button" class="btn btn-primary-red">
+        									<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print Map
+        								</button>-->
+        							</div>
+        						</div>
+
+        					</div>
+        				</div>
+        			</div>
+
+        		</div>
+            <div id="toggle_disclaimer_box" class="map-panel__toggle--panel" style="display: none;">
+        			<div class="title">
+        				DISCLAIMER
+        			</div>
+        			This product has been created with the highest degree of accuracy possible and depicts information at regional and national scales. Local conditions are subject to variations based on local climatic conditions. The product has been produced based on the latest available satellite and global modeled data and subject to update every two weeks.
+        		</div>
+
+        	</div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+    </main><!-- End #main -->
+    {% endblock %}
+  </body>
+  </html>
