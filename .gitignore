@@ -1,88 +1,24 @@
-# OS
+
+# python compile files
 # ===========
-.DS_Store
-ehthumbs.db
-Icon?
-Thumbs.db
+*.pyc
+credentials/
+static/*
+# Setting and config files
+mdisDjangoApp/settings.py
 
-# Node and related ecosystem
-# ==========================
-.nodemonignore
-.slugignore
-.npmignore
-.sass-cache/
-node_modules/
-public/lib/
-app/tests/coverage/
-.bower-*/
-.idea/
-coverage/
-
-# MEAN.js app and assets
+# Unused templates
 # ======================
-public/dist/
-public/data/countries/
-uploads
-config/env/local.js
-config/env/local-*.js
-*.pem
 
-# Ignoring MEAN.JS's gh-pages branch for documenation
-_site/
+# Vendor files
+# ======================
+mdisDjangoApp/static/vendor/*
+mdisDjangoApp/static/dist/*
+# Exception to the rule
 
-# General
-# =======
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
-*.tmp
-*.bak
-*.swp
-logs/
-build/
-access.log
 
-# Sublime editor
-# ==============
-.sublime-project
-*.sublime-project
-*.sublime-workspace
-
-# Eclipse project files
-# =====================
-.project
-.settings/
-.*.md.html
-.metadata
-*~.nib
-local.properties
-.pydevproject
-
-# IntelliJ
-# ========
-*.iml
-
-# Cloud9 IDE
-# =========
-.c9/
-mongod
-
-# Visual Studio
-# =========
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-.vs/
-bin/
-obj/
-.vscode/
-
-# Others
-# =========
-.pm2/
-rss_parser_log.txt
-console.log.txt
+# Node and related environment
+# ======================
+.npmignore
+node_modules/
+_pycache_/

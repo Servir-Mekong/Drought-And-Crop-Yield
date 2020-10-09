@@ -1,0 +1,181 @@
+.sliderContainer {
+    height: 5em;
+    background-color: rgba(0,0,0,.4);
+    z-index: 400;
+    position: absolute;
+    width: 60%;
+    margin-left: 20%;
+    bottom: 30px;
+    font-size: 11px;
+    padding-bottom: 60px;
+    -webkit-box-shadow: inset 0 2px 0 rgba(255,255,255,.7), 0 1px 2px rgba(0,0,0,.7);
+    box-shadow: inset 0 2px 0 rgba(255,255,255,.7), 0 1px 2px rgba(0,0,0,.7);
+}
+
+.datePickerSlider {
+    position: relative;
+    width: 80%;
+    margin-left: 4%;
+    bottom: -3.5em;
+    border-color: #ddd;
+}
+
+.slide-backward {
+	position: relative;
+    margin-right: 1%;
+    float: right;
+    margin-top: 1%;
+}
+
+.slide-forward {
+	position: relative;
+    margin-right: 1%;
+    float: right;
+    margin-top: 1%;
+}
+
+/*Slider*/
+
+.noUi-marker {
+	background: rgba(255,255,255,.15);
+	margin-top: -2px;
+}
+
+.noUi-pips-horizontal {
+    color: #f9f9f9;
+    margin-top: -4.5em;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.noUi-horizontal {
+	height: 8px;
+}
+
+.noUi-connect {
+    background: #FFF;
+}
+
+.noUi-tooltip {
+    display: block;
+    position: absolute;
+    border: 0 solid #D9D9D9;
+    border-radius: 3px;
+    background: #fbf4f0;
+    color: #000;
+    padding: 5px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.noUi-handle-lower .noUi-tooltip {
+  bottom: 55px;
+  height: 2em;
+  font-weight: bold;
+  font-size: medium;
+  background-color: #ebede7;
+  border: 3px solid #c6e6f2;
+}
+
+.uitooltip-input {
+  width: 100px;
+  text-align: center;
+  border: none;
+  height: 15px;
+  background-color: #ebede7;
+  font-size: 14px;
+  color: rgb(247, 145, 29);
+}
+
+.uitooltip-input:focus {
+  outline:0;
+}
+
+.noUi-horizontal .noUi-handle-lower .noUi-tooltip:after {
+	content:"";
+    display:block;
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:#fffee2;
+    z-index:2;
+    bottom:0;
+    left:50%;
+    -webkit-transform:translate(-50%,50%) rotate(45deg);
+    transform:translate(-50%,50%) rotate(45deg);
+    border-width:0 1px 1px 0;
+    border-color:transparent #f0f0ed #f0f0ed transparent;
+    border-style:solid
+}
+
+.noUi-horizontal .noUi-handle {
+	width: 20px;
+	height: 20px;
+	left: -20px;
+	top: -7px;
+	border-radius: 50%;
+}
+
+.input-tooltip {
+	position: absolute;
+	top: 0;
+	left: 0;
+	max-width: 100px;
+	border: none;
+	height: 30px;
+	padding: 5px;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.noUi-marker-horizontal.noUi-marker-large {
+    height: 2px;
+}
+
+.noUi-marker-horizontal.noUi-marker {
+    margin-left: -1px;
+    width: 2px;
+    height: 2px;
+}
+
+.noUi-handle {
+    border: 1px solid rgb(247, 145, 29);
+    border-radius: 3px;
+    background: #FFF;
+    cursor: default;
+    box-shadow: inset 0 0 1px #FFF, inset 0 1px 7px #EBEBEB, 0 3px 6px -3px rgb(244, 23, 7);;
+}
+
+.noUi-handle:after, .noUi-handle:before, .noUi-handle:after, .noUi-handle:after {
+	display: none;
+}
+
+.sliderContainer .btn{
+    display: inline-block;
+    padding: 3px 6px;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: rgb(247, 145, 29);
+    color: #FFF;
+}
+
+.sliderContainer .btn:hover{
+	background-color: #f9f9f9;
+  color: #333;
+}
+/*End SLider*/

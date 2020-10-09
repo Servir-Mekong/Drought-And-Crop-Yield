@@ -1,0 +1,204 @@
+{% load cms_tags menu_tags sekizai_tags staticfiles %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" data-framework="angularjs">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<meta name="keywords" content="Drought tool, Drought, Myanmar, SERVIR Mekong, ADPC, FAO">
+	<meta name="viewport" content="width=1024">
+	<meta name="description" content="Myanmar Drought Information System">
+	<meta name="author" content="Thannarot Kunlamai, SERVIR Mekong">
+
+	{% block head%}
+	<title>MDIS</title>
+	{% endblock %}
+
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+
+	{% addtoblock "css" %}
+	    <style type="text/css">
+	        /** Hide when Angular is not yet loaded and initialized */
+	        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	            display: none !important;
+	        }
+	    </style>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+		<!-- Mapping -->
+		<link href="{% static 'vendor/leaflet/dist/leaflet.css' %}" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.control.min.css" />
+
+		<!-- Vendor CSS Files -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/venobox/venobox.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+		<link href="{% static 'vendor/chart.js/dist/Chart.min.css' %}" rel="stylesheet">
+		<link href="{% static 'vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css' %}" rel="stylesheet">
+
+
+		<!-- Load CSS -->
+
+		<!-- Custom CSS -->
+
+		<link href="{% static 'css/navigation.css' %}" rel="stylesheet">
+		<link href="{% static 'css/main.css' %}" rel="stylesheet">
+		<link href="{% static 'css/map.css' %}" rel="stylesheet">
+		<link href="{% static 'css/slider.css' %}" rel="stylesheet">
+
+	{% endaddtoblock %}
+
+	{% render_block "css" %}
+</head>
+<body>
+    <!-- ======= Header ======= -->
+
+    <header id="header">
+
+			<div class="row">
+				<div class="container" id="header-logo">
+					<div class="navbar-container"  ng-controller="utilsController">
+            <div ng-repeat="partner in partnersHeader" class="">
+              <a href="[[partner.url]]" target="_blank">
+                <img class="grow img-responsive [[partner.className]]" src="{% static '' %}[[partner.src]]" alt="[[partner.alt]]">
+              </a>
+            </div>
+						<div class="moali_text">
+                Ministry of Agricultural, Livestock and Irrigation
+            </div>
+				</div>
+
+	      </div>
+			</div>
+			<div class="row" style="background:#293433;color:#FFF;border-bottom: 0px solid #293433;">
+				<div class="container" id="header-menu">
+	        <div class="logo float-left" style="padding-top: 10px;">
+
+	          <h1 class="text-light"><a id="application_name" href="#"><span>MYANMAR DROUGHT INFORMATION SYSTEM</span></a></h1>
+	        </div>
+
+	        <nav class="nav-menu float-right d-none d-lg-block">
+	          <ul>
+							<li><a href="https://docs.google.com/document/d/1wnWy_FmmRdiaff75pLoFYwzOFR6YQss4_TcouNSpib4/edit?usp=sharing" style="color: white;" target="_blank">DOCUMENT</a></li>
+	            <!-- <li><a href="http://bit.ly/RDCYIS-Technical-Docs" target="_blank" style="color: white;">DOCUMENT</a></li> -->
+							<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc6k7Qh6gIGsYp0PYvUMsjXyGqTgpcuvwvGW1EuUfy9UhD3sg/viewform?usp=sf_link" target="_blank" style="color: white;">FEEDBACK</a></li>
+	            <!-- <li><a href="https://goo.gl/forms/P2Lc5yBOOshT5uem1" target="_blank" style="color: white;">FEEDBACK</a></li> -->
+							<li class="dropdown">
+								<a href="#" class="navmenu dropdown-toggle display-inline-block-imp" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									HOW TO USE <span class="caret" style="color: white;"></span>
+								</a>
+								<ul style="cursor: pointer;color:#333;" class="dropdown-menu">
+									<li><a href="https://docs.google.com/document/d/1rDAkJKNfil_DwZ5DDcq2a2vBFBob6_grVYuuQ2Hwk2M/edit?usp=sharing" target="_blank" translate>English</a></li>
+									<li><a href="https://docs.google.com/document/d/1rDAkJKNfil_DwZ5DDcq2a2vBFBob6_grVYuuQ2Hwk2M/edit?usp=sharing" target="_blank" translate>Burmese</a></li>
+								</ul>
+							</li>
+
+	          </ul>
+	        </nav>
+	      </div>
+			</div>
+    </header>
+
+
+		<!-- End Header -->
+
+    {% block body%}
+
+
+    {%  endblock%}
+
+
+
+
+	{% addtoblock "js" %}
+		<!-- Load JS Lib -->
+
+
+		<!-- jQuery -->
+
+			<!-- Vendor JS Files -->
+	   	<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+	    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	    <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+	    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+	    <script src="{% static 'vendor/jquery-sticky/jquery.sticky.js' %}"></script>
+	    <script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
+	    <script src="{% static 'vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+	    <script src="{% static 'vendor/counterup/counterup.min.js' %}"></script>
+	    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+	    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+
+			<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+			<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+			<!-- Bootstrap Core JavaScript -->
+			<script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+			<!-- Bootstrap Plugins -->
+			<script src="{% static 'vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
+			<!-- Slider -->
+			<script src="{% static 'vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js' %}"></script>
+			<!-- Ion Range Slider -->
+			<script src="{% static 'vendor/ion.rangeSlider/js/ion.rangeSlider.min.js' %}"></script>
+		<!-- Moment -->
+		<!-- <script src="{% static 'vendor/moment/min/moment.min.js' %}"></script> -->
+
+		<!-- Mapping Library -->
+
+		<!-- Leaflet -->
+		<script src="{% static 'vendor/leaflet/dist/leaflet.js' %}"></script>
+		<script src="{% static 'vendor/leaflet-side-by-side/leaflet-side-by-side.js' %}"></script>
+        <!--<script type="text/javascript" src="https://cdn.rawgit.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
+        <script type="text/javascript" src="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.min.js"></script>-->
+
+		<!--  Load Angular  -->
+		<script src="{% static 'vendor/angular/angular.min.js' %}"></script>
+
+		<!-- Angular Plugins -->
+		<script src="{% static 'vendor/angular-sanitize/angular-sanitize.min.js' %}"></script>
+		<script src="{% static 'vendor/ngstorage/ngStorage.min.js' %}"></script>
+
+		<!-- Spatial Libraries -->
+		<script src="{% static 'vendor/togeojson/togeojson.js' %}"></script>
+
+		<!-- Graphs DASHBOARD-->
+		<script src="{% static 'vendor/highcharts/highcharts.js' %}"></script>
+		<script src="{% static 'vendor/highcharts/highcharts-more.js' %}"></script>
+		<script src="{% static 'vendor/highcharts/modules/exporting.js' %}"></script>
+		<script src="{% static 'vendor/highcharts/modules/export-data.js' %}"></script>
+
+		<!-- Bootstrap Application -->
+		<script src="{% static 'app/init.js' %}"></script>
+
+		<!-- Load Settings -->
+		<script src="{% static 'app/config/settings.js' %}"></script>
+
+		<script src="{% static 'data/adm0.js' %}"></script>
+		<script src="{% static 'data/adm1.js' %}"></script>
+		<script src="{% static 'data/adm2.js' %}"></script>
+	<!-- Services -->
+	<script src="{% static 'app/services/map.js' %}"></script>
+		<!-- Controllers -->
+		<script src="{% static 'app/controllers/utils-controller.js' %}"></script>
+	 <script src="{% static 'app/controllers/map-controller.js' %}"></script>
+
+
+		<!-- Directives -->
+		<!--<script src="{% static 'app/directives/text-collapse.js' %}"></script>-->
+		<script src="{% static 'app/directives/validate-email.js' %}"></script>
+
+    <!--  main JS File -->
+    <script src="{% static 'app/controllers/main.js' %}"></script>
+
+
+
+	{% endaddtoblock %}
+
+
+	{% render_block "js" %}
+
+
+</body>
+</html>
