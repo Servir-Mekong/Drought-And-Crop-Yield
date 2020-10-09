@@ -164,18 +164,18 @@ var settings = {
             'name': 'SB: EVI: Enhanced Vegetation Index',
             'value': 'sb-evi'
         },
-        {
-            'name': 'SB: Keetch–Byram Drought Index (KBDI)',
-            'value': 'sb-kbdi'
-        },
+        // {
+        //     'name': 'SB: Keetch–Byram Drought Index (KBDI)',
+        //     'value': 'sb-kbdi'
+        // },
         {
             'name': 'SB: NDVI: Normalized Difference Vegetation Index',
             'value': 'sb-ndvi'
         },
-        // {
-        //   'name': 'MB: KBDI: Keetch-Byram Drought Index',
-        //   'value': 'mb-kbdi'
-        // },
+        {
+          'name': 'MB: KBDI: Keetch-Byram Drought Index',
+          'value': 'mb-kbdi'
+        },
         {
           'name': 'MB: CDI: Combined Drought Index',
           'value': 'mb-cdi'
@@ -293,12 +293,12 @@ var settings = {
     droughtLegend: [
             {
                 'name': 'current',
-                'colors': ['#0000ff' ,'#00ff00', '#007f30', '#30b855', '#ff0001','#ffff00'],
+                'colors': ['' ,'#00ff00', '#007f30', '#30b855', '#ff0001','#ffff00'],
                 'label':['No Data', 'EXD', 'SED', 'MOD', 'No Drought'],
             },
             {
                 'name': 'sb-vsdi',
-                'colors': ['#F89F1D', '#B97A57', '#880015','#88A541','#C3C3C3'],
+                'colors': ['#F89F1D', '#B97A57', '#880015','#88A541',''],
                 'label':['MOD', 'SED', 'EXD', 'No Drought','No Data'],
             },
             {
@@ -328,18 +328,18 @@ var settings = {
             },
             {
                 'name': 'sb-kbdi',
-                'colors': ['#F89F1D', '#B97A57', '#880015','#88A541','#C3C3C3'],
+                'colors': ['#F89F1D', '#B97A57', '#880015','#88A541',''],
                 'label':['MOD', 'SED', 'EXD', 'No Drought','No Data'],
             },
             {
                 'name': 'mb-kbdi',
-                'colors': ['#F89F1D','#B97A57','#880015', '#FFFFFF', '#C3C3C3'],
+                'colors': ['#F89F1D','#B97A57','#880015', '#88A541', ''],
                 'label':['MOD','SED','EXD', 'No Drought', 'No Data'],
             },
             {
                 'name': 'mb-cdi',
-                'colors': ['#FFFFFF','#F89F1D','#B97A57','#880015'],
-                'label':['Normal','Watch','Warning','Alert'],
+                'colors': ['#88A541','#F89F1D','#B97A57','#880015'],
+                'label':['None','Watch','Warning','Alert'],
             },
             {
                 'name': 'mb-spi1',
@@ -431,7 +431,6 @@ var settings = {
                 'colors': ['#7C3595','#9B65AE','#BA98C9','#D4C1DD','#ECE5EF','#E5F1E4','#C1E5BD','#95D295','#4AAD66','#008837'],
                 'label':['< 10' ,'10 - 20' ,'20 - 30' ,'30 - 40' ,'40 - 50' ,'50 - 60' ,'60 - 70' ,'70 - 80' ,'80 - 90'  ,'90 +']
             }
-
 
         ]
 };

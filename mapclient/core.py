@@ -71,7 +71,7 @@ class GEEApi():
 
         self.sld_currntDroght ='''<RasterSymbolizer>
               '<ColorMap type="intervals" extended="false" >'
-                '<ColorMapEntry color="#C3C3C3" quantity="0" label="No Data (-9999 or nodata)"/>'
+                '<ColorMapEntry color="#C3C3C3" quantity="-9999" label="No Data (-9999 or nodata)"/>'
                 '<ColorMapEntry color="#880015" quantity="2000" label="EXD (0.0 - 0.2)" />'
                 '<ColorMapEntry color="#B97A57" quantity="4000" label="SED (0.2 - 0.4)" />'
                 '<ColorMapEntry color="#F89F1D" quantity="8000" label="MOD (0.4 - 0.8)" />'
@@ -90,11 +90,10 @@ class GEEApi():
 
         self.sld_vsdi ='''<RasterSymbolizer>
               '<ColorMap type="intervals" extended="false" >'
-                '<ColorMapEntry color="#C3C3C3" quantity="0" label="No Data (-9999 or nodata)"/>'
-                '<ColorMapEntry color="#880015" quantity="2000" label="EXD (0.0 - 0.2)" />'
-                '<ColorMapEntry color="#B97A57" quantity="4000" label="SED (0.2 - 0.4)" />'
-                '<ColorMapEntry color="#F89F1D" quantity="8000" label="MOD (0.4 - 0.8)" />'
-                '<ColorMapEntry color="#88A541" quantity="10000" label="No Drought (> 0.8)" />'
+                '<ColorMapEntry color="#880015" quantity="2000" label="EXD" />'
+                '<ColorMapEntry color="#B97A57" quantity="4000" label="SED" />'
+                '<ColorMapEntry color="#F89F1D" quantity="8000" label="MOD" />'
+                '<ColorMapEntry color="#88A541" quantity="10000" label="No Drought" />'
               '</ColorMap>'
             '</RasterSymbolizer>'''
 
@@ -116,7 +115,7 @@ class GEEApi():
 
         self.sld_cdi ='''<RasterSymbolizer>'
           '<ColorMap type="intervals" extended="false" >'
-            '<ColorMapEntry color="#FFFFFF" quantity="0" label="Normal" />'
+            '<ColorMapEntry color="#88A541" quantity="0" label="Normal" />'
             '<ColorMapEntry color="#F89F1D" quantity="1" label="Watch" />'
             '<ColorMapEntry color="#B97A57" quantity="2" label="Warning" />'
             '<ColorMapEntry color="#880015" quantity="3" label="Alert" />'
@@ -740,14 +739,19 @@ class GEEApi():
         image = ic.filter(ee.Filter.eq("system:time_start",int(date))).first()
         image = image.updateMask(self.maskedArea)
 
+        style ='''<RasterSymbolizer>
+              <ColorMap type="intervals" extended="false" >
+                <ColorMapEntry color="#880015" quantity="2000" label="EXD" />
+                <ColorMapEntry color="#B97A57" quantity="4000" label="SED" />
+                <ColorMapEntry color="#F89F1D" quantity="8000" label="MOD" />
+                <ColorMapEntry color="#88A541" quantity="100000" label="No Drought" />
+              </ColorMap>
+            </RasterSymbolizer>'''
+
+
         INDEX_CLASS = {}
-        for _class in self.MAP_CLASSES:
-            if (_class['name'] == 'vsdi'):
-                style = _class['value']
-                print(_class['sld'])
-                image = image.select(_class['band'])
-                style = _class['value']
-                map_id = image.sldStyle(style).getMapId()
+        image = image.select('VSDI')
+        map_id = image.sldStyle(style).getMapId()
 
 
         return {

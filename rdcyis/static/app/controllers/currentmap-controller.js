@@ -10,8 +10,12 @@
       MapService.getSummary(parameters)
       .then(function (data) {
         $scope.SummmaryList = JSON.parse(data);
+        var _outlook_date = $scope.SummmaryList[0].Desc.split(" ")[2];
+        console.log(_outlook_date);
+        $("#map-outlook-date").text(_outlook_date);
       }, function (error) {
     });
+
 
     $scope.downloadServerURL = appSettings.downloadServerURL;
     var selectedFeature = '';
@@ -49,7 +53,7 @@
     L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckd8mk8ky0vbh1ipdns7ji9wz/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {}).addTo(map1);
     //map1.removeControl(map1.zoomControl);
     map1.touchZoom.disable();
-    map1.dragging.disable();
+    //map1.dragging.disable();
     map1.doubleClickZoom.disable();
     map1.scrollWheelZoom.disable();
     map1.createPane('currentLayer');
@@ -131,7 +135,7 @@
     L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckd8mk8ky0vbh1ipdns7ji9wz/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {}).addTo(map2);
     //map2.removeControl(map2.zoomControl);
     map2.touchZoom.disable();
-    map2.dragging.disable();
+    //map2.dragging.disable();
     map2.doubleClickZoom.disable();
     map2.scrollWheelZoom.disable();
     map2.createPane('outlookLayer');
@@ -163,7 +167,6 @@
       $scope.showOutlookLayer(2);
       var dateObj = new Date(outlookDateList[2]);
       var _date = dateObj.toISOString().slice(0,10)
-      $("#map-outlook-date").text(_date);
 
     }), function (error){
       console.log(error);
@@ -401,19 +404,16 @@
       $scope.showOutlookLayer(2);
       var dateObj = new Date(outlookDateList[2]);
       var _date = dateObj.toISOString().slice(0,10)
-      $("#map-outlook-date").text(_date);
     });
     $( "#outlook-m2" ).click(function() {
       $scope.showOutlookLayer(1);
       var dateObj = new Date(outlookDateList[1]);
       var _date = dateObj.toISOString().slice(0,10)
-      $("#map-outlook-date").text(_date);
     });
     $( "#outlook-m3" ).click(function() {
       $scope.showOutlookLayer(0);
       var dateObj = new Date(outlookDateList[0]);
       var _date = dateObj.toISOString().slice(0,10)
-      $("#map-outlook-date").text(_date);
     });
     $( "#mekong-map" ).click(function() {
       resetMap();

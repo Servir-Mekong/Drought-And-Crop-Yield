@@ -340,7 +340,7 @@
 
       $("#select-indices1 option[value=sb-vsdi]").attr('selected','selected');
       $("#select-indices2 option[value=sb-savi]").attr('selected','selected');
-      $("#select-periodicity option[value=3month]").attr('selected','selected');
+      $("#select-periodicity option[value=1year]").attr('selected','selected');
         // $scope.getDroughtData();
         // $scope.getDroughtData2();
         // $scope.getDroughtData3();
