@@ -27,7 +27,7 @@
     var compare;
 
 
-    var map = L.map('map').setView([15.255, 100.09], 5);
+    var map = L.map('map').setView([18.055, 100.09], 5);
     // Base Layers
     var basemapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckduef35613el19qlsoug6u2h/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {
     	maxZoom: 20,
@@ -409,7 +409,7 @@
         // $scope.getDroughtData();
         // $scope.getDroughtData2();
       }
-      map.fitBounds(geojsondata.getBounds());
+      //map.fitBounds(geojsondata.getBounds());
     });
 
     $("#map-select-indices1").on('change', function(){
