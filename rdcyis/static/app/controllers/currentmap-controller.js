@@ -11,7 +11,7 @@
       .then(function (data) {
         $scope.SummmaryList = JSON.parse(data);
         var _outlook_date = $scope.SummmaryList[0].Desc.split(" ")[2];
-        console.log(_outlook_date);
+        console.log("updated Date: " + _outlook_date);
         $("#map-outlook-date").text(_outlook_date);
       }, function (error) {
     });
@@ -509,6 +509,11 @@
         document.body.appendChild(a);
         a.click()
         document.body.removeChild(a);
+    });
+
+    $(".menu-tab").click(function(){
+      $(".menu-tab").removeClass("active");
+      $(this).addClass("active");
     });
 
 

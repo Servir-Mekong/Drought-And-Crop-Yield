@@ -2294,7 +2294,9 @@ table.dataTable.no-footer {
   font-size: 16px;
   font-weight: 600;
 }
-
+.menu-tab a {
+  color: #FFF;
+}
 .menu-tab.active{
   border-top: 3px solid #FFF;
 }
