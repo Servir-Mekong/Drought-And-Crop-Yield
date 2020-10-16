@@ -1,7 +1,7 @@
 (function () {
 
   'use strict';
-  angular.module('landcoverportal')
+  angular.module('mekongDroughtandCropWatch')
   .controller('MapController', function ($http, $rootScope, $scope, $sanitize, $timeout, appSettings, MapService) {
 
 

@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	angular.module('landcoverportal')
+	angular.module('mekongDroughtandCropWatch')
 	.service('MapService', function ($http, $q) {
 		var service = this;
 
@@ -113,6 +113,32 @@
 				params: {
 					action: 'get-summary',
 					date: options.date,
+				}
+			};
+			var promise = $http.get('/api/mapclient/', config)
+			.then(function (response) {
+				return response.data;
+			});
+			return promise;
+		};
+
+		service.getFeatureArticles = function (options) {
+			var config = {
+				params: {
+					action: 'get-feature-articles'
+				}
+			};
+			var promise = $http.get('/api/mapclient/', config)
+			.then(function (response) {
+				return response.data;
+			});
+			return promise;
+		};
+
+		service.getKnowledgeCenter = function (options) {
+			var config = {
+				params: {
+					action: 'get-knowledge-center'
 				}
 			};
 			var promise = $http.get('/api/mapclient/', config)

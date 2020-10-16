@@ -435,5 +435,5 @@ var settings = {
         ]
 };
 
-angular.module('landcoverportal')
+angular.module('mekongDroughtandCropWatch')
 .constant('appSettings', settings);

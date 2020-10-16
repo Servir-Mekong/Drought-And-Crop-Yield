@@ -797,3 +797,25 @@ class GEEApi():
         # res_list = sorted(res_list, key=lambda x: int(x['Order']), reverse=True)
         list_as_json = json.dumps(res_list)
         return list_as_json
+
+    # -------------------------------------------------------------------------
+    def get_feature_articles(request):
+        scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+        creds = ServiceAccountCredentials.from_json_keyfile_name('credentials/privatekey.json', scope)
+        client = gspread.authorize(creds)
+        sheet = client.open('feature-articles').sheet1
+        res_list = sheet.get_all_records()
+        # res_list = sorted(res_list, key=lambda x: int(x['Order']), reverse=True)
+        list_as_json = json.dumps(res_list)
+        return list_as_json
+
+    # -------------------------------------------------------------------------
+    def get_knowledge_center(request):
+        scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+        creds = ServiceAccountCredentials.from_json_keyfile_name('credentials/privatekey.json', scope)
+        client = gspread.authorize(creds)
+        sheet = client.open('knowledge-center').sheet1
+        res_list = sheet.get_all_records()
+        # res_list = sorted(res_list, key=lambda x: int(x['Order']), reverse=True)
+        list_as_json = json.dumps(res_list)
+        return list_as_json

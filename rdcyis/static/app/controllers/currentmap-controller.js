@@ -1,8 +1,9 @@
 (function () {
 
   'use strict';
-  angular.module('landcoverportal')
+  angular.module('mekongDroughtandCropWatch')
   .controller('CurrentMapController', function ($http, $rootScope, $scope, $sanitize, $timeout, appSettings, MapService) {
+    $scope.showLoader = true;
 
     //Get Drought Summary content from Google Sheet
     $scope.SummmaryList = [];

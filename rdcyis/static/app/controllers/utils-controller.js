@@ -1,7 +1,7 @@
 (function() {
 
     'use strict';
-    angular.module('landcoverportal')
+    angular.module('mekongDroughtandCropWatch')
         .controller('utilsController', function ($rootScope, $scope, appSettings) {
 
 

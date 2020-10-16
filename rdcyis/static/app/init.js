@@ -4,11 +4,11 @@
     // Bootstrap the app once
     angular.element(document).ready(function() {
         console.log('Bootstraping the app');
-        angular.bootstrap(document.body, ['landcoverportal']);
+        angular.bootstrap(document.body, ['mekongDroughtandCropWatch']);
     });
 
     // All the dependencies come here
-    angular.module('landcoverportal', ['ngSanitize', 'ngStorage'],
+    angular.module('mekongDroughtandCropWatch', ['ngSanitize', 'ngStorage'],
             function($interpolateProvider) {
                 $interpolateProvider.startSymbol('[[');
                 $interpolateProvider.endSymbol(']]');

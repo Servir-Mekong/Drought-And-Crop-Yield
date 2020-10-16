@@ -3,7 +3,7 @@
     'use strict';
     // a directive to auto-collapse long text
     // in elements with the "text-collapse" attribute
-    angular.module('landcoverportal')
+    angular.module('mekongDroughtandCropWatch')
         .directive('textCollapse', ['$compile', function($compile) {
 
             return {

@@ -1010,6 +1010,51 @@ section {
   margin-bottom: 0;
 }
 
+/*--------------------------------------------------------------
+# Feature Articles
+--------------------------------------------------------------*/
+.feature-articles-title h2{
+  text-align: right;
+  padding-bottom: 0;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+  color: #5d4f3f;
+}
+
+.feature-articles-title p{
+  text-align: left;
+  padding-bottom: 0;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding-bottom: 0;
+  color: #5d4f3f;
+}
+
+.feature-articles-title hr{
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.side-menu {
+  background: #f9f6f1;
+}
+
+.side-menu a, .feature-box a{
+  font-size: 14px;
+}
+
+.feature-box {
+  border: 1px solid #eee;
+  margin-bottom: 20px;
+}
+.feature-img{
+  height: 200px;
+}
 
 /*--------------------------------------------------------------
 # about

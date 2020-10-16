@@ -22,27 +22,69 @@
     </div>
   </div>
   <main id="main">
-    <div class="container">
+    <div class="container" ng-controller="FeatureController">
+      <div id="loader" class="loader" ng-show="showLoader">
+        <div class="loading-img"></div>
+      </div>
       <div class="row">
-        <div class="col-lg-12 col-md-6">
-          <div class="panel panel-danger" style="background-color:#ebccd1; margin-top: 50px; padding:15px;">
-            <div class="panel-body">
-              <p>
-                <span>
-                  <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
-                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                  </svg>
-                </span>
-                <b style="font-size:36px;">Page Under Construction </b>
-              </p>
-              <h4 class="text-justify">
-                  Invite you to come back here soon
-              </h4>
-
+          <div class="col-lg-3 col-md-6 side-menu">
+            <div class="feature-articles-title">
+              <p>FEATURE ARTICLES</p>
+              <hr>
+            </div>
+            <div class="col-lg-12">
+              <ul style="list-style-type: circle;margin-left: 20px;">
+                <li ng-repeat="feature in featureArticles"> <a href="[[feature.Link]]" target="_blank">[[feature.Title]]</a> </li>
+              </ul>
+            </div>
+            <div class="feature-articles-title">
+              <p>KNOWLEDGE CENTER</p>
+              <hr>
+            </div>
+            <div class="col-lg-12">
+              <ul style="list-style-type: circle;margin-left: 20px;">
+                <li ng-repeat="item in knowledgeCenter"> <a href="[[item.Link]]" target="_blank">[[item.Title]]</a> </li>
+              </ul>
             </div>
           </div>
-        </div>
+          <div class="col-lg-9 col-md-6 main-content">
+            <div class="row">
+              <div class="col-lg-12 col-md-6">
+                <div class="feature-articles-title">
+                  <h2>FEATURE ARTICLES</h2>
+                  <hr>
+                </div>
+
+                  <div class="row">
+                    <div class="col-lg-4 col-md-6 text-center"  ng-repeat="feature in featureArticles">
+                      <div class="feature-box">
+                        <div class="feature-img" style="background-image:url([[feature.Image]]); background-position: top; background-repeat: no-repeat; background-size: cover;">
+                        </div>
+                        <a href="[[feature.Link]]" target="_blank">[[feature.Title]]</a>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-lg-12 col-md-6">
+                <div class="feature-articles-title">
+                  <h2>KNOWLEDGE CENTER</h2>
+                  <hr>
+                </div>
+
+                  <div class="row">
+                    <div class="col-lg-4 col-md-6 text-center"  ng-repeat="item in knowledgeCenter">
+                      <div class="feature-box">
+                        <div class="feature-img" style="background-image:url([[item.Image]]); background-position: top; background-repeat: no-repeat; background-size: cover;">
+                        </div>
+                        <a href="[[item.Link]]" target="_blank">[[item.Title]]</a>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+            </div>
+
+          </div>
 
       </div>
     </div>

@@ -3,7 +3,7 @@
     'use strict';
     // a directive to auto-collapse long text
     // in elements with the "text-collapse" attribute
-    angular.module('landcoverportal')
+    angular.module('mekongDroughtandCropWatch')
         .directive('validateEmail', function () {
             var EMAIL_REGEXP = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
         
