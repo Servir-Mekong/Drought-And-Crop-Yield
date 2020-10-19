@@ -1044,10 +1044,17 @@ section {
   background: #f9f6f1;
 }
 
-.side-menu a, .feature-box a{
+.feature-box a{
   font-size: 14px;
+  font-weight: 600;
+  color: #877664;
 }
 
+.side-menu a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #877664;
+}
 .feature-box {
   border: 1px solid #eee;
   margin-bottom: 20px;
