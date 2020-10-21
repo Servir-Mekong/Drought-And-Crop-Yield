@@ -464,7 +464,7 @@
     });
 
     $("#current-btn-download").click(function(){
-      var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/eo_based/vsdi/vsdi_'+selectedCurrentDate+'_mekong.tif';
+      var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/eo_based/vsdi/mekong/vsdi_'+selectedCurrentDate+'_mekong.tif';
       var file_path = DownloadURL;
 				var a = document.createElement('A');
 				a.href = file_path;

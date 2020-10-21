@@ -275,10 +275,10 @@
       var sensortype = $("#map-select-indices1 option:selected").val().split("-")[0];
       console.log(sensortype);
       var DownloadURL = '';
-      if(sensortype === 'sb'){
+      if(sensortype === 'sb' || selectedopt ==='kbdi'){
         selected_date = selected_date.replace('-', '_');
         selected_date = selected_date.replace('-', '_');
-        DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/eo_based/'+ selectedopt + '/myanmar/' +selectedopt+'_'+selected_date+'_myanmar.tif';
+        DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/eo_based/'+ selectedopt + '/mekong/' +selectedopt+'_'+selected_date+'_mekong.tif';
       }else{
         DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/rheas_based/'+ selectedopt + '/8day/' +selectedopt+'_8day_'+selected_date+'.tif';
       }
