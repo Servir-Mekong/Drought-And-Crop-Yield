@@ -782,8 +782,9 @@ class GEEApi():
     # -------------------------------------------------------------------------
     def get_date_outlook(self):
         _oneMonthAgo = (datetime.today() - DT.timedelta(days = 30 )).strftime('%Y-%m-%d')
-        _currentDate = datetime.today().strftime('%Y-%m-%d')
-        ic = ee.ImageCollection(settings.FRONT_RCDI).filterDate(_oneMonthAgo, "2040-01-01").sort("system:time_start", False)
+        _currentDate = datetime.today().strftime('%Y-%m')
+        _currentDate = _currentDate+"-01"
+        ic = ee.ImageCollection(settings.FRONT_RCDI).filterDate(_currentDate, "2050-01-01").sort("system:time_start", True)
         dates = ee.List(ic.aggregate_array("system:time_start")).getInfo()
         return dates
 

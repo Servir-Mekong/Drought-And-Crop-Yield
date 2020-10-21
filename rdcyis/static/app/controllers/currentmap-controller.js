@@ -165,8 +165,9 @@
     MapService.get_outlook_date(parametersOutlook)
     .then(function (result){
       outlookDateList = result;
-      $scope.showOutlookLayer(2);
-      var dateObj = new Date(outlookDateList[2]);
+      console.log(result)
+      $scope.showOutlookLayer(0);
+      var dateObj = new Date(outlookDateList[0]);
       var _date = dateObj.toISOString().slice(0,10)
 
     }), function (error){
@@ -402,19 +403,13 @@
 
 
     $( "#outlook-m1" ).click(function() {
-      $scope.showOutlookLayer(2);
-      var dateObj = new Date(outlookDateList[2]);
-      var _date = dateObj.toISOString().slice(0,10)
+      $scope.showOutlookLayer(0);
     });
     $( "#outlook-m2" ).click(function() {
       $scope.showOutlookLayer(1);
-      var dateObj = new Date(outlookDateList[1]);
-      var _date = dateObj.toISOString().slice(0,10)
     });
     $( "#outlook-m3" ).click(function() {
-      $scope.showOutlookLayer(0);
-      var dateObj = new Date(outlookDateList[0]);
-      var _date = dateObj.toISOString().slice(0,10)
+      $scope.showOutlookLayer(2);
     });
     $( "#mekong-map" ).click(function() {
       resetMap();
@@ -479,7 +474,7 @@
     });
 
     $("#btn-download-outlook1m").click(function(){
-      var dateObj = new Date(outlookDateList[2]);
+      var dateObj = new Date(outlookDateList[0]);
       var _date = dateObj.toISOString().slice(0,10)
       var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/rheas_based/front_rcdi/front_rcdi_'+_date+'_mekong.tif';
       var file_path = DownloadURL;
@@ -501,7 +496,7 @@
         document.body.removeChild(a);
     });
     $("#btn-download-outlook3m").click(function(){
-      var dateObj = new Date(outlookDateList[0]);
+      var dateObj = new Date(outlookDateList[2]);
       var _date = dateObj.toISOString().slice(0,10)
       var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/rheas_based/front_rcdi/front_rcdi_'+_date+'_mekong.tif';
       var file_path = DownloadURL;
