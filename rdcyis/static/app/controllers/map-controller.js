@@ -3,9 +3,6 @@
   'use strict';
   angular.module('mekongDroughtandCropWatch')
   .controller('MapController', function ($http, $rootScope, $scope, $sanitize, $timeout, appSettings, MapService) {
-
-
-
     $scope.variables = appSettings.variables;
     $scope.periodicity = appSettings.periodicity;
     $scope.areaIndexSelectors = appSettings.areaIndexSelectors;
@@ -25,7 +22,6 @@
     var lwmsLayer;
     var rwmsLayer;
     var compare;
-
 
     var map = L.map('map').setView([18.055, 100.09], 5);
     // Base Layers
@@ -72,6 +68,7 @@
             color: '#ffffff'
         };
     }
+    // highlight polygon style
   	var highlight = {
   		'fillColor': 'blue',
   		'weight': 2,
@@ -80,13 +77,12 @@
       'fillOpacity': 0,
   	};
 
-    geojsondata = L.geoJson(mekong,{
-        style: style,
-        onEachFeature: onEachCountry,
-        pane: 'admin'
-      }).addTo(map);
+    // geojsondata = L.geoJson(mekong,{
+    //     style: style,
+    //     onEachFeature: onEachCountry,
+    //     pane: 'admin'
+    //   }).addTo(map);
     //map.fitBounds(geojsondata.getBounds());
-
 
     function onEachCountry(feature, layer) {
       layer.on("click", function (e) {

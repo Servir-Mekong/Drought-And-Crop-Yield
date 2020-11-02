@@ -109,7 +109,7 @@
 }
 
 .control-panel {
-    top: 15%;
+    top: 5%;
     right: 10px;
     width: 38px;
 }
@@ -720,7 +720,7 @@ ul {
   background: #FFF;
   color: #343a40;
   right: 55px;
-  margin-top: 300px;
+  margin-top: 220px;
   padding: 10px;
 }
 

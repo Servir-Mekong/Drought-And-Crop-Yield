@@ -33,6 +33,11 @@ hr {
   height: 10px;
 }
 
+.hr-feature{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+}
 
 .intensity-table table td, .intensity-table table th {
   height: 2rem;

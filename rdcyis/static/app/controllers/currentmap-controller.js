@@ -112,14 +112,14 @@
       };
 
     $scope.currentLayer = function(index) {
+      if(map1.hasLayer(currentLayer)){
+        map1.removeLayer(currentLayer);
+      }
       var parameters = {
         date: currentDateList[index],
       };
       MapService.get_map_current_id(parameters)
       .then(function (result){
-        if(map1.hasLayer(currentLayer)){
-          map1.removeLayer(currentLayer);
-        }
         currentLayer = addMapLayer(currentLayer, result.eeMapURL, 'currentLayer');
         $scope.showLoader = false;
 
@@ -175,14 +175,14 @@
     };
 
     $scope.showOutlookLayer = function(index) {
+      if(map2.hasLayer(outlookLayer)){
+        map2.removeLayer(outlookLayer);
+      }
       var parameters = {
         date: outlookDateList[index],
       };
       MapService.get_outlook_map_id(parameters)
       .then(function (result){
-        if(map1.hasLayer(outlookLayer)){
-          map1.removeLayer(outlookLayer);
-        }
         outlookLayer = addOutlookLayer(outlookLayer, result.eeMapURL, 'outlookLayer');
         $scope.showLoader = false;
 
@@ -192,41 +192,6 @@
       };
 
     };
-
-    ////////////////////////////Current Condition Map////////////////////////////
-    // var wmsCurrentConditionLayer= L.tileLayer.wms("https://geoserver.adpc.net/geoserver/rdcyis-eo_based/wms", {
-    // format: 'image/png',
-    // layers: 'rdcyis-eo_based:front_gcdi_mekong_2020_01_01',
-    // format: 'image/png',
-    // version: '1.3.0',
-    // styles:'intensity-drought',
-    // transparent: true,
-    // });
-    // wmsCurrentConditionLayer.addTo(map1);
-
-    ////////////////////////////Outlooks Map////////////////////////////
-    // function showOutlookLayer(m){
-    //   if(map2.hasLayer(wmsOutlookLayer)){
-    //     map2.removeLayer(wmsOutlookLayer);
-    //   }
-    //   if(m==="m1"){
-    //     var layer_id = 'rdcyis-rheas_based:front_rcdi_mekong_2020_01';
-    //   }else if (m==="m2") {
-    //     var layer_id = 'rdcyis-rheas_based:front_rcdi_mekong_2020_02';
-    //   }else if (m==="m3") {
-    //     var layer_id = 'rdcyis-rheas_based:front_rcdi_mekong_2020_03';
-    //   }
-    //   var wmsOutlookLayer= L.tileLayer.wms("https://geoserver.adpc.net/geoserver/rdcyis-rheas_based/wms", {
-    //   format: 'image/png',
-    //   layers: layer_id,
-    //   format: 'image/png',
-    //   version: '1.3.0',
-    //   styles:'intensity-drought',
-    //   transparent: true,
-    //   });
-    //   wmsOutlookLayer.addTo(map2);
-    // }
-    // showOutlookLayer("m1");
 
     //////////////////////////////Regoin Boundary onclick event////////////////////////////////////
     function geojsonFilter(feature) {

@@ -74,8 +74,8 @@ class GEEApi():
                 '<ColorMapEntry color="#C3C3C3" quantity="-9999" label="No Data (-9999 or nodata)"/>'
                 '<ColorMapEntry color="#880015" quantity="2000" label="EXD (0.0 - 0.2)" />'
                 '<ColorMapEntry color="#B97A57" quantity="4000" label="SED (0.2 - 0.4)" />'
-                '<ColorMapEntry color="#F89F1D" quantity="8000" label="MOD (0.4 - 0.8)" />'
-                '<ColorMapEntry color="#88A541" quantity="10000" label="No Drought (> 0.8)" />'
+                '<ColorMapEntry color="#F89F1D" quantity="7000" label="MOD (0.4 - 0.7)" />'
+                '<ColorMapEntry color="#88A541" quantity="10000" label="No Drought (> 0.7)" />'
               '</ColorMap>'
             '</RasterSymbolizer>'''
 
@@ -92,7 +92,7 @@ class GEEApi():
               '<ColorMap type="intervals" extended="false" >'
                 '<ColorMapEntry color="#880015" quantity="2000" label="EXD" />'
                 '<ColorMapEntry color="#B97A57" quantity="4000" label="SED" />'
-                '<ColorMapEntry color="#F89F1D" quantity="8000" label="MOD" />'
+                '<ColorMapEntry color="#F89F1D" quantity="7000" label="MOD" />'
                 '<ColorMapEntry color="#88A541" quantity="10000" label="No Drought" />'
               '</ColorMap>'
             '</RasterSymbolizer>'''
@@ -698,6 +698,8 @@ class GEEApi():
                 style = _class['value']
                 print(_class['sld'])
                 image = image.select(_class['band'])
+                imgScale = image.projection().nominalScale()
+                image = image.reproject(crs='EPSG:4326', scale=imgScale)
                 if (_class['sld'] == 'True'):
                     style = _class['value']
                     map_id = image.sldStyle(style).getMapId()
@@ -743,7 +745,7 @@ class GEEApi():
               <ColorMap type="intervals" extended="false" >
                 <ColorMapEntry color="#880015" quantity="2000" label="EXD" />
                 <ColorMapEntry color="#B97A57" quantity="4000" label="SED" />
-                <ColorMapEntry color="#F89F1D" quantity="8000" label="MOD" />
+                <ColorMapEntry color="#F89F1D" quantity="7000" label="MOD" />
                 <ColorMapEntry color="#88A541" quantity="100000" label="No Drought" />
               </ColorMap>
             </RasterSymbolizer>'''
@@ -751,6 +753,8 @@ class GEEApi():
 
         INDEX_CLASS = {}
         image = image.select('VSDI')
+        imgScale = image.projection().nominalScale()
+        image = image.reproject(crs='EPSG:4326', scale=imgScale)
         map_id = image.sldStyle(style).getMapId()
 
 
@@ -773,6 +777,8 @@ class GEEApi():
                 print(_class['sld'])
                 image = image.select(_class['band'])
                 style = _class['value']
+                imgScale = image.projection().nominalScale()
+                image = image.reproject(crs='EPSG:4326', scale=imgScale)
                 map_id = image.sldStyle(style).getMapId()
 
         return {

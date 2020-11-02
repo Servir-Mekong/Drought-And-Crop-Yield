@@ -34,7 +34,10 @@
             </div>
             <div class="col-lg-12">
               <ul style="list-style-type: circle;margin-left: 20px;">
-                <li ng-repeat="feature in featureArticles"> <a href="[[feature.Link]]" target="_blank">[[feature.Title]]</a> </li>
+                <li ng-repeat="feature in featureArticles">
+                  <a href="[[feature.Link]]" target="_blank">[[feature.Title]]</a>
+                  <hr class="hr-feature">
+                </li>
               </ul>
             </div>
             <div class="feature-articles-title">
@@ -43,7 +46,10 @@
             </div>
             <div class="col-lg-12">
               <ul style="list-style-type: circle;margin-left: 20px;">
-                <li ng-repeat="item in knowledgeCenter"> <a href="[[item.Link]]" target="_blank">[[item.Title]]</a> </li>
+                <li ng-repeat="item in knowledgeCenter">
+                  <a href="[[item.Link]]" target="_blank">[[item.Title]]</a>
+                  <hr class="hr-feature">
+                </li>
               </ul>
             </div>
           </div>
