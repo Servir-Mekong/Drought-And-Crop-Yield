@@ -12,7 +12,6 @@
       .then(function (data) {
         $scope.SummmaryList = JSON.parse(data);
         var _outlook_date = $scope.SummmaryList[0].Desc.split(" ")[2];
-        console.log("updated Date: " + _outlook_date);
         $("#map-outlook-date").text(_outlook_date);
       }, function (error) {
     });
@@ -165,7 +164,6 @@
     MapService.get_outlook_date(parametersOutlook)
     .then(function (result){
       outlookDateList = result;
-      console.log(result)
       $scope.showOutlookLayer(0);
       var dateObj = new Date(outlookDateList[0]);
       var _date = dateObj.toISOString().slice(0,10)
