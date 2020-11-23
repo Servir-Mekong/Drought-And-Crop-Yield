@@ -1,0 +1,33 @@
+
+#report hr {
+  width: 100%;
+}
+
+#report .section-break {
+  width: 100%;
+  border-top: 2px dashed #a5a2a2;
+}
+
+#report .summary-text {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#report .title-text{
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+#report .title-text span{
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#report .map-title{
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  text-align: center;
+}

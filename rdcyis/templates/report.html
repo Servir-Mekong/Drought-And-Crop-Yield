@@ -22,26 +22,100 @@
     </div>
   </div>
   <main id="main">
-    <div class="container">
+    <div id="report" class="container" ng-controller="ReportController">
       <div class="row">
+
         <div class="col-lg-12 col-md-6">
-          <div class="panel panel-danger" style="background-color:#ebccd1; margin-top: 50px; padding:15px;">
-            <div class="panel-body">
-              <p>
-                <span>
-                  <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
-                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                  </svg>
-                </span>
-                <b style="font-size:36px;">Page Under Construction </b>
-              </p>
-              <h4 class="text-justify">
-                  Invite you to come back here soon
-              </h4>
+          <div class="row">
+            <div class="col-lg-6 col-md-6">
+              <p class="title-text">WEEKLY DROUGHT BULLETIN </p>
+              <span> Prepared on YYYY-MM-DD </span>
+            </div>
+            <div class="col-lg-6 col-md-6" style="text-align: right;">
+              <!-- <a href="#"><img src="/static/images/icons/drought-color-icon.png" alt="Mekong Drought and Crop watch" height="30px"></a> -->
+              <a href="#"><img src="/static/images/partners/servir-mekong.png" alt="Mekong Drought and Crop watch" height="20px"></a>
+              <p>Generated from Mekong Drought and Crop Watch</p>
+            </div>
+            <hr>
+            <div class="col-lg-12 col-md-6">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <p class="map-title">Current Rainfall</p>
+                  <span>Condition (Past Week)</span>
+                  <div id="rainfallMap" class="col-lg-12 col-md-6"style="height:500px;width:100%;border:1px solid #eee;">
+
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <p class="map-title">Current Meteorological Drought</p>
+                   <span>Condition (Past Week)</span>
+                  <div id="meteorologicalMap" class="col-lg-12 col-md-6"style="height:500px;width:100%;border:1px solid #eee;">
+
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <p class="map-title">Current Agricultural Drought</p>
+                   <span>Condition (Past Week)</span>
+                  <div id="agriculturalMap" class="col-lg-12 col-md-6"style="height:500px;width:100%;border:1px solid #eee;">
+
+                  </div>
+                </div>
+              </div>
 
             </div>
+
+            <div class="col-lg-12 col-md-6">
+              <p class="summary-text">Summary of Current Condition:</p>
+              <textarea id="w3review" name="w3review" rows="4" cols="50" style="width:100%">
+                Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here
+              </textarea>
+
+            </div>
+            <hr class="section-break">
+
           </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-6">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <p class="map-title"> Rainfall </p>
+                  <span>Outlook (This Week)</span>
+                  <div class="row">
+
+                  </div>
+                  <div id="rainfallMap_outlook" class="col-lg-12 col-md-6"style="height:500px;width:100%;border:1px solid #eee;">
+
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <p class="map-title"> Meteorological Drought </p>
+                  <span>Outlook (This Week)</span>
+                  <div id="meteorologicalMap_outlook" class="col-lg-12 col-md-6"style="height:500px;width:100%;border:1px solid #eee;">
+
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <p class="map-title"> Agricultural Drough </p>
+                  <span>Outlook (This Week)</span>
+                  <div id="agriculturalMap_outlook" class="col-lg-12 col-md-6"style="height:500px;width:100%;border:1px solid #eee;">
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-lg-12 col-md-6">
+              <p class="summary-text">Summary of Current Condition:</p>
+              <textarea id="w3review" name="w3review" rows="4" cols="50" style="width:100%">
+                Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here
+              </textarea>
+            </div>
+            <hr class="section-break">
+
+          </div>
+
         </div>
 
       </div>
