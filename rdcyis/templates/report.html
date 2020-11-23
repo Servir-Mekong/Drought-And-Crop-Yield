@@ -22,14 +22,19 @@
     </div>
   </div>
   <main id="main">
-    <div id="report" class="container" ng-controller="ReportController">
+    <div class="container" ng-controller="ReportController">
+      <div id="loader" class="loader" ng-show="showLoader">
+        <div class="loading-img"></div>
+      </div>
+      <input type="button" id="btnSave" value="Save PNG"/>
+    <div id="report">
       <div class="row">
 
         <div class="col-lg-12 col-md-6">
           <div class="row">
             <div class="col-lg-6 col-md-6">
               <p class="title-text">WEEKLY DROUGHT BULLETIN </p>
-              <span> Prepared on YYYY-MM-DD </span>
+              <span> Prepared on <input type="text" name="" value=""/ style="border: none;background: #f8f9fa;"></span>
             </div>
             <div class="col-lg-6 col-md-6" style="text-align: right;">
               <!-- <a href="#"><img src="/static/images/icons/drought-color-icon.png" alt="Mekong Drought and Crop watch" height="30px"></a> -->
@@ -66,8 +71,8 @@
 
             <div class="col-lg-12 col-md-6">
               <p class="summary-text">Summary of Current Condition:</p>
-              <textarea id="summary-past" name="w3review" rows="4" cols="50" style="width:100%">
-                Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here
+              <textarea id="summary-past" name="w3review" rows="4" cols="50" style="width:100%;border: none;background: #f8f9fa;">
+
               </textarea>
 
             </div>
@@ -108,8 +113,7 @@
 
             <div class="col-lg-12 col-md-6">
               <p class="summary-text">Summary of Current Condition:</p>
-              <textarea id="summary-outlook" name="w3review" rows="4" cols="50" style="width:100%">
-                Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here. Add Text Here
+              <textarea id="summary-outlook" name="w3review" rows="4" cols="50" style="width:100%;border: none;background: #f8f9fa;">
               </textarea>
             </div>
             <hr class="section-break">

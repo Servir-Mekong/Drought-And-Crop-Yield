@@ -9,7 +9,7 @@
     $scope.downloadServerURL = appSettings.downloadServerURL;
     $scope.legendsSB = appSettings.legendsSB;
     $scope.droughtLegend = appSettings.droughtLegend;
-    $scope.showLoader = true;
+    //$scope.showLoader = true;
     var geojsondata, geojsonClipedBasin, wmsLayer, selectedFeature, selectedAreaLevel;
     var areaid0 = '';
     var areaid1 = '';
@@ -17,6 +17,10 @@
     var selectedArea = 'Mekong region';
     var rainfallMap= null;
     var meteorologicalMap = null;
+    var agriculturalMap= null;
+    var rainfallMap_outlook = null;
+    var meteorologicalMap_outlook= null;
+    var agriculturalMap_outlook = null;
 
     // mapArr = [rainfallMap, meteorologicalMap, agriculturalMap];
     //var mapArrText = ['rainfallMap', 'meteorologicalMap', 'agriculturalMap'];
@@ -30,11 +34,6 @@
         'mapArr': meteorologicalMap,
         'mapArrText': 'meteorologicalMap',
         'mapDataset': 'mb-spi1'
-      },
-      {
-        'mapArr': agriculturalMap,
-        'mapArrText': 'agriculturalMap',
-        'mapDataset': 'sb-vsdi'
       },
       {
         'mapArr': agriculturalMap,
@@ -135,7 +134,7 @@
 
 
     $scope.showWMSLayer = function(map,mapContainer, dataset) {
-
+      $scope.showLoader = true;
       var parameters = {
         dataset: dataset,
       };
@@ -167,13 +166,12 @@
               }).addTo(map);
             map.fitBounds(geojsondata.getBounds());
 
-
-
           if(map.hasLayer(wmsLayer)){
             map.removeLayer(wmsLayer);
           }
           wmsLayer = addMapLayer(map, wmsLayer, result.eeMapURL, 'droughtwmsLayer');
           $scope.showLoader = false;
+
 
         }), function (error){
           console.log(error);
@@ -186,6 +184,7 @@
     };
 
     for(var i=0; i<mapCont.length; i++){
+      $scope.showLoader = true;
       $scope.showWMSLayer(mapCont[i]["mapArr"], mapCont[i]["mapArrText"], mapCont[i]["mapDataset"]);
     }
 
@@ -320,6 +319,24 @@ function genAreaChart(categoriesData, data1, average, chartid){
   });
 
 }
+
+
+  $("#btnSave").click(function() {
+    var node = document.getElementById('report');
+    domtoimage.toPng(node)
+        .then(function (dataUrl) {
+            var img = new Image();
+            img.src = dataUrl;
+            console.log(dataUrl);
+            var a = document.createElement("a");
+            a.href = dataUrl;
+            a.setAttribute("download", 'mdcw_report.png');
+            a.click();
+        })
+        .catch(function (error) {
+            console.error('oops, something went wrong!', error);
+      });
+  });
 
 
 
