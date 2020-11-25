@@ -43,17 +43,17 @@
       {
         'mapArr': rainfallMap_outlook,
         'mapArrText': 'rainfallMap_outlook',
-        'mapDataset': 'sb-rainf'
+        'mapDataset': 'mb-rainf'
       },
       {
         'mapArr': meteorologicalMap_outlook,
         'mapArrText': 'meteorologicalMap_outlook',
-        'mapDataset': 'sb-spi1'
+        'mapDataset': 'mb-spi1'
       },
       {
         'mapArr': agriculturalMap_outlook,
         'mapArrText': 'agriculturalMap_outlook',
-        'mapDataset': 'sb-vsdi'
+        'mapDataset': 'mb-rootmoist'
       }
     ];
 
@@ -130,9 +130,6 @@
           }
 
 
-
-
-
     $scope.showWMSLayer = function(map,mapContainer, dataset) {
       $scope.showLoader = true;
       var parameters = {
@@ -140,9 +137,34 @@
       };
       MapService.get_date_list(parameters)
       .then(function (result){
+        var dateAgo = [];
+        var dateOutlook = [];
+        var currentDate = new Date();
+        var month_ago = new Date(currentDate.getTime() - (30 * 24 * 60 * 60 * 1000));
+        var outlook_1 = new Date(currentDate.getTime() + (7 * 24 * 60 * 60 * 1000));
+        var day =currentDate.getDate();
+        var month=currentDate.getMonth()+1;
+        var year=currentDate.getFullYear();
+        //var _7ago = new Date("2015-03-25");
+        result.forEach(function(item, index){
+          if(new Date(item) > month_ago && new Date(item) < currentDate){
+            dateAgo.push(item);
+          }
+          if(new Date(item) > currentDate && new Date(item) < outlook_1){
+            dateOutlook.push(item);
+          }
+        });
+        if(mapContainer === "rainfallMap" || mapContainer === "meteorologicalMap" || mapContainer === "agriculturalMap"){
+          var map_date = dateAgo.reverse()[0];
+          console.log(mapContainer +" "+map_date);
+        }else{
+          var map_date = dateOutlook.reverse()[0];
+          //var map_date = year+"-"+month+"-"+day;
+          console.log(mapContainer +" "+map_date);
+        }
         var parameters = {
           dataset: dataset,
-          date: result[0],
+          date: map_date,
         };
         MapService.get_map_id(parameters)
         .then(function (result){
@@ -327,7 +349,6 @@ function genAreaChart(categoriesData, data1, average, chartid){
         .then(function (dataUrl) {
             var img = new Image();
             img.src = dataUrl;
-            console.log(dataUrl);
             var a = document.createElement("a");
             a.href = dataUrl;
             a.setAttribute("download", 'mdcw_report.png');
