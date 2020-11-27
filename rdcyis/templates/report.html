@@ -26,13 +26,13 @@
       <div id="loader" class="loader" ng-show="showLoader">
         <div class="loading-img"></div>
       </div>
-      <input type="button" id="btnSave" value="Save PNG"/>
-      <input type="button" id="btnExport" value="Export PDF"/>
+      <input type="button" id="btnSave" value="Save PNG"/ style="background: #f2b464;border: none;color: #FFF;margin-bottom:15px;">
+      <input type="button" id="btnExport" value="Export PDF"/ style="background: #f2b464;border: none;color: #FFF;margin-bottom:15px;">
     <div id="report">
       <div class="row">
 
         <div class="col-lg-12 col-md-6">
-          <div class="row">
+          <div class="row" id="current-map">
             <div class="col-lg-6 col-md-6">
               <p class="title-text">WEEKLY DROUGHT BULLETIN (Under Development)</p>
               <span> Prepared on <input type="text" name="" value=""/ style="border: none;background: #f8f9fa;"></span>
@@ -77,11 +77,12 @@
               </textarea>
 
             </div>
-            <hr class="section-break">
+
 
           </div>
+            <hr class="section-break">
 
-          <div class="row">
+          <div class="row" id="outlook-map">
             <div class="col-lg-12 col-md-6">
               <div class="row">
                 <div class="col-lg-4 col-md-6">
@@ -114,12 +115,12 @@
 
             <div class="col-lg-12 col-md-6">
               <p class="summary-text">Summary of Current Condition:</p>
-              <textarea id="summary-outlook" name="w3review" rows="4" cols="50" style="width:100%;border: none;background: #f8f9fa;">
-              </textarea>
+              <textarea id="summary-outlook" name="w3review" rows="4" cols="50" style="width:100%;border: none;background: #f8f9fa;"></textarea>
             </div>
-            <hr class="section-break">
+
 
           </div>
+            <hr class="section-break">
 
         </div>
 

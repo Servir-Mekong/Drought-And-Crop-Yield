@@ -193,6 +193,8 @@
 
     //////////////////////////////Regoin Boundary onclick event////////////////////////////////////
     function geojsonFilter(feature) {
+
+      //toggle show/hide the summary content each of country
       for(var i=0; i<summaryCountryName.length; i++){
         if(summaryCountryName[i] === selectedFeature){
           document.getElementById(summaryCountryName[i]).classList.add("show-element");

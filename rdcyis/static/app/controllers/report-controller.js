@@ -9,21 +9,25 @@
     $scope.downloadServerURL = appSettings.downloadServerURL;
     $scope.legendsSB = appSettings.legendsSB;
     $scope.droughtLegend = appSettings.droughtLegend;
+    var selectedFeature = '';
+    var selectedADM1Feature = '';
     //$scope.showLoader = true;
     var geojsondata, geojsonClipedBasin, wmsLayer, selectedFeature, selectedAreaLevel;
     var areaid0 = '';
     var areaid1 = '';
     var type = 'mekong_country';
     var selectedArea = 'Mekong region';
-    var rainfallMap= null;
-    var meteorologicalMap = null;
-    var agriculturalMap= null;
-    var rainfallMap_outlook = null;
-    var meteorologicalMap_outlook= null;
-    var agriculturalMap_outlook = null;
+    var rainfallMap=   L.map('rainfallMap').setView([18.055, 100.09], 5);
+    var meteorologicalMap =   L.map('meteorologicalMap').setView([18.055, 100.09], 5);
+    var agriculturalMap=   L.map('agriculturalMap').setView([18.055, 100.09], 5);
+    var rainfallMap_outlook =   L.map('rainfallMap_outlook').setView([18.055, 100.09], 5);
+    var meteorologicalMap_outlook=   L.map('meteorologicalMap_outlook').setView([18.055, 100.09], 5);
+    var agriculturalMap_outlook =   L.map('agriculturalMap_outlook').setView([18.055, 100.09], 5);
 
-    // mapArr = [rainfallMap, meteorologicalMap, agriculturalMap];
-    //var mapArrText = ['rainfallMap', 'meteorologicalMap', 'agriculturalMap'];
+    var geojsonCountry, geojsonAdm1OutBBox, geojsonAdm2OutBBox, geojsonOutBBOX_1, geojsonADM0, geojsonADM2 ,geojsonOutBBOX;
+    var geojsonADM2_2, geojsonADM2_1, adm0FeatureClicked, adm1FeatureClicked;
+    var geojsonWater_1, geojsonWater_2, currentDateList, currentLayer, outlookLayer, outlookDateList;
+
     var mapCont = [
       {
         'mapArr': rainfallMap,
@@ -60,6 +64,29 @@
     var mapURL = [];
 
     //////////////////////////////Regoin Boundary onclick event////////////////////////////////////
+    var polygonstyle = {
+      fillColor: "#FFF",
+      weight: 0.5,
+      opacity: 1,
+      color: '#6c757d',
+      fillOpacity: 0
+    }
+
+    var waterstyle = {
+      fillColor: "#00008b",
+      weight: 0.5,
+      opacity: 1,
+      color: '#00008b',
+      fillOpacity: 1
+    }
+
+    var outBBoxstyle = {
+      fillColor: "#fafafa",
+      weight: 2,
+      opacity: 1,
+      color: '#fafafa',
+      fillOpacity: 1
+    }
     // Set style function that sets fill color property
     function style(feature) {
         return {
@@ -95,42 +122,13 @@
   				attribution: '<a href="https://earthengine.google.com" target="_">' +
   				'Google Earth Engine</a>;',
   			 	pane: pane}).addTo(map);
+          $scope.showLoader = false;
   				return layer;
   		}
 
-          function onEachCountry(feature, layer) {
-            layer.on("click", function (e) {
-                geojsondata.setStyle(style2); //resets layer colors
-                layer.setStyle(highlight);  //highlights selected.
-                //map.fitBounds(layer.getBounds());
-
-                areaid0 = e.sourceTarget.feature.properties.ID_0;
-                selectedArea = e.sourceTarget.feature.properties.NAME_0;
-                if(type=="adm1") {
-                  areaid1 = e.sourceTarget.feature.properties.ID_1;
-                  selectedArea = e.sourceTarget.feature.properties.NAME_1;
-                }
-                if(type=="lmr"){
-                  geojsonClipedBasin = L.geoJson(cliped_mekong_basin,{
-                      style: style2,
-                      pane: 'maskedout'
-                    }).addTo(map);
-                  selectedArea = "Mekong River Basin";
-                }
 
 
-            });
-            layer.on('mouseover', function (e){
-              $("#mouseover-feature").text(e.sourceTarget.feature.properties.NAME_0);
-            });
-            layer.on('mouseout', function (){
-              $("#mouseover-feature").text("");
-              this.setStyle(style); //resets layer colors
-            });
-          }
-
-
-    $scope.showWMSLayer = function(map,mapContainer, dataset) {
+    $scope.showWMSLayer = function(map, mapContainer, dataset) {
       $scope.showLoader = true;
       var parameters = {
         dataset: dataset,
@@ -154,6 +152,7 @@
             dateOutlook.push(item);
           }
         });
+
         if(mapContainer === "rainfallMap" || mapContainer === "meteorologicalMap" || mapContainer === "agriculturalMap"){
           var map_date = dateAgo.reverse()[0];
           console.log(mapContainer +" "+map_date);
@@ -166,14 +165,15 @@
           dataset: dataset,
           date: map_date,
         };
+
         MapService.get_map_id(parameters)
         .then(function (result){
-            map = L.map(mapContainer).setView([18.055, 100.09], 5);
-            // Base Layers
+
             var basemapLayer = L.tileLayer('https://api.mapbox.com/styles/v1/servirmekong/ckduef35613el19qlsoug6u2h/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2VydmlybWVrb25nIiwiYSI6ImNrYWMzenhldDFvNG4yeXBtam1xMTVseGoifQ.Wr-FBcvcircZ0qyItQTq9g', {
             	maxZoom: 20,
             	attribution: ''
             }).addTo(map);
+
             map.removeControl(map.zoomControl);
         		map.createPane('admin');
             map.createPane('maskedout');
@@ -181,18 +181,19 @@
         		map.getPane('admin').style.zIndex = 660;
             map.getPane('maskedout').style.zIndex = 659;
         		map.getPane('droughtwmsLayer').style.zIndex = 560;
-            geojsondata = L.geoJson(adm0,{
-                style: style,
-                onEachFeature: onEachCountry,
-                pane: 'admin'
-              }).addTo(map);
-            map.fitBounds(geojsondata.getBounds());
+
+            geojsonADM0 = L.geoJson(adm0,{
+              style: polygonstyle,
+              onEachFeature: onEachCountry,
+              pane: 'admin'
+            }).addTo(map);
+            map.fitBounds(geojsonADM0.getBounds());
 
           if(map.hasLayer(wmsLayer)){
             map.removeLayer(wmsLayer);
           }
           wmsLayer = addMapLayer(map, wmsLayer, result.eeMapURL, 'droughtwmsLayer');
-          $scope.showLoader = false;
+
 
 
         }), function (error){
@@ -205,145 +206,146 @@
 
     };
 
-    for(var i=0; i<mapCont.length; i++){
-      $scope.showLoader = true;
-      $scope.showWMSLayer(mapCont[i]["mapArr"], mapCont[i]["mapArrText"], mapCont[i]["mapDataset"]);
+
+//map init
+for(var i=0; i<mapCont.length; i++){
+  $scope.showLoader = true;
+  $scope.showWMSLayer(mapCont[i]["mapArr"], mapCont[i]["mapArrText"], mapCont[i]["mapDataset"]);
+}
+
+
+//////////////////////////////Country Boundary onclick event////////////////////////////////////
+function geojsonADM1Filter(feature) {
+  if (feature.properties.NAME_1 === selectedADM1Feature) return true
+}
+function geojsonADM1FilterOutBBox(feature) {
+  if (feature.properties.NAME_1 !== selectedADM1Feature) return true
+}
+
+function whenADM1Clicked(e) {
+
+  adm1FeatureClicked = e;
+  selectedADM1Feature = e.sourceTarget.feature.properties.NAME_1;
+
+  for(var i=0; i<mapCont.length; i++){
+
+    var _map = mapCont[i]["mapArr"];
+    _map.removeLayer(geojsonCountry);
+    if(_map.hasLayer(geojsonADM2)){
+      _map.removeLayer(geojsonADM2);
     }
 
+    geojsonAdm2OutBBox = L.geoJson(adm2,{
+      style: outBBoxstyle,
+      filter: geojsonADM1FilterOutBBox,
+      pane:'admin'
+    }).addTo(_map);
 
-function genChart(categoriesData, minData, maxData, averageData, dataset, chartid){
-  Highcharts.chart(chartid, {
-    chart: {
-        type: 'line',
-        style: {
-            fontFamily: 'Questrial'
-        },
-        height: 400,
-    },
-    title: {
-        text: ''
-    },
-    legend: {
-      enabled: false,
-        layout: 'vertical',
-        align: 'left',
-        verticalAlign: 'top',
-        x: 150,
-        y: 50,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
-    },
-    xAxis: {
-        categories: categoriesData,
-        // plotBands: [{ // visualize the weekend
-        //     from: 4.5,
-        //     to: 6.5,
-        //     color: 'rgba(68, 170, 213, .2)'
-        // }]
-    },
-    yAxis: {
-        title: {
-            text: 'Index Value'
-        }
-    },
-    tooltip: {
-        shared: true,
-        valueSuffix: ' '
-    },
-    credits: {
-        enabled: false
-    },
-    plotOptions: {
-        areaspline: {
-            fillOpacity: 0.5
-        }
-    },
-    series: [{
-        name: 'Min',
-        data: minData,
-        color: '#ffdc7c'
-    }, {
-        name: 'Average',
-        data: averageData,
-        color: '#85a3c3'
-    }, {
-        name: 'Max',
-        data: maxData,
-        color: '#dd614a'
-    }]
+    geojsonADM2 = L.geoJson(adm2,{
+      style: polygonstyle,
+      filter: geojsonADM1Filter,
+      pane:'admin'
+    }).addTo(_map);
+
+    _map.fitBounds(geojsonADM2.getBounds());
+  }
+
+}
+
+
+function onEachADM1(feature, layer) {
+  layer.on({
+    click: whenADM1Clicked
+  });
+  layer.on('mouseover', function (e){
+    $("#mouseover-feature").text(e.sourceTarget.feature.properties.NAME_0+" | "+e.sourceTarget.feature.properties.NAME_1);
+    this.setStyle({
+      'color': '#333',
+      'weight': 1,
+      'opacity': 1,
+      'fillColor': '#0000ff',
+      'fillOpacity': 0.3
+    });
+  });
+  layer.on('mouseout', function (){
+    $("#mouseover-feature").text("");
+    this.setStyle({
+      'fillColor': "#FFF",
+      'weight': 0.5,
+      'opacity': 1,
+      'color': '#6c757d',
+      'fillOpacity': 0
+    });
   });
 }
 
 
-function genAreaChart(categoriesData, data1, average, chartid){
-  Highcharts.chart(chartid, {
-          chart: {
-              type: 'arearange',
-              style: {
-                  fontFamily: 'Questrial'
-              },
-              height: 400,
-          },
+function geojsonFilter(feature) {
+  if (feature.properties.NAME_0 === selectedFeature) return true
+}
+function geojsonFilterAdm1OutBBox(feature) {
+  if (feature.properties.NAME_0 !== selectedFeature) return true
+}
 
-          title: {
-              text: ''
-          },
+function whenClicked(e) {
 
-          xAxis: {
-              categories: categoriesData,
-              // plotBands: [{ // visualize the weekend
-              //     from: 4.5,
-              //     to: 6.5,
-              //     color: 'rgba(68, 170, 213, .2)'
-              // }]
-          },
-          yAxis: {
-              title: {
-                  text: 'Index Value'
-              }
-          },
+  adm0FeatureClicked = e;
+  selectedFeature = e.sourceTarget.feature.properties.NAME_0;
 
-          tooltip: {
-              shared: true,
-              valueSuffix: '',
+  for(var i=0; i<mapCont.length; i++){
+    var _map = mapCont[i]["mapArr"];
+    if(_map.hasLayer(geojsonADM0)){
+      _map.removeLayer(geojsonADM0);
+    }
 
-          },
-          credits: {
-              enabled: false
-          },
+    geojsonAdm1OutBBox = L.geoJson(adm1,{
+      style: outBBoxstyle,
+      filter: geojsonFilterAdm1OutBBox,
+      pane:'admin'
+    }).addTo(_map);
 
-          series: [{
-              name: 'Min and Max',
-              data: data1,
-              color: '#85a3c3',
-              fillOpacity: 0.1,
-              tooltip: {
-                 formatter: function() {
-                   return this.series.name + ': <b>'+  this.point.low + ' and ' + this.point.high +'</b><br/>'
-                 }
-               }
-          },
-          {
-              name: 'Average',
-              type: 'spline',
-              data: average,
-              color: '#dd614a',
-              fillOpacity: 0.1,
-              tooltip: {
-                 formatter: function() {
-                   return this.series.name + ': <b>'+ this.point.y+'</b><br/>'
-                 }
-               }
-          },
-        ]
-  });
+    geojsonCountry = L.geoJson(adm1,{
+      style: polygonstyle,
+      filter: geojsonFilter,
+      onEachFeature: onEachADM1,
+      pane:'admin'
+    }).addTo(_map);
+
+    _map.fitBounds(geojsonCountry.getBounds());
+  }
 
 }
+
+function onEachCountry(feature, layer) {
+  layer.on({
+    click: whenClicked
+  });
+  layer.on('mouseover', function (e){
+    $("#mouseover-feature").text(e.sourceTarget.feature.properties.NAME_0);
+    this.setStyle({
+      'color': '#333',
+      'weight': 1,
+      'opacity': 1,
+      'fillColor': '#0000ff',
+      'fillOpacity': 0.3
+    });
+  });
+  layer.on('mouseout', function (){
+    $("#mouseover-feature").text("");
+    this.setStyle({
+      'fillColor': "#FFF",
+      'weight': 0.5,
+      'opacity': 1,
+      'color': '#6c757d',
+      'fillOpacity': 0
+    });
+  });
+}
+
 
 
   $("#btnSave").click(function() {
+    $scope.showLoader = true;
     var node = document.getElementById('report');
     domtoimage.toPng(node)
         .then(function (dataUrl) {
@@ -351,12 +353,54 @@ function genAreaChart(categoriesData, data1, average, chartid){
             img.src = dataUrl;
             var a = document.createElement("a");
             a.href = dataUrl;
-            a.setAttribute("download", 'mdcw_report.png');
+            var newDate = new Date();
+            var pngfilename = "MDCW-REPORT: " + newDate.toLocaleDateString() + " @ " + newDate.toLocaleTimeString()+ ".png";
+            a.setAttribute("download", pngfilename);
             a.click();
+            $scope.showLoader = false;
         })
         .catch(function (error) {
             console.error('oops, something went wrong!', error);
       });
+  });
+
+  $("#btnExport").click(function() {
+    $scope.showLoader = true;
+    var pdf = new jsPDF("l", "mm", "a4");
+    var width = pdf.internal.pageSize.getWidth();
+    var height = pdf.internal.pageSize.getHeight();
+
+    var currentMap = document.getElementById('current-map');
+    domtoimage.toPng(currentMap)
+        .then(function (dataUrl) {
+            var img = new Image();
+            img.src = dataUrl;
+            pdf.addImage(img, 'JPEG', 10, 10, width-10, height-20);
+
+            var outlookMap = document.getElementById('outlook-map');
+            domtoimage.toPng(outlookMap)
+                .then(function (dataUrl) {
+                    var imgOutlok = new Image();
+                    imgOutlok.src = dataUrl;
+                    pdf.addPage();
+                    pdf.addImage(imgOutlok, 'JPEG', 10, 10, width-10, height-20);
+                    var newDate = new Date();
+                    var pdffilename = "MDCW-REPORT: " + newDate.toLocaleDateString() + " @ " + newDate.toLocaleTimeString()+ ".pdf";
+                    pdf.save(pdffilename);
+                    $scope.showLoader = false;
+                })
+                .catch(function (error) {
+                    console.error('oops, something went wrong!', error);
+              });
+
+        })
+        .catch(function (error) {
+            console.error('oops, something went wrong!', error);
+      });
+
+
+
+
   });
 
 
