@@ -1865,17 +1865,17 @@ section {
 }
 
 #footer {
-  background: #5d4f3f;
-  padding: 0 0 30px 0;
+  background: #552f0396;
+  padding: 0 0 15px 0;
   color: #fff;
   font-size: 14px;
   margin-top: 100px;
 }
 
 #footer .footer-top {
-  background: #f9f6f1;
-  border-top: 1px solid #f9f6f1;
-  border-bottom: 1px solid #f9f6f1;
+  /* background-image: url('/static/images/icons/mdcw_footer_v1.png'); */
+  border-top: 0px solid #f9f6f1;
+  border-bottom: 0px solid #f9f6f1;
   padding: 60px 0 30px 0;
 }
 
@@ -1895,7 +1895,7 @@ section {
   font-size: 14px;
   line-height: 24px;
   margin-bottom: 0;
-  color: #495057;
+  color: #FFF;
 }
 
 #footer .footer-top .social-links a {
@@ -1922,7 +1922,7 @@ section {
 #footer .footer-top h4 {
   font-size: 16px;
   font-weight: 600;
-  color: #495057;
+  color: #FFF;
   position: relative;
   padding-bottom: 12px;
 }
@@ -1939,7 +1939,7 @@ section {
 
 #footer .footer-top .footer-links ul i {
   padding-right: 2px;
-  color: #495057;
+  color: #FFF;
   font-size: 18px;
   line-height: 1;
 }
@@ -1956,7 +1956,7 @@ section {
 }
 
 #footer .footer-top .footer-links ul a {
-  color: #495057;
+  color: #FFF;
   transition: 0.3s;
   display: inline-block;
   line-height: 1;
@@ -2001,7 +2001,7 @@ section {
 
 #footer .copyright {
   text-align: center;
-  padding-top: 30px;
+  padding-top: 15px;
 }
 
 #footer .credits {
