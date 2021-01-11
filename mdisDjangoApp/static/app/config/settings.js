@@ -156,7 +156,7 @@ var settings = {
 			},
       {
 				'value': 'admin2',
-				'name': 'Pakokku township'
+				'name': 'Pakokku Township'
 			},
 			// {
 			// 	'value': 'admin2',
