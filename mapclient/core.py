@@ -572,7 +572,7 @@ class GEEApi():
         return tile_url_template.format(**map_id)
 
     # -------------------------------------------------------------------------
-    def get_mekong_data(self, dataset, type, date, areaid0, areaid1, periodicity):
+    def get_mekong_data(self, dataset, type, date, areaid0, areaid1, areaid2, periodicity):
         today = DT.date.today()
         dateStart = DT.datetime.strptime(date, "%Y-%m-%d")
         # dd/mm/YY
@@ -597,6 +597,8 @@ class GEEApi():
                 sql = """SELECT dataset, date, max(min), max(max), max(average), time_start from eo_adm0 where dataset = '"""+dataset+"""' and adm0_id='"""+areaid0+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' group by date, dataset, time_start order by time_start ASC"""
             elif type == 'admin1':
                 sql = """SELECT dataset, date, max(min), max(max), max(average), time_start from eo_adm1 where dataset = '"""+dataset+"""' and adm0_id='"""+areaid0+"""' and adm1_id='"""+areaid1+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' group by date, dataset, time_start order by time_start ASC"""
+            elif type == 'admin2':
+                sql = """SELECT dataset, date, max(min), max(max), max(average), time_start from eo_adm2 where dataset = '"""+dataset+"""' and adm0_id='"""+areaid0+"""' and adm1_id='"""+areaid1+"""' and adm2_id='"""+areaid2+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' group by date, dataset, time_start order by time_start ASC"""
 
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -674,6 +676,8 @@ class GEEApi():
                 _class['name'] = dataset.split("-")[1]
                 style = _class['value']
                 image = image.select(_class['band'])
+                imgScale = image.projection().nominalScale()
+                image = image.reproject(crs='EPSG:4326', scale=imgScale)
                 if (_class['sld'] == 'True'):
                     style = _class['value']
                     map_id = image.sldStyle(style).getMapId()

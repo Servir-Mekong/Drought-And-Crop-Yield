@@ -15,6 +15,7 @@
 					date: options.date,
 					areaid0: options.areaid0,
 					areaid1: options.areaid1,
+					areaid2: options.areaid2,
 					periodicity: options.periodicity
 				}
 			};

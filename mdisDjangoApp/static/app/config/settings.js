@@ -154,6 +154,10 @@ var settings = {
 				'value': 'admin1',
 				'name': 'Administrative Layer 1'
 			},
+      {
+				'value': 'admin2',
+				'name': 'Pakokku township'
+			},
 			// {
 			// 	'value': 'admin2',
 			// 	'name': 'Administrative Layer 2'

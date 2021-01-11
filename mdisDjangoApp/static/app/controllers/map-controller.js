@@ -74,7 +74,7 @@
     $scope.droughtLegend = appSettings.droughtLegend;
     $scope.legend = []
     $scope.showLoader = true;
-    var geojsondata, selectedFeature, wmsLayer, selectedAreaLevel;
+    var geojsondata, pakokku_outbb, selectedFeature, wmsLayer, selectedAreaLevel;
     var lwmsLayer;
     var rwmsLayer;
     var compare;
@@ -82,6 +82,7 @@
     //init study area
     var areaid0 = '154';
     var areaid1 = '';
+    var areaid2 = '';
     var type = 'country';
     var selectedArea = 'Myanmar';
 
@@ -258,12 +259,13 @@
             selectedArea = e.sourceTarget.feature.properties.NAME_1;
             $("#selectedAreaText").text("Myanmar | " + selectedArea );
           }else if(type=="admin2"){
-            areaid1 = e.sourceTarget.feature.properties.ID_2;
+            areaid1 = e.sourceTarget.feature.properties.ID_1;
+            areaid2 = e.sourceTarget.feature.properties.ID_2;
             selectedArea = e.sourceTarget.feature.properties.NAME_2;
+            $("#selectedAreaText").text(selectedArea );
+            console.log(areaid2)
           }
-
           $scope.getDroughtData();
-
       });
       layer.on('mouseover', function (e){
         $("#mouseover-feature").text(e.sourceTarget.feature.properties.NAME_0);
@@ -359,6 +361,7 @@
         date: date,
         areaid0: areaid0,
         areaid1: areaid1,
+        areaid2: areaid2,
         periodicity: periodicity
       };
       MapService.get_mekong_data(parameters)
@@ -560,6 +563,14 @@
             onEachFeature: onEachCountry,
             pane: 'admin'
           }).addTo(map);
+      }else if(selectedopt === 'admin2'){
+        type='admin2';
+        geojsondata = L.geoJson(pakokku,{
+            style: style,
+            onEachFeature: onEachCountry,
+            pane: 'admin'
+          }).addTo(map);
+
       }else{
         type='admin2';
         geojsondata = L.geoJson(adm2,{

@@ -20,10 +20,11 @@ def api(request):
             date = get('date', '')
             areaid0 = get('areaid0', '')
             areaid1 = get('areaid1', '')
+            areaid2 = get('areaid2', '')
             periodicity = get('periodicity', '')
             core = GEEApi()
             if action == 'get-data':
-                data = core.get_mekong_data(dataset, type, date, areaid0, areaid1, periodicity)
+                data = core.get_mekong_data(dataset, type, date, areaid0, areaid1, areaid2, periodicity)
             elif action == 'get-date':
                 data = core.get_available_date(dataset)
             elif action == 'get-map-id':
