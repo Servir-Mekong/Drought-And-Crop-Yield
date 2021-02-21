@@ -9,7 +9,7 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: 'Questrial', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   color: #444;
 }
 
@@ -23,7 +23,7 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6, .font-primary {
-  font-family: 'Questrial', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 hr {
@@ -31,6 +31,15 @@ hr {
   margin-bottom: 20px;
   width: 50%;
   height: 10px;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 .hr-feature{
@@ -118,7 +127,7 @@ hr {
 }
 
 .publication-title a{
-  font-family: 'Questrial', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 20px;
@@ -580,12 +589,12 @@ hr {
 #header .logo h1 {
   font-size: 14px;
   margin: 0;
-  padding: 15px 0;
+  padding: 12px 0;
   line-height: 1;
   font-weight: 400;
   letter-spacing: 0;
   text-transform: uppercase;
-  display: inline;
+  display: block;
   padding-left: 10px;
 }
 
@@ -2304,7 +2313,7 @@ table.dataTable.no-footer {
 }
 
 .training-content a {
-  font-family: 'Questrial', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 20px;

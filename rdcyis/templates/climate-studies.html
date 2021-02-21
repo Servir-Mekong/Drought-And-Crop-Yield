@@ -9,43 +9,251 @@
 
   {% block body%}
   <!-- ======= Hero Section ======= -->
-  <div class="row" style="background: #5d4f3f;color:#FFF;margin-bottom: 30px;">
-    <div class="container ">
-      <div class="row">
-        <div class="col-lg-2 menu-tab active">
-          <a href="/home" >DROUGHT</a>
-        </div>
-        <div class="col-lg-2 menu-tab">
-          <a href="/crop">CROP YIELD</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <main id="main">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 col-md-6">
-          <div class="panel panel-danger" style="background-color:#ebccd1; margin-top: 50px; padding:15px;">
-            <div class="panel-body">
-              <p>
-                <span>
-                  <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
-                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                  </svg>
-                </span>
-                <b style="font-size:36px;">Page Under Construction </b>
-              </p>
-              <h4 class="text-justify">
-                  Invite you to come back here soon
-              </h4>
 
+  <main id="main">
+    <div class="" ng-controller="ClimateMapController">
+      <div id="loader" class="loader" ng-show="showLoader">
+        <div class="loading-img"></div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-6 climate-control-box">
+          <div class="col-lg-12 col-md-6 overlay">
+            <div class="col-sm-12">
+              <button type="button" id="switch-climate-change" name="switch-climate-change" class="btn-climate-absolute" style="border-radius: 0 20px 20px 0;">Change From Historical</button>
+              <button type="button" id="switch-climate-absolute" name="switch-climate-absolute" class="btn-climate-absolute active"style="border-radius: 20px 0 0 20px;">Absolute Level</button>
+              <h2 style="font-weight: 700; color: #110c07;">Climate Impact Map</h2>
+
+              <p>Visualize and explore climate variables and indices derived from CMIP5 projections from different timeframes and emission scenarios for ensamble mean of selected climate models.</p>
             </div>
+            <div class="row">
+                <div class="col-sm-4">
+                  <div class="row">
+                    <div class="">
+                        Show me
+                    </div>
+                    <div class="col-8">
+                      <div class="form-group">
+                        <select class="form-control" name="" id="map-climate-absolute" ng-show="showClimateAbsoluteSelect">
+                          <option ng-repeat="x in climateAbsoluteVariables" value="[[x.value]]">[[x.name]]</option>
+                        </select>
+                        <select class="form-control" name="" id="map-climate-change" ng-show="showClimateChangeSelect">
+                          <option ng-repeat="x in climateChangeVariables" value="[[x.value]]">[[x.name]]</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="row">
+                    <div class="">
+                        under
+                    </div>
+                    <div class="col-10">
+                      <div class="form-group">
+                        <select class="form-control" name="" id="map-climate-scenarios" >
+                          <option ng-repeat="x in climateScenarios" value="[[x.value]]">[[x.name]]</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="row">
+                    <div class="">
+                        for the period
+                    </div>
+                    <div class="col-8">
+                      <div class="form-group">
+                        <select class="form-control" name="" id="map-climate-period" >
+                          <option ng-repeat="x in climatePeriod" value="[[x.value]]">[[x.name]]</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
           </div>
         </div>
 
-      </div>
+        <div class="col-lg-8 col-md-6">
+          <div style="position:relative;" >
+            <div class="map-climate" id="map">
+
+
+              <div class="layer-control hide">
+              <label><b>Basemap</b></label>
+              <label class="container_radio">Light<input name="basemap_selection" id="light" value="light-v10" type="radio" checked="checked"></input><span class="checkmark_radio"></span></label>
+              <label class="container_radio">Dark<input name="basemap_selection" id="dark" value="dark-v10" type="radio"></input><span class="checkmark_radio"></span></label>
+              <label class="container_radio">Satellite <input name="basemap_selection" id="satellite-v9" value="satellite-v9" type="radio"></input><span class="checkmark_radio"></span></label>
+              <!-- <hr> -->
+              <!-- <label><b>Layers</b></label>
+              <ul class="toggles-list">
+                <li class="toggle"><label class="switch_layer"><input  name="storm_events" id="storm_events" checked="checked" type="checkbox"><span class="slider_toggle round"></span></label><label>Storm Events </label></li>
+                <li class="toggle" id="toggle_storm_image" style="display:none;"><label class="switch_layer"><input  name="storm_image" id="storm_image"  checked="checked" type="checkbox"><span class="slider_toggle round"></span></label><label>Storm  Image </label></li>
+              </ul> -->
+            </div>
+
+              <div class="date-picker">
+                <div id="dp5" data-date-format="yyyy-mm-dd"></div>
+              </div>
+
+              <div class="control-panel map-component">
+                <div class="scalebar-container"></div>
+                <!-- Map Munu -->
+                {% include "panels/map-climate-menu.html" %}
+              </div>
+
+            </div>
+
+            <div class="legend-panel map-legend " id="map-legend">
+              <div class="slidecontainer">
+                <p>Opacity: <span id="opacity-value"></span></p>
+                <input type="range" min="1" max="100" value="100" class="slider" id="opacity-slider">
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-6 legend-list">
+                  <ul>
+                    <li ng-repeat="x in legend">
+                      <div class="row">
+                        <div class="col-lg-2" style="padding-right: 0px; padding-left: 0px;">
+                          <div class="intensity-class" style="background: [[x.color]]; border:1px solid #C3C3C3;"></div>
+                        </div>
+                        <div class="col-lg-9">
+                          [[x.label]]
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="left-legend-panel map-legend hide" id="left-legend">
+              <div class="row">
+                <div class="col-lg-12 col-md-6 legend-list">
+                  <ul>
+                    <li ng-repeat="x in left_legend">
+                      <div class="row">
+                        <div class="col-lg-2" style="padding-right: 0px; padding-left: 0px;">
+                          <div class="intensity-class" style="background: [[x.color]]; border:1px solid #C3C3C3;"></div>
+                        </div>
+                        <div class="col-lg-9">
+                          [[x.label]]
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="left-map-desc hide">
+              <b id="left-variable" style="color:#62686f;"> </b>
+              <p id="left-date" style="color:#f89f1d"> </p>
+            </div>
+
+            <div class="right-legend-panel map-legend hide" id="right-legend">
+              <div class="row">
+                <div class="col-lg-12 col-md-6 legend-list">
+                  <ul>
+                    <li ng-repeat="x in right_legend">
+                      <div class="row">
+                        <div class="col-lg-2">
+                          <div class="intensity-class" style="background: [[x.color]]; border:1px solid #C3C3C3;"></div>
+                        </div>
+                        <div class="col-lg-9">
+                          [[x.label]]
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="right-map-desc hide">
+              <b id="right-variable" style="color:#62686f;"> </b>
+              <p id="right-date" style="color:#f89f1d"></p>
+            </div>
+          </div>
+
+          <div id="compare-modal" class="model map-modal map-modal--vertical-smaller map-modal--horizontal-smaller" tabindex="-1" role="dialog"  style="display: none;">
+              <div class="map-modal__header">
+                  <h3 class="map-modal__title">Compare Layers</h3>
+              </div>
+              <div class="map-modal__content">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6" style="border-right: 1px solid #c39f79;">
+                    <b>Left Window Options</b>
+                    <label>
+                        Select Indicator
+                    </label>
+                    <select class="form-control" name="" id="map-left-indices" >
+                      <option ng-repeat="x in variables" value="[[x.value]]">[[x.name]]</option>
+                    </select>
+                    <br>
+                    <label>
+                        Select Date
+                    </label>
+                    <div>
+                      <input id="datepicker-left" class="form-control" data-date-format="yyyy-mm-dd"/>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <b>Right Window Options</b>
+                    <label>
+                        Select Indicator
+                    </label>
+                    <select class="form-control" name="" id="map-right-indices" >
+                      <option ng-repeat="x in variables" value="[[x.value]]">[[x.name]]</option>
+                    </select>
+                    <br>
+                    <label>
+                        Select Date
+                    </label>
+                    <div>
+                      <input id="datepicker-right" class="form-control" data-date-format="yyyy-mm-dd"/>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="map-modal__buttons">
+                <div>
+                    <button type="button" class="btn" id="btn-add-compare">Add Layers</button>
+                </div>
+                  <div>
+                      <button type="button" class="btn" id="btn-close-compare">Close</button>
+                  </div>
+              </div>
+          </div>
+
+        </div>
+
+          <div class="col-lg-4 col-md-6" style="padding-top:0px;">
+            <button class="climate-clear-map-btn" type="button" name="button" ng-click="clearBoundaryMap()">Clear Map</button>
+            <div class="row">
+              <div class="col-lg-12 col-md-6">
+                <figure class="highcharts-figure">
+                  <p class="highcharts-description"  id="chart-climate"></p>
+                  <div class="chart-area" id="chart-climate-container"></div>
+                </figure>
+              </div>
+              <div class="col-lg-12 col-md-6">
+                  <a class="climate-btn-style" href="https://docs.google.com/document/d/1lj_H2ed3PaQvxzB-YQFL8RanyeNQfyufJAH2PRdEyGQ/edit?usp=sharing" target="_blank">Key Snapshots</a>
+                  <a class="climate-btn-style" href="https://docs.google.com/document/d/11mWBRCc5drFGqLnlgNPBQilxRoIaz02wTWyYJN5ra6E/edit?usp=sharing" target="_blank">Indices Description</a>
+              </div>
+
+              <div class="col-lg-12 col-md-6" style="margin-top:10px;">
+                <a class="climate-btn-style" href="https://docs.google.com/document/d/1W09JACPI41XOPhFaClEBL_klz7jQtIyfApsodhR8_Zo/edit?usp=sharing" target="_blank">Methodology</a>
+              </div>
+            </div>
+          </div>
     </div>
+
 
 
   </main><!-- End #main -->

@@ -587,7 +587,7 @@ function genChart(categoriesData, minData, maxData, averageData, dataset, charti
     chart: {
         type: 'line',
         style: {
-            fontFamily: 'Questrial'
+            fontFamily: 'Roboto Condensed'
         },
         height: 400,
     },
@@ -653,7 +653,7 @@ function genAreaChart(categoriesData, data1, average, chartid){
           chart: {
               type: 'arearange',
               style: {
-                  fontFamily: 'Questrial'
+                  fontFamily: 'Roboto Condensed'
               },
               height: 400,
           },

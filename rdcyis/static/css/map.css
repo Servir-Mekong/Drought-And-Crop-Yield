@@ -1,5 +1,9 @@
 .map{
-  height: calc(100vh - 140px);
+  height: calc(100vh - 260px);
+  width: 100%;
+}
+.map-climate{
+  height: calc(100vh - 100px);
   width: 100%;
 }
 
@@ -8,7 +12,7 @@
 }
 
 .leaflet-container{
-  font-family: 'Questrial', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 .chart-area {
@@ -73,7 +77,7 @@
 }
 
 .highcharts-data-table table {
-    font-family: 'Questrial', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     border-collapse: collapse;
     border: 1px solid #EBEBEB;
     margin: 10px auto;
@@ -564,7 +568,7 @@ ul {
 
 .legend-panel {
     bottom: 10px;
-    right: 15px;
+    left: 15px;
     width: auto;
     background: #e9ecef;
     color: #212529;
@@ -878,4 +882,46 @@ input:checked + .slider_toggle:before {
     list-style-type: decimal;
     padding-left: 0;
     color: #666;
+}
+
+.climate-control-box {
+  background-image: url('/static/images/shutterstock_drought.jpg');
+  padding:0px;
+  -moz-box-shadow:    inset 0 0 50px #000000;
+  -webkit-box-shadow: inset 0 0 50px #000000;
+  box-shadow: inset 0 0 50px #000000;
+  border-bottom: 2px solid #e3e3e3;
+}
+.climate-control-box .overlay {
+  background:rgb(255,255,255,1);
+  padding:20px 50px;
+  color:#000;
+}
+.btn-climate-absolute {
+  float: right;
+  border: none;
+  padding: 2px 25px;
+  background: #eee;
+  color: #333;
+  font-weight: 500;
+}
+
+.btn-climate-absolute.active{
+  background: #ff8507;
+  color:#FFF;
+}
+
+.climate-clear-map-btn {
+  border-radius: 50px;
+  border: 1px solid #6c757d;
+  padding: 0 20px;
+  margin-top: 5px;
+  color: #343a40;
+}
+
+.climate-btn-style {
+  padding: 5px 20px;
+  background: #eee;
+  color: #ff8507;
+  border: 1px solid;
 }

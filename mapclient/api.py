@@ -13,7 +13,7 @@ def api(request):
     action = get('action', '')
 
     if action:
-        public_methods = ['get-map-id', 'get-data', 'get-date', 'get-map-current-id', 'get-current-date', 'get-outlook-map-id', 'get-outlook-date', 'get-summary', 'get-feature-articles', 'get-knowledge-center']
+        public_methods = ['get-map-id', 'get-data', 'get-date', 'get-map-current-id', 'get-current-date', 'get-outlook-map-id', 'get-outlook-date', 'get-summary', 'get-feature-articles', 'get-knowledge-center', 'get-climate-data']
         if action in public_methods:
             dataset = get('dataset', '')
             type = get('type', '')
@@ -21,6 +21,9 @@ def api(request):
             areaid0 = get('areaid0', '')
             areaid1 = get('areaid1', '')
             periodicity = get('periodicity', '')
+            img_id = get('img_id', '')
+            climate_scenarios = get('climate_scenarios', '')
+            climate_type = get('climate_type', '')
             core = GEEApi()
             if action == 'get-data':
                 data = core.get_mekong_data(dataset, type, date, areaid0, areaid1, periodicity)
@@ -42,5 +45,8 @@ def api(request):
                 data = core.get_feature_articles()
             elif action == 'get-knowledge-center':
                 data = core.get_knowledge_center()
+            elif action == 'get-climate-data':
+                #self, typeArea, areaid0, areaid1, img_id, climateType, climatePeriod
+                data = core.get_climate_data(type, areaid0, areaid1, img_id, climate_type, climate_scenarios)
 
             return JsonResponse(data, safe=False)

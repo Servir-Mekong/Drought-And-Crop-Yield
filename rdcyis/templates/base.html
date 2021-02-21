@@ -35,7 +35,8 @@
 			gtag('config', '{{ GOOGLE_ANALYTICS_ID }}');
 		</script>
 
-		<link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
 
 		<!-- Mapping -->
 		<link href="{% static 'vendor/leaflet/dist/leaflet.css' %}" rel="stylesheet">
@@ -78,8 +79,14 @@
 			<div class="row" style="background:#293433;color:#FFF;border-bottom: 0px solid #293433;">
 				<div class="container" id="header-menu">
 	        <div class="logo float-left">
-						<img src="/static/images/icons/drought-icon.png" alt="">
-	          <h1 class="text-light"><a href="/home"><span>Mekong Drought and Crop Watch</span></a></h1>
+						<div class="row">
+							<div class="">
+								<img src="/static/images/icons/drought-icon.png" alt="">
+							</div>
+							<div class="">
+								<h1 class="text-light"><a href="/home"><span>Mekong Drought and Crop Watch</span></a></h1>
+							</div>
+						</div>
 	        </div>
 
 	        <nav class="nav-menu float-right d-none d-lg-block">
@@ -123,7 +130,7 @@
           <div class="row">
 
             <div class="col-lg-6 col-md-6 footer-info">
-              <h3><img src="/static/images/partners/servir-logo-white.png" alt="" style="width:auto; height:35px;"></h3>
+              <h3><img src="/static/images/partners/servir-mekong.png" alt="" style="width:auto; height:35px;"></h3>
 
               <p>
                 <b>ASIAN DISASTER PREPAREDNESS CENTER (ADPC)</b> <br>
@@ -141,9 +148,9 @@
             <div class="col-lg-3 col-md-6 footer-links">
               <h4>Menu Links</h4>
               <ul>
-                <li><i class="bx bx-chevron-right"></i> <a href="/http://bit.ly/RDCYIS-Technical-Docs">Technical Document</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="/https://goo.gl/forms/P2Lc5yBOOshT5uem1">Feedback</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="/https://goo.gl/rxeaKN">How to use</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="https://docs.google.com/document/d/19k61BIBjZg8r9gLPI6ZJZkzA8oOU0t4torEH9a5vOxg/edit?usp=sharing" target="_blank">Technical Document</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="https://forms.gle/KNZtCJ1kXpnLvTe19" target="_blank">Feedback</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="https://docs.google.com/document/d/1-LytQEWDVYExlR-UPdOFGl5sV5N4tAPsYG7k94JRemc/edit?usp=sharing" target="_blank">How to use</a></li>
               </ul>
             </div>
 
@@ -239,6 +246,7 @@
 		<script src="{% static 'app/controllers/utils-controller.js' %}"></script>
 	 	<script src="{% static 'app/controllers/currentmap-controller.js' %}"></script>
 	 	<script src="{% static 'app/controllers/map-controller.js' %}"></script>
+		<script src="{% static 'app/controllers/climate-map-controller.js' %}"></script>
 		<script src="{% static 'app/controllers/feature-articles-controller.js' %}"></script>
 		<script src="{% static 'app/controllers/report-controller.js' %}"></script>
 

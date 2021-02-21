@@ -148,6 +148,50 @@
 			return promise;
 		};
 
+		service.get_climate_data = function (options) {
+			if(options.type === "mekong"){
+				var config = {
+					params: {
+						action: 'get-climate-data',
+						type: options.type,
+						img_id: options.img_id,
+						climate_scenarios: options.climate_scenarios,
+						climate_type: options.climate_type,
+					}
+				};
+			}
+			else if(options.type === "country"){
+				var config = {
+					params: {
+						action: 'get-climate-data',
+						type: options.type,
+						areaid0: options.areaid0,
+						img_id: options.img_id,
+						climate_scenarios: options.climate_scenarios,
+						climate_type: options.climate_type,
+					}
+				};
+			}else{
+				var config = {
+					params: {
+						action: 'get-climate-data',
+						type: options.type,
+						areaid0: options.areaid0,
+						areaid1: options.areaid1,
+						img_id: options.img_id,
+						climate_scenarios: options.climate_scenarios,
+						climate_type: options.climate_type,
+					}
+				};
+			}
+
+			var promise = $http.get('/api/mapclient/', config)
+			.then(function (response) {
+				return response.data;
+			});
+			return promise;
+		};
+
 
 
 

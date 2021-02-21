@@ -432,7 +432,692 @@ var settings = {
                 'label':['< 10' ,'10 - 20' ,'20 - 30' ,'30 - 40' ,'40 - 50' ,'50 - 60' ,'60 - 70' ,'70 - 80' ,'80 - 90'  ,'90 +']
             }
 
+        ],
+
+        climateAbsoluteVariables: [
+          {
+            'name': 'Consecutive Dry Days (days)',
+            'value': 'cdd-absolute'
+          },
+          {
+            'name': 'Consecutive Wet Days (days)',
+            'value': 'cwd-absolute'
+          },
+          {
+            'name': 'Daily Mean Temperature (C)',
+            'value': 'tmm-absolute'
+          },
+          {
+            'name': 'Daily minimum Temperature (C)',
+            'value': 'tnn-absolute'
+          },
+          {
+            'name': 'Daily maximum Temperature (C)',
+            'value': 'txx-absolute'
+          },
+          {
+            'name': 'Number of Very Heavy Rain Days (days)',
+            'value': 'r20mm-absolute'
+          },
+          {
+            'name': 'SPEI: Standardized Precipitation Evapotranspiration Index',
+            'value': 'spei-absolute'
+          },
+          {
+            'name': 'SPI: Standardized Precipitation Index',
+            'value': 'spi-absolute'
+          },
+          {
+            'name': 'Growing Degree Days (degree-days)',
+            'value': 'gddgrow10-absolute'
+          },
+          {
+            'name': 'Growing Season Length (days)',
+            'value': 'gsl-absolute'
+          },
+          {
+            'name': 'Amount of Cold Nights (%)',
+            'value': 'tn10p-absolute'
+          },
+          {
+            'name': 'Amount of Hot Days (%)',
+            'value': 'tx90p-absolute'
+          }
+
+        ],
+
+        climateChangeVariables: [
+          {
+            'name': 'CDD: Consecutive Dry Days (days)',
+            'value': 'cdd-change'
+          },
+          {
+            'name': 'CWD: Consecutive Wet Days (days)',
+            'value': 'cwd-change'
+          },
+          {
+            'name': 'GDDGROW10: Growing Degree Days (degree-days)',
+            'value': 'gddgrow10-change'
+          },
+          {
+            'name': 'GSL: Growing Season Length (days)',
+            'value': 'gsl-change'
+          },
+          {
+            'name': 'SPEI: Standardized Precipitation Evapotranspiration Index',
+            'value': 'spei-change'
+          },
+          {
+            'name': 'SPI: Standardized Precipitation Index',
+            'value': 'spi-change'
+          },
+          {
+            'name': 'R20MM: Number of Very Heavy Rain Days (days)',
+            'value': 'r20mm-change'
+          },
+          {
+            'name': 'TMM: Mean Daily Mean Temperature (C)',
+            'value': 'tmm-change'
+          },
+          {
+            'name': 'TN10P: Amount of Cold Nights (%) ',
+            'value': 'tn10p-change'
+          },
+          {
+            'name': 'TNN: Daily minimum Temperature (C)',
+            'value': 'tnn-change'
+          },
+          {
+            'name': 'TX90P: Amount of Hot Days (%)',
+            'value': 'tx90p-change'
+          },
+          {
+            'name': 'TXX: Daily maximum Temperature (C)',
+            'value': 'txx-change'
+          }
+
+        ],
+
+
+        climateAbsoluteScenarios: [
+          {
+            'name': '-',
+            'value': 'his'
+          },
+          {
+            'name': 'RCP 4.5',
+            'value': 'rcp45'
+          },
+          {
+            'name': 'RCP 8.5',
+            'value': 'rcp85'
+          },
+        ],
+
+        climatePeriod: [
+          {
+            'name': 'Historical',
+            'value': 'his'
+          },
+          {
+            'name': 'Near Future: 2030s',
+            'value': '2016-2045'
+          },
+          {
+            'name': 'Middle Future: 2050s',
+            'value': '2036-2065'
+          },
+          {
+            'name': 'Far Future: 2080s',
+            'value': '2066-2095'
+          },
+        ],
+
+        climateRCPPeriod: [
+          {
+            'name': 'Near Future: 2030s',
+            'value': '2016-2045'
+          },
+          {
+            'name': 'Middle Future: 2050s',
+            'value': '2036-2065'
+          },
+          {
+            'name': 'Far Future: 2080s',
+            'value': '2066-2095'
+          },
+        ],
+        climateHistoricalPeriod: [
+          {
+            'name': 'Historical',
+            'value': 'his'
+          },
+        ],
+
+        climateChangeScenarios: [
+          {
+            'name': 'RCP 4.5',
+            'value': 'rcp45'
+          },
+          {
+            'name': 'RCP 8.5',
+            'value': 'rcp85'
+          },
+        ],
+
+
+        climateStoreName:
+          {
+            'cdd-absolute': {
+              'style': 'rdcyis-climate-absolute-cdd',
+              'his': {
+                'his': 'cdd_ANN_MK_1976-2005_his_ensm_mean'
+              },
+              'rcp45': {
+                '2016-2045' : 'cdd_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'cdd_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'cdd_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'cdd_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'cdd_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'cdd_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'cwd-absolute': {
+              'style': 'rdcyis-climate-absolute-cwd',
+              'his': {
+                'his': 'cwd_ANN_MK_1976-2005_his_ensm_mean'
+              },
+              'rcp45': {
+                '2016-2045' : 'cwd_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'cwd_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'cwd_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'cwd_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'cwd_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'cwd_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'tmm-absolute': {
+              'style': 'rdcyis-climate-absolute-tmm',
+              'his': {
+                'his': 'tmm_ANN_MK_1976-2005_his_ensm_mean'
+              },
+              'rcp45': {
+                '2016-2045' : 'tmm_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'tmm_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'tmm_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'tmm_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'tmm_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'tmm_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'tnn-absolute': {
+              'style': 'rdcyis-climate-absolute-tnn',
+              'his': {
+                'his': 'tnn_ANN_MK_1976-2005_his_ensm_mean'
+              },
+              'rcp45': {
+                '2016-2045' : 'tnn_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'tnn_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'tnn_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'tnn_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'tnn_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'tnn_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'txx-absolute': {
+              'style': 'rdcyis-climate-absolute-txx',
+              'his': {
+                'his': 'txx_ANN_MK_1976-2005_his_ensm_mean'
+              },
+              'rcp45': {
+                '2016-2045' : 'txx_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'txx_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'txx_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'txx_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'txx_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'txx_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'r20mm-absolute': {
+              'style': 'rdcyis-climate-absolute-r20mm',
+              'his': {
+                'his': 'r20mm_ANN_MK_1976-2005_his_ensm_mean'
+              },
+              'rcp45': {
+                '2016-2045' : 'r20mm_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'r20mm_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'r20mm_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'r20mm_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'r20mm_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'r20mm_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'spei-absolute': {
+              'style': 'rdcyis-climate-absolute-spei',
+              'his': {
+                'his': 'prob_div_num_drought_drysea_spei6_MON_MK_1976-2005_his_ensm'
+              },
+              'rcp45': {
+                '2016-2045' : 'prob_div_num_drought_drysea_spei6_MON_MK_2016-2045_rcp45_ensm',
+                '2036-2065': 'prob_div_num_drought_drysea_spei6_MON_MK_2036-2065_rcp45_ensm',
+                '2066-2095': 'prob_div_num_drought_drysea_spei6_MON_MK_rcp45_ensm'
+              },
+              'rcp85': {
+                '2016-2045' : 'prob_div_num_drought_drysea_spei6_MON_MK_2016-2045_rcp85_ensm',
+                '2036-2065': 'prob_div_num_drought_drysea_spei6_MON_MK_2036-2065_rcp85_ensm',
+                '2066-2095': 'prob_div_num_drought_drysea_spei6_MON_MK_2066-2095_rcp85_ensm'
+              }
+            },
+
+            'spi-absolute': {
+              'style': 'rdcyis-climate-absolute-spi',
+              'his': {
+                'his': 'prob_div_num_drought_drysea_spi6_MON_MK_1976-2005_his_ensm'
+              },
+              'rcp45': {
+                '2016-2045' : 'prob_div_num_drought_drysea_spi6_MON_MK_2016-2045_rcp45_ensm',
+                '2036-2065': 'prob_div_num_drought_drysea_spi6_MON_MK_2036-2065_rcp45_ensm',
+                '2066-2095': 'prob_div_num_drought_drysea_spi6_MON_MK_rcp45_ensm'
+              },
+              'rcp85': {
+                '2016-2045' : 'prob_div_num_drought_drysea_spi6_MON_MK_2016-2045_rcp85_ensm',
+                '2036-2065': 'prob_div_num_drought_drysea_spi6_MON_MK_2036-2065_rcp85_ensm',
+                '2066-2095': 'prob_div_num_drought_drysea_spi6_MON_MK_2066-2095_rcp85_ensm'
+              }
+            },
+
+
+            'gddgrow10-absolute': {
+              'style': 'rdcyis-climate-absolute-gddgrow10',
+              'his': {
+                'his': 'gddgrow10_ANN_MK_1976-2005_his_ensm_mean'
+              },
+              'rcp45': {
+                '2016-2045' : 'gddgrow10_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'gddgrow10_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'gddgrow10_ANN_MK_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'gddgrow10_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'gddgrow10_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'gddgrow10_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'gsl-absolute': {
+              'style': 'rdcyis-climate-absolute-gsl',
+              'his': {
+                'his': 'gsl_ANN_MK_1976-2005_his_ensm_mean'
+              },
+              'rcp45': {
+                '2016-2045' : 'gsl_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'gsl_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'gsl_ANN_MK_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'gsl_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'gsl_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'gsl_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'tn10p-absolute': {
+              'style': 'rdcyis-climate-absolute-tn10p',
+              'his': {
+                'his': 'tn10p_ANN_MK_1976-2005_his_ensm_mean'
+              },
+              'rcp45': {
+                '2016-2045' : 'tn10p_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'tn10p_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'tn10p_ANN_MK_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'tn10p_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'tn10p_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'tn10p_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'tx90p-absolute': {
+              'style': 'rdcyis-climate-absolute-tx90p',
+              'his': {
+                'his': 'tx90p_ANN_MK_1976-2005_his_ensm_mean'
+              },
+              'rcp45': {
+                '2016-2045' : 'tx90p_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'tx90p_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'tx90p_ANN_MK_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'tx90p_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'tx90p_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'tx90p_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'cdd-change': {
+              'style': 'rdcyis-climate-change-cdd',
+              'rcp45': {
+                '2016-2045' : 'chg_cdd_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_cdd_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_cdd_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_cdd_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_cdd_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_cdd_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'cwd-change': {
+              'style': 'rdcyis-climate-change-cwd',
+              'rcp45': {
+                '2016-2045' : 'chg_cwd_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_cwd_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_cwd_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_cwd_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_cwd_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_cwd_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'tmm-change': {
+              'style': 'rdcyis-climate-change-tmm',
+              'rcp45': {
+                '2016-2045' : 'chg_tmm_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_tmm_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_tmm_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_tmm_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_tmm_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_tmm_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'tnn-change': {
+              'style': 'rdcyis-climate-change-tnn',
+              'rcp45': {
+                '2016-2045' : 'chg_tnn_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_tnn_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_tnn_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_tnn_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_tnn_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_tnn_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'txx-change': {
+              'style': 'rdcyis-climate-change-txx',
+              'rcp45': {
+                '2016-2045' : 'chg_txx_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_txx_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_txx_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_txx_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_txx_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_txx_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'r20mm-change': {
+              'style': 'rdcyis-climate-change-r20mm',
+              'rcp45': {
+                '2016-2045' : 'chg_r20mm_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_r20mm_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_r20mm_ANN_MK_2066-2095_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_r20mm_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_r20mm_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_r20mm_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'spei-change': {
+              'style': 'rdcyis-climate-change-spei',
+              'rcp45': {
+                '2016-2045' : 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2016-2045_rcp45_ensm',
+                '2036-2065': 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2036-2065_rcp45_ensm',
+                '2066-2095': 'chg_prob_div_num_drought_drysea_spei6_MON_MK_rcp45_ensm'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2016-2045_rcp85_ensm', 
+                '2036-2065': 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2036-2065_rcp85_ensm',
+                '2066-2095': 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2066-2095_rcp85_ensm'
+              }
+            },
+
+            'spi-change': {
+              'style': 'rdcyis-climate-change-spi',
+              'rcp45': {
+                '2016-2045' : 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+
+            'gddgrow10-change': {
+              'style': 'rdcyis-climate-change-gddgrow10',
+              'rcp45': {
+                '2016-2045' : 'chg_gddgrow10_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_gddgrow10_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_gddgrow10_ANN_MK_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_gddgrow10_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_gddgrow10_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_gddgrow10_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'gsl-change': {
+              'style': 'rdcyis-climate-change-gsl',
+              'rcp45': {
+                '2016-2045' : 'chg_gsl_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_gsl_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_gsl_ANN_MK_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_gsl_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_gsl_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_gsl_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'tn10p-change': {
+              'style': 'rdcyis-climate-change-tn10p',
+              'rcp45': {
+                '2016-2045' : 'chg_tn10p_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_tn10p_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_tn10p_ANN_MK_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_tn10p_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_tn10p_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_tn10p_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+            'tx90p-change': {
+              'style': 'rdcyis-climate-change-tx90p',
+              'rcp45': {
+                '2016-2045' : 'chg_tx90p_ANN_MK_2016-2045_rcp45_ensm_mean',
+                '2036-2065': 'chg_tx90p_ANN_MK_2036-2065_rcp45_ensm_mean',
+                '2066-2095': 'chg_tx90p_ANN_MK_rcp45_ensm_mean'
+              },
+              'rcp85': {
+                '2016-2045' : 'chg_tx90p_ANN_MK_2016-2045_rcp85_ensm_mean',
+                '2036-2065': 'chg_tx90p_ANN_MK_2036-2065_rcp85_ensm_mean',
+                '2066-2095': 'chg_tx90p_ANN_MK_2066-2095_rcp85_ensm_mean'
+              }
+            },
+
+          },
+
+        climateAbsoluteLegend: [
+          {
+              'name': 'cdd-absolute',
+              'colors': ['#018571','#72C5B8','#72C5B8','#A7DBD3','#DBEDEA','#F1EADB','#E7D3A5','#D9B772','#C08C46','#A6611A'],
+              'labels':['0', '15', '30', '45', '60', '75', '90', '105', '120', '135'],
+          },
+          {
+              'name': 'cwd-absolute',
+              'colors': ['#FDE725','#B5DE2C','#6CCE59','#35B779','#1E9E89','#25838E','#31688E','#3E4A89','#472878','#440154'],
+              'labels': ['110', '138', '166', '195', '223', '251', '280', '308', '336', '365']
+          },
+          {
+              'name': 'gddgrow10-absolute',
+              'colors': ['#5E3C99','#836DB3','#A99FCC','#C9C5DF','#E8E7EF','#F9E9D6','#FBCD94','#FBAF58','#F1882C','#E66101'],
+              'labels': ['0', '900', '1820', '2730', '3640', '4555', '5460', '6380', '7290', '8200']
+          },
+          {
+              'name': 'gsl-absolute',
+              'colors': ['#CA0020','#DD494B','#F09377','#F5C1A9','#F7E5DD','#E1ECF2','#B4D6E7','#82BCD9','#4396C5','#0571B0'],
+              'labels': ['120', '147', '174', '201', '228', '256', '283', '310', '337', '365']
+          },
+          {
+              'name': 'spei-absolute',
+              'colors': ['#0571B0','#2D89BD','#55A1CB','#7EB9D8','#A1CCE2','#BEDBE9','#DAE9F0','#F7F7F7','#F7E0D6','#F6C8B4','#F5B193','#EE8D74','#E25E58','#D62F3C','#CA0020'],
+              'labels': ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45','50', '55', '60', '65', '70']
+          },
+          {
+              'name': 'spi-absolute',
+              'colors': ['#0571B0','#2D89BD','#55A1CB','#7EB9D8','#A1CCE2','#BEDBE9','#DAE9F0','#F7F7F7','#F7E0D6','#F6C8B4','#F5B193','#EE8D74','#E25E58','#D62F3C','#CA0020'],
+              'labels': ['0', '9', '6', '9', '12', '15', '18', '21', '24', '27','30', '33', '36', '39', '42']
+          },
+          {
+              'name': 'r20mm-absolute',
+              'colors': ['#FDE725','#BCDF27','#7AD251','#43BF70','#22A884','#20908D','#29788E','#345F8D','#404387','#482475','#440154'],
+              'labels': ['0', '11', '22', '33', '44', '55', '66', '77', '88', '99','110']
+          },
+          {
+              'name': 'tmm-absolute',
+              'colors': ['#1A9641','#4DAF50','#80C75F','#AEDD72','#CFEB91','#EFF9B4','#FFF1AF','#FED38C','#FEB66A','#F3854E','#E54F35','#D7191C'],
+              'labels': ['0', '3', '6', '9', '12', '15', '18', '21', '24', '27', '30', '33']
+          },
+          {
+              'name': 'tn10p-historical-absolute',
+              'colors': ['#7B3294','#9760AC','#B48EC3','#CDB6D7','#E2D7E7','#F7F7F7','#D7ECD5','#B6E1B2','#85CB8B','#42A961','#008837'],
+              'labels': ['9.0', '9.2', '9.4', '9.6', '9.8', '10.0', '10.2', '10.4', '10.6', '10.8', '11.0']
+          },
+          {
+              'name': 'tn10p-absolute',
+              'colors': ['#7B3294','#9760AC','#B48EC3','#CDB6D7','#E2D7E7','#F7F7F7','#D7ECD5','#B6E1B2','#85CB8B','#42A961','#008837'],
+              'labels': ['0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1']
+          },
+          {
+              'name': 'tnn-absolute',
+              'colors': ['#4DAC26','#6EBD43','#8FCD61','#B0DD7F','#C7E6A0','#DAEDC3','#EEF4E6','#F7EDF3','#F5D9EA','#F3C5E1','#EFAAD4','#E57BBC','#DB4BA3','#D01C8B'],
+              'labels': ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24', '26']
+          },
+          {
+              'name': 'tx90p-absolute',
+              'colors': ['#4DAC26','#8FCD61','#C7E6A0','#DAEDC3','#EEF4E6','#F7EDF3','#F5D9EA','#F3C5E1','#E57BBC','#D01C8B'],
+              'labels': ['55', '60', '65', '70', '75', '80', '85', '90', '95', '100']
+          },
+          {
+              'name': 'txx-absolute',
+              'colors': ['#2B83BA','#5EA7B1','#91CBA9','#BCE4AA','#DEF2B4','#FFFFBF','#FFDF9A','#FEBE74','#F69053','#E75437','#D7191C'],
+              'labels': ['10', '14', '18', '22', '26', '30', '34', '38', '42', '46', '50']
+          }
+
+        ],
+
+        climateChangeLegend: [
+          {
+              'name': 'cdd-change',
+              'colors': ['#018571','#34A291','#67BFB1','#97D5CC','#C6E5E1','#F8F8F8','#EDE1C5','#E4CC95','#D6B472','#BD8841','#A6611A'],
+              'labels':['-15.0', '-11.5', '-8.0', '-4.5', '-1.0', '2.5', '6.0', '9.5', '13.0', '16.5', '20.0'],
+          },
+          {
+              'name': 'cwd-change',
+              'colors': ['#FDE725','#BCDF27','#7AD251','#43BF70','#34AF8E','#20908D','#29788E','#345F8D','#404387','#52317D','#440154'],
+              'labels':['-110.0', '-94.5', '-79.0', '63.5', '-48.0', '-32.5', '-17.0', '-1.5', '14.0', '29.5', '45.0'],
+          },
+          {
+              'name': 'gddgrow10-change',
+              'colors': ['#5E3C99','#8068B0','#A195C7','#C0BADA','#DCD9E9','#F7F7F7','#FADEBC','#FCC581','#F9A74F','#F08428','#E66101'],
+              'labels':['0', '150', '300', '450', '600', '750', '900', '1050', '1200', '1350', '1500'],
+          },
+          {
+              'name': 'gsl-change',
+              'colors': ['#CA0020','#DD494B','#F09377','#F5C1A9','#F7E5DD','#F7F7F7','#E1ECF2','#B4D6E7','#82BCD9','#4396C5','#0571B0'],
+              'labels':['0', '11', '22', '33', '44', '55', '66', '77', '88', '99','110'],
+          },
+          {
+              'name': 'spi-change',
+              'colors': ['#CA0020','#DD494B','#F09377','#F5C1A9','#F7E5DD','#F7F7F7','#E1ECF2','#B4D6E7','#82BCD9','#4396C5','#0571B0'],
+              'labels':['-20', '-14', '-8', '-2', '4', '10', '16', '22', '28', '34', '40'],
+          },
+          {
+              'name': 'spei-change',
+              'colors': ['#CA0020','#DD494B','#F09377','#F5C1A9','#F7E5DD','#F7F7F7','#E1ECF2','#B4D6E7','#82BCD9','#4396C5','#0571B0'],
+              'labels':['60.0', '52.5', '45.0', '37.5', '30.0', '22.5', '15.0', '7.5', '0', '-7.5', '-15.0'],
+          },
+          {
+              'name': 'r20mm-change',
+              'colors': ['#FDE725','#BCDF27','#7AD251','#43BF70','#22A884','#20908D','#29788E','#345F8D','#404387','#482475','#440154'],
+              'labels':['0', '3', '6', '9', '12', '15', '18', '21', '24', '27', '30'],
+          },
+          {
+              'name': 'tmm-change',
+              'colors': ['#1A9641','#4DAF50','#80C75F','#AEDD72','#CFEB91','#FFF1AF','#FED38C','#FEB66A','#F3854E','#E54F35','#D7191C'],
+              'labels':['0.0', '0.3', '0.6', '0.9', '1.2', '1.5', '1.8', '2.1', '2.4', '2.7', '3.0'],
+          },
+          {
+              'name': 'tn10p-change',
+              'colors': ['#7B3294','#9760AC','#B48EC3','#CDB6D7','#E2D7E7','#F7F7F7','#D7ECD5','#B6E1B2','#85CB8B','#42A961','#008837'],
+              'labels':['-11.0', '-10.8', '-10.6', '-10.4', '-10.2', '-10.0', '-9.8', '-9.6', '-9.4', '-9.2', '-9.0'],
+          },
+          {
+              'name': 'tnn-change',
+              'colors': ['#4DAC26','#8FCD61','#C7E6A0','#DAEDC3','#EEF4E6','#F7F7F7','#F7EDF3','#F5D9EA','#F3C5E1','#E57BBC','#D01C8B'],
+              'labels':['0.0', '0.5', '1.0', '1.5', '2.0', '2.5', '3.0', '3.5', '4.0', '4.5', '5.0'],
+
+          },
+          {
+              'name': 'tx90p-change',
+              'colors': ['#4DAC26','#8FCD61','#C7E6A0','#DAEDC3','#EEF4E6','#F7F7F7','#F7EDF3','#F5D9EA','#F3C5E1','#E57BBC','#D01C8B'],
+              'labels':['40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90'],
+          },
+          {
+              'name': 'txx-change',
+              'colors': ['#2B83BA','#5EA7B1','#91CBA9','#BCE4AA','#DEF2B4','#FFFFBF','#FFDF9A','#FEBE74','#F69053','#E75437','#D7191C'],
+              'labels':['0.0', '0.5', '1.0', '1.5', '2.0', '2.5', '3.0', '3.5', '4.0', '4.5', '5.0'],
+          }
         ]
+
+
 };
 
 angular.module('mekongDroughtandCropWatch')

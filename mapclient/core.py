@@ -696,7 +696,6 @@ class GEEApi():
             if (_class['name'] == dataset.split("-")[1]):
                 _class['name'] = dataset.split("-")[1]
                 style = _class['value']
-                print(_class['sld'])
                 image = image.select(_class['band'])
                 imgScale = image.projection().nominalScale()
                 image = image.reproject(crs='EPSG:4326', scale=imgScale)
@@ -774,7 +773,6 @@ class GEEApi():
         for _class in self.MAP_CLASSES:
             if (_class['name'] == 'front_rcdi'):
                 style = _class['value']
-                print(_class['sld'])
                 image = image.select(_class['band'])
                 style = _class['value']
                 imgScale = image.projection().nominalScale()
@@ -826,3 +824,45 @@ class GEEApi():
         # res_list = sorted(res_list, key=lambda x: int(x['Order']), reverse=True)
         list_as_json = json.dumps(res_list)
         return list_as_json
+
+    # -------------------------------------------------------------------------
+    def get_climate_data(self, typeArea, areaid0, areaid1, img_id, climateType, climateScenarios):
+        with connection.cursor() as cursor:
+
+            if typeArea=="mekong":
+                if climateScenarios=="his":
+                    sql = """SELECT id, img_id, type, min, max, mean, count, scenarios  from mekong_climate where img_id like '"""+img_id+"""%' and type = '"""+climateType+"""' and (scenarios = 'rcp45' or scenarios = '"""+climateScenarios+"""')"""
+                else:
+                    sql = """SELECT id, img_id, type, min, max, mean, count, scenarios  from mekong_climate where img_id like '"""+img_id+"""%' and type = '"""+climateType+"""' and (scenarios = 'his' or scenarios = '"""+climateScenarios+"""')"""
+            elif typeArea=="country":
+                if climateScenarios=="his":
+                    sql = """SELECT id, img_id, type, min, max, mean, count, scenarios  from adm0_climate where img_id like '"""+img_id+"""%' and adm_id_0 = """+areaid0+""" and type = '"""+climateType+"""' and (scenarios = 'rcp45' or scenarios = '"""+climateScenarios+"""')"""
+                else:
+                    sql = """SELECT id, img_id, type, min, max, mean, count, scenarios  from adm0_climate where img_id like '"""+img_id+"""%' and adm_id_0 = """+areaid0+""" and type = '"""+climateType+"""' and (scenarios = 'his' or scenarios = '"""+climateScenarios+"""')"""
+            else:
+                if climateScenarios=="his":
+                    sql = """SELECT id, img_id, type, min, max, mean, count, scenarios from adm1_climate where img_id like '"""+img_id+"""%' and adm_id_0 = """+areaid0+""" and adm_id_1 = """+areaid1+"""  and type = '"""+climateType+"""' and (scenarios = 'rcp45' or scenarios = '"""+climateScenarios+"""')"""
+                else:
+                    sql = """SELECT id, img_id, type, min, max, mean, count, scenarios from adm1_climate where img_id like '"""+img_id+"""%' and adm_id_0 = """+areaid0+""" and adm_id_1 = """+areaid1+"""  and type = '"""+climateType+"""' and (scenarios = 'his' or scenarios = '"""+climateScenarios+"""')"""
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            data=[]
+            for row in result:
+                id=row[0]
+                img_id=row[1]
+                type = row[2]
+                min=row[3]
+                max = row[4]
+                mean=row[5]
+                count = row[6]
+                data.append({
+                    'id': id,
+                    'img_id': img_id,
+                    'type': type,
+                    'min': min,
+                    'max': max,
+                    'mean': mean,
+                    'count': count,
+                })
+            connection.close()
+            return data
