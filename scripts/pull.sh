@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /home/ubuntu/rdcyis_venv/bin/activate
+source /home/ubuntu/rdcyis-venv/bin/activate
 cd /home/ubuntu/rdcyis
 git reset --hard HEAD
 git pull
