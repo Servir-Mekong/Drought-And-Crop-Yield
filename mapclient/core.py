@@ -377,7 +377,7 @@ class GEEApi():
                 'name': 'vsdi',
                 'value': self.sld_vsdi,
                 'min':0,
-                'max':10000,
+                'max':30000,
                 'sld': 'True',
                 'band': 'VSDI'
             },
@@ -622,6 +622,7 @@ class GEEApi():
                 sql = """SELECT dataset, date, max(min), max(max), max(average), time_start from tbl_mekongriver where dataset = '"""+dataset+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' group by date, dataset, time_start order by time_start ASC"""
 
             cursor.execute(sql)
+            print(sql)
             result = cursor.fetchall()
             data=[]
             for row in result:
