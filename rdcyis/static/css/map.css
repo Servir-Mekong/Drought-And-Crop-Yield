@@ -893,9 +893,9 @@ input:checked + .slider_toggle:before {
   border-bottom: 2px solid #e3e3e3;
 }
 .climate-control-box .overlay {
-  background:rgb(255,255,255,1);
-  padding:20px 50px;
-  color:#000;
+  background: #877664;
+  padding: 20px 50px;
+  color: #f8f9fa;
 }
 .btn-climate-absolute {
   float: right;
