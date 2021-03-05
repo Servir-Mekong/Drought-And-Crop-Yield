@@ -280,7 +280,15 @@
     }
 
     $scope.getData = function (chartid, type) {
-      var dataset = selected_climateCase.split("_")[0];
+
+      if(selected_variable === 'spei-absolute') {
+        var dataset = '';
+      }else if(selected_variable === 'spi-absolute'){
+        var dataset = '';
+      }else{
+        var dataset = selected_climateCase.split("_")[0];
+      }
+
       if(type == "mekong"){
         var parameters = {
           type: type,

@@ -460,11 +460,11 @@ var settings = {
             'value': 'r20mm-absolute'
           },
           {
-            'name': 'SPEI: Standardized Precipitation Evapotranspiration Index',
+            'name': 'SPEI: Drought Susceptibility (based on SPEI) (%) ',
             'value': 'spei-absolute'
           },
           {
-            'name': 'SPI: Standardized Precipitation Index',
+            'name': 'SPI: Drought Susceptibility (based on SPI) (%)',
             'value': 'spi-absolute'
           },
           {
@@ -504,16 +504,12 @@ var settings = {
             'value': 'gsl-change'
           },
           {
-            'name': 'SPEI: Standardized Precipitation Evapotranspiration Index',
+            'name': 'SPEI: Drought Susceptibility (based on SPEI) (%) ',
             'value': 'spei-change'
           },
           {
-            'name': 'SPI: Standardized Precipitation Index',
+            'name': 'SPI: Drought Susceptibility (based on SPI) (%)',
             'value': 'spi-change'
-          },
-          {
-            'name': 'R20MM: Number of Very Heavy Rain Days (days)',
-            'value': 'r20mm-change'
           },
           {
             'name': 'TMM: Mean Daily Mean Temperature (C)',
@@ -905,7 +901,7 @@ var settings = {
                 '2066-2095': 'chg_prob_div_num_drought_drysea_spei6_MON_MK_rcp45_ensm'
               },
               'rcp85': {
-                '2016-2045' : 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2016-2045_rcp85_ensm', 
+                '2016-2045' : 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2016-2045_rcp85_ensm',
                 '2036-2065': 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2036-2065_rcp85_ensm',
                 '2066-2095': 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2066-2095_rcp85_ensm'
               }

@@ -102,8 +102,8 @@
                   <p>Opacity: <span id="opacity-value"></span></p>
                   <input type="range" min="1" max="100" value="100" class="slider" id="opacity-slider">
                 </div>
-                <div class="row">
-                  <div class="col-lg-12 col-md-6 legend-list">
+                <div>
+                  <div class="legend-list">
                     <ul>
                       <li ng-repeat="x in legend">
                         <div class="row">
@@ -121,8 +121,8 @@
               </div>
 
               <div class="left-legend-panel map-legend hide" id="left-legend">
-                <div class="row">
-                  <div class="col-lg-12 col-md-6 legend-list">
+                <div>
+                  <div class="legend-list">
                     <ul>
                       <li ng-repeat="x in left_legend">
                         <div class="row">
@@ -145,8 +145,8 @@
               </div>
 
               <div class="right-legend-panel map-legend hide" id="right-legend">
-                <div class="row">
-                  <div class="col-lg-12 col-md-6 legend-list">
+                <div>
+                  <div class="legend-list">
                     <ul>
                       <li ng-repeat="x in right_legend">
                         <div class="row">
@@ -238,7 +238,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Moisture Stress Index (MSI)</h2>
-                              <p class="animated fadeInUp">"Moisture Stress Index (MSI) is a simple water ratio index for the estimation of leaf relative water content (%) and equivalent water thickness (EWT, g cm–2) of different plant species (Hunt and Rock 1989). It is calculated as R1600 nm/R820 nm. In this study, the SWIR band as there is strong water absorption bands at SWIR spectrum are more sensitive to moisture variation than other optical spectral regions. The weak water absorption at NIR band makes it less sensitive to water variation thus the ratio between SWIR and NIR bands can effectively reduce the scattering effect of the single band and highlight the water variation in vegetation leaves."</p>
+                              <p class="animated fadeInUp">Moisture Stress Index (MSI) is a simple water ratio index for the estimation of leaf relative water content (%) and equivalent water thickness (EWT, g cm–2) of different plant species (Hunt and Rock 1989). It is calculated as R1600 nm/R820 nm. In this study, the SWIR band as there is strong water absorption bands at SWIR spectrum are more sensitive to moisture variation than other optical spectral regions. The weak water absorption at NIR band makes it less sensitive to water variation thus the ratio between SWIR and NIR bands can effectively reduce the scattering effect of the single band and highlight the water variation in vegetation leaves."</p>
                               <p class="animated fadeInUp">Data Source: 	Visible Infrared Imaging Radiometer Suite (VIIRS) dataset available in Google Earth Engine (GEE)</p>
                               <table style="color: #FFF;font-size: 14px;">
                                <tbody>
@@ -265,7 +265,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Atmospherically Resistant Vegetation Index (ARVI)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 The Atmospherically Resistant Vegetation Index (ARVI) was originally designed for use with MODIS. It is an enhancement to the NDVI that is relatively resistant to atmospheric factors (for example, aerosol). It uses blue reflectance to correct red reflectance for atmospheric scattering.
                                 It is most useful in regions of high atmospheric aerosol content, including tropical regions contaminated by soot from slash-and-burn agriculture.
                               </p>
@@ -297,7 +297,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Visible and Shortwave infrared Drought Index (VSDI)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Visible and Shortwave infrared Drought Index (VSDI) developed by Zhang et al. 2013. VSDI is based on the combination of optical spectral bands located in Blue, Red, and Shortwave infrared (SWIR) regions. It shows potential advantages for monitoring both soil and vegetation moisture and for drought monitoring throughout plant growing seasons, which distinguish it from other drought indices that were either designed for vegetation water content estimation or confined to soil moisture monitoring.
                               </p>
                               <p class="animated fadeInUp">
@@ -328,7 +328,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Soil Adjusted Vegetation Index (SAVI)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 The Soil Adjusted Vegetation Index (SAVI) was proposed by HUETE (1988).It is aimed at minimizing the soil influence on vegetation quantification by introducing the soil adjustment factor L.
                                 This index is best used in areas with relatively sparse vegetation where soil is visible through the canopy. For high vegetation cover the value of L is 0.0 (or 0.25), and for low vegetation cover 1.0. For intermediate vegetation cover L = 0.5, and this value is used most widely.
                               </p>
@@ -360,7 +360,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Enhanced Vegetation Index (EVI)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 As the name suggests, Enhanced Vegetation Index (EVI) is an optimized index over the standard NDVI. The EVI was specifically developed to be more sensitive to changes in areas having high biomass (a serious shortcoming of NDVI), reduce the influence of atmospheric conditions on vegetation index values, and correct for canopy background signals. EVI tends to be more sensitive to plant canopy differences like leaf area index (LAI), canopy structure, and plant phenology and stress than does NDVI which generally responds just to the amount of chlorophyll present.
                               </p>
                               <p class="animated fadeInUp">
@@ -391,7 +391,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Normalized Difference Vegetation Index (NDVI)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Normalized Difference Vegetation Index (NDVI) was developed from work done by Tarpley et al. and Kogan with the National Oceanic and Atmospheric Administration (NOAA) in the United States. Uses the global vegetation index data, which are produced by mapping 4 km daily radiance. Radiance values measured in both the visible and near-infrared channels are used to calculate NDVI. It measures greenness and vigor of vegetation over a seven-day period as a way of reducing cloud contamination and can identify drought-related stress to vegetation.
                               </p>
                               <p class="animated fadeInUp">
@@ -422,7 +422,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Normalized Difference Vegetation Index (NDVI) Anomaly</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Monthly anomaly is calculated based on the 2012-2019 period for each month. 2015 and 2016 are discarded from the climatology calculation as those are severe drought years.
                               </p>
                               <p class="animated fadeInUp">
@@ -453,7 +453,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Keetch-Byram Drought Index (KBDI) </h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 The Keetch-Byram drought index (KBDI) is a continuous reference scale for estimating the dryness of the soil and duff layers. The index increases for each day without rain (the amount of increase depends on the daily high temperature) and decreases when it rains. The scale ranges from 0 (no moisture deficit) to 800. The range of the index is determined by assuming that there is 8 inches of moisture in a saturated soil that is readily available to the vegetation.
                                 High values of the KBDI are an indication that conditions are favorable for the occurrence and spread of wildfires, but drought is not by itself a prerequisite for wildfires. Other weather factors, such as wind, temperature, relative humidity and atmospheric stability, play a major role in determining the actual fire danger.
 
@@ -486,7 +486,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Combined Drought Index (CDI)  </h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 This index is calculated using SPI3, the anomalies of the fraction of Absorbed Photosynthetically Active Radiation (fAPAR) and soil suction (pF) .  Four warning categories are available as Watch: Precipitation deficit, Warning: Soil moisture deficit, Alert 1: Vegetation stress following precipitation deficit, Alert 2: Vegetation stress following precipitation/soil moisture deficit.
                                 Acknowledge reference:<a href="https://goo.gl/1dBSVe">https://goo.gl/1dBSVe</a>)
                                 </p>
@@ -518,7 +518,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Standardized Precipitation Index (1 month)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Reflects short-term wet and dry conditions.<br>
                                 Application: Short-term soil moisture and crop stress (especially during the growing season)</p>
                               <p class="animated fadeInUp">
@@ -549,7 +549,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Standardized Precipitation Index (3 month)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Reflects short- and medium-term moisture conditions
                                 Application: A seasonal estimation of precipitation
                               </p>
@@ -581,7 +581,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Standardized Runoff Index (1 month)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Shows short-term potential to complement existing climate indices and local hydro-climatological information.
                               </p>
                               <p class="animated fadeInUp">
@@ -612,7 +612,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Standardized Runoff Index (3 month)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Shows short- and medium-term potential to complement existing climate indices and local hydro-climatological information.
                               </p>
                               <p class="animated fadeInUp">
@@ -643,7 +643,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Soil Moisture Deficit Index (SMDI)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Can be used as an indicator of short-term drought. Useful for identifying and monitoring drought affecting agriculture.
                               </p>
                               <p class="animated fadeInUp">
@@ -674,7 +674,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Drought Severity</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Agricultural drought severity is derived from the root zone soil moisture expressed as a percentile of the 1981-2010 climatology. Low percentile values show low drought severity.
 
                               </p>
@@ -706,7 +706,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Dry Spell Events</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Dry Spell Events show dry days lasting at least 14 days.
                               </p>
                               <p class="animated fadeInUp">
@@ -737,7 +737,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Root Zone Soil Moisture (RZSM)</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Shows soil moisture content [mm] at surface and root zone level.
                               </p>
                               <p class="animated fadeInUp">
@@ -768,7 +768,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Soil Moisture</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Shows soil total moisture content [mm] in 0-10 cm soil layer.
                               </p>
                               <p class="animated fadeInUp">
@@ -799,7 +799,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Soil Temperature</h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Shows soil temperature [C] in 0-10 cm soil layer.
                               </p>
                               <p class="animated fadeInUp">
@@ -830,7 +830,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Potential Evapotranspiration (PET) </h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Shows the amount of evapotranspiration (in mm) by a large vegetation of natural green crops calculated from the VIC land surface model.
                               </p>
                               <p class="animated fadeInUp">
@@ -861,7 +861,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Evapotranspiration </h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Total net evaporation [mm] shows the sum of evaporation from bare soil, canopy interception and plant transpiration calculated from the VIC land surface model.
                               </p>
                               <p class="animated fadeInUp">
@@ -892,7 +892,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Baseflow </h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Shows the portion of streamflow that comes from the sum of deep subsurface flow and delayed shallow subsurface flow (mm/day).
                               </p>
                               <p class="animated fadeInUp">
@@ -923,7 +923,7 @@
                           <div class="carousel-container">
                             <div class="carousel-content container">
                               <h2 class="animated fadeInDown">Surface Runoff </h2>
-                              <p class="animated fadeInUp">"
+                              <p class="animated fadeInUp">
                                 Excess water from rain, snow melt or other sources that does not infiltrate due to soil saturation or high intensity but instead flows overland (in mm).
                               </p>
                               <p class="animated fadeInUp">

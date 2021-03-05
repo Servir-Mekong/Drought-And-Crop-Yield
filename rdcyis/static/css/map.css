@@ -113,8 +113,8 @@
 }
 
 .control-panel {
-    top: 5%;
-    right: 10px;
+    bottom: 30%;
+    left: 10px;
     width: 38px;
 }
 
@@ -567,13 +567,13 @@ ul {
 }
 
 .legend-panel {
-    bottom: 10px;
-    left: 15px;
-    width: auto;
-    background: #e9ecef;
-    color: #212529;
-    padding: 10px;
-    font-size: 12px;
+  bottom: 20px;
+  right: 15px;
+  width: auto;
+  background: #e9ecef;
+  color: #212529;
+  padding: 10px;
+  font-size: 12px;
 }
 
 .legend-panel .legend-list ul li{
@@ -923,5 +923,7 @@ input:checked + .slider_toggle:before {
   padding: 5px 20px;
   background: #eee;
   color: #ff8507;
-  border: 1px solid;
+  border: 0px solid;
+  width: 180px;
+  text-align: left;
 }
