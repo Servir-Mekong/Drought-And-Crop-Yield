@@ -281,12 +281,24 @@
 
     $scope.getData = function (chartid, type) {
 
-      if(selected_variable === 'spei-absolute') {
-        var dataset = '';
-      }else if(selected_variable === 'spi-absolute'){
-        var dataset = '';
+
+      if(climate_type === 'change'){
+        if(selected_variable === 'spei-change') {
+          var dataset = 'chg_prob_div_num_drought_drysea_spei6';
+        }else if(selected_variable === 'spi-change'){
+          var dataset = 'chg_prob_div_num_drought_drysea_spi6';
+        }else{
+          var dataset = selected_climateCase.split("_");
+          dataset = dataset[0]+"_"+dataset[1]+"_"+dataset[2]+"_"+dataset[3];
+        }
       }else{
-        var dataset = selected_climateCase.split("_")[0];
+        if(selected_variable === 'spei-absolute') {
+          var dataset = 'prob_div_num_drought_drysea_spei6';
+        }else if(selected_variable === 'spi-absolute'){
+          var dataset = 'prob_div_num_drought_drysea_spi6';
+        }else{
+          var dataset = selected_climateCase.split("_")[0];
+        }
       }
 
       if(type == "mekong"){
@@ -354,9 +366,13 @@
     $scope.getChangeLegend = function () {
         $('.legend-list ul li').html('');
         var selectedopt = $("#map-climate-change option:selected").val();
+        console.log(selectedopt)
         for(var i=0; i< $scope.climateChangeLegend.length; i++){
+          console.log(selectedopt, $scope.climateChangeLegend[i].name)
           if($scope.climateChangeLegend[i].name === selectedopt){
+            console.log(selectedopt, $scope.climateChangeLegend[i].name)
             for(var j=0; j< $scope.climateChangeLegend[i].colors.length; j++){
+              console.log($scope.climateChangeLegend[i].colors[j])
               var item = {color: $scope.climateChangeLegend[i].colors[j], label: $scope.climateChangeLegend[i].labels[j]};
               $scope.legend.push(item)
             }
@@ -387,30 +403,42 @@
     var selected_variable= 'cdd-absolute';
     var geoserver_workspace = 'rdcyis-climate-absolute';
     var climate_scenarios;
+
     $scope.parameterChange = function(){
       var scenarios = $("#map-climate-scenarios option:selected").val();
       var period = $("#map-climate-period option:selected").val();
       var store_name = $scope.climateStoreName[selected_variable][scenarios][period];
       var style = $scope.climateStoreName[selected_variable]['style'];
       climate_scenarios = scenarios;
-      $scope.getAbsoluteLegend();
+      if(climate_type === 'absolute'){
+        $scope.getAbsoluteLegend();
+      }else{
+        $scope.getChangeLegend();
+      }
+
       $scope.getMapLayer(geoserver_workspace, store_name, style);
     };
+
     var climate_type = 'absolute';
+
     $("#map-climate-absolute").on('change', function(){
       clearChartArea();
       geoserver_workspace = 'rdcyis-climate-absolute';
       climate_type= 'absolute';
       selected_variable = $("#map-climate-absolute option:selected").val();
+      console.log(selected_variable)
       $scope.parameterChange();
     });
+
     $("#map-climate-change").on('change', function(){
       clearChartArea();
       geoserver_workspace = 'rdcyis-climate-change';
       climate_type= 'change';
       selected_variable = $("#map-climate-change option:selected").val();
+      console.log(selected_variable)
       $scope.parameterChange();
     });
+
     $("#map-climate-scenarios").on('change', function(){
       clearChartArea();
       var scenarios = $("#map-climate-scenarios option:selected").val();
@@ -529,6 +557,7 @@
         $scope.$apply();
       }else{
         $(this).addClass('active');
+        console.log('active -change')
         $scope.showClimateChangeSelect = true;
         $scope.showClimateAbsoluteSelect = false;
         $scope.climateScenarios = appSettings.climateChangeScenarios;

@@ -460,11 +460,11 @@ var settings = {
             'value': 'r20mm-absolute'
           },
           {
-            'name': 'SPEI: Drought Susceptibility (based on SPEI) (%) ',
+            'name': 'Drought Susceptibility (based on SPEI) (%) ',
             'value': 'spei-absolute'
           },
           {
-            'name': 'SPI: Drought Susceptibility (based on SPI) (%)',
+            'name': 'Drought Susceptibility (based on SPI) (%)',
             'value': 'spi-absolute'
           },
           {
