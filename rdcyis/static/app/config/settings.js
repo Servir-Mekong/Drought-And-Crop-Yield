@@ -436,6 +436,14 @@ var settings = {
 
         climateAbsoluteVariables: [
           {
+            'name': 'Amount of Cold Nights (%)',
+            'value': 'tn10p-absolute'
+          },
+          {
+            'name': 'Amount of Hot Days (%)',
+            'value': 'tx90p-absolute'
+          },
+          {
             'name': 'Consecutive Dry Days (days)',
             'value': 'cdd-absolute'
           },
@@ -456,10 +464,6 @@ var settings = {
             'value': 'txx-absolute'
           },
           {
-            'name': 'Number of Very Heavy Rain Days (days)',
-            'value': 'r20mm-absolute'
-          },
-          {
             'name': 'Drought Susceptibility (based on SPEI) (%) ',
             'value': 'spei-absolute'
           },
@@ -476,61 +480,61 @@ var settings = {
             'value': 'gsl-absolute'
           },
           {
-            'name': 'Amount of Cold Nights (%)',
-            'value': 'tn10p-absolute'
-          },
-          {
-            'name': 'Amount of Hot Days (%)',
-            'value': 'tx90p-absolute'
+            'name': 'Number of Very Heavy Rain Days (days)',
+            'value': 'r20mm-absolute'
           }
 
         ],
 
         climateChangeVariables: [
           {
-            'name': 'CDD: Consecutive Dry Days (days)',
-            'value': 'cdd-change'
-          },
-          {
-            'name': 'CWD: Consecutive Wet Days (days)',
-            'value': 'cwd-change'
-          },
-          {
-            'name': 'GDDGROW10: Growing Degree Days (degree-days)',
-            'value': 'gddgrow10-change'
-          },
-          {
-            'name': 'GSL: Growing Season Length (days)',
-            'value': 'gsl-change'
-          },
-          {
-            'name': 'SPEI: Drought Susceptibility (based on SPEI) (%) ',
-            'value': 'spei-change'
-          },
-          {
-            'name': 'SPI: Drought Susceptibility (based on SPI) (%)',
-            'value': 'spi-change'
-          },
-          {
-            'name': 'TMM: Mean Daily Mean Temperature (C)',
-            'value': 'tmm-change'
-          },
-          {
-            'name': 'TN10P: Amount of Cold Nights (%) ',
+            'name': 'Amount of Cold Nights (%) ',
             'value': 'tn10p-change'
           },
           {
-            'name': 'TNN: Daily minimum Temperature (C)',
-            'value': 'tnn-change'
-          },
-          {
-            'name': 'TX90P: Amount of Hot Days (%)',
+            'name': 'Amount of Hot Days (%)',
             'value': 'tx90p-change'
           },
           {
-            'name': 'TXX: Daily maximum Temperature (C)',
+            'name': 'Consecutive Dry Days (days)',
+            'value': 'cdd-change'
+          },
+          {
+            'name': 'Consecutive Wet Days (days)',
+            'value': 'cwd-change'
+          },
+          {
+            'name': 'Daily Mean Temperature (C)',
+            'value': 'tmm-change'
+          },
+          {
+            'name': 'Daily minimum Temperature (C)',
+            'value': 'tnn-change'
+          },
+          {
+            'name': 'Daily maximum Temperature (C)',
             'value': 'txx-change'
-          }
+          },
+          {
+            'name': 'Drought Susceptibility (based on SPEI) (%) ',
+            'value': 'spei-change'
+          },
+          {
+            'name': 'Drought Susceptibility (based on SPI) (%)',
+            'value': 'spi-change'
+          },
+          {
+            'name': 'Growing Degree Days (degree-days)',
+            'value': 'gddgrow10-change'
+          },
+          {
+            'name': 'Growing Season Length (days)',
+            'value': 'gsl-change'
+          },
+          {
+            'name': 'Number of Very Heavy Rain Days (days)',
+            'value': 'r20mm-change'
+          },
 
         ],
 
@@ -714,7 +718,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'prob_div_num_drought_drysea_spei6_MON_MK_2016-2045_rcp45_ensm',
                 '2036-2065': 'prob_div_num_drought_drysea_spei6_MON_MK_2036-2065_rcp45_ensm',
-                '2066-2095': 'prob_div_num_drought_drysea_spei6_MON_MK_rcp45_ensm'
+                '2066-2095': 'prob_div_num_drought_drysea_spei6_MON_MK_2066-2095_rcp45_ensm'
               },
               'rcp85': {
                 '2016-2045' : 'prob_div_num_drought_drysea_spei6_MON_MK_2016-2045_rcp85_ensm',
@@ -731,7 +735,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'prob_div_num_drought_drysea_spi6_MON_MK_2016-2045_rcp45_ensm',
                 '2036-2065': 'prob_div_num_drought_drysea_spi6_MON_MK_2036-2065_rcp45_ensm',
-                '2066-2095': 'prob_div_num_drought_drysea_spi6_MON_MK_rcp45_ensm'
+                '2066-2095': 'prob_div_num_drought_drysea_spi6_MON_MK_2066-2095_rcp45_ensm'
               },
               'rcp85': {
                 '2016-2045' : 'prob_div_num_drought_drysea_spi6_MON_MK_2016-2045_rcp85_ensm',
@@ -749,7 +753,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'gddgrow10_ANN_MK_2016-2045_rcp45_ensm_mean',
                 '2036-2065': 'gddgrow10_ANN_MK_2036-2065_rcp45_ensm_mean',
-                '2066-2095': 'gddgrow10_ANN_MK_rcp45_ensm_mean'
+                '2066-2095': 'gddgrow10_ANN_MK_2066-2095_rcp45_ensm_mean'
               },
               'rcp85': {
                 '2016-2045' : 'gddgrow10_ANN_MK_2016-2045_rcp85_ensm_mean',
@@ -766,7 +770,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'gsl_ANN_MK_2016-2045_rcp45_ensm_mean',
                 '2036-2065': 'gsl_ANN_MK_2036-2065_rcp45_ensm_mean',
-                '2066-2095': 'gsl_ANN_MK_rcp45_ensm_mean'
+                '2066-2095': 'gsl_ANN_MK_2066-2095_rcp45_ensm_mean'
               },
               'rcp85': {
                 '2016-2045' : 'gsl_ANN_MK_2016-2045_rcp85_ensm_mean',
@@ -783,7 +787,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'tn10p_ANN_MK_2016-2045_rcp45_ensm_mean',
                 '2036-2065': 'tn10p_ANN_MK_2036-2065_rcp45_ensm_mean',
-                '2066-2095': 'tn10p_ANN_MK_rcp45_ensm_mean'
+                '2066-2095': 'tn10p_ANN_MK_2066-2095_rcp45_ensm_mean'
               },
               'rcp85': {
                 '2016-2045' : 'tn10p_ANN_MK_2016-2045_rcp85_ensm_mean',
@@ -800,7 +804,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'tx90p_ANN_MK_2016-2045_rcp45_ensm_mean',
                 '2036-2065': 'tx90p_ANN_MK_2036-2065_rcp45_ensm_mean',
-                '2066-2095': 'tx90p_ANN_MK_rcp45_ensm_mean'
+                '2066-2095': 'tx90p_ANN_MK_2066-2095_rcp45_ensm_mean'
               },
               'rcp85': {
                 '2016-2045' : 'tx90p_ANN_MK_2016-2045_rcp85_ensm_mean',
@@ -898,7 +902,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2016-2045_rcp45_ensm',
                 '2036-2065': 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2036-2065_rcp45_ensm',
-                '2066-2095': 'chg_prob_div_num_drought_drysea_spei6_MON_MK_rcp45_ensm'
+                '2066-2095': 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2066-2095_rcp45_ensm'
               },
               'rcp85': {
                 '2016-2045' : 'chg_prob_div_num_drought_drysea_spei6_MON_MK_2016-2045_rcp85_ensm',
@@ -910,14 +914,14 @@ var settings = {
             'spi-change': {
               'style': 'rdcyis-climate-change-spi',
               'rcp45': {
-                '2016-2045' : 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2016-2045_rcp45_ensm_mean',
-                '2036-2065': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2036-2065_rcp45_ensm_mean',
-                '2066-2095': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_rcp45_ensm_mean'
+                '2016-2045' : 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2016-2045_rcp45_ensm',
+                '2036-2065': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2036-2065_rcp45_ensm',
+                '2066-2095': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2066-2095_rcp45_ensm'
               },
               'rcp85': {
-                '2016-2045' : 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2016-2045_rcp85_ensm_mean',
-                '2036-2065': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2036-2065_rcp85_ensm_mean',
-                '2066-2095': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2066-2095_rcp85_ensm_mean'
+                '2016-2045' : 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2016-2045_rcp85_ensm',
+                '2036-2065': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2036-2065_rcp85_ensm',
+                '2066-2095': 'chg_prob_div_num_drought_drysea_spi6_MON_MK_2066-2095_rcp85_ensm'
               }
             },
 
@@ -927,7 +931,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'chg_gddgrow10_ANN_MK_2016-2045_rcp45_ensm_mean',
                 '2036-2065': 'chg_gddgrow10_ANN_MK_2036-2065_rcp45_ensm_mean',
-                '2066-2095': 'chg_gddgrow10_ANN_MK_rcp45_ensm_mean'
+                '2066-2095': 'chg_gddgrow10_ANN_MK_2066-2095_rcp45_ensm_mean'
               },
               'rcp85': {
                 '2016-2045' : 'chg_gddgrow10_ANN_MK_2016-2045_rcp85_ensm_mean',
@@ -941,7 +945,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'chg_gsl_ANN_MK_2016-2045_rcp45_ensm_mean',
                 '2036-2065': 'chg_gsl_ANN_MK_2036-2065_rcp45_ensm_mean',
-                '2066-2095': 'chg_gsl_ANN_MK_rcp45_ensm_mean'
+                '2066-2095': 'chg_gsl_ANN_MK_2066-2095_rcp45_ensm_mean'
               },
               'rcp85': {
                 '2016-2045' : 'chg_gsl_ANN_MK_2016-2045_rcp85_ensm_mean',
@@ -955,7 +959,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'chg_tn10p_ANN_MK_2016-2045_rcp45_ensm_mean',
                 '2036-2065': 'chg_tn10p_ANN_MK_2036-2065_rcp45_ensm_mean',
-                '2066-2095': 'chg_tn10p_ANN_MK_rcp45_ensm_mean'
+                '2066-2095': 'chg_tn10p_ANN_MK_2066-2095_rcp45_ensm_mean'
               },
               'rcp85': {
                 '2016-2045' : 'chg_tn10p_ANN_MK_2016-2045_rcp85_ensm_mean',
@@ -969,7 +973,7 @@ var settings = {
               'rcp45': {
                 '2016-2045' : 'chg_tx90p_ANN_MK_2016-2045_rcp45_ensm_mean',
                 '2036-2065': 'chg_tx90p_ANN_MK_2036-2065_rcp45_ensm_mean',
-                '2066-2095': 'chg_tx90p_ANN_MK_rcp45_ensm_mean'
+                '2066-2095': 'chg_tx90p_ANN_MK_2066-2095_rcp45_ensm_mean'
               },
               'rcp85': {
                 '2016-2045' : 'chg_tx90p_ANN_MK_2016-2045_rcp85_ensm_mean',
@@ -1088,7 +1092,7 @@ var settings = {
           {
               'name': 'tmm-change',
               'colors': ['#1A9641','#4DAF50','#80C75F','#AEDD72','#CFEB91','#FFF1AF','#FED38C','#FEB66A','#F3854E','#E54F35','#D7191C'],
-              'labels':['0.0', '0.3', '0.6', '0.9', '1.2', '1.5', '1.8', '2.1', '2.4', '2.7', '3.0'],
+              'labels':['0.0', '0.3', '0.6', '0.9', '1.2', '1.5', '1.8', '2.1', '2.4', '2.7', '4.0'],
           },
           {
               'name': 'tn10p-change',

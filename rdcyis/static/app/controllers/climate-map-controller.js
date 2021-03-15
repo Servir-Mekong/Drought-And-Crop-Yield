@@ -330,7 +330,12 @@
       var minArr = [];
       var maxArr = [];
       var averageArr = [];
-      var categoriesArr = ['Historical','2030s', '2050s' , '2080s'];
+      if($scope.showClimateChangeSelect === true){
+        var categoriesArr = ['2030s', '2050s' , '2080s'];
+      }else{
+        var categoriesArr = ['Historical','2030s', '2050s' , '2080s'];
+      }
+
       var areaChartData = [];
       MapService.get_climate_data(parameters)
       .then(function (result){
