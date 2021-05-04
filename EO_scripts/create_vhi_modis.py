@@ -213,6 +213,7 @@ def process_vhi(startdate, historical_run, repository_folder, enddate='0'):
             #     scale=500,
             #     crs='EPSG:4326',
             #     maxPixels=10e12)
+            
             vhifile = first_scene.select('VHI')
             vhifile = (vhifile.multiply(100).int())
             task_order_vhi = ee.batch.Export.image.toAsset(
@@ -223,6 +224,7 @@ def process_vhi(startdate, historical_run, repository_folder, enddate='0'):
                 scale=500,
                 crs='EPSG:4326',
                 maxPixels=10e12)
+
             vcifile = first_scene.select('VCI')
             landsea = (modislandcov.select('LW')).first()
             vcifile = vcifile.updateMask(landsea.eq(2))  # Masking Sea area
@@ -235,6 +237,7 @@ def process_vhi(startdate, historical_run, repository_folder, enddate='0'):
                 scale=500,
                 crs='EPSG:4326',
                 maxPixels=10e12)
+
             tcifile = first_scene.select('TCI')
             tcifile = (tcifile.multiply(100).int())
             task_order_tci = ee.batch.Export.image.toAsset(
@@ -245,6 +248,7 @@ def process_vhi(startdate, historical_run, repository_folder, enddate='0'):
                 scale=500,
                 crs='EPSG:4326',
                 maxPixels=10e12)
+
             # task_order_vhi_reclass.start()
             task_order_vhi.start()
             task_order_vci.start()
@@ -268,6 +272,7 @@ def process_vhi(startdate, historical_run, repository_folder, enddate='0'):
         #     scale=500,
         #     crs='EPSG:4326',
         #     maxPixels=10e12)
+
         vhifile = first_scene.select('VHI')
         vhifile = (vhifile.multiply(100).int())
         task_order_vhi = ee.batch.Export.image.toAsset(
@@ -278,6 +283,7 @@ def process_vhi(startdate, historical_run, repository_folder, enddate='0'):
             scale=500,
             crs='EPSG:4326',
             maxPixels=10e12)
+
         vcifile = first_scene.select('VCI')
         landsea = (modislandcov.select('LW')).first()
         vcifile = vcifile.updateMask(landsea.eq(2))  # Masking Sea area
@@ -290,6 +296,7 @@ def process_vhi(startdate, historical_run, repository_folder, enddate='0'):
             scale=500,
             crs='EPSG:4326',
             maxPixels=10e12)
+
         tcifile = first_scene.select('TCI')
         tcifile = (tcifile.multiply(100).int())
         task_order_tci = ee.batch.Export.image.toAsset(
