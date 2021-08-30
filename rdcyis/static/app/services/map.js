@@ -108,11 +108,52 @@
 			return promise;
 		};
 
+		service.get_crop_map_id = function (options) {
+			var config = {
+				params: {
+					action: 'get-crop-map-id',
+					date: options.date,
+				}
+			};
+			var promise = $http.get('/api/mapclient/', config)
+			.then(function (response) {
+				return response.data;
+			});
+			return promise;
+		};
+
+		service.get_yield_map_id = function (options) {
+			var config = {
+				params: {
+					action: 'get-yield-map-id',
+					date: options.date,
+				}
+			};
+			var promise = $http.get('/api/mapclient/', config)
+			.then(function (response) {
+				return response.data;
+			});
+			return promise;
+		};
+
 		service.getSummary = function (options) {
 			var config = {
 				params: {
 					action: 'get-summary',
 					date: options.date,
+				}
+			};
+			var promise = $http.get('/api/mapclient/', config)
+			.then(function (response) {
+				return response.data;
+			});
+			return promise;
+		};
+
+		service.getCropYield = function (options) {
+			var config = {
+				params: {
+					action: 'get-crop-yield'
 				}
 			};
 			var promise = $http.get('/api/mapclient/', config)

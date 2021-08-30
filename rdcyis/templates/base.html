@@ -43,7 +43,7 @@
 		<link rel="stylesheet" href="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.control.min.css" />
 
 		<!-- Vendor CSS Files -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    	<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 		<link href="{% static 'vendor/chart.js/dist/Chart.min.css' %}" rel="stylesheet">
 		<link href="{% static 'vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css' %}" rel="stylesheet">
 
@@ -56,6 +56,92 @@
 		<link href="{% static 'css/main.css' %}" rel="stylesheet">
 		<link href="{% static 'css/map.css' %}" rel="stylesheet">
 		<link href="{% static 'css/report.css' %}" rel="stylesheet">
+
+		<!-- jQuery -->
+
+			<!-- Vendor JS Files -->
+			<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+			<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+			<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+			<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+			<!-- Bootstrap Core JavaScript -->
+			<script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+			<!-- Bootstrap Plugins -->
+			<script src="{% static 'vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
+			<!-- Slider -->
+			<script src="{% static 'vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js' %}"></script>
+			<!-- Ion Range Slider -->
+			<script src="{% static 'vendor/ion.rangeSlider/js/ion.rangeSlider.min.js' %}"></script>
+			<!-- Moment -->
+			<!-- <script src="{% static 'vendor/moment/min/moment.min.js' %}"></script> -->
+	
+			<!-- Mapping Library -->
+	
+			<!-- Leaflet -->
+			<script src="{% static 'vendor/leaflet/dist/leaflet.js' %}"></script>
+			<script src="{% static 'vendor/leaflet-side-by-side/leaflet-side-by-side.js' %}"></script>
+			<!--<script type="text/javascript" src="https://cdn.rawgit.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
+			<script type="text/javascript" src="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.min.js"></script>-->
+	
+			<!--  Load Angular  -->
+			<script src="{% static 'vendor/angular/angular.min.js' %}"></script>
+	
+			<!-- Angular Plugins -->
+			<script src="{% static 'vendor/angular-sanitize/angular-sanitize.min.js' %}"></script>
+			<script src="{% static 'vendor/ngstorage/ngStorage.min.js' %}"></script>
+	
+			<!-- Spatial Libraries -->
+			<script src="{% static 'vendor/togeojson/togeojson.js' %}"></script>
+	
+			<!-- Graphs DASHBOARD-->
+			<script src="{% static 'vendor/highcharts/highcharts.js' %}"></script>
+			<script src="{% static 'vendor/highcharts/highcharts-more.js' %}"></script>
+			<script src="{% static 'vendor/highcharts/modules/exporting.js' %}"></script>
+			<script src="{% static 'vendor/highcharts/modules/export-data.js' %}"></script>
+	
+	
+	
+	
+			<!-- Bootstrap Application -->
+			<script src="{% static 'app/init.js' %}"></script>
+	
+			<!-- Load Settings -->
+			<script src="{% static 'app/config/settings.js' %}"></script>
+	
+			<script src="{% static 'data/adm0.js' %}"></script>
+			<script src="{% static 'data/adm1.js' %}"></script>
+			<script src="{% static 'data/adm2.js' %}"></script>
+			<script src="{% static 'data/outboundary.js' %}"></script>
+			<script src="{% static 'data/mekong.js' %}"></script>
+			<script src="{% static 'data/mekong_basin.js' %}"></script>
+			<script src="{% static 'data/mekong_permanent_water.js' %}"></script>
+			<script src="{% static 'data/cliped_basin.js' %}"></script>
+	
+	
+			<!-- Services -->
+			<script src="{% static 'app/services/map.js' %}"></script>
+			<!-- Controllers -->
+			<script src="{% static 'app/controllers/utils-controller.js' %}"></script>
+			 <script src="{% static 'app/controllers/currentmap-controller.js' %}"></script>
+			 <script src="{% static 'app/controllers/map-controller.js' %}"></script>
+			<script src="{% static 'app/controllers/climate-map-controller.js' %}"></script>
+			<script src="{% static 'app/controllers/feature-articles-controller.js' %}"></script>
+			<script src="{% static 'app/controllers/report-controller.js' %}"></script>
+			<script src="{% static 'app/controllers/crop-controller.js' %}"></script>
+	
+			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+			<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+	
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.1.1/jspdf.umd.min.js"></script>
+			<script src="https://unpkg.com/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
+	
+
+			<!-- Directives -->
+			<!--<script src="{% static 'app/directives/text-collapse.js' %}"></script>-->
+			<script src="{% static 'app/directives/validate-email.js' %}"></script>
+	
+			<!--  main JS File -->
+			<script src="{% static 'app/controllers/main.js' %}"></script>
 
 	{% endaddtoblock %}
 
@@ -179,91 +265,8 @@
 		<!-- Load JS Lib -->
 
 
-		<!-- jQuery -->
-
-			<!-- Vendor JS Files -->
-	   	<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-	    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-			<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
-			<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
-			<!-- Bootstrap Core JavaScript -->
-			<script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-			<!-- Bootstrap Plugins -->
-			<script src="{% static 'vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
-			<!-- Slider -->
-			<script src="{% static 'vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js' %}"></script>
-			<!-- Ion Range Slider -->
-			<script src="{% static 'vendor/ion.rangeSlider/js/ion.rangeSlider.min.js' %}"></script>
-		<!-- Moment -->
-		<!-- <script src="{% static 'vendor/moment/min/moment.min.js' %}"></script> -->
-
-		<!-- Mapping Library -->
-
-		<!-- Leaflet -->
-		<script src="{% static 'vendor/leaflet/dist/leaflet.js' %}"></script>
-		<script src="{% static 'vendor/leaflet-side-by-side/leaflet-side-by-side.js' %}"></script>
-        <!--<script type="text/javascript" src="https://cdn.rawgit.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
-        <script type="text/javascript" src="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.min.js"></script>-->
-
-		<!--  Load Angular  -->
-		<script src="{% static 'vendor/angular/angular.min.js' %}"></script>
-
-		<!-- Angular Plugins -->
-		<script src="{% static 'vendor/angular-sanitize/angular-sanitize.min.js' %}"></script>
-		<script src="{% static 'vendor/ngstorage/ngStorage.min.js' %}"></script>
-
-		<!-- Spatial Libraries -->
-		<script src="{% static 'vendor/togeojson/togeojson.js' %}"></script>
-
-		<!-- Graphs DASHBOARD-->
-		<script src="{% static 'vendor/highcharts/highcharts.js' %}"></script>
-		<script src="{% static 'vendor/highcharts/highcharts-more.js' %}"></script>
-		<script src="{% static 'vendor/highcharts/modules/exporting.js' %}"></script>
-		<script src="{% static 'vendor/highcharts/modules/export-data.js' %}"></script>
-
-
-
-
-		<!-- Bootstrap Application -->
-		<script src="{% static 'app/init.js' %}"></script>
-
-		<!-- Load Settings -->
-		<script src="{% static 'app/config/settings.js' %}"></script>
-
-		<script src="{% static 'data/adm0.js' %}"></script>
-		<script src="{% static 'data/adm1.js' %}"></script>
-		<script src="{% static 'data/adm2.js' %}"></script>
-		<script src="{% static 'data/outboundary.js' %}"></script>
-		<script src="{% static 'data/mekong.js' %}"></script>
-		<script src="{% static 'data/mekong_basin.js' %}"></script>
-		<script src="{% static 'data/mekong_permanent_water.js' %}"></script>
-		<script src="{% static 'data/cliped_basin.js' %}"></script>
-
-
-		<!-- Services -->
-		<script src="{% static 'app/services/map.js' %}"></script>
-		<!-- Controllers -->
-		<script src="{% static 'app/controllers/utils-controller.js' %}"></script>
-	 	<script src="{% static 'app/controllers/currentmap-controller.js' %}"></script>
-	 	<script src="{% static 'app/controllers/map-controller.js' %}"></script>
-		<script src="{% static 'app/controllers/climate-map-controller.js' %}"></script>
-		<script src="{% static 'app/controllers/feature-articles-controller.js' %}"></script>
-		<script src="{% static 'app/controllers/report-controller.js' %}"></script>
-
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-		<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.1.1/jspdf.umd.min.js"></script>
-		<script src="https://unpkg.com/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
-
-
-		<!-- Directives -->
-		<!--<script src="{% static 'app/directives/text-collapse.js' %}"></script>-->
-		<script src="{% static 'app/directives/validate-email.js' %}"></script>
-
-    <!--  main JS File -->
-    <script src="{% static 'app/controllers/main.js' %}"></script>
-
+		
+	
 
 
 	{% endaddtoblock %}

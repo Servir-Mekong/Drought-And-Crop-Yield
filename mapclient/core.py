@@ -785,6 +785,35 @@ class GEEApi():
         }
 
     # -------------------------------------------------------------------------
+    def get_crop_map_id(self, date):
+
+        ic = ee.ImageCollection(settings.VSDI)
+
+        image = ic.filter(ee.Filter.eq("system:time_start",int(date))).first()
+        image = image.updateMask(self.maskedArea)
+
+        style ='''<RasterSymbolizer>
+              <ColorMap type="intervals" extended="false" >
+                <ColorMapEntry color="#880015" quantity="2000" label="EXD" />
+                <ColorMapEntry color="#B97A57" quantity="4000" label="SED" />
+                <ColorMapEntry color="#F89F1D" quantity="7000" label="MOD" />
+                <ColorMapEntry color="#88A541" quantity="100000" label="No Drought" />
+              </ColorMap>
+            </RasterSymbolizer>'''
+
+
+        INDEX_CLASS = {}
+        image = image.select('VSDI')
+        imgScale = image.projection().nominalScale()
+        image = image.reproject(crs='EPSG:4326', scale=imgScale)
+        map_id = image.sldStyle(style).getMapId()
+
+
+        return {
+            'eeMapURL': str(map_id['tile_fetcher'].url_format)
+        }
+
+    # -------------------------------------------------------------------------
     def get_date_outlook(self):
         _oneMonthAgo = (datetime.today() - DT.timedelta(days = 30 )).strftime('%Y-%m-%d')
         _currentDate = datetime.today().strftime('%Y-%m')
@@ -799,6 +828,17 @@ class GEEApi():
         creds = ServiceAccountCredentials.from_json_keyfile_name('credentials/privatekey.json', scope)
         client = gspread.authorize(creds)
         sheet = client.open('Drought_Summary').sheet1
+        res_list = sheet.get_all_records()
+        # res_list = sorted(res_list, key=lambda x: int(x['Order']), reverse=True)
+        list_as_json = json.dumps(res_list)
+        return list_as_json
+
+    # -------------------------------------------------------------------------
+    def get_crop_yield(request):
+        scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+        creds = ServiceAccountCredentials.from_json_keyfile_name('credentials/privatekey.json', scope)
+        client = gspread.authorize(creds)
+        sheet = client.open('crop_update').sheet1
         res_list = sheet.get_all_records()
         # res_list = sorted(res_list, key=lambda x: int(x['Order']), reverse=True)
         list_as_json = json.dumps(res_list)
