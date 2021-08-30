@@ -430,7 +430,6 @@
 				a.href = file_path;
 				//a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
 				document.body.appendChild(a);
-        a.setAttribute('target', '_blank');
 				a.click()
 				document.body.removeChild(a);
     });
@@ -447,7 +446,6 @@
         var a = document.createElement('A');
         a.href = file_path;
         document.body.appendChild(a);
-        a.setAttribute('target', '_blank');
         a.click()
         document.body.removeChild(a);
     });
@@ -459,7 +457,6 @@
         var a = document.createElement('A');
         a.href = file_path;
         document.body.appendChild(a);
-        a.setAttribute('target', '_blank');
         a.click()
         document.body.removeChild(a);
     });
@@ -471,7 +468,6 @@
         var a = document.createElement('A');
         a.href = file_path;
         document.body.appendChild(a);
-        a.setAttribute('target', '_blank');
         a.click()
         document.body.removeChild(a);
     });
