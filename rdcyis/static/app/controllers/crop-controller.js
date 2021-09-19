@@ -10,8 +10,9 @@
         var parameters = {};
         MapService.getCropYield(parameters)
         .then(function (data) {
-          console.log(data);
           $scope.cropListSummary = JSON.parse(data);
+          $("#map-yield-date").text($scope.cropListSummary[0].Desc);
+          $scope.showLoader = false;
         }, 
         function (error) {
         });
@@ -25,6 +26,7 @@
       var geojsonWater_1, geojsonWater_2, currentDateList, cropLayer, yieldLayer, outlookDateList;
       var selectedCurrentDate = ''
       var summaryCountryName = ['Cambodia','Laos','Myanmar','Thailand','Vietnam']
+
       var polygonstyle = {
         fillColor: "#FFF",
         weight: 0.5,
@@ -33,6 +35,15 @@
         fillOpacity: 0
       }
   
+      var focusedPolygonstyle = {
+        fillColor: "#FFF",
+        weight: 2,
+        opacity: 1,
+        color: 'black',
+        dashArray: '3',
+        fillOpacity: 0
+      }
+
       var waterstyle = {
         fillColor: "#00008b",
         weight: 0.5,
@@ -57,8 +68,8 @@
       map1.doubleClickZoom.disable();
       map1.scrollWheelZoom.disable();
       map1.createPane('cropLayer');
-          map1.getPane('cropLayer').style.zIndex = 300;
-  
+      map1.getPane('cropLayer').style.zIndex = 300;
+      var selected_province_json;
       function initMap1(){
         geojsonOutBBOX_1 = L.geoJson(outboundary,{
           style: outBBoxstyle
@@ -66,14 +77,21 @@
   
         geojsonADM0_1 = L.geoJson(adm0,{
           style: polygonstyle,
-          onEachFeature: onEachCountry
+          // onEachFeature: onEachGeojson,
         }).addTo(map1);
   
         geojsonWater_1 = L.geoJson(permanent_water,{
           style: waterstyle
         }).addTo(map1);
-  
-        map1.fitBounds(geojsonADM0_1.getBounds());
+
+        $.getJSON('/static/data/crop_geojson/ninh_thuan_districts.geojson')
+        .done(function (data, status) {
+          selected_province_json = L.geoJson(data, {
+            style: focusedPolygonstyle,
+          }).addTo(map1);
+          map1.fitBounds(selected_province_json.getBounds());
+        });
+
       }
   
       // function to add and update tile layer to map
@@ -122,7 +140,6 @@
           cropLayer = addMapLayer(cropLayer, result.eeMapURL, 'cropLayer');
           $scope.showLoader = false;
   
-  
         }), function (error){
           console.log(error);
         };
@@ -141,55 +158,59 @@
       map2.createPane('yieldLayer');
           map2.getPane('yieldLayer').style.zIndex = 300;
   
+      function getColor(d) {
+        return d < 5250 ? '#FFFFD8' :
+                d < 5500  ? '#FFFF9D' :
+                d < 5750  ? '#E3F59B' :
+                d < 6000  ? '#C6EB98' :
+                d < 6250   ? '#AAE096' :
+                d < 6500   ? '#8ED694' :
+                d < 6750   ? '#71CC91' :
+                d < 7000  ? '#55C28F' :
+                d < 7500   ? '#00A388' :
+                d < 8000   ? '#1CAD8A' :
+                          '#00A388';
+      }
+      function style(feature) {
+        return {
+            fillColor: getColor(feature.properties.AVG_YIELD),
+            weight: 2,
+            opacity: 1,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.7
+        };
+      }
+    
+      var crop_yield_json = '';
       function initMap2(){
-        geojsonOutBBOX_2 = L.geoJson(outboundary,{
-          style: outBBoxstyle
-        }).addTo(map2);
-        geojsonADM0_2 = L.geoJson(adm0,{
+
+        var geojsonADM1 = L.geoJson(adm1,{
           style: polygonstyle,
-          onEachFeature: onEachCountry
-        }).addTo(map2);
-        geojsonWater_2 = L.geoJson(permanent_water,{
-          style: waterstyle
         }).addTo(map2);
   
-        map2.fitBounds(geojsonADM0_2.getBounds());
+        geojsonWater_1 = L.geoJson(permanent_water,{
+          style: waterstyle
+        }).addTo(map2);
+
+
+        $.getJSON('/static/data/crop_geojson/ninh_thuan_districts.geojson')
+        .done(function (data, status) {
+
+          crop_yield_json = L.geoJson(data, {
+            style: style,
+            onEachFeature: onEachcropyield
+          }).addTo(map2);
+          map2.fitBounds(crop_yield_json.getBounds());
+        });
+        
+
       }
   
       initMap1();
       initMap2();
-  
-  
-      var parametersOutlook = {};
-      MapService.get_outlook_date(parametersOutlook)
-      .then(function (result){
-        outlookDateList = result;
-        $scope.showyieldLayer(0);
-        var dateObj = new Date(outlookDateList[0]);
-        var _date = dateObj.toISOString().slice(0,10)
-  
-      }), function (error){
-        console.log(error);
-      };
-  
-      $scope.showyieldLayer = function(index) {
-        if(map2.hasLayer(yieldLayer)){
-          map2.removeLayer(yieldLayer);
-        }
-        var parameters = {
-          date: outlookDateList[index],
-        };
-        MapService.get_yield_map_id(parameters)
-        .then(function (result){
-          yieldLayer = addyieldLayer(yieldLayer, result.eeMapURL, 'yieldLayer');
-          $scope.showLoader = false;
-  
-  
-        }), function (error){
-          console.log(error);
-        };
-  
-      };
+
+
   
       //////////////////////////////Regoin Boundary onclick event////////////////////////////////////
       function geojsonFilter(feature) {
@@ -244,29 +265,69 @@
         map2.fitBounds(geojsonCountry_2.getBounds());
         map1.fitBounds(geojsonCountry_1.getBounds());
       }
-  
-      function onEachCountry(feature, layer) {
-        layer.on({
-          click: whenClicked
-        });
+
+      function onEachcropyield(feature, layer) {
+        var popupContent = "<table>"+
+        "<tr>"+
+          "<td>CROP</td>"+
+          "<td>"+feature.properties.CROP+"</td>"+
+        "</tr>"+
+        "<tr>"+
+          "<td>PLANTING</td>"+
+          "<td>"+feature.properties.PLANTING+"</td>"+
+        "</tr>"+
+        "<tr>"+
+          "<td>FIRST HARVEST</td>"+
+          "<td>"+feature.properties.FIRST_HARV+"</td>"+
+        "</tr>"+
+        "<tr>"+
+          "<td>LAST HARVEST</td>"+
+          "<td>"+feature.properties.LAST_HARVE+"</td>"+
+        "</tr>"+
+        "<tr>"+
+          "<td>MAX YIELD</td>"+
+          "<td>"+feature.properties.MAX_YIELD+" kg/ha</td>"+
+        "</tr>"+
+        "<tr>"+
+          "<td>MIN YIELD</td>"+
+          "<td>"+feature.properties.MIN_YIELD+" kg/ha</td>"+
+        "</tr>"+
+        "<tr>"+
+          "<td>AVG YIELD</td>"+
+          "<td>"+feature.properties.AVG_YIELD+" kg/ha</td>"+
+        "</tr>"+
+        "<tr>"+
+          "<td>STD YIELD</td>"+
+          "<td>"+feature.properties.STD_YIELD+" kg/ha</td>"+
+        "</tr>"+
+        "</table>"
+       // layer.bindPopup(popupContent);
+       
         layer.on('mouseover', function (e){
-          $("#mouseover-feature").text(e.sourceTarget.feature.properties.NAME_0);
+          //open popup;
+          var popup = L.popup()
+					 .setLatLng(e.latlng) 
+					 .setContent(popupContent)
+					 .openOn(map2);
+
+          // layer.openPopup();
+          // console.log(arr_date_yield)
           this.setStyle({
             'color': '#333',
             'weight': 1,
             'opacity': 1,
-            'fillColor': '#0000ff',
             'fillOpacity': 0.3
           });
         });
+
         layer.on('mouseout', function (){
+          map2.closePopup();
           $("#mouseover-feature").text("");
           this.setStyle({
-            'fillColor': "#FFF",
             'weight': 0.5,
             'opacity': 1,
             'color': '#6c757d',
-            'fillOpacity': 0
+            'fillOpacity': 0.5
           });
         });
     }
@@ -381,6 +442,69 @@
         resetMap();
         whenClicked(adm0FeatureClicked);
         $( "#province-map" ).text("");
+      });
+
+      $( "#geojson-btn-download" ).click(function() {
+        var selected_province = $("#area_selector").val();
+        var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/crop_yield/geojason/'+selected_province+'.geojson';
+        var file_path = DownloadURL;
+          var a = document.createElement('A');
+          a.href = file_path;
+          document.body.appendChild(a);
+          a.click()
+          document.body.removeChild(a);
+      });
+
+      $( "#raster-btn-download" ).click(function() {
+        $scope.showLoader = true;
+        var parameters = {
+          // date: currentDateList[index],
+          date: '',
+        };
+        MapService.get_download_url(parameters).then(function (res){
+          var dnlurl = res.downloadURL;
+          var a = document.createElement('A');
+          a.href = dnlurl;
+          document.body.appendChild(a);
+          a.click()
+          document.body.removeChild(a);
+          $scope.showLoader = false;
+        }, function (error) {
+          $scope.showLoader = false;
+          console.log(error);
+        })
+
+      });
+
+
+      
+
+      $( "#area_selector" ).change(function() {
+        console.log($(this).val());
+
+        var selected_province = $(this).val();
+        $.getJSON('/static/data/crop_geojson/'+selected_province+'.geojson')
+        .done(function (data, status) {
+
+          if(map1.hasLayer(selected_province_json)){
+            map1.removeLayer(selected_province_json);
+          }
+          if(map2.hasLayer(crop_yield_json)){
+            map2.removeLayer(crop_yield_json);
+          }
+
+          selected_province_json = L.geoJson(data, {
+            style: focusedPolygonstyle,
+          }).addTo(map1);
+          crop_yield_json = L.geoJson(data, {
+            style: style,
+            onEachFeature: onEachcropyield
+          }).addTo(map2);
+
+          map2.fitBounds(crop_yield_json.getBounds());
+          map1.fitBounds(selected_province_json.getBounds());
+        });
+
       });
   
      

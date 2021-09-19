@@ -14,7 +14,7 @@ def api(request):
 
     if action:
         public_methods = ['get-map-id', 'get-data', 'get-date', 'get-map-current-id', 'get-current-date', 'get-outlook-map-id', 'get-outlook-date', 'get-summary', 
-        'get-crop-yield', 'get-feature-articles', 'get-knowledge-center', 'get-climate-data', 'get-yield-map-id', 'get-crop-map-id']
+        'get-crop-yield', 'get-feature-articles', 'get-knowledge-center', 'get-climate-data', 'get-crop-map-id', 'get-download-url']
         if action in public_methods:
             dataset = get('dataset', '')
             type = get('type', '')
@@ -53,5 +53,7 @@ def api(request):
                 data = core.get_climate_data(type, areaid0, areaid1, img_id, climate_type, climate_scenarios)
             elif action == 'get-crop-map-id':
                 data = core.get_crop_map_id(date=date)
+            elif action == 'get-download-url':
+                data = core.get_download_url_crop(date=date)
 
             return JsonResponse(data, safe=False)

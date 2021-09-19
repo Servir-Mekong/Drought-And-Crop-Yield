@@ -25,11 +25,273 @@
 
 
   <main id="main"  ng-controller="CropMapController">
+    <div id="loader" class="loader" ng-show="showLoader">
+      <div class="loading-img"></div>
+    </div>
     <div class="container">
+    
+      <section style="padding: 10px 0 30px 0;">
+        <div class="col-lg-12" style="padding-top: 20px; background: #eee; margin-bottom: 30px;">
+          <div class="row">
+            <div class="col-lg-6">
+              <!-- <h2><span><img src="/static/images/icons/drought-color-icon.png" alt="" height="100px"></span>  RICE CROP</h2> -->
+              <!-- <h2><span><img src="/static/images/icons/drought-color-icon.png" alt="" height="100px"></span>  RICE CROP</h2> -->
+              <h2>RICE CROP</h2>
+            </div>
 
-      <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    SELECT AREA
+                    <select class="form-control" id="area_selector" >
+                      <option value="ninh_thuan_districts">Ninh Thuan Province, Vietnam</option>
+                      <option value="ninh_thuan_districts" disabled>Nam Dinh Province, Vietnam</option>
+                      <option value="ninh_thuan_districts" disabled>Quang Ninh Province, Vietnam</option>
+                    </select>
+                  </div>
+                </div>
+
+            
+          </div>
+        </div>
         
 
+        <div class="col-lg-12" id="[[item.Items]]" ng-repeat="item in cropListSummary">
+            <div class="summary-country">[[item.Items]]</div>
+            <p class="summary-detail">[[item.Desc]]</p>
+          
+        </div>
+
+      </section>
+
+      <section>
+          <div class="row">
+            <div class="col-lg-12 col-md-6" id="map-nav" style="display:none;">
+              <a href="#" id="mekong-map">Mekong</a> <span> </span>
+              <a href="#" id="country-map"></a> <span> </span>
+              <a href="#" id="province-map"></a> <span> </span>
+            </div>
+  
+            <div class="col-lg-6 col-md-6">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="map-title">CROP GROWTH ESTIMATION:</div>
+                  <p>Map Updated: <span id="map-updated-date"></span></p>
+                </div>
+              </div>
+  
+              <div class="map-1" id="map1"></div>
+              <p id="mouseover-feature"></p>
+              <hr>
+              <div class="row">
+                <div class="col-lg-12">
+                  <!-- <label for="">Map Download </label>  -->
+                  <button type="button" class="btn btn-color1" id="raster-btn-download">Download a raster</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-6 legend-list">
+                  <label for="">Legend</label>
+                  <table style="font-size: 10px;table-layout:fixed;">
+                    <tr>
+                      <td width="30"><div class="intensity-class" style="background: #FFF; border:1px solid #C3C3C3;"></div></td>
+                      <td width="55">No Data/Out of Season</td>
+                      <td width="30"><div class="intensity-class" style="background: #00A2E8; border:1px solid #C3C3C3;"></div></td>
+                      <td width="40">High</td>
+                      <td width="30"><div class="intensity-class" style="background: #22B14C; border:1px solid #C3C3C3;"></div></td>
+                      <td width="40">Above Normal</td>
+                      <td width="30"><div class="intensity-class" style="background: #FFF200; border:1px solid #C3C3C3;"></div></td>
+                      <td width="40">Normal</td>
+                      <td width="30"><div class="intensity-class" style="background: #FF7F27; border:1px solid #C3C3C3;"></div></td>
+                      <td width="40">Below Normal</td>
+                      <td width="30"><div class="intensity-class" style="background: #ED1C24; border:1px solid #C3C3C3;"></div></td>
+                      <td width="40">Low</td>
+                    </tr>
+                  </table>
+                </div>
+
+              </div>
+  
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="row" style="text-align: right;">
+                <div class="col-lg-12">
+                  <div class="map-title">POTENTIAL YIELD ESTIMATION:</div>
+                  <p><span id="map-yield-date"></span></p>
+                </div>
+              </div>
+  
+              <div class="map-2" id="map2"></div>
+              <hr>
+              <div class="row">
+                <div class="col-lg-12">
+                  <!-- <label for="">Map Download </label>  -->
+                  <button type="button" class="btn btn-color1" id="geojson-btn-download">Download a geojson</button>
+                </div>
+              </div>
+              
+              <div class="row" style="border-left: 1px solid #c3c3c3;">
+                <div class="col-lg-12 col-md-6 legend-list">
+                  <!-- <h2>Outlook Warning</h2> -->
+                  <label for="">Average Yield (kg/ha)</label>
+                  <table style="font-size: 10px;">
+                    
+                    <tr>
+                      <td><div class="intensity-class" style="background: #FFFFD8; border:1px solid #C3C3C3;"></div></td>
+                      <td><div class="intensity-class" style="background: #FFFF9D; border:1px solid #C3C3C3;"></div></td>
+                      <td><div class="intensity-class" style="background: #E3F59B; border:1px solid #C3C3C3;"></div></td>
+                      <td><div class="intensity-class" style="background: #C6EB98; border:1px solid #C3C3C3;"></div></td>
+                      <td><div class="intensity-class" style="background: #AAE096; border:1px solid #C3C3C3;"></div></td>
+                      <td><div class="intensity-class" style="background: #8ED694; border:1px solid #C3C3C3;"></div></td>
+                      <td><div class="intensity-class" style="background: #71CC91; border:1px solid #C3C3C3;"></div></td>
+                      <td><div class="intensity-class" style="background: #55C28F; border:1px solid #C3C3C3;"></div></td>
+                      <td><div class="intensity-class" style="background: #00A388; border:1px solid #C3C3C3;"></div></td>
+                      <td><div class="intensity-class" style="background: #1CAD8A; border:1px solid #C3C3C3;"></div></td>
+                      <td><div class="intensity-class" style="background: #00A388; border:1px solid #C3C3C3;"></div></td>
+                    </tr>
+                    <tr>
+                      <td>Less than 5250</td>
+                      <td>5250-5500</td>
+                      <td>5500-5750</td>
+                      <td>5750-6000</td>
+                      <td>6000-6250</td>
+                      <td>6250-6500</td>
+                      <td>6500-6750</td>
+                      <td>6750-7000</td>
+                      <td>7000-7500</td>
+                      <td>7500-8000</td>
+                      <td>more than 8000</td>
+                    </tr>
+        
+                  </table>
+                  
+                </div>
+              </div>
+  
+            </div>
+          </div>
+  
+      </section>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-6 intensity-table" style="margin-bottom: 50px;">
+          <h3>Crop Growth Estimation</h3>
+          <table>
+            <tr>
+              <th></th>
+              <th>Category</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td style="background: #ED1C24;"></td>
+              <td>Low</td>
+              <td>Crop conditions are well below average. Crop yields are likely to be far below average.</td>
+            </tr>
+            <tr>
+              <td style="background: #FF7F27;"></td>
+              <td>Below Norma</td>
+              <td>Conditions are somewhat below from average but there is a potential risk to final yields.</td>
+            </tr>
+            <tr>
+              <td style="background: #FFF200;"></td>
+              <td>Normal</td>
+              <td>Conditions and yields are expected to be normal</td>
+            </tr>
+            <tr>
+              <td style="background: #22B14C;"></td>
+              <td>Above Normal</td>
+              <td>Conditions are somewhat far from average and there is no potential risk to final yields</td>
+            </tr>
+            <tr>
+              <td style="background: #00A2E8;"></td>
+              <td>High</td>
+              <td>Conditions are much better than average. Crop yields are likely to be above average</td>
+            </tr>
+            <tr>
+              <td style="background: #FFF;"></td>
+              <td>No Data/ out of Season</td>
+              <td>No data OR Crops are not currently planted</td>
+            </tr>
+
+          </table>
+        </div>
+
+        
+        <div class="col-lg-12 col-md-6 intensity-table">
+          <h3>Rice Crop Calendar (Ninh Thuan Province)</h3>
+      
+          <table>
+           <tbody>
+             <tr>
+               <th>Season</th>
+               <th>Jan</th>
+               <th>Feb</th>
+               <th>Mar</th>
+               <th>Apr</th>
+               <th>May</th>
+               <th>Jun</th>
+               <th>Jul</th>
+               <th>Aug</th>
+               <th>Sep</th>
+               <th>Oct</th>
+               <th>Nov</th>
+               <th>Dec</th>
+             </tr>
+             <tr>
+               <td> Dong-Xuan (or Winter-Spring) </td>
+               <td style="background: #88A541;">Planting</td>
+               <td></td>
+               <td></td>
+               <td style="background: #F89F1D;">Harvesting</td>
+               <td style="background: #F89F1D;">Harvesting</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td style="background: #88A541;">Planting</td>
+               
+             </tr>
+             <tr>
+              <td> He-Thu (or Summer-Autumn)  </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td style="background: #88A541;">Planting</td>
+              <td style="background: #88A541;">Planting</td>
+              <td></td>
+              <td></td>
+              <td style="background: #F89F1D;">Harvesting</td>
+              <td style="background: #F89F1D;">Harvesting</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              
+            </tr>
+            <tr>
+              <td> Mua (or monsoon) </td>
+              <td style="background: #F89F1D;">Planting</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td style="background: #88A541;">Harvesting</td>
+              <td style="background: #88A541;">Harvesting</td>
+              <td></td>
+              <td></td>
+              <td style="background: #F89F1D;">Planting</td>
+              
+            </tr>
+             
+             
+           </tbody>
+
+          </table>
+
+        </div>
+<!-- 
         <div class="col-lg-12 col-md-6">
           <div class="panel panel-danger" style="background-color:#ebccd1; margin-top: 50px; padding:15px;">
             <div class="panel-body">
@@ -46,11 +308,11 @@
                   Invite you to come back here soon
               </h4>
 
-        
+              
 
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>

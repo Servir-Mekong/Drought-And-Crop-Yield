@@ -60,11 +60,18 @@ class GEEApi():
         self.ARVI = ee.ImageCollection(settings.ARVI)
         self.SAVI = ee.ImageCollection(settings.SAVI)
         self.EVI = ee.ImageCollection(settings.EVI)
+
+        self.VHI = ee.ImageCollection(settings.VHI)
+        self.VCI = ee.ImageCollection(settings.VCI)
+        self.TCI = ee.ImageCollection(settings.TCI)
+        self.ESI = ee.ImageCollection(settings.ESI)
+        self.CWSI = ee.ImageCollection(settings.CWSI)
+
         self.KBDI = ee.ImageCollection(settings.KBDI)
         self.NDVI = ee.ImageCollection(settings.NDVI)
 
         self.masklayer = ee.Image("projects/servir-mekong/EODrought/LULCMasks/LandCovMask500");
-        self.maskedArea  = self.masklayer.eq(1);
+        self.maskedArea  = self.masklayer.eq(1)
         self.maskedArea = self.masklayer.updateMask(self.maskedArea)
 
 
@@ -354,6 +361,51 @@ class GEEApi():
           '</ColorMap>'
         '</RasterSymbolizer>'''
 
+        self.sld_vhi = '''<RasterSymbolizer>'
+          '<ColorMap type="intervals" extended="false" >'
+            '<ColorMapEntry color="#E85B3A" quantity="0" label="Less than 10"/>'
+            '<ColorMapEntry color="#F99E59" quantity="10" label="10 - 20" />'
+            '<ColorMapEntry color="#FEC981" quantity="20" label="20 - 30" />'
+            '<ColorMapEntry color="#FFEDAB" quantity="30" label="30 - 40" />'
+            '<ColorMapEntry color="#F7FCDF" quantity="40" label="40 - 50"/>'
+            '<ColorMapEntry color="#C4E687" quantity="50" label="50 - 60" />'
+            '<ColorMapEntry color="#97D265" quantity="60" label="60 - 70" />'
+            '<ColorMapEntry color="#58B453" quantity="80" label="70 - 80" />'
+            '<ColorMapEntry color="#1A9641" quantity="100" label="80 - 90"/>'
+            '<ColorMapEntry color="#FFF" quantity="-9999" label="90 +" />'
+          '</ColorMap>'
+        '</RasterSymbolizer>'''
+
+        self.sld_esi = '''<RasterSymbolizer>'
+          '<ColorMap type="intervals" extended="false" >'
+            '<ColorMapEntry color="#E85B3A" quantity="-2.5" label="Less than 10"/>'
+            '<ColorMapEntry color="#F99E59" quantity="-1.5" label="10 - 20" />'
+            '<ColorMapEntry color="#FEC981" quantity="-1.0" label="20 - 30" />'
+            '<ColorMapEntry color="#FFEDAB" quantity="-0.5" label="30 - 40" />'
+            '<ColorMapEntry color="#F7FCDF" quantity="0" label="40 - 50"/>'
+            '<ColorMapEntry color="#C4E687" quantity="0.5" label="50 - 60" />'
+            '<ColorMapEntry color="#97D265" quantity="1.0" label="60 - 70" />'
+            '<ColorMapEntry color="#58B453" quantity="1.5" label="70 - 80" />'
+            '<ColorMapEntry color="#1A9641" quantity="2.5" label="80 - 90"/>'
+            '<ColorMapEntry color="#FFF" quantity="-9999" label="90 +" />'
+          '</ColorMap>'
+        '</RasterSymbolizer>'''
+
+        self.sld_cwsi = '''<RasterSymbolizer>'
+          '<ColorMap type="intervals" extended="false" >'
+            '<ColorMapEntry color="#1A9641" quantity="0" label="Less than 10"/>'
+            '<ColorMapEntry color="#58B453" quantity="0.15" label="10 - 20" />'
+            '<ColorMapEntry color="#97D265" quantity="0.30" label="20 - 30" />'
+            '<ColorMapEntry color="#C4E687" quantity="0.45" label="30 - 40" />'
+            '<ColorMapEntry color="#F7FCDF" quantity="0.60" label="40 - 50"/>'
+            '<ColorMapEntry color="#FFEDAB" quantity="0.70" label="50 - 60" />'
+            '<ColorMapEntry color="#FEC981" quantity="0.80" label="60 - 70" />'
+            '<ColorMapEntry color="#F99E59" quantity="0.90" label="70 - 80" />'
+            '<ColorMapEntry color="#E85B3A" quantity="1" label="80 - 90"/>'
+            '<ColorMapEntry color="#FFF" quantity="-9999" label="90 +" />'
+          '</ColorMap>'
+        '</RasterSymbolizer>'''
+
 
         # Class and Inde
         self.MAP_CLASSES = [
@@ -580,7 +632,47 @@ class GEEApi():
                 'max':100,
                 'sld': 'True',
                 'band': 'rel_humid'
-            }
+            },
+            {
+                'name': 'vhi',
+                'value': '1A9641,58B453,97D265,C4E687,F7FCDF,FFEDAB,FEC981,F99E59,E85B3A',
+                'min':0,
+                'max':10000,
+                'sld': 'False',
+                'band': 'VHI'
+            },
+            {
+                'name': 'vci',
+                'value': '1A9641,58B453,97D265,C4E687,F7FCDF,FFEDAB,FEC981,F99E59,E85B3A',
+                'min':0,
+                'max':10000,
+                'sld': 'False',
+                'band': 'VCI'
+            },
+            {
+                'name': 'tci',
+                'value': '1A9641,58B453,97D265,C4E687,F7FCDF,FFEDAB,FEC981,F99E59,E85B3A',
+                'min':0,
+                'max':10000,
+                'sld': 'False',
+                'band': 'TCI'
+            },
+            {
+                'name': 'esi',
+                'value': self.sld_esi,
+                'min':-2.5,
+                'max':2.5,
+                'sld': 'False',
+                'band': 'ESI'
+            },
+            {
+                'name': 'cwsi',
+                'value': self.sld_cwsi,
+                'min':0,
+                'max':1,
+                'sld': 'False',
+                'band': 'CWSI'
+            },
     ]
 
 
@@ -622,7 +714,6 @@ class GEEApi():
                 sql = """SELECT dataset, date, max(min), max(max), max(average), time_start from tbl_mekongriver where dataset = '"""+dataset+"""' and to_date(date,'YYYY-MM-DD') BETWEEN '"""+start_date+"""' AND '"""+end_date+"""' group by date, dataset, time_start order by time_start ASC"""
 
             cursor.execute(sql)
-            print(sql)
             result = cursor.fetchall()
             data=[]
             for row in result:
@@ -676,6 +767,8 @@ class GEEApi():
             icid = "UTOKYO/WTLAB/KBDI/v1"
         elif dataset == "ndvi":
             icid = "NOAA/VIIRS/001/VNP13A1"
+        elif dataset.lower() in ["vhi", "vci", "tci", "esi", "cwsi"]:
+            icid = "projects/servir-mekong/EODrought/MODIS/{}".format(dataset.upper())
         else:
             icid = "projects/servir-mekong/EODrought/VIIRS/{}".format(dataset.upper())
         return icid
@@ -787,30 +880,48 @@ class GEEApi():
     # -------------------------------------------------------------------------
     def get_crop_map_id(self, date):
 
-        ic = ee.ImageCollection(settings.VSDI)
-
-        image = ic.filter(ee.Filter.eq("system:time_start",int(date))).first()
+        image = ee.Image(settings.CROP)
         image = image.updateMask(self.maskedArea)
 
         style ='''<RasterSymbolizer>
               <ColorMap type="intervals" extended="false" >
-                <ColorMapEntry color="#880015" quantity="2000" label="EXD" />
-                <ColorMapEntry color="#B97A57" quantity="4000" label="SED" />
-                <ColorMapEntry color="#F89F1D" quantity="7000" label="MOD" />
-                <ColorMapEntry color="#88A541" quantity="100000" label="No Drought" />
+                <ColorMapEntry color="#ED1C24" quantity="1" label="LOW" />
+                <ColorMapEntry color="#FF7F27" quantity="2" label="BELOW NORMAL" />
+                <ColorMapEntry color="#FFF200" quantity="3" label="NORMAL" />
+                <ColorMapEntry color="#22B14C" quantity="4" label="ABOVE HIGH" />
+                <ColorMapEntry color="#00A2E8" quantity="5" label="HIGH" />
+                <ColorMapEntry color="#FFFFFF" quantity="0" label="No Drought" />
               </ColorMap>
             </RasterSymbolizer>'''
 
 
         INDEX_CLASS = {}
-        image = image.select('VSDI')
-        imgScale = image.projection().nominalScale()
-        image = image.reproject(crs='EPSG:4326', scale=imgScale)
+        image = image.select('crop_growth')
+        # imgScale = image.projection().nominalScale()
+        # image = image.reproject(crs='EPSG:4326', scale=imgScale)
         map_id = image.sldStyle(style).getMapId()
 
 
         return {
             'eeMapURL': str(map_id['tile_fetcher'].url_format)
+        }
+
+    # -------------------------------------------------------------------------
+    def get_download_url_crop(self, date):
+
+        image = ee.Image(settings.CROP)
+        image = image.updateMask(self.maskedArea)
+
+        image = image.select('crop_growth')
+        dnldURL = image.getDownloadURL({
+                    'name': 'crop_growth',
+                    'scale': 500,
+                    'crs': 'EPSG:4326'
+                })
+
+
+        return {
+            'downloadURL': dnldURL
         }
 
     # -------------------------------------------------------------------------

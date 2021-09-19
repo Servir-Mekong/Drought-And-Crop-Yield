@@ -122,6 +122,21 @@
 			return promise;
 		};
 
+		service.get_download_url = function (options) {
+			var config = {
+				params: {
+					action: 'get-download-url',
+					date: options.date,
+				}
+			};
+			var promise = $http.get('/api/mapclient/', config)
+			.then(function (response) {
+				return response.data;
+			});
+			return promise;
+		};
+
+
 		service.get_yield_map_id = function (options) {
 			var config = {
 				params: {

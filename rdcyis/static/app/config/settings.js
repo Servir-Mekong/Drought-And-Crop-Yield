@@ -164,6 +164,26 @@ var settings = {
             'name': 'SB: EVI: Enhanced Vegetation Index',
             'value': 'sb-evi'
         },
+        {
+            'name': 'SB: VHI: Vegetation Health Index',
+            'value': 'sb-vhi'
+        },
+        {
+            'name': 'SB: VCI: Vegetation Condition Index',
+            'value': 'sb-vci'
+        },
+        {
+            'name': 'SB: TCI: Temperature Condition Index ',
+            'value': 'sb-tci'
+        },
+        {
+            'name': 'SB: ESI: Evaporative Stress Index',
+            'value': 'sb-esi'
+        },
+        {
+            'name': 'SB: CWSI: Crop Water Stress Index',
+            'value': 'sb-cwsi'
+        },
         // {
         //     'name': 'SB: Keetch–Byram Drought Index (KBDI)',
         //     'value': 'sb-kbdi'
@@ -297,9 +317,30 @@ var settings = {
                 'label':['No Data', 'EXD', 'SED', 'MOD', 'No Drought'],
             },
             {
-                'name': 'sb-vsdi',
-                'colors': ['#F89F1D', '#B97A57', '#880015','#88A541',''],
-                'label':['MOD', 'SED', 'EXD', 'No Drought','No Data'],
+              'name': 'sb-vhi',
+              'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+              'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
+            },
+            {
+              'name': 'sb-vci',
+              'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+              'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
+            },
+            {
+              'name': 'sb-tci',
+              'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+              'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
+            },
+            {
+              'name': 'sb-esi',
+              'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+              'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
+            },
+
+            {
+                'name': 'sb-cwsi',
+                'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+                'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
             },
             {
                 'name': 'sb-arvi',
