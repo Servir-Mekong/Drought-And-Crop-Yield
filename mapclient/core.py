@@ -659,7 +659,7 @@ class GEEApi():
             },
             {
                 'name': 'esi',
-                'value': self.sld_esi,
+                'value': '1A9641,58B453,97D265,C4E687,F7FCDF,FFEDAB,FEC981,F99E59,E85B3A',
                 'min':-2.5,
                 'max':2.5,
                 'sld': 'False',
@@ -667,7 +667,7 @@ class GEEApi():
             },
             {
                 'name': 'cwsi',
-                'value': self.sld_cwsi,
+                'value': '1A9641,58B453,97D265,C4E687,F7FCDF,FFEDAB,FEC981,F99E59,E85B3A',
                 'min':0,
                 'max':1,
                 'sld': 'False',
