@@ -151,6 +151,8 @@
         for(var i=0; i<result.length; i++){
           enableDatesArray.push(result[i]);
         }
+        enableDatesArray.sort();
+        
         datePicker.datepicker("destroy");
         datePicker.datepicker({
           beforeShowDay: function (date) {

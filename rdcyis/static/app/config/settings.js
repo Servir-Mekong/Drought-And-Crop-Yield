@@ -343,6 +343,11 @@ var settings = {
                 'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
             },
             {
+              'name': 'sb-vsdi',
+              'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+                'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
+          },
+            {
                 'name': 'sb-arvi',
                 'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
                 'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],

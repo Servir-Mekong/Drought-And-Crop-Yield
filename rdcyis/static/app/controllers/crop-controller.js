@@ -69,6 +69,30 @@
       map1.scrollWheelZoom.disable();
       map1.createPane('cropLayer');
       map1.getPane('cropLayer').style.zIndex = 300;
+
+      map1.createPane('map1Label');
+      map1.getPane('map1Label').style.zIndex = 900;
+
+      /**
+		* adding administrative boundaries
+		*/
+		// L.esri.dynamicMapLayer({
+		// 	url: 'https://wwf-sight-maps.org/arcgis/rest/services/Global/Administrative_Boundaries_GADM/MapServer',
+		// 	layers:[0,1],
+		// 	opacity: 0.7,
+		// 	zIndex:9999,
+    //   pane: 'map1Label'
+		// }).addTo(map1);
+
+		// L.esri.tiledMapLayer({
+		// 	url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places_Alternate/MapServer',
+		// 	layers:[0],
+		// 	opacity: 0.7,
+		// 	zIndex:99999,
+    //   pane: 'map1Label'
+		// }).addTo(map1);
+
+
       var selected_province_json;
       function initMap1(){
         geojsonOutBBOX_1 = L.geoJson(outboundary,{
@@ -156,27 +180,46 @@
       map2.doubleClickZoom.disable();
       map2.scrollWheelZoom.disable();
       map2.createPane('yieldLayer');
-          map2.getPane('yieldLayer').style.zIndex = 300;
-  
+      map2.getPane('yieldLayer').style.zIndex = 300;
+      map2.createPane('map2Label');
+      map2.getPane('map2Label').style.zIndex = 999;
+      
+       /**
+      * adding administrative boundaries
+      */
+      // L.esri.dynamicMapLayer({
+      //   url: 'https://wwf-sight-maps.org/arcgis/rest/services/Global/Administrative_Boundaries_GADM/MapServer',
+      //   layers:[0,1],
+      //   opacity: 0.7,
+      //   zIndex:9999,
+      // }).addTo(map2);
+
+      // L.esri.tiledMapLayer({
+      //   url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places_Alternate/MapServer',
+      //   layers:[0],
+      //   opacity: 0.7,
+      //   zIndex:9999,
+      // }).addTo(map2);
+
       function getColor(d) {
-        return d < 5250 ? '#FFFFD8' :
-                d < 5500  ? '#FFFF9D' :
-                d < 5750  ? '#E3F59B' :
-                d < 6000  ? '#C6EB98' :
-                d < 6250   ? '#AAE096' :
-                d < 6500   ? '#8ED694' :
-                d < 6750   ? '#71CC91' :
-                d < 7000  ? '#55C28F' :
-                d < 7500   ? '#00A388' :
-                d < 8000   ? '#1CAD8A' :
+        return d < 2000 ? '#FFFFD8' :
+                d < 3000  ? '#FFFF9D' :
+                d < 3500  ? '#E3F59B' :
+                d < 4000  ? '#C6EB98' :
+                d < 4500   ? '#AAE096' :
+                d < 5000   ? '#8ED694' :
+                d < 5500   ? '#71CC91' :
+                d < 6000  ? '#55C28F' :
+                d < 6500   ? '#00A388' :
+                d < 7000   ? '#1CAD8A' :
                           '#00A388';
       }
       function style(feature) {
         return {
             fillColor: getColor(feature.properties.AVG_YIELD),
-            weight: 2,
+            weight: 1,
             opacity: 1,
-            color: 'white',
+            color: '#333',
             dashArray: '3',
             fillOpacity: 0.7
         };
@@ -314,7 +357,7 @@
           // console.log(arr_date_yield)
           this.setStyle({
             'color': '#333',
-            'weight': 1,
+            'weight': 3,
             'opacity': 1,
             'fillOpacity': 0.3
           });
@@ -324,9 +367,9 @@
           map2.closePopup();
           $("#mouseover-feature").text("");
           this.setStyle({
-            'weight': 0.5,
+            'weight': 1,
             'opacity': 1,
-            'color': '#6c757d',
+            'color': '#333',
             'fillOpacity': 0.5
           });
         });

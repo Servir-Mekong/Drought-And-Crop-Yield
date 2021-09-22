@@ -817,7 +817,6 @@ class GEEApi():
             return ee.Date(d).format("YYYY-MM-dd")
 
         dates = ee.List(ic.aggregate_array("system:time_start")).map(imgDate).getInfo()
-
         return dates
 
     # -------------------------------------------------------------------------
