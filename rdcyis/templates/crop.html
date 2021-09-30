@@ -76,6 +76,30 @@
                 <div class="col-lg-12">
                   <div class="map-title">CROP GROWTH ESTIMATION:</div>
                   <p>Map Updated: <span id="map-updated-date"></span></p>
+                  <div class="col-lg-12">
+                    <div class="row">
+                      <div class="col-lg-3">
+                        <input type="radio" id="current-24d" name="current-radio-group">
+                        <label for="current-24d" data-toggle="tooltip" data-html="true" data-placement="right" title="24 days ago"> <span> < </span> 24D</label>
+    
+    
+                      </div>
+                      <div class="col-lg-3">
+                        <input type="radio" id="current-16d" name="current-radio-group">
+                        <label for="current-16d" data-toggle="tooltip" data-html="true" data-placement="right" title="16 days ago"><span> < </span> 16D</label>
+    
+                      </div>
+                      <div class="col-lg-3">
+                        <input type="radio" id="current-8d" name="current-radio-group">
+                        <label for="current-8d" data-toggle="tooltip" data-html="true" data-placement="right" title="8 days ago"><span> < </span> 8D</label>
+    
+                      </div>
+                      <div class="col-lg-3">
+                        <input type="radio" id="current-d" name="current-radio-group" checked>
+                        <label for="current-d">CURRENT</label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
   
@@ -216,13 +240,21 @@
         </div>
 
         
-        <div class="col-lg-12 col-md-6 intensity-table">
+        <div class="col-lg-12 col-md-6 calendar-table">
           <h3>Rice Crop Calendar (Ninh Thuan Province)</h3>
-      
+          <table style="font-size: 10px; width: 120px;font-size: 14px;margin-bottom: 10px;">
+            <tr>
+              <td width="30"><div class="intensity-class" style="background: #88A541; border:1px solid #C3C3C3;"></div></td>
+              <td width="55">Planting</td>
+              <td width="30"><div class="intensity-class" style="background: #F89F1D; border:1px solid #C3C3C3;"></div></td>
+              <td width="40">Harvesting</td>
+            </tr>
+          </table>
+
           <table>
            <tbody>
-             <tr>
-               <th>Season</th>
+             <tr style=" background: #877664; color: #FFF;">
+               <th style="width: 20%;">Season</th>
                <th>Jan</th>
                <th>Feb</th>
                <th>Mar</th>
@@ -237,51 +269,51 @@
                <th>Dec</th>
              </tr>
              <tr>
-               <td> Dong-Xuan (or Winter-Spring) </td>
-               <td style="background: #88A541;">Planting</td>
+               <td style="width: 20%;text-align: left;"> Dong-Xuan (or Winter-Spring) </td>
+               <td style="background: #88A541;"></td>
                <td></td>
                <td></td>
-               <td style="background: #F89F1D;">Harvesting</td>
-               <td style="background: #F89F1D;">Harvesting</td>
-               <td></td>
-               <td></td>
-               <td></td>
+               <td style="background: #F89F1D;"></td>
+               <td style="background: #F89F1D;"></td>
                <td></td>
                <td></td>
                <td></td>
-               <td style="background: #88A541;">Planting</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td style="background: #88A541;"></td>
                
              </tr>
              <tr>
-              <td> He-Thu (or Summer-Autumn)  </td>
+              <td style="width: 20%;text-align: left;"> He-Thu (or Summer-Autumn)  </td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
-              <td style="background: #88A541;">Planting</td>
-              <td style="background: #88A541;">Planting</td>
+              <td style="background: #88A541;"></td>
+              <td style="background: #88A541;"></td>
               <td></td>
               <td></td>
-              <td style="background: #F89F1D;">Harvesting</td>
-              <td style="background: #F89F1D;">Harvesting</td>
+              <td style="background: #F89F1D;"></td>
+              <td style="background: #F89F1D;"></td>
               <td></td>
               <td></td>
               
             </tr>
             <tr>
-              <td> Mua (or monsoon) </td>
-              <td style="background: #F89F1D;">Planting</td>
+              <td style="width: 20%;text-align: left;"> Mua (or monsoon) </td>
+              <td style="background: #F89F1D;"></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
-              <td style="background: #88A541;">Harvesting</td>
-              <td style="background: #88A541;">Harvesting</td>
+              <td style="background: #88A541;"></td>
+              <td style="background: #88A541;"></td>
               <td></td>
               <td></td>
-              <td style="background: #F89F1D;">Planting</td>
+              <td style="background: #F89F1D;"></td>
               
             </tr>
              

@@ -52,6 +52,19 @@
 			return promise;
 		};
 
+		service.get_current_date_crop = function (options) {
+			var config = {
+				params: {
+					action: 'get-current-date-crop'
+				}
+			};
+			var promise = $http.get('/api/mapclient/', config)
+			.then(function (response) {
+				return response.data;
+			});
+			return promise;
+		};
+
 		service.get_outlook_date = function (options) {
 			var config = {
 				params: {

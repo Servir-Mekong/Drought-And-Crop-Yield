@@ -135,10 +135,9 @@
                     return layer;
             }
   
-  
-  
         var parameters = {};
-        MapService.get_current_date(parameters)
+
+        MapService.get_current_date_crop(parameters)
         .then(function (result){
           currentDateList = result;
           $scope.cropLayer(0);
@@ -169,7 +168,6 @@
         };
   
       };
-  
   
   
       var map2 = L.map('map2').setView([51.505, -0.09], 13);
@@ -239,7 +237,7 @@
 
         $.getJSON('/static/data/crop_geojson/ninh_thuan_districts.geojson')
         .done(function (data, status) {
-
+          console.log(data)
           crop_yield_json = L.geoJson(data, {
             style: style,
             onEachFeature: onEachcropyield
@@ -311,6 +309,10 @@
 
       function onEachcropyield(feature, layer) {
         var popupContent = "<table>"+
+        "<tr>"+
+          "<td>DISTRICT</td>"+
+          "<td>"+feature.properties.DISTRICT+"</td>"+
+        "</tr>"+
         "<tr>"+
           "<td>CROP</td>"+
           "<td>"+feature.properties.CROP+"</td>"+
@@ -501,8 +503,7 @@
       $( "#raster-btn-download" ).click(function() {
         $scope.showLoader = true;
         var parameters = {
-          // date: currentDateList[index],
-          date: '',
+          date: currentDateList[0],
         };
         MapService.get_download_url(parameters).then(function (res){
           var dnlurl = res.downloadURL;
@@ -519,7 +520,35 @@
 
       });
 
-
+    $( "#current-d" ).click(function() {
+      $("#map-updated-date").text();
+      $scope.cropLayer(0);
+      var dateObj = new Date(currentDateList[0]);
+      var _date = dateObj.toISOString().slice(0,10)
+      selectedCurrentDate = _date.replace("-","_").replace("-","_");
+      $("#map-updated-date").text(_date);
+    });
+    $( "#current-8d" ).click(function() {
+      $("#map-updated-date").text();
+      $scope.cropLayer(1);
+      var dateObj = new Date(currentDateList[1]);
+      var _date = dateObj.toISOString().slice(0,10)
+      $("#map-updated-date").text(_date);
+    });
+    $( "#current-16d" ).click(function() {
+      $("#map-updated-date").text();
+      $scope.cropLayer(2);
+      var dateObj = new Date(currentDateList[2]);
+      var _date = dateObj.toISOString().slice(0,10)
+      $("#map-updated-date").text(_date);
+    });
+    $( "#current-24d" ).click(function() {
+      $("#map-updated-date").text();
+      $scope.cropLayer(3);
+      var dateObj = new Date(currentDateList[3]);
+      var _date = dateObj.toISOString().slice(0,10)
+      $("#map-updated-date").text(_date);
+    });
       
 
       $( "#area_selector" ).change(function() {

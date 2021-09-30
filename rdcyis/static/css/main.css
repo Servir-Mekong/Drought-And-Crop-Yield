@@ -2470,3 +2470,15 @@ table.dataTable.no-footer {
 .legend-list ul li{
   margin-bottom: 3px;
 }
+
+
+.calendar-table table tbody tr th{
+  width: 5%;
+  border: 1px solid #dee2e6;
+}
+
+.calendar-table table tbody tr td{
+  width: 5%;
+  border: 1px solid #dee2e6;
+  text-align: center;
+}

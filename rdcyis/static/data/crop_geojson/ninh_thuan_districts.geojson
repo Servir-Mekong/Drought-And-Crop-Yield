@@ -10,14 +10,15 @@
       {
          "type": "Feature",
          "properties": {
-            "PLANTING": "2012-06-14",
-            "FIRST_HARV": "2012-10-18",
-            "LAST_HARVE": "2012-10-18",
-            "AVG_YIELD": 5782.85,
-            "MAX_YIELD": 6190.0,
-            "MIN_YIELD": 4779.0,
-            "STD_YIELD": 464.715438157,
-            "CROP": "rice"
+            "PLANTING": "2021-06-15",
+            "FIRST_HARV": "2021-10-04",
+            "LAST_HARVE": "2021-10-07",
+            "AVG_YIELD": 4559.85,
+            "MAX_YIELD": 4754.0,
+            "MIN_YIELD": 4247.0,
+            "STD_YIELD": 144.68,
+            "CROP": "Rice",
+            "DISTRICT": "Bac Ai"
          },
          "geometry": {
             "type": "Polygon",
@@ -1302,14 +1303,15 @@
       {
          "type": "Feature",
          "properties": {
-            "PLANTING": "2012-11-25",
-            "FIRST_HARV": "2013-03-28",
-            "LAST_HARVE": "2013-03-28",
-            "AVG_YIELD": 7588.3625,
-            "MAX_YIELD": 8111.0,
-            "MIN_YIELD": 5930.0,
-            "STD_YIELD": 730.4664582834829,
-            "CROP": "rice"
+            "PLANTING": "2021-06-15",
+            "FIRST_HARV": "2021-10-04",
+            "LAST_HARVE": "2021-10-07",
+            "AVG_YIELD": 4304.85,
+            "MAX_YIELD": 4579.0,
+            "MIN_YIELD": 3922.0,
+            "STD_YIELD": 145.38,
+            "CROP": "Rice",
+            "DISTRICT": "Ninh Hai"
          },
          "geometry": {
             "type": "Polygon",
@@ -3258,14 +3260,15 @@
       {
          "type": "Feature",
          "properties": {
-            "PLANTING": "2012-06-14",
-            "FIRST_HARV": "2012-10-18",
-            "LAST_HARVE": "2012-10-18",
-            "AVG_YIELD": 5782.85,
-            "MAX_YIELD": 6190.0,
-            "MIN_YIELD": 4779.0,
-            "STD_YIELD": 464.7154381570924,
-            "CROP": "rice"
+            "PLANTING": "2021-06-15",
+            "FIRST_HARV": "2021-09-28",
+            "LAST_HARVE": "2021-09-30",
+            "AVG_YIELD": 3892.775,
+            "MAX_YIELD": 4090.0,
+            "MIN_YIELD": 3758.0,
+            "STD_YIELD": 93.19,
+            "CROP": "Rice",
+            "DISTRICT": "Ninh Phuoc"
          },
          "geometry": {
             "type": "Polygon",
@@ -4130,14 +4133,15 @@
       {
          "type": "Feature",
          "properties": {
-            "PLANTING": "2013-11-26",
-            "FIRST_HARV": "2014-04-09",
-            "LAST_HARVE": "2014-04-11",
-            "AVG_YIELD": 5370.0875,
-            "MAX_YIELD": 10213.0,
-            "MIN_YIELD": 66.0,
-            "STD_YIELD": 4143.284791107186,
-            "CROP": "rice"
+            "PLANTING": "2021-06-15",
+            "FIRST_HARV": "2021-09-29",
+            "LAST_HARVE": "2021-09-30",
+            "AVG_YIELD": 4110.45,
+            "MAX_YIELD": 4354.0,
+            "MIN_YIELD": 3840.0,
+            "STD_YIELD": 111.14,
+            "CROP": "Rice",
+            "DISTRICT": "Ninh Son"
          },
          "geometry": {
             "type": "Polygon",
@@ -5210,14 +5214,15 @@
       {
          "type": "Feature",
          "properties": {
-            "PLANTING": "2011-11-26",
-            "FIRST_HARV": "2012-03-24",
-            "LAST_HARVE": "2012-04-17",
-            "AVG_YIELD": 9518.15,
-            "MAX_YIELD": 15115.0,
-            "MIN_YIELD": 6086.0,
-            "STD_YIELD": 2426.2819505979655,
-            "CROP": "rice"
+            "PLANTING": "2021-06-15",
+            "FIRST_HARV": "2021-09-28",
+            "LAST_HARVE": "2021-09-30",
+            "AVG_YIELD": 3915.1,
+            "MAX_YIELD": 4045.0,
+            "MIN_YIELD": 3743.0,
+            "STD_YIELD": 86.98,
+            "CROP": "Rice",
+            "DISTRICT": "Phan Rang"
          },
          "geometry": {
             "type": "Polygon",
@@ -5958,14 +5963,15 @@
       {
          "type": "Feature",
          "properties": {
-            "PLANTING": "2014-06-15",
-            "FIRST_HARV": "2014-10-17",
-            "LAST_HARVE": "2014-10-17",
-            "AVG_YIELD": 5874.15,
-            "MAX_YIELD": 6061.0,
-            "MIN_YIELD": 5022.0,
-            "STD_YIELD": 293.89292922109206,
-            "CROP": "rice"
+            "PLANTING": "2021-06-15",
+            "FIRST_HARV": "2021-10-05",
+            "LAST_HARVE": "2021-10-10",
+            "AVG_YIELD": 4018.825,
+            "MAX_YIELD": 4227.0,
+            "MIN_YIELD": 3738.0,
+            "STD_YIELD": 99.38,
+            "CROP": "Rice",
+            "DISTRICT": "Thuan Bac"
          },
          "geometry": {
             "type": "Polygon",
@@ -6590,14 +6596,15 @@
       {
          "type": "Feature",
          "properties": {
-            "PLANTING": "2014-06-15",
-            "FIRST_HARV": "2014-10-15",
-            "LAST_HARVE": "2014-10-15",
-            "AVG_YIELD": 5208.575,
-            "MAX_YIELD": 5872.0,
-            "MIN_YIELD": 4628.0,
-            "STD_YIELD": 423.10584767092655,
-            "CROP": "rice"
+            "PLANTING": "2021-06-15",
+            "FIRST_HARV": "2021-09-28",
+            "LAST_HARVE": "2021-09-30",
+            "AVG_YIELD": 3886.95,
+            "MAX_YIELD": 4095.0,
+            "MIN_YIELD": 3702.0,
+            "STD_YIELD": 97.19,
+            "CROP": "Rice",
+            "DISTRICT": "Thuan Nam"
          },
          "geometry": {
             "type": "Polygon",

@@ -169,6 +169,10 @@ var settings = {
             'value': 'sb-vhi'
         },
         {
+          'name': 'SB: Short and Long Term Dryness Indicator (days)',
+          'value': 'sb-drydaysvhi'
+        },
+        {
             'name': 'SB: VCI: Vegetation Condition Index',
             'value': 'sb-vci'
         },
@@ -320,6 +324,11 @@ var settings = {
               'name': 'sb-vhi',
               'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
               'label':['High Stress', '', '', '', '', '', '', '', 'Low Stress', 'No Data'],
+            },
+            {
+              'name': 'sb-drydaysvhi',
+              'colors': ['#E85B3A', '#F99E59', '#FEC981', '#FFEDAB', '#F7FCDF', '#C4E687', '#97D265', '#58B453','#1A9641', '#FFFFFF'],
+              'label':['41-50', '36-40', '31-35', '26-30', '21-25', '16-20', '11-15', '6-10', '0-5', 'No Data'],
             },
             {
               'name': 'sb-vci',

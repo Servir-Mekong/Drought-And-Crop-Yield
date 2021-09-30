@@ -407,6 +407,24 @@ class GEEApi():
         '</RasterSymbolizer>'''
 
 
+        self.sld_dry_vhi = '''<RasterSymbolizer>'
+          '<ColorMap type="intervals" extended="false" >'
+            '<ColorMapEntry color="#E85B3A" quantity="5" label="0 - 5"/>'
+            '<ColorMapEntry color="#F99E59" quantity="10" label="6-10" />'
+            '<ColorMapEntry color="#FEC981" quantity="15" label="11-15" />'
+            '<ColorMapEntry color="#FFEDAB" quantity="20" label="16 - 20" />'
+            '<ColorMapEntry color="#F7FCDF" quantity="25" label="21 - 25"/>'
+            '<ColorMapEntry color="#C4E687" quantity="30" label="26 - 30" />'
+            '<ColorMapEntry color="#97D265" quantity="35" label="31 - 35" />'
+            '<ColorMapEntry color="#58B453" quantity="40" label="36 - 40" />'
+            '<ColorMapEntry color="#1A9641" quantity="50" label="41 - 50"/>'
+            '<ColorMapEntry color="#FFF" quantity="-9999" label="none" />'
+          '</ColorMap>'
+        '</RasterSymbolizer>'''
+
+
+
+
         # Class and Inde
         self.MAP_CLASSES = [
             {
@@ -634,6 +652,15 @@ class GEEApi():
                 'band': 'rel_humid'
             },
             {
+                'name': 'drydaysvhi',
+                'value': self.sld_dry_vhi,
+                'min':0,
+                'max':50,
+                'sld': 'True',
+                'band': 'constant'
+            },
+
+            {
                 'name': 'vhi',
                 'value': '1A9641,58B453,97D265,C4E687,F7FCDF,FFEDAB,FEC981,F99E59,E85B3A',
                 'min':0,
@@ -767,8 +794,11 @@ class GEEApi():
             icid = "UTOKYO/WTLAB/KBDI/v1"
         elif dataset == "ndvi":
             icid = "NOAA/VIIRS/001/VNP13A1"
-        elif dataset.lower() in ["vhi", "vci", "tci", "esi", "cwsi"]:
-            icid = "projects/servir-mekong/EODrought/MODIS/{}".format(dataset.upper())
+        elif dataset.lower() in ["vhi","drydaysvhi", "vci", "tci", "esi", "cwsi"]:
+            if(dataset.lower() == 'drydaysvhi'):
+              icid = "projects/servir-mekong/EODrought/MODIS/dry_days_vhi"
+            else:
+              icid = "projects/servir-mekong/EODrought/MODIS/{}".format(dataset.upper())
         else:
             icid = "projects/servir-mekong/EODrought/VIIRS/{}".format(dataset.upper())
         return icid
@@ -819,9 +849,16 @@ class GEEApi():
         dates = ee.List(ic.aggregate_array("system:time_start")).map(imgDate).getInfo()
         return dates
 
+
     # -------------------------------------------------------------------------
     def get_date(self):
         ic = ee.ImageCollection(settings.VSDI).sort("system:time_start", False)
+        dates = ee.List(ic.aggregate_array("system:time_start")).getInfo()
+        return dates
+      
+    # -------------------------------------------------------------------------
+    def get_date_crop(self):
+        ic = ee.ImageCollection(settings.CROP).sort("system:time_start", False)
         dates = ee.List(ic.aggregate_array("system:time_start")).getInfo()
         return dates
 
@@ -879,25 +916,28 @@ class GEEApi():
     # -------------------------------------------------------------------------
     def get_crop_map_id(self, date):
 
-        image = ee.Image(settings.CROP)
+        ic = ee.ImageCollection(settings.CROP)
+
+        image = ic.filter(ee.Filter.eq("system:time_start",int(date))).first()
         image = image.updateMask(self.maskedArea)
+
 
         style ='''<RasterSymbolizer>
               <ColorMap type="intervals" extended="false" >
-                <ColorMapEntry color="#ED1C24" quantity="1" label="LOW" />
-                <ColorMapEntry color="#FF7F27" quantity="2" label="BELOW NORMAL" />
-                <ColorMapEntry color="#FFF200" quantity="3" label="NORMAL" />
-                <ColorMapEntry color="#22B14C" quantity="4" label="ABOVE HIGH" />
-                <ColorMapEntry color="#00A2E8" quantity="5" label="HIGH" />
                 <ColorMapEntry color="#FFFFFF" quantity="0" label="No Drought" />
+                <ColorMapEntry color="#ED1C24" quantity="1" label="Low" />
+                <ColorMapEntry color="#FF7F27" quantity="2" label="Below Normal" />
+                <ColorMapEntry color="#FFF200" quantity="3" label="Normal" />
+                <ColorMapEntry color="#22B14C" quantity="4" label="Above Normal" />
+                <ColorMapEntry color="#00A2E8" quantity="5" label="High" />
               </ColorMap>
             </RasterSymbolizer>'''
 
 
         INDEX_CLASS = {}
-        image = image.select('crop_growth')
-        # imgScale = image.projection().nominalScale()
-        # image = image.reproject(crs='EPSG:4326', scale=imgScale)
+        image = image.select('NDAnomalyclass')
+        imgScale = image.projection().nominalScale()
+        image = image.reproject(crs='EPSG:4326', scale=imgScale)
         map_id = image.sldStyle(style).getMapId()
 
 
@@ -908,10 +948,12 @@ class GEEApi():
     # -------------------------------------------------------------------------
     def get_download_url_crop(self, date):
 
-        image = ee.Image(settings.CROP)
+        ic = ee.ImageCollection(settings.CROP)
+
+        image = ic.filter(ee.Filter.eq("system:time_start",int(date))).first()
         image = image.updateMask(self.maskedArea)
 
-        image = image.select('crop_growth')
+        image = image.select('NDAnomalyclass')
         dnldURL = image.getDownloadURL({
                     'name': 'crop_growth',
                     'scale': 500,
