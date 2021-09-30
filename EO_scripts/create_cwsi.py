@@ -12,7 +12,19 @@ aoi = aoi.geometry()
 
 def cwsi(img):
     imgcwsi = img.expression('1 - (ET/PET)', {'ET': img.select('ET'), 'PET': img.select('PET')})
-    return img.addBands(imgcwsi.rename("CWSI"))
+    imgesi = img.expression('(ET/PET)', {'ET': img.select('ET'), 'PET': img.select('PET')})
+    return img.addBands(imgcwsi.rename("CWSI")).addBands(imgesi.rename("ESI")) 
+
+
+def rescaling_exports(image):
+    etf = image.select('ET')
+    petf = image.select('PET')
+    cwsif = image.select('CWSI')
+    cwsif = (cwsif.multiply(1000).int())
+    esif = image.select('ESI')
+    esif = (esif.multiply(1000).int())
+    vif = cwsif.addBands(esif).addBands(etf).addBands(petf)
+    return vif.copyProperties(image, ['system:time_start','system:time_end'])
 
 
 def doytodate(inputstring):
@@ -45,14 +57,23 @@ def process_cwsi(startdate, historical_run, repository_folder, enddate='0'):
             enddt = doytodate(str(current_year) + '-' + str(day_select_end))
 
             out_cwsi = ee.ImageCollection('MODIS/006/MOD16A2').filter(ee.Filter.date(startdt, enddt)).map(cwsi)
+            first_scene = out_cwsi.first()
 
-            first_scene = ee.Image(out_cwsi.first())
             cwsifile = first_scene.select('CWSI')
-            cwsifile = (cwsifile.multiply(1000).int())
             task_order_cwsi = ee.batch.Export.image.toAsset(
                 image=cwsifile,
                 description='Export_CWSI_' + str(date_time),
                 assetId=repository_folder + '/CWSI/cwsi_' + str(date_time),
+                region=aoi.bounds().getInfo()['coordinates'][0],
+                scale=500,
+                crs='EPSG:4326',
+                maxPixels=10e12)
+
+            esifile = first_scene.select('ESI')
+            task_order_esi = ee.batch.Export.image.toAsset(
+                image=esifile,
+                description='Export_ESI_' + str(date_time),
+                assetId=repository_folder + '/ESI/esi_' + str(date_time),
                 region=aoi.bounds().getInfo()['coordinates'][0],
                 scale=500,
                 crs='EPSG:4326',
@@ -79,6 +100,7 @@ def process_cwsi(startdate, historical_run, repository_folder, enddate='0'):
                 maxPixels=10e12)
 
             task_order_cwsi.start()
+            task_order_esi.start()
             # task_order_et.start()
             # task_order_pet.start()
             print("Processing: ", str(date_time))
@@ -96,11 +118,22 @@ def process_cwsi(startdate, historical_run, repository_folder, enddate='0'):
 
         first_scene = ee.Image(out_cwsi.first())
         cwsifile = first_scene.select('CWSI')
-        cwsifile = (cwsifile.multiply(1000).int())
+        # cwsifile = (cwsifile.multiply(1000).int())
         task_order_cwsi = ee.batch.Export.image.toAsset(
             image=cwsifile,
             description='Export_CWSI_' + str(date_time),
             assetId=repository_folder + '/CWSI/cwsi_' + str(date_time),
+            region=aoi.bounds().getInfo()['coordinates'][0],
+            scale=500,
+            crs='EPSG:4326',
+            maxPixels=10e12)
+
+        esifile = first_scene.select('ESI')
+        # esifile = (esifile.multiply(1000).int())
+        task_order_esi = ee.batch.Export.image.toAsset(
+            image=esifile,
+            description='Export_ESI_' + str(date_time),
+            assetId=repository_folder + '/ESI/esi_' + str(date_time),
             region=aoi.bounds().getInfo()['coordinates'][0],
             scale=500,
             crs='EPSG:4326',
@@ -127,6 +160,7 @@ def process_cwsi(startdate, historical_run, repository_folder, enddate='0'):
             maxPixels=10e12)
 
         task_order_cwsi.start()
+        task_order_esi.start()
         # task_order_et.start()
         # task_order_pet.start()
         print("Processing: ", str(date_time))
@@ -165,7 +199,7 @@ def main(argument):
             for batch:
             python create_cwsi.py -b True -s 2018-01-01 -e 2018-01-31 -d users/seiasia/internal_SERVIR
             for one day:
-            python D:\Github_SEI\python\servir_drought\create_cwsi.py -b False -s 2018-06-01 -d users/seiasia/internal_SERVIR
+            python D:\Github_SEI\python\servir_drought\create_cwsi.py -b False -s 2018-06-01 -d projects/servir-mekong/EODrought/MODIS
             
             where,
             -s, -SDate     Date to start processing from e.g. 2011-01-01
@@ -196,7 +230,9 @@ def main(argument):
 
 if __name__ == '__main__':
     main(sys.argv[1:])
-    # startdate = '2020-03-01'
-    # enddate = '2020-03-18'
+    # startdate = '2021-01-01'
+    # enddate = '2021-09-30'
     # historical_run = 'True'
-    # output = process_cwsi(startdate, historical_run, repository_folder='users/seiasia/internal_SERVIR', enddate=enddate)
+    # # projects/servir-mekong/EODrought/MODIS
+    # output = process_cwsi(startdate, historical_run,
+    #                       repository_folder='projects/servir-mekong/EODrought/MODIS', enddate=enddate)
