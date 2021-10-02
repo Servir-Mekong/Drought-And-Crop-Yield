@@ -66,6 +66,7 @@ class GEEApi():
         self.TCI = ee.ImageCollection(settings.TCI)
         self.ESI = ee.ImageCollection(settings.ESI)
         self.CWSI = ee.ImageCollection(settings.CWSI)
+        self.ESI = ee.ImageCollection(settings.ESI)
 
         self.KBDI = ee.ImageCollection(settings.KBDI)
         self.NDVI = ee.ImageCollection(settings.NDVI)
@@ -687,8 +688,8 @@ class GEEApi():
             {
                 'name': 'esi',
                 'value': '1A9641,58B453,97D265,C4E687,F7FCDF,FFEDAB,FEC981,F99E59,E85B3A',
-                'min':-2.5,
-                'max':2.5,
+                'min':0,
+                'max':1,
                 'sld': 'False',
                 'band': 'ESI'
             },
