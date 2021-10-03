@@ -237,7 +237,7 @@
 
         $.getJSON('/static/data/crop_geojson/ninh_thuan_districts.geojson')
         .done(function (data, status) {
-          console.log(data)
+
           crop_yield_json = L.geoJson(data, {
             style: style,
             onEachFeature: onEachcropyield
@@ -491,7 +491,7 @@
 
       $( "#geojson-btn-download" ).click(function() {
         var selected_province = $("#area_selector").val();
-        var DownloadURL = $scope.downloadServerURL + '/rdcyis_outputs/crop_yield/geojason/'+selected_province+'.geojson';
+        var DownloadURL = 'https://mdcw-servir.adpc.net/static/data/crop_geojson/ninh_thuan_districts.geojson';
         var file_path = DownloadURL;
           var a = document.createElement('A');
           a.href = file_path;
@@ -552,8 +552,6 @@
       
 
       $( "#area_selector" ).change(function() {
-        console.log($(this).val());
-
         var selected_province = $(this).val();
         $.getJSON('/static/data/crop_geojson/'+selected_province+'.geojson')
         .done(function (data, status) {
