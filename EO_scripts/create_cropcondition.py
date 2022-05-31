@@ -7,8 +7,9 @@ import ee
 # ee.Authenticate()
 ee.Initialize()
 
-table = ee.FeatureCollection("users/seiasia/servir_mk/NinhThuan_province")
-aoi = table.geometry()
+# table = ee.FeatureCollection("users/seiasia/servir_mk/NinhThuan_province")
+lmc = ee.FeatureCollection("projects/servir-mekong/Lower_mekong_boundary")
+aoi = lmc.geometry()  # table.geometry()
 
 
 def rescaling(img):
@@ -35,11 +36,12 @@ def calc_newcrop(inp_ic, input_image_date):
     inp_dt = input_image_date
     ninp_dt = input_image_date.advance(-8.0, 'day')
     inp_startdt = ninp_dt.advance(-24.0, 'day')
-    baseimg = inp_ic.filterDate(inp_startdt, ninp_dt).select('NDVI').map(rescaling).mean().rename("precondition")
-    currimg = inp_ic.filterDate(inp_dt, inp_dt.advance(1.0, 'day')).select('NDVI').map(rescaling).first().rename(
-        "currentNDVI")
-    previmg = inp_ic.filterDate(ninp_dt, ninp_dt.advance(1.0, 'day')).select('NDVI').map(rescaling).first().rename(
-        "previousweek")
+    baseimg = inp_ic.filterDate(inp_startdt, ninp_dt).select('NDVI')\
+        .map(rescaling).mean().rename("precondition")
+    currimg = inp_ic.filterDate(inp_dt, inp_dt.advance(1.0, 'day'))\
+        .select('NDVI').map(rescaling).first().rename("currentNDVI")
+    previmg = inp_ic.filterDate(ninp_dt, ninp_dt.advance(1.0, 'day'))\
+        .select('NDVI').map(rescaling).first().rename("previousweek")
     currdiff = baseimg.subtract(currimg)
     prevdiff = baseimg.subtract(previmg)
     differnce = (currdiff.lt(-0.2).And(prevdiff.lt(-0.2))).rename("new_crop")
@@ -79,10 +81,12 @@ def calc_crop_condition(date_formatted):
 
     # users/seiasia/servir_mk/LandCovMask500_2018
     if current_year <= 2018:
-        featu = "users/seiasia/servir_mk/LandCovMask500_" + str(current_year)
+        # featu = "users/seiasia/servir_mk/LandCovMask500_" + str(current_year)
+        featu = "projects/servir-mekong/EODrought/Rice_landCov_mask/landcov_" + str(current_year)
     else:
-        featu = "users/seiasia/servir_mk/LandCovMask500_2018"
-    rice = ee.Image(featu)
+        # featu = "users/seiasia/servir_mk/LandCovMask500_2018"
+        featu = "projects/servir-mekong/EODrought/Rice_landCov_mask/landcov_2018"
+    rice = ee.Image(featu).select("lc")
 
     col = dataset.filter(ee.Filter.calendarRange(hist_year_end, hist_year_start, 'year')) \
         .filter(ee.Filter.calendarRange(day_select_start, day_select_start + 1, 'day_of_year')) \
@@ -92,11 +96,11 @@ def calc_crop_condition(date_formatted):
 
     # aab = ee.Image(calc_newcrop(dataset, stDate))
 
-    currimge = dataset.filterDate(stDate, stDate.advance(1.0, 'day')).select('NDVI').map(rescaling).first().rename(
-    "currentNDVI")
+    currimge = dataset.filterDate(stDate, stDate.advance(1.0, 'day'))\
+        .select('NDVI').map(rescaling).first().rename("currentNDVI")
     hist_mean = col  # ltmean.filter(ee.Filter.eq('DAY_OF_YEAR', ee.Number.parse(day_select_start))).first()
-    nd_anomaly = (hist_mean.subtract(ee.Image(currimge.select('currentNDVI'))).mask(rice)).copyProperties(currimge, [
-        'system:time_start', 'system:time_end'])
+    nd_anomaly = (hist_mean.subtract(ee.Image(currimge.select('currentNDVI'))).mask(rice))\
+        .copyProperties(currimge, ['system:time_start', 'system:time_end'])
     classified = reclassanomly(ee.Image(nd_anomaly))
     return classified
 
@@ -114,14 +118,14 @@ def process_crop_condition(startdate, historical_run, repository_folder, enddate
                 break
             date_time = s_date.strftime("%Y_%m_%d")
             crp_condition = calc_crop_condition(s_date)
-            first_scene = ee.Image(crp_condition).select('NDAnomalyclass')#.first()
+            first_scene = ee.Image(crp_condition).select('NDAnomalyclass') #.first()
             task_order_cc = ee.batch.Export.image.toAsset(
                 image=first_scene,#ee.Image(crp_condition.select('NDAnomalyclass')),
                 description='Export_CC_' + str(date_time),
-                assetId=repository_folder + '/CropCondition_exp/cc_' + str(date_time),
+                assetId=repository_folder + '/CropCondition/cc_' + str(date_time),
                 region=aoi.bounds().getInfo()['coordinates'][0],
                 scale=500,
-                crs='EPSG:4326',
+                crs='EPSG:3857', #'EPSG:4326',
                 maxPixels=10e12)
             task_order_cc.start()
             print("Processing: ", str(date_time))
@@ -135,10 +139,10 @@ def process_crop_condition(startdate, historical_run, repository_folder, enddate
         task_order_cc = ee.batch.Export.image.toAsset(
             image=first_scene,#crp_condition.select('NDAnomalyclass'),
             description='Export_CC_' + str(date_time),
-            assetId=repository_folder + '/CropCondition_exp/cc_' + str(date_time),
+            assetId=repository_folder + '/CropCondition/cc_' + str(date_time),
             region=aoi.bounds().getInfo()['coordinates'][0],
             scale=500,
-            crs='EPSG:4326',
+            crs='EPSG:3857',#'EPSG:4326', # to match with RLCMS LULC Projection
             maxPixels=10e12)
         task_order_cc.start()
         print("Processing: ", str(date_time))
@@ -176,7 +180,7 @@ def main(argument):
             for batch:
             python create_cropcondition.py -b True -s 2018-01-01 -e 2018-01-31 -d users/seiasia/internal_SERVIR
             for one day:
-            python D:\Github_SEI\python\servir_drought\ccreate_cropcondition.py -b False -s 2018-06-01 -d users/seiasia/internal_SERVIR
+            python D:\Github_SEI\python\servir_drought\create_cropcondition.py -b False -s 2018-06-01 -d users/seiasia/internal_SERVIR
             
             where,
             -s, -SDate     Date to start processing from e.g. 2011-01-01
@@ -185,6 +189,8 @@ def main(argument):
             -b, -Batch     if historical data processing then True. if processing for a single date then False
             -d, -EEAsset   Location to save in GEE asset. It will append processed scene in corresponding
                            image collection (see Note).  e.g. projects/servir-mekong/EODrought 
+            NOTE: PLEASE CREATE A FOLDER/IMAGE COLLECTION NAMED 'CropCondition' WITHIN THE REPOSITORY PATH 
+            MENTIONED IN -d IN CASE NOT PRESENT
             ''')
             sys.exit()
 
@@ -202,7 +208,7 @@ def main(argument):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    # main(sys.argv[1:])
     # '''
     # For Batch run
     # python D:\Github_SEI\python\servir_drought\create_cropcondition.py -b True -s 2018-01-01 -e 2018-01-31 -d projects/servir-mekong/EODrought/VIIRS
@@ -211,9 +217,12 @@ if __name__ == '__main__':
     # '''
 
     # # Desktop run
-    # startdate = '2015-01-01'
-    # enddate = '2018-12-31'
-    # historical_run = 'True'
-    # output = process_crop_condition(startdate, historical_run, repository_folder='projects/servir-mekong/EODrought/VIIRS',
-    #                                 enddate=enddate)  # #  'projects/servir-mekong/EODrought/MODIS'
+    startdate = '2021-01-01'
+    enddate = '2021-10-31'
+    historical_run = 'True'
+    output = process_crop_condition(startdate,
+                                    historical_run,
+                                    repository_folder='projects/servir-mekong/EODrought/VIIRS', #'users/seiasia/servir_mk',
+                                    enddate=enddate)
+    # #'projects/servir-mekong/EODrought/VIIRS',#'users/seiasia/servir_mk' 'projects/servir-mekong/EODrought/MODIS' users/seiasia/servir_mk/CropCondition
 
