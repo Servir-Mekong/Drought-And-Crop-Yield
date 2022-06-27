@@ -1,11 +1,12 @@
 {% extends 'base.html'%}
-<html>
+{% load cms_tags menu_tags sekizai_tags staticfiles %}
+<!-- <html>
 <head>
   {% block head %}
   <title>MDCW</title>
   {% endblock %}
 </head>
-<body>
+<body> -->
 
   {% block body%}
 
@@ -44,8 +45,8 @@
                     SELECT AREA
                     <select class="form-control" id="area_selector" >
                       <option value="ninh_thuan_districts">Ninh Thuan Province, Vietnam</option>
-                      <option value="ninh_thuan_districts" disabled>Nam Dinh Province, Vietnam</option>
-                      <option value="ninh_thuan_districts" disabled>Quang Ninh Province, Vietnam</option>
+                      <option value="ninh_thuan_districts">Nam Dinh Province, Vietnam</option>
+                      <option value="ninh_thuan_districts">Quang Ninh Province, Vietnam</option>
                     </select>
                   </div>
                 </div>
@@ -351,6 +352,6 @@
 
 
   </main><!-- End #main -->
-    {% endblock %}
-  </body>
-  </html>
+    {% endblock body %}
+  <!-- </body>
+  </html> -->

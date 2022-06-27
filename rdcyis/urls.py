@@ -21,6 +21,7 @@ from django.views.static import serve
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from .views import home, map, report, crop, featureArticles, climateStudies
 from mapclient import api as mapclient_api
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +33,4 @@ urlpatterns = [
     url(r'^feature-articles/', featureArticles),
     url(r'^climate-studies/', climateStudies),
     url(r'^api/mapclient/$', mapclient_api.api),
-]
+]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
