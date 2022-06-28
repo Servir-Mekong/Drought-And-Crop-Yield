@@ -45,8 +45,9 @@
                     SELECT AREA
                     <select class="form-control" id="area_selector" >
                       <option value="ninh_thuan_districts">Ninh Thuan Province, Vietnam</option>
-                      <option value="ninh_thuan_districts">Nam Dinh Province, Vietnam</option>
-                      <option value="ninh_thuan_districts">Quang Ninh Province, Vietnam</option>
+                      <option value="nam_dinh_districts">Nam Dinh Province, Vietnam</option>
+                      <option value="vinh_phuc_districts">Vinh Phuc Province, Vietnam</option>
+                      <!-- <option value="quang_ninh_districts">Quang Ninh Province, Vietnam</option> -->
                     </select>
                   </div>
                 </div>
@@ -240,8 +241,8 @@
           </table>
         </div>
 
-        
-        <div class="col-lg-12 col-md-6 calendar-table">
+        <!-- ======== Crop calender for Ninh Thuan Province ======== -->
+        <div class="col-lg-12 col-md-6 calendar-table" id="ct-ninh-thuan">
           <h3>Rice Crop Calendar (Ninh Thuan Province)</h3>
           <table style="font-size: 10px; width: 120px;font-size: 14px;margin-bottom: 10px;">
             <tr>
@@ -323,6 +324,162 @@
 
           </table>
 
+        </div>
+
+        <!-- ======== Crop calender for Nam Dinh Province ======== -->
+        <div class="col-lg-12 col-md-6 calendar-table" id="ct-nam-dinh" style="display: none;">
+          <h3>Rice Crop Calendar (Nam Dinh Province)</h3>
+          <table style="font-size: 10px; width: 120px;font-size: 14px;margin-bottom: 10px;">
+            <tr>
+              <td width="30"><div class="intensity-class" style="background: #88A541; border:1px solid #C3C3C3;"></div></td>
+              <td width="55">Planting</td>
+              <td width="30"><div class="intensity-class" style="background: #F89F1D; border:1px solid #C3C3C3;"></div></td>
+              <td width="40">Harvesting</td>
+            </tr>
+          </table>
+
+          <table>
+           <tbody>
+             <tr style=" background: #877664; color: #FFF;">
+               <th style="width: 20%;">Season</th>
+               <th>Jan</th>
+               <th>Feb</th>
+               <th>Mar</th>
+               <th>Apr</th>
+               <th>May</th>
+               <th>Jun</th>
+               <th>Jul</th>
+               <th>Aug</th>
+               <th>Sep</th>
+               <th>Oct</th>
+               <th>Nov</th>
+               <th>Dec</th>
+             </tr>
+             <tr>
+               <td style="width: 20%;text-align: left;"> Dong-Xuan (or Winter-Spring) </td>
+               <td style="background: #88A541;"></td>
+               <td style="background: #88A541;"></td>
+               <td></td>
+               <td></td>
+               <td style="background: #F89F1D;"></td>
+               <td style="background: #F89F1D;"></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td style="background: #88A541;"></td>   
+             </tr>
+             <tr>
+              <td style="width: 20%;text-align: left;"> He-Thu (or Summer-Autumn)  </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td style="background: #88A541;"></td>
+              <td style="background: #88A541;"></td>
+              <td></td>
+              <td></td>
+              <td style="background: #F89F1D;"></td>
+              <td style="background: #F89F1D;"></td>
+              <td></td>
+              <td></td>
+              <td></td> 
+            </tr>
+            <tr>
+              <td style="width: 20%;text-align: left;"> Mua (or monsoon) </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td style="background: #88A541;"></td>
+              <td style="background: #88A541;"></td>
+              <td></td>
+              <td></td>
+              <td style="background: #F89F1D;"></td>
+              <td style="background: #F89F1D;"></td>
+              <td></td>
+              <td></td>
+            </tr>
+           </tbody>
+          </table>
+        </div>
+
+        <!-- ======== Crop calender for Vinh Phuc Province ======== -->
+        <div class="col-lg-12 col-md-6 calendar-table" id="ct-vinh-phuc" style="display: none;">
+          <h3>Rice Crop Calendar (Vinh Phuc Province)</h3>
+          <table style="font-size: 10px; width: 120px;font-size: 14px;margin-bottom: 10px;">
+            <tr>
+              <td width="30"><div class="intensity-class" style="background: #88A541; border:1px solid #C3C3C3;"></div></td>
+              <td width="55">Planting</td>
+              <td width="30"><div class="intensity-class" style="background: #F89F1D; border:1px solid #C3C3C3;"></div></td>
+              <td width="40">Harvesting</td>
+            </tr>
+          </table>
+
+          <table>
+           <tbody>
+             <tr style=" background: #877664; color: #FFF;">
+               <th style="width: 20%;">Season</th>
+               <th>Jan</th>
+               <th>Feb</th>
+               <th>Mar</th>
+               <th>Apr</th>
+               <th>May</th>
+               <th>Jun</th>
+               <th>Jul</th>
+               <th>Aug</th>
+               <th>Sep</th>
+               <th>Oct</th>
+               <th>Nov</th>
+               <th>Dec</th>
+             </tr>
+             <tr>
+               <td style="width: 20%;text-align: left;"> Dong-Xuan (or Winter-Spring) </td>
+               <td style="background: #88A541;"></td>
+               <td style="background: #88A541;"></td>
+               <td></td>
+               <td></td>
+               <td style="background: #F89F1D;"></td>
+               <td style="background: #F89F1D;"></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td style="background: #88A541;"></td>   
+             </tr>
+             <tr>
+              <td style="width: 20%;text-align: left;"> He-Thu (or Summer-Autumn)  </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td style="background: #88A541;"></td>
+              <td style="background: #88A541;"></td>
+              <td></td>
+              <td></td>
+              <td style="background: #F89F1D;"></td>
+              <td style="background: #F89F1D;"></td>
+              <td></td>
+              <td></td>
+              <td></td> 
+            </tr>
+            <tr>
+              <td style="width: 20%;text-align: left;"> Mua (or monsoon) </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td style="background: #88A541;"></td>
+              <td style="background: #88A541;"></td>
+              <td></td>
+              <td></td>
+              <td style="background: #F89F1D;"></td>
+              <td style="background: #F89F1D;"></td>
+              <td></td>
+              <td></td>
+            </tr>
+           </tbody>
+          </table>
         </div>
 <!-- 
         <div class="col-lg-12 col-md-6">

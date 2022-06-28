@@ -73,6 +73,8 @@
       map1.createPane('map1Label');
       map1.getPane('map1Label').style.zIndex = 900;
 
+    
+
       /**
 		* adding administrative boundaries
 		*/
@@ -150,13 +152,16 @@
         }), function (error){
           console.log(error);
         };
-  
+      
+      var province  = $('#area_selector').val();
+
       $scope.cropLayer = function(index) {
         if(map1.hasLayer(cropLayer)){
           map1.removeLayer(cropLayer);
         }
         var parameters = {
           date: currentDateList[index],
+          province: province
         };
         MapService.get_crop_map_id(parameters)
         .then(function (result){
@@ -166,7 +171,6 @@
         }), function (error){
           console.log(error);
         };
-  
       };
   
   
@@ -491,7 +495,7 @@
 
       $( "#geojson-btn-download" ).click(function() {
         var selected_province = $("#area_selector").val();
-        var DownloadURL = 'https://mdcw-servir.adpc.net/static/data/crop_geojson/ninh_thuan_districts.geojson';
+        var DownloadURL = 'https://mdcw-servir.adpc.net/static/data/crop_geojson/'+selected_province+'.geojson';
         var file_path = DownloadURL;
           var a = document.createElement('A');
           a.href = file_path;
@@ -551,31 +555,111 @@
     });
       
 
-      $( "#area_selector" ).change(function() {
-        var selected_province = $(this).val();
-        $.getJSON('/static/data/crop_geojson/'+selected_province+'.geojson')
-        .done(function (data, status) {
+    $( "#area_selector" ).change(function() {
+      var selected_province = $(this).val();
+      $.getJSON('/static/data/crop_geojson/'+selected_province+'.geojson')
+      .done(function (data, status) {
 
-          if(map1.hasLayer(selected_province_json)){
-            map1.removeLayer(selected_province_json);
-          }
-          if(map2.hasLayer(crop_yield_json)){
-            map2.removeLayer(crop_yield_json);
-          }
+        if(map1.hasLayer(selected_province_json)){
+          map1.removeLayer(selected_province_json);
+        }
+        if(map2.hasLayer(crop_yield_json)){
+          map2.removeLayer(crop_yield_json);
+        }
 
-          selected_province_json = L.geoJson(data, {
-            style: focusedPolygonstyle,
-          }).addTo(map1);
-          crop_yield_json = L.geoJson(data, {
-            style: style,
-            onEachFeature: onEachcropyield
-          }).addTo(map2);
+        selected_province_json = L.geoJson(data, {
+          style: focusedPolygonstyle,
+        }).addTo(map1);
+        crop_yield_json = L.geoJson(data, {
+          style: style,
+          onEachFeature: onEachcropyield
+        }).addTo(map2);
 
-          map2.fitBounds(crop_yield_json.getBounds());
-          map1.fitBounds(selected_province_json.getBounds());
-        });
-
+        map2.fitBounds(crop_yield_json.getBounds());
+        map1.fitBounds(selected_province_json.getBounds());
       });
+
+      // Change crop calender for selected province
+      if (selected_province == "ninh_thuan_districts"){
+        $("#ct-ninh-thuan").css("display", "block");
+        $('#ct-nam-dinh').css("display", "none");
+        $('#ct-vinh-phuc').css("display", "none");
+      } else if (selected_province == "nam_dinh_districts"){
+        $("#ct-ninh-thuan").css("display", "none");
+        $('#ct-nam-dinh').css("display", "block");
+        $('#ct-vinh-phuc').css("display", "none");
+      } else if (selected_province == "vinh_phuc_districts"){
+        $("#ct-ninh-thuan").css("display", "none");
+        $('#ct-nam-dinh').css("display", "none");
+        $('#ct-vinh-phuc').css("display", "block");
+      }
+
+      MapService.get_current_date_crop(parameters)
+        .then(function (result){
+          currentDateList = result;
+          $scope.cropLayer(0);
+          var dateObj = new Date(currentDateList[0]);
+  
+          var _date = dateObj.toISOString().slice(0,10)
+          selectedCurrentDate = _date.replace("-","_").replace("-","_");
+          $("#map-updated-date").text(_date);
+  
+        }), function (error){
+          console.log(error);
+        };
+
+      //var province  = $(this).val();
+
+      $scope.cropLayer = function(index) {
+        if(map1.hasLayer(cropLayer)){
+          map1.removeLayer(cropLayer);
+        }
+        var parameters = {
+          date: currentDateList[index],
+          province: selected_province
+        };
+        MapService.get_crop_map_id(parameters)
+        .then(function (result){
+          cropLayer = addMapLayer(cropLayer, result.eeMapURL, 'cropLayer');
+          $scope.showLoader = false;
+  
+        }), function (error){
+          console.log(error);
+        };
+      };
+
+
+      $( "#current-d" ).click(function() {
+        $("#map-updated-date").text();
+        $scope.cropLayer(0);
+        var dateObj = new Date(currentDateList[0]);
+        var _date = dateObj.toISOString().slice(0,10)
+        selectedCurrentDate = _date.replace("-","_").replace("-","_");
+        $("#map-updated-date").text(_date);
+      });
+      $( "#current-8d" ).click(function() {
+        $("#map-updated-date").text();
+        $scope.cropLayer(1);
+        var dateObj = new Date(currentDateList[1]);
+        var _date = dateObj.toISOString().slice(0,10)
+        $("#map-updated-date").text(_date);
+      });
+      $( "#current-16d" ).click(function() {
+        $("#map-updated-date").text();
+        $scope.cropLayer(2);
+        var dateObj = new Date(currentDateList[2]);
+        var _date = dateObj.toISOString().slice(0,10)
+        $("#map-updated-date").text(_date);
+      });
+      $( "#current-24d" ).click(function() {
+        $("#map-updated-date").text();
+        $scope.cropLayer(3);
+        var dateObj = new Date(currentDateList[3]);
+        var _date = dateObj.toISOString().slice(0,10)
+        $("#map-updated-date").text(_date);
+      });
+
+    });
   
      
   

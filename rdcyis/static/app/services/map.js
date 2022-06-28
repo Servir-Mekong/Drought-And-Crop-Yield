@@ -126,6 +126,7 @@
 				params: {
 					action: 'get-crop-map-id',
 					date: options.date,
+					province: options.province
 				}
 			};
 			var promise = $http.get('/api/mapclient/', config)

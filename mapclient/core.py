@@ -1,5 +1,6 @@
 
 # -*- coding: utf-8 -*-
+import re
 from django.core import serializers
 from datetime import datetime
 from datetime import datetime, timedelta
@@ -915,11 +916,25 @@ class GEEApi():
         }
 
     # -------------------------------------------------------------------------
-    def get_crop_map_id(self, date):
+    def get_crop_map_id(self, date, province):
 
         ic = ee.ImageCollection(settings.CROP)
+        province = province
+        def get_boundary(selected_province):
 
-        image = ic.filter(ee.Filter.eq("system:time_start",int(date))).first()
+          if selected_province == "ninh_thuan_districts":
+            shape = ee.FeatureCollection('projects/servir-mekong/Boundary/ninh_thuan_districts')
+          elif selected_province == "nam_dinh_districts":
+            shape = ee.FeatureCollection('projects/servir-mekong/Boundary/nam_dinh_districts')
+          elif selected_province == "vinh_phuc_districts":
+            shape = ee.FeatureCollection('projects/servir-mekong/Boundary/vinh_phuc_districts')
+          else:
+            pass
+          return shape
+
+        boundary = get_boundary(province)
+
+        image = ic.filter(ee.Filter.eq("system:time_start",int(date))).first().clip(boundary)
         image = image.updateMask(self.maskedArea)
 
 

@@ -19,6 +19,7 @@ def api(request):
             dataset = get('dataset', '')
             type = get('type', '')
             date = get('date', '')
+            province = get('province', '')
             areaid0 = get('areaid0', '')
             areaid1 = get('areaid1', '')
             periodicity = get('periodicity', '')
@@ -52,7 +53,7 @@ def api(request):
                 #self, typeArea, areaid0, areaid1, img_id, climateType, climatePeriod
                 data = core.get_climate_data(type, areaid0, areaid1, img_id, climate_type, climate_scenarios)
             elif action == 'get-crop-map-id':
-                data = core.get_crop_map_id(date=date)
+                data = core.get_crop_map_id(date=date, province = province)
             elif action == 'get-download-url':
                 data = core.get_download_url_crop(date=date)
             elif action == 'get-current-date-crop':
