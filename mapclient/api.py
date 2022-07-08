@@ -44,7 +44,7 @@ def api(request):
             elif action == 'get-summary':
                 data = core.get_drought_summary()
             elif action == 'get-crop-yield':
-                data = core.get_crop_yield()
+                data = core.get_crop_yield(province=province)
             elif action == 'get-feature-articles':
                 data = core.get_feature_articles()
             elif action == 'get-knowledge-center':

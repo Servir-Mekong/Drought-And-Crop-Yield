@@ -4,10 +4,13 @@
     angular.module('mekongDroughtandCropWatch')
     .controller('CropMapController', function ($http, $rootScope, $scope, $sanitize, $timeout, appSettings, MapService) {
       $scope.showLoader = true;
-  
+      
+      var province  = $('#area_selector').val();
       //Get Drought Summary content from Google Sheet
         $scope.cropListSummary = [];
-        var parameters = {};
+        var parameters = {
+          province: province
+        };
         MapService.getCropYield(parameters)
         .then(function (data) {
           $scope.cropListSummary = JSON.parse(data);
@@ -556,6 +559,7 @@
       
 
     $( "#area_selector" ).change(function() {
+      $scope.showLoader = true;
       var selected_province = $(this).val();
       $.getJSON('/static/data/crop_geojson/'+selected_province+'.geojson')
       .done(function (data, status) {
@@ -658,6 +662,19 @@
         var _date = dateObj.toISOString().slice(0,10)
         $("#map-updated-date").text(_date);
       });
+
+      $scope.cropListSummary = [];
+        var parameters = {
+          province: selected_province
+        };
+        MapService.getCropYield(parameters)
+        .then(function (data) {
+          $scope.cropListSummary = JSON.parse(data);
+          $("#map-yield-date").text($scope.cropListSummary[0].Desc);
+          $scope.showLoader = false;
+        }, 
+        function (error) {
+        });
 
     });
   

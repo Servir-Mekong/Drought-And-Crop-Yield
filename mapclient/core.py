@@ -1002,11 +1002,23 @@ class GEEApi():
         return list_as_json
 
     # -------------------------------------------------------------------------
-    def get_crop_yield(request):
+    def get_crop_yield(request, province):
         scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name('credentials/privatekey.json', scope)
         client = gspread.authorize(creds)
-        sheet = client.open('crop_update').sheet1
+        
+        def get_province(selected_province):
+          if selected_province == "ninh_thuan_districts":
+            sheet = client.open('crop_update').sheet1
+          elif selected_province == "nam_dinh_districts":
+            sheet = client.open('crop_update_nd').sheet1
+          elif selected_province == "vinh_phuc_districts":
+            sheet = client.open('crop_update_vp').sheet1
+          else:
+            pass
+          return sheet 
+        #sheet = client.open('crop_update_vp').sheet1
+        sheet = get_province(province)
         res_list = sheet.get_all_records()
         # res_list = sorted(res_list, key=lambda x: int(x['Order']), reverse=True)
         list_as_json = json.dumps(res_list)

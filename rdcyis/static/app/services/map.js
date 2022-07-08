@@ -182,7 +182,8 @@
 		service.getCropYield = function (options) {
 			var config = {
 				params: {
-					action: 'get-crop-yield'
+					action: 'get-crop-yield',
+					province: options.province
 				}
 			};
 			var promise = $http.get('/api/mapclient/', config)
