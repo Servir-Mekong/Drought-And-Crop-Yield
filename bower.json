@@ -1,0 +1,35 @@
+{
+  "name": "air-quality-explorer",
+  "authors": [
+    "SERVIR MEKONG"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "http://hydraflood-servir.adpc.net/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "rdcyis/static/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3.3.7",
+    "angular": "1.6.6",
+    "components-font-awesome": "^5.9.0",
+    "angularjs-slider": "^6.4.0",
+    "bootstrap-datepicker": "^1.7.1",
+    "normalize-css": "^7.0.0",
+    "seiyria-bootstrap-slider": "^9.9.0",
+    "angular-strap": "^2.3.12",
+    "ng-dialog": "^1.4.0",
+    "nouislider": "^11.0.3",
+    "highcharts": "^5.0.14",
+    "eonasdan-bootstrap-datetimepicker": "*",
+    "Leaflet.extra-markers": "^1.1.0",
+    "esri-leaflet": "^2.3.3",
+    "zingchart": "^2.8.8"
+  }
+}

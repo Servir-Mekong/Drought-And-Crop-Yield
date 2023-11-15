@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
-from celery.result import AsyncResult
 from .core import GEEApi
 from django.conf import settings
 from django.http import JsonResponse
-from datetime import datetime
-import json
-import time
 
 def api(request):
 

@@ -54,7 +54,6 @@ Pillow==7.2.0
 pinax-blog==8.0.1
 pinax-images==4.0.1
 protobuf==3.12.4
-psycopg2==2.8.5
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20

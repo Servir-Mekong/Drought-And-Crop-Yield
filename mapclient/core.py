@@ -787,7 +787,7 @@ class GEEApi():
         #RHEAS_based products
         rheas_dataset = ["baseflow", "surf_temp", "sri1", "sri3", "spi1", "spi3", "soil_moist", "soil_temp", "smdi", "severity", "runoff", "rootmoist", "rel_humid", "rainf", "pet_natveg", "front_rcdi", "evap", "dryspells", "cdi"]
         if dataset.lower() in rheas_dataset:
-            icid = "projects/servir-mekong/RHEASDrought/{}".format(dataset.lower())
+            icid = "projects/mdcw-290904/assets/{}".format(dataset.lower())
             ic = ee.ImageCollection(icid)
         elif dataset == "evi":
             icid = "NOAA/VIIRS/001/VNP13A1"
@@ -798,11 +798,11 @@ class GEEApi():
             icid = "NOAA/VIIRS/001/VNP13A1"
         elif dataset.lower() in ["vhi","drydaysvhi", "vci", "tci", "esi", "cwsi"]:
             if(dataset.lower() == 'drydaysvhi'):
-              icid = "projects/servir-mekong/EODrought/MODIS/dry_days_vhi"
+              icid = "projects/mdcw-290904/assets/dry_days_vhi"
             else:
-              icid = "projects/servir-mekong/EODrought/MODIS/{}".format(dataset.upper())
+              icid = "projects/mdcw-290904/assets/{}".format(dataset.lower())
         else:
-            icid = "projects/servir-mekong/EODrought/VIIRS/{}".format(dataset.upper())
+            icid = "projects/mdcw-290904/assets/{}".format(dataset.lower())
         return icid
 
     # -------------------------------------------------------------------------
@@ -822,7 +822,8 @@ class GEEApi():
             if (_class['name'] == dataset.split("-")[1]):
                 _class['name'] = dataset.split("-")[1]
                 style = _class['value']
-                image = image.select(_class['band'])
+                # image = image.select(_class['band'])
+                image = image.select(0)
                 imgScale = image.projection().nominalScale()
                 image = image.reproject(crs='EPSG:4326', scale=imgScale)
                 if (_class['sld'] == 'True'):
@@ -883,7 +884,8 @@ class GEEApi():
 
 
         INDEX_CLASS = {}
-        image = image.select('VSDI')
+        # image = image.select('VSDI')
+        image = image.select(0)
         imgScale = image.projection().nominalScale()
         image = image.reproject(crs='EPSG:4326', scale=imgScale)
         map_id = image.sldStyle(style).getMapId()
@@ -905,7 +907,8 @@ class GEEApi():
         for _class in self.MAP_CLASSES:
             if (_class['name'] == 'front_rcdi'):
                 style = _class['value']
-                image = image.select(_class['band'])
+                # image = image.select(_class['band'])
+                image = image.select(0)
                 style = _class['value']
                 imgScale = image.projection().nominalScale()
                 image = image.reproject(crs='EPSG:4326', scale=imgScale)
