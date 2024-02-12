@@ -22,11 +22,19 @@
     </div>
   </div>
   <main id="main" ng-controller="CurrentMapController">
+  
     <div id="loader" class="loader" ng-show="showLoader">
       <div class="loading-img"></div>
     </div>
     <section class="content-lists">
       <div class="container">
+
+        <div class="alert alert-primary" role="alert">
+          <b>Under development!</b>
+          <br>
+          The website is currently under development. We apologize for any inconvenience this may cause.
+        </div>
+
         <div class="row">
           <div class="col-lg-12 col-md-6" id="map-nav" style="display:none;">
             <a href="#" id="mekong-map">Mekong</a> <span> </span>
@@ -34,7 +42,7 @@
             <a href="#" id="province-map"></a> <span> </span>
           </div>
 
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-12 col-md-12">
             <div class="row">
               <div class="col-lg-12">
                 <div class="map-title">Current Conditions</div>
@@ -143,7 +151,8 @@
             </div>
 
           </div>
-          <div class="col-lg-6 col-md-6">
+          
+          <div class="col-lg-6 col-md-6" style="display: none;">
             <div class="row" style="text-align: right;">
               <div class="col-lg-12">
                 <div class="map-title">Outlooks</div>
